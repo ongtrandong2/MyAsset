@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
+
 import HomeScreen from "../screens/HomeScreen";
 import PlanScreen from "../screens/PlanScreen";
 import PossessionScreen from "../screens/PossessionScreen";
@@ -13,7 +14,8 @@ const Tabs = () =>{
         <Tab.Navigator
             tabBarOptions={{
                 showLabel: false,
-                style:{...styles.tab_style,...styles.shadow}
+                style:{...styles.tab_style,...styles.shadow},
+                
             }}
         >
             <Tab.Screen
@@ -54,7 +56,7 @@ const Tabs = () =>{
                                 style ={{
                                     width:25,
                                     height:25,
-                                    opacity:focused ? 1 : 0.8,
+                                    opacity:focused ? 1 : 0.5,
                                    
                                 }}
                             />
@@ -77,7 +79,7 @@ const Tabs = () =>{
                                 style={{
                                     width:25,
                                     height:25,
-                                    opacity: focused ? 1: 0.8,
+                                    opacity: focused ? 1: 0.5,
                                     
                                 }}
                             />
@@ -100,7 +102,7 @@ const Tabs = () =>{
                                 style={{
                                     width:25,
                                     height:25,
-                                    opacity: focused ? 1 : 0.8
+                                    opacity: focused ? 1 : 0.5,
                                 }}
                             />
                             <Text style={{color: focused? "#000000":"#748c94"}}>Tài sản</Text>
@@ -129,10 +131,11 @@ const styles = StyleSheet.create({
         height:90,
     },
     shadow:{
-        shadowColor:'#7F5Df0',
+        //shadowColor:'#7F5Df0',
+        shadowColor:'black',
         shadowOffset:{
             width:0,
-            height:10,
+            height:20,
         },
 
         shadowOpacity:0.2,

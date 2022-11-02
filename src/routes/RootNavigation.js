@@ -4,6 +4,8 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInput';
+import HomeScreen from '../screens/HomeScreen';
+import Tabs from './TabNavigation';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -33,6 +35,13 @@ const RootNavigation = () => {
             name="FirstInput"
             component={FirstInput}
         />
+
+        <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            
+        />
+
     </Stack.Navigator>
    );
 }

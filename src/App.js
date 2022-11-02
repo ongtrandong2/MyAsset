@@ -8,8 +8,8 @@ import Tabs from './routes/TabNavigation'
 function App () {
   return(
     <NavigationContainer>
-      {/* <RootNavigation/> */}
-      <Tabs/>
+      <RootNavigation/>
+      {/* <Tabs/> */}
     </NavigationContainer>
     
     

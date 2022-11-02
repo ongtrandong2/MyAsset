@@ -10,8 +10,15 @@ export default function WelcomeScreen ({ navigation }) {
     navigation.navigate("Login");
   }
 
+  React.useEffect (()=> {
+    setTimeout(() => {
+      navigation.replace('HomeScreen')
+    }, 1000)
+    return ()=>{}
+  },[])
+
   return (
-    <View style={styles.body}>
+    <View style={styles.body}></View>
       
       <View style={styles.title_view}>
         <View style={styles.icon1_view}>
