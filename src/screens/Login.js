@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable } from 'r
 // import { AntDesign } from '@expo/vector-icons';  // icon user
 // import { MaterialCommunityIcons } from '@expo/vector-icons'; // icon eye
 
-
+import GoogleSignIn from '../auth/GoogleSignIn';
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -121,6 +121,7 @@ export default function Login({ navigation }) {
             </Pressable>
           </View>
 
+        <GoogleSignIn/>
         </View>
       </ScrollView>
     </View>
