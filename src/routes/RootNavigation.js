@@ -5,6 +5,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInput';
 import HomeScreen from '../screens/HomeScreen';
+
 import Tabs from './TabNavigation';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -38,9 +39,11 @@ const RootNavigation = () => {
 
         <Stack.Screen
             name="HomeScreen"
-            component={HomeScreen}
+            component={Tabs}
             
         />
+
+       
 
     </Stack.Navigator>
    );

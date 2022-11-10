@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-paper';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
-
 import Header from '../components/Header';
+import CustomButton from '../components/CustomButton';
 
 export default function FirstInput({ navigation }) {
 
@@ -80,9 +80,9 @@ export default function FirstInput({ navigation }) {
                     
                 </View> */}
 
-                <View style={styles.second_row}>
+                <View style={styles.second_row}></View>
                     <View style={styles.secondtext_view}>
-                        <Text style={styles.text}>Hiện vật</Text>
+                        <Text style={styles.text}>Hiện vật </Text>
                     </View>
 
                     <View style={styles.icon_plus}>
@@ -91,9 +91,9 @@ export default function FirstInput({ navigation }) {
                             android_ripple={{ color: '#bbbbbb' }}
 
                         >
-                            {/* <AntDesign name="home" size={24} color="black" /> */}
+                            
                             <Image
-                                //style={{height:24,width:24}}
+                                
                                 source={require('../assets/images/Plus.png')}
                                 resizeMode='stretch'
 
@@ -103,10 +103,11 @@ export default function FirstInput({ navigation }) {
                     </View>
 
                 </View>
+                 {/* Create an array of item list */}
                 {itemList.map((singleItem, index) => (
                     <View 
                         key = {index}
-                        style={styles.row}
+                        style={styles.column}
                     >
                         <View style={[{ height: 200, width: '90%' }, styles.money_box]}>
                             <TextInput
@@ -138,10 +139,35 @@ export default function FirstInput({ navigation }) {
                             </View>
 
                         </View>
+                        {itemList.length-1 === index &&
+                        <View style={styles.icon_plus}>
+                            <Pressable
+                                onPress={onPressHandler_AddItems}
+                                android_ripple={{ color: '#bbbbbb' }}
 
+                            >
+                            
+                                <Image
+                                //style={{height:24,width:24}}
+                                    source={require('../assets/images/Plus.png')}
+                                    resizeMode='stretch'
+
+                                />
+
+                            </Pressable>
+                        </View>
+                        }
                     </View>
 
                 ))}
+
+                <View style={styles.row}>
+                    <CustomButton
+                        style={{ width: 150, height: 40 }}
+                        title={'Hoàn tất'}
+                        onPressFunction={()=>navigation.navigate('HomeScreen')}
+                    />
+                </View>
 
 
             </ScrollView>
@@ -169,6 +195,13 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
 
 
+    },
+    column:{
+        justifyContent: 'center',
+        flexDirection: 'column',
+        margin: 5,
+        marginHorizontal: 30,
+        alignItems:'center',
     },
 
     title: {

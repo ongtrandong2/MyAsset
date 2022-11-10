@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!')
     }
     else {
-     navigation.navigate("WelcomeScreen");
+     navigation.navigate("HomeScreen");
     }
 
   }

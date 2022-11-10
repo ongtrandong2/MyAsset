@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function WelcomeScreen ({ navigation }) {
@@ -10,15 +10,10 @@ export default function WelcomeScreen ({ navigation }) {
     navigation.navigate("Login");
   }
 
-  React.useEffect (()=> {
-    setTimeout(() => {
-      navigation.replace('HomeScreen')
-    }, 1000)
-    return ()=>{}
-  },[])
+  
 
   return (
-    <View style={styles.body}></View>
+    <View style={styles.body}>
       
       <View style={styles.title_view}>
         <View style={styles.icon1_view}>
@@ -44,6 +39,10 @@ export default function WelcomeScreen ({ navigation }) {
       >
       </Image>
       <Text style={{ color: 'black', fontSize: 40, fontWeight: 'bold' }}> WELCOME!</Text>
+      <Button
+        title = "Next"
+        onPress = {() => navigation.navigate("HomeScreen")}
+      />
     </View>
 
   )
