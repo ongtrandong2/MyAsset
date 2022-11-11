@@ -6,6 +6,7 @@ import RootNavigation from './routes/RootNavigation';
 import Tabs from './routes/TabNavigation'
 
 function App () {
+
   return(
     <NavigationContainer>
       <RootNavigation/>
@@ -15,5 +16,5 @@ function App () {
     
   );
 } 
- 
+
 export default App;

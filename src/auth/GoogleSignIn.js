@@ -7,12 +7,14 @@ GoogleSignin.configure({
   webClientId:
     '937708738118-tols9h26v4l08hadb1jggco6u8bjt7cd.apps.googleusercontent.com',
 });
-export default function GoogleSignIn() {
+export default function GoogleSignInButton() {
   return (
     <Button
       title="Google Sign-In"
       onPress={() =>
-        onGoogleButtonPress().then(() => console.log('Signed in with Google!'))
+        onGoogleButtonPress()
+        .then(() => console.log('Signed in with Google!'))
+        .catch(err => console.log(err))
       }
     />
   );
