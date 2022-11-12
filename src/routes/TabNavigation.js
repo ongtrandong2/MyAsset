@@ -59,6 +59,7 @@ const Tabs = () =>{
                             <Text style = {{color: focused? "#000000" : "#748c94"}}>Tổng quan</Text>
                         </View>
                     ),
+                   
 
                 }}
 
@@ -161,6 +162,7 @@ const Tabs = () =>{
 const styles = StyleSheet.create({
     tab_style:{
         position:'absolute',
+        
 
         bottom:20,
         left:20,

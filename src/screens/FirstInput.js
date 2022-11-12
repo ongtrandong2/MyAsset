@@ -7,17 +7,34 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
+import {useSelector,useDispatch} from 'react-redux' 
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {addPossession} from '../Redux/PossessionData';
+
+
 export default function FirstInput({ navigation }) {
 
-    const [money, setMoney] = useState(0);
+    const money = useSelector((state)=>state.totalMoney.value);
+    const possessionData = useSelector((state)=>state.possessionData);
+    const dispatch = useDispatch();
+
+    //const [money, setMoney] = useState(0);
+    const [textMoney, setTextMoney] = useState(0);
     
     React.useEffect (()=> {
         console.log(itemList);
         return ()=>{}
       },[itemList]) // only re-run the effect if itemList changed
+
     const onPressHandler_Back = () =>{
         navigation.navigate('Login');
     }
+    
+    const onPressPassData = ()=>{
+        dispatch(UpdateMoney(Number(textMoney) || 0));
+        navigation.navigate('HomeScreen');
+    }
+
     const [itemList, setItemList] = useState([
         { item: "", valueOfItem: 0 },
 
@@ -27,6 +44,21 @@ export default function FirstInput({ navigation }) {
         setItemList([...itemList,{ item: "", valueOfItem: 0 }])
     }
 
+    // nhap
+    const onAddItemsBefore = (name,valueOfItem,index) =>{
+
+        dispatch(
+            addPossession({
+                key:index,
+                name:name,
+                valueOfItem:valueOfItem,
+                
+            })
+        )
+        setItemList([...itemList,{ item: "", valueOfItem: 0 }])
+    }
+    //
+
     const onPressHandler_RemoveItems=(index)=>{
         const list = [...itemList]
         list.splice(index,1);
@@ -34,11 +66,11 @@ export default function FirstInput({ navigation }) {
         console.log(list);
     }
 
-    const onInputNameHandler =(name,index) => {
+    const onInputNameHandler =(value,index) => {
         const list = [...itemList];
-        list[index].item = name;
+        list[index].item = value;
         setItemList(list);
-        console.log(list)
+        //console.log(list)
     }
 
     const onInputValueHandler = (valueOfItem,index) => {
@@ -47,6 +79,8 @@ export default function FirstInput({ navigation }) {
         setItemList(list);
         console.log(list);
     }
+
+    
     return (
 
         <SafeAreaView style={styles.view}>
@@ -68,7 +102,7 @@ export default function FirstInput({ navigation }) {
                             style={styles.textInput_style}
                             placeholder='0'
                             placeholderTextColor={'grey'}
-                            onChangeText={(value) => setMoney(value)}
+                            onChangeText={(value) => setTextMoney(value)}
                             keyboardType={'numeric'}
                         />
                     </View>
@@ -80,7 +114,7 @@ export default function FirstInput({ navigation }) {
                     
                 </View> */}
 
-                <View style={styles.second_row}></View>
+                <View style={styles.second_row}>
                     <View style={styles.secondtext_view}>
                         <Text style={styles.text}>Hiện vật </Text>
                     </View>
@@ -114,13 +148,17 @@ export default function FirstInput({ navigation }) {
                                 style={styles.textInput_item}
                                 placeholder= {'Tên'}
                                 //value = {singleItem.item}
-                                onChangeText={(name) => onInputNameHandler(name,index)}
+                                //onChangeText={(name) => onInputNameHandler(name,index)}
+                                value = {singleItem.item}
+                                onChangeText={(value) => onInputNameHandler(value,index)}
                             />
                             <TextInput
                                 style={styles.textInput_item}
                                 placeholder='Trị giá'
-                                onChangeText={(valueOfItem) => onInputValueHandler(valueOfItem,index)}
+                                //onChangeText={(valueOfItem) => onInputValueHandler(valueOfItem,index)}
                                 //value={}
+                                onChangeText={(value) => onInputValueHandler(value,index)}
+                                value={singleItem.valueOfItem}
                             />
                             <View style={styles.bin_view}>
                                 <Pressable
@@ -142,7 +180,8 @@ export default function FirstInput({ navigation }) {
                         {itemList.length-1 === index &&
                         <View style={styles.icon_plus}>
                             <Pressable
-                                onPress={onPressHandler_AddItems}
+                                //onPress={onPressHandler_AddItems}
+                                onPress={()=>onAddItemsBefore(singleItem.name,singleItem.valueOfItem,index-1)}
                                 android_ripple={{ color: '#bbbbbb' }}
 
                             >
@@ -165,11 +204,14 @@ export default function FirstInput({ navigation }) {
                     <CustomButton
                         style={{ width: 150, height: 40 }}
                         title={'Hoàn tất'}
-                        onPressFunction={()=>navigation.navigate('HomeScreen')}
+                        //onPressFunction={()=>navigation.navigate('HomeScreen')}
+                        onPressFunction={onPressPassData}
+                        
                     />
                 </View>
-
-
+                
+                
+                
             </ScrollView>
         </SafeAreaView>
     )

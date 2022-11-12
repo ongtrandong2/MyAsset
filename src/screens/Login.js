@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!')
     }
     else {
-     navigation.navigate("HomeScreen");
+      navigation.navigate("HomeScreen");
     }
 
   }
@@ -64,6 +64,7 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
+            placeholderTextColor ={'grey'}
             onChangeText={(value) => setName(value)}
 
             right={<TextInput.Icon icon={require('../assets/images/user2.png')}/>}
@@ -75,6 +76,7 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Mật khẩu"
+            placeholderTextColor ={'grey'}
             secureTextEntry={passwordVisible}
             onChangeText={(value) => setPassword(value)}
             right={
@@ -165,7 +167,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '10%',
-    marginTop: 30, //
+    marginTop: 10, //
+    marginBottom:20,
     //padding:10,
 
 

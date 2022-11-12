@@ -5,7 +5,7 @@ import InfoScreen from '../screens/InfoScreen';
 import PlanScreen from "../screens/PlanScreen";
 import PossessionScreen from "../screens/PossessionScreen";
 import StatisticsScreen from "../screens/StatisticsScreen";
-import PostScreen from "../screens/PostScreen"
+import PostScreen from "../screens/PostScreen";
 
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +17,7 @@ const HomeStack =() =>{
     <Stack.Navigator screenOptions = {{header: ()=>null}}    >
         <Stack.Screen name ="HomeScreen" component ={HomeScreen}/>
         <Stack.Screen name ="InfoScreen" component ={InfoScreen}/>
+        
     </Stack.Navigator>
    )
 }
