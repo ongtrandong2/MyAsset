@@ -1,9 +1,107 @@
-import React from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import React, {useState}from 'react';
+import {View, StyleSheet, Text, TextInput, ScrollView} from 'react-native';
 import HeaderTab from '../components/Header_Tab'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import CustomButton from '../components/CustomButton';
+import { Dropdown } from 'react-native-element-dropdown';
+const data = [
+    { label: 'Item 1', key: '1' },
+    { label: 'Item 2', key: '2' },
+    { label: 'Item 3', key: '3' },
+    { label: 'Item 4', key: '4' },
+    { label: 'Item 5', key: '5' },
+    { label: 'Item 6', key: '6' },
+    { label: 'Item 7', key: '7' },
+    { label: 'Item 8', key: '8' },
+];
 
 function Outcome(){
+    return(
+        <View style ={styles.view}>
+            <ScrollView>
+            <View style ={styles.title_view}>
+                <Text style={styles.text}>SINH HOẠT</Text>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.sub_row}>
+                    <Text style ={{fontSize:20, color:'#000000'}}>1.Khoản chi:</Text>
+                    <TextInput
+                        style = {styles.textInput_box}
+
+                    />
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.sub_row}>
+                    <Text style ={{fontSize:20, color:'#000000'}}>2.Số tiền:      </Text>
+                    <TextInput
+                        style = {styles.textInput_box}
+
+                    />
+                </View>
+            </View>
+            <View style={styles.row}> 
+                <CustomButton
+                    style = {{height:30,width:100}}
+                    title = {'Lưu'}
+                    //onPressFunction={onSaveData}
+                />
+            </View>
+            
+            <View style ={[styles.title_view,{marginTop:10}]}>
+                <Text style={styles.text}>TÀI SẢN</Text>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.sub_row}>
+                    <Text style ={{fontSize:20, color:'#000000'}}>1.Khoản chi:</Text>
+                    <TextInput
+                        style = {styles.textInput_box}
+
+                    />
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.sub_row}>
+                    <Text style ={{fontSize:20, color:'#000000'}}>2.Số tiền:      </Text>
+                    <TextInput
+                        style = {styles.textInput_box}
+
+                    />
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <View style={styles.sub_row}>
+                    <Text style ={{fontSize:20, color:'#000000'}}>3.Ghi chú:     </Text>
+                    <TextInput
+                        style = {styles.textInput_box}
+
+                    />
+                </View>
+            </View>
+
+            <View style={styles.row}>
+                <CustomButton
+                    style = {{height:30,width:100}}
+                    title = {'Lưu'}
+                    //onPressFunction={onSaveData}
+                />
+            </View>
+           
+
+            </ScrollView>
+        </View>
+    )
+}
+
+function Income(){
+    
+    const [DataSearch,setDataSearch] = useState(null);
+    const [isFocus,setIsFocus] = useState(false);
+
     return(
         <View style ={styles.view}>
             <View style ={styles.title_view}>
@@ -12,31 +110,55 @@ function Outcome(){
 
             <View style={styles.row}>
                 <View style={styles.sub_row}>
-                    <Text style ={{fontSize:15, color:'#000000'}}>1.Khoản chi :</Text>
-                    <TextInput
-                        style = {styles.textInput_box}
-
+                    <Text style ={{fontSize:20, color:'#000000'}}>1.Khoản thu :</Text>
+                    <Dropdown 
+                        style = {styles.dropdown}
+                        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                        placeholderStyle={{fontSize:16}}
+                        selectedTextStyle={{fontSize:16}}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        //iconStyle={styles.iconStyle}
+                        data={data}
+                        search //show or hide the input seacrh
+                        maxHeight={300}
+                        labelField="label" //extract the data from data item
+                        valueField="key" // extract the primay key from data item
+                        placeholder={!isFocus ? 'Chon khoan thu' : '...'}
+                        searchPlaceholder="Search..."
+                        value={DataSearch}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        onChange={item => {
+                            setDataSearch(item.value);
+                            //setIsFocus(false);
+                        }}
+          
                     />
                 </View>
             </View>
 
             <View style={styles.row}>
                 <View style={styles.sub_row}>
-                    <Text style ={{fontSize:15, color:'#000000'}}>2.Số tiền:       </Text>
+                    <Text style ={{fontSize:20, color:'#000000'}}>2.Số tiền:      </Text>
                     <TextInput
                         style = {styles.textInput_box}
 
                     />
                 </View>
             </View>
-        </View>
-    )
-}
 
-function Income(){
-    return(
-        <View style ={styles.view}>
-            <Text style={styles.text}>Income</Text>
+            <View style={styles.row}> 
+                <CustomButton
+                    style = {{height:30,width:100}}
+                    title = {'Lưu'}
+                    //onPressFunction={onSaveData}
+                />
+            </View>
+
+            <View style ={styles.title_view}>
+                <Text style={styles.text}>TÀI SẢN</Text>
+            </View>
+            
         </View>
     )
 }
@@ -54,6 +176,7 @@ export default function PostScreen(){
                 labelStyle:{ fontSize:20,fontWeight:'bold' },
           
             }}
+            
         >
             <Tab.Screen name="CHI TIÊU" component={Outcome}/>
             <Tab.Screen name="THU NHẬP" component={Income}/>
@@ -86,7 +209,9 @@ const styles = StyleSheet.create({
         marginTop:10,
         borderTopColor:'#FF5C00',
         borderBottomColor:'#FF5C00',
-        borderWidth:2,
+        borderTopWidth:2,
+        borderBottomWidth:2,
+        
     },
     row:{
         alignItems:'center',
@@ -95,6 +220,7 @@ const styles = StyleSheet.create({
         //padding:10,
         backgroundColor:'#ffffff',
         //backgroundColor:'blue',
+        
         
         
     },
@@ -122,9 +248,36 @@ const styles = StyleSheet.create({
         padding:2,
         fontSize:20,
         
+        
     },
-    
+    /// Drop down Style 
 
+    dropdown: {
+        height: 30,
+        width:'60%',
+        borderColor: 'black',
+        borderBottomWidth:1,
+        //borderRadius: 8,
+        paddingHorizontal: 8,
+      },
+
+      label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+      },
+
+
+      inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+        color:'#000000'
+      },
     
+  
 
 })
