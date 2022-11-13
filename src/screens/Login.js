@@ -5,10 +5,10 @@ import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable } from 'r
 // import { AntDesign } from '@expo/vector-icons';  // icon user
 // import { MaterialCommunityIcons } from '@expo/vector-icons'; // icon eye
 
+import GoogleSignInButton from '../auth/GoogleSignIn';
 
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-
 
 export default function Login({ navigation }) {
 
@@ -122,7 +122,9 @@ export default function Login({ navigation }) {
               <Text style={styles.text}>Đăng kí tài khoản mới</Text>
             </Pressable>
           </View>
-
+        </View>
+        <View style={styles.body_view}>
+          <GoogleSignInButton/>
         </View>
       </ScrollView>
     </View>

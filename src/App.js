@@ -11,7 +11,9 @@ import Store from './Redux/Store';
 
 
 function App () {
+
   return(
+
     <Provider store={Store}>
       <StatusBar 
         barStyle = 'dark-content'
@@ -21,9 +23,10 @@ function App () {
         <RootNavigation/>
       </NavigationContainer>
     </Provider>
+
     
     
   );
 } 
- 
+
 export default App;
