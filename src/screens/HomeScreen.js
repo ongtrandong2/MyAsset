@@ -3,12 +3,14 @@ import {View, StyleSheet, Text, SafeAreaView, ScrollView, Pressable,Animated} fr
 import HeaderTab from '../components/Header_Tab';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {TotalMoney} from './Redux/TotalMoney'
+import {TotalMoney} from '../Redux/TotalMoney';
+import {addPossession} from '../Redux/PossessionData';
 
 
 export default function HomeScreen ({navigation, route}) {
     
     const money = useSelector((state)=>state.totalMoney.value);
+    const possessionData = useSelector((state)=>state.PossessionData);
     const dispatch = useDispatch();
     const[number,setNumber] = useState('50%')
 
@@ -22,7 +24,7 @@ export default function HomeScreen ({navigation, route}) {
             /> 
 
             <View style = {styles.row}>
-                <Text style={{color:'#BB2424',fontSize:20,fontWeight:'bold'}}>{money} VNĐ</Text>
+                <Text style={{color:'#BB2424',fontSize:20,fontWeight:'bold'}}>{money}  VNĐ</Text>
                 
             </View>
 
@@ -31,7 +33,7 @@ export default function HomeScreen ({navigation, route}) {
             </View>
 
             <View style = {styles.big_row}>
-                <Text style = {{color:'#000000',fontSize:15}}>Upgrade this function</Text>   
+                <Text style = {{color:'#000000',fontSize:15}}>Upgrade this function {possessionData[0].name}</Text>   
             </View>
 
             <View style = {styles.big_row}>

@@ -11,9 +11,15 @@ const PossessionData = createSlice({
                 
             }
             state.push(newPossession)
+        },
+        removePossession:(state,action) =>{
+            if(state.indexOf(action.payload.index)>-1)
+            {
+                state.slice(action.payload.index,1);
+            }
         }
     }
 })
 
-export const {addPossession} = PossessionData.actions;
+export const {addPossession,removePossession} = PossessionData.actions;
 export default PossessionData.reducer;

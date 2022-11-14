@@ -21,10 +21,10 @@ export default function FirstInput({ navigation }) {
     //const [money, setMoney] = useState(0);
     const [textMoney, setTextMoney] = useState(0);
     
-    React.useEffect (()=> {
-        console.log(itemList);
-        return ()=>{}
-      },[itemList]) // only re-run the effect if itemList changed
+    // React.useEffect (()=> {
+    //     console.log(itemList);
+    //     return ()=>{}
+    //   },[itemList]) // only re-run the effect if itemList changed
 
     const onPressHandler_Back = () =>{
         navigation.navigate('Login');
@@ -32,7 +32,20 @@ export default function FirstInput({ navigation }) {
     
     const onPressPassData = ()=>{
         dispatch(UpdateMoney(Number(textMoney) || 0));
+        
+            // for( let i =0;i<itemList.length;i++)
+            // {
+            //     dispatch(addPossession({
+            //         key:i,
+            //         name: itemList[i].item,
+            //         value: itemList[i].valueOfItem,
+            //     }))
+            // }
+        
+    
+        
         navigation.navigate('HomeScreen');
+
     }
 
     const [itemList, setItemList] = useState([
@@ -63,7 +76,7 @@ export default function FirstInput({ navigation }) {
         const list = [...itemList]
         list.splice(index,1);
         setItemList(list);
-        console.log(list);
+        //console.log(list);
     }
 
     const onInputNameHandler =(value,index) => {
@@ -77,9 +90,10 @@ export default function FirstInput({ navigation }) {
         const list = [...itemList];
         list[index].valueOfItem = valueOfItem;
         setItemList(list);
-        console.log(list);
+        //console.log(list);
     }
 
+    
     
     return (
 
@@ -160,6 +174,7 @@ export default function FirstInput({ navigation }) {
                                 onChangeText={(value) => onInputValueHandler(value,index)}
                                 value={singleItem.valueOfItem}
                             />
+                            {itemList.length>1 &&
                             <View style={styles.bin_view}>
                                 <Pressable
                                     onPress={()=>onPressHandler_RemoveItems(index)}
@@ -174,14 +189,14 @@ export default function FirstInput({ navigation }) {
                                     />
 
                                 </Pressable>
-                            </View>
+                            </View>}
 
                         </View>
                         {itemList.length-1 === index &&
                         <View style={styles.icon_plus}>
                             <Pressable
-                                //onPress={onPressHandler_AddItems}
-                                onPress={()=>onAddItemsBefore(singleItem.name,singleItem.valueOfItem,index-1)}
+                                onPress={onPressHandler_AddItems}
+                                //onPress={()=>onAddItemsBefore(singleItem.name,singleItem.valueOfItem,index)}
                                 android_ripple={{ color: '#bbbbbb' }}
 
                             >
@@ -211,6 +226,7 @@ export default function FirstInput({ navigation }) {
                 </View>
                 
                 
+                <Text>{possessionData[0].name}</Text>
                 
             </ScrollView>
         </SafeAreaView>
