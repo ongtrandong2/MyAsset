@@ -1371,6 +1371,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@react-native-community/checkbox@^0.5.14":
+  "integrity" "sha512-UmGf3wBpoCXLmVRKIDZyzOG+QR1fOhm0FOw4KzxHTCXpsBvZgIn5wbJ+MWk4io5RohQdY8GSX2MYFmkPJeJpeA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/checkbox/-/checkbox-0.5.14.tgz"
+  "version" "0.5.14"
+
 "@react-native-community/cli-clean@^9.1.0":
   "integrity" "sha512-3HznNw8EBQtLsVyV8b8+h76M9EeJcJgYn5wZVGQ5mghAOhqnSWVbwRvpDdb8ITXaiTIXFGNOxXnGKMXsu0CYTw=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-9.1.0.tgz"
@@ -4926,7 +4931,7 @@
   "resolved" "https://registry.npmjs.org/lodash.truncate/-/lodash.truncate-4.4.2.tgz"
   "version" "4.4.2"
 
-"lodash@^4.17.10", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.7.0":
+"lodash@*", "lodash@^4.17.10", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.7.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -6021,6 +6026,16 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-dropdown-select-list@^2.0.2":
+  "integrity" "sha512-dxbhsO6DHxN5Ex5koVIAWO5E9R6ENNzbVjSoBVi8dcQkd1ubD31eCmdJXd4+VzEpXZ2em61kzILqyksRkLtS5w=="
+  "resolved" "https://registry.npmjs.org/react-native-dropdown-select-list/-/react-native-dropdown-select-list-2.0.2.tgz"
+  "version" "2.0.2"
+
+"react-native-element-dropdown@^2.4.0":
+  "integrity" "sha512-xdwOWMsPnlICe/dvgE8aYySBF9DJE+dJqqoVFd6+vAtP+IbCDhkEZdbrgwn72c9ukFNzE4Tg8+gGCGqrN5XwrA=="
+  "resolved" "https://registry.npmjs.org/react-native-element-dropdown/-/react-native-element-dropdown-2.4.0.tgz"
+  "version" "2.4.0"
+
 "react-native-gesture-handler@*", "react-native-gesture-handler@^2.8.0", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-poOSfz/w0IyD6Qwq7aaIRRfEaVTl1ecQFoyiIbpOpfNTjm2B1niY2FLrdVQIOtIOe+K9nH55Qal04nr4jGkHdQ=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.8.0.tgz"
@@ -6082,7 +6097,7 @@
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-2.16.0.tgz"
   "version" "2.16.0"
 
-"react-native-vector-icons@*":
+"react-native-vector-icons@*", "react-native-vector-icons@^9.2.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-9.2.0.tgz"
   "version" "9.2.0"
@@ -6090,7 +6105,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.42.0", "react-native@>=0.57", "react-native@>=0.59", "react-native@0.70.3":
+"react-native@*", "react-native@>= 0.62", "react-native@>=0.42.0", "react-native@>=0.57", "react-native@>=0.59", "react-native@0.70.3":
   "integrity" "sha512-EiJxOonyvpSWa3Eik7a6YAD6QU8lK2W9M/DDdYlpWmIlGLCd5110rIpEZjxttsyrohxlRJAYRgJ9Tx2mMXqtfw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.3.tgz"
   "version" "0.70.3"

@@ -6,14 +6,14 @@ const TotalMoney = createSlice({
     UpdateMoney: (state, action) => {
       state.value = action.payload;
     },
-    AddInCome: (state, action) => {
-      value: state.value + action.payload;
+    IncreaseTotal: (state, action) => {
+      state.value += action.payload;
     },
-    AddOutCome: (state, action) => {
-      value: state.value - action.payload;
+    DecreaseTotal: (state, action) => {
+      state.value -= action.payload;
     },
   },
 });
 
-export const {UpdateMoney} = TotalMoney.actions;
+export const {UpdateMoney,IncreaseTotal ,DecreaseTotal  } = TotalMoney.actions;
 export default TotalMoney.reducer;

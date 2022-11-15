@@ -40,6 +40,7 @@ const PossessionStack = () => {
   return (
     <Stack.Navigator screenOptions={{header: () => null}}>
       <Stack.Screen name="PossessionScreen" component={PossessionScreen} />
+      <Stack.Screen name="InfoScreen" component={InfoScreen}/>
     </Stack.Navigator>
   );
 };

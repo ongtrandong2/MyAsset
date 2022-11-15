@@ -12,8 +12,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {UpdateMoney} from '../Redux/TotalMoney';
 import {addPossession, removePossession} from '../Redux/PossessionData';
 
-export default function FirstInput() {
-  const money = useSelector(state => state.totalMoney.value);
+export default function FirstInput({navigation}) {
+  const money = useSelector((state) => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ export default function FirstInput() {
   const [textName, setTextName] = useState('');
   const [textValue, setTextValue] = useState('');
   
-  console.log(possessionData);
+  //console.log(possessionData);
 
   const check = () => {
     if (textName !== '' && textValue !== '') {
@@ -39,9 +39,9 @@ export default function FirstInput() {
   };
 
   const onComplete = ()=>{
-    if(setTextMoney)
+    if(setTextMoney!=='')
     {
-      dispatch(UpdateMoney(Number(setTextMoney)))
+      dispatch(UpdateMoney(Number(textMoney)))
       navigation.navigate('HomeScreen')
     }
     else
@@ -50,10 +50,14 @@ export default function FirstInput() {
     }
   }
 
+  const onPressHandler_Back =() =>{
+    navigation.navigate('Login');
+  }
+
   return (
     <SafeAreaView style={styles.view}>
       <Header
-      //onPressFunctionBack={onPressHandler_Back}
+        onPressFunctionBack={onPressHandler_Back}
       />
       <ScrollView>
         <View style={styles.row}>
@@ -71,6 +75,7 @@ export default function FirstInput() {
               placeholder="0"
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}
+              value = {textMoney}
               keyboardType={'numeric'}
             />
           </View>
@@ -87,9 +92,9 @@ export default function FirstInput() {
         {possessionData.map((item, index) => {
           return (
             <View style={styles.column} key={index}>
-              <View style={[{height: 150, width: '90%'}, styles.money_box]}>
-                <Text style={[styles.text,{marginVertical:5,color:'red',fontSize: 25,}]}>{item.name}</Text>
-                <Text style={[styles.text,{marginVertical:5}]}>{item.value}</Text>
+              <View style={[{height: 100, width: '90%'}, styles.money_box]}>
+                <Text style={[styles.text,{marginVertical:0,color:'red',fontSize: 25,}]}>{item.name}</Text>
+                <Text style={[styles.text,{marginVertical:0}]}>{item.value}</Text>
                 <View style={styles.bin_view}>
                   <Pressable
                     onPress={() => dispatch(removePossession(index))}
@@ -119,18 +124,6 @@ export default function FirstInput() {
               value={textValue}
             />
 
-            <View style={styles.bin_view}>
-              {/* <Pressable
-                onPress={() => {
-                  dispatch(removePossession(item.key));
-                }}
-                android_ripple={{color: '#bbbbbb'}}>
-                <Image
-                  source={require('../assets/images/bin_icon.png')}
-                  resizeMode="stretch"
-                />
-              </Pressable> */}
-            </View>
           </View>
 
           <View style={styles.icon_plus}>
@@ -151,6 +144,7 @@ export default function FirstInput() {
             //onPressFunction={()=>navigation.navigate('HomeScreen')}
             onPressFunction={onComplete}
           />
+          
         </View>
       </ScrollView>
     </SafeAreaView>

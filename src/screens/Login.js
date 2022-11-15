@@ -1,32 +1,41 @@
 import React from 'react';
 import {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  Pressable,
-} from 'react-native';
-
-// import { AntDesign } from '@expo/vector-icons';  // icon user
-// import { MaterialCommunityIcons } from '@expo/vector-icons'; // icon eye
+import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable, } from 'react-native';
 
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
+import {CheckAccount} from '../Redux/UserAccount';
+import {useDispatch, useSelector} from 'react-redux';
+
+
 
 export default function Login({navigation}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const check = useSelector(state => state.userAccount.value);
+  const dispatch = useDispatch();
 
-  const onPressHandler = () => {
-    if (name.length == 0 || password.length == 0) {
+  const onLogin = () => {
+    if (name.length == 0 || password.length == 0)
+    {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
-    } else {
-      navigation.navigate('HomeScreen');
+    } 
+    else 
+    {
+        // dispatch(CheckAccount({
+        //   name: name,
+        //   password: password, 
+        // }))
+
+        navigation.navigate('HomeScreen');
     }
+
+   //if(check === true)
+          //navigation.navigate('HomeScreen');
+    //else Alert.alert('Warning!', 'Vui lòng kiểm tra tên tài khoản hoặc mật khẩu!');
+
+
   };
 
   const onPressHandler_Register = () => {
@@ -65,6 +74,7 @@ export default function Login({navigation}) {
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
             onChangeText={value => setName(value)}
+            value={name}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
@@ -78,6 +88,7 @@ export default function Login({navigation}) {
             placeholder="Mật khẩu"
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
+            value={password}
             right={
               <TextInput.Icon
                 icon={
@@ -105,7 +116,7 @@ export default function Login({navigation}) {
           <View style={styles.login_button}>
             <Pressable
               style={{position: 'absolute'}}
-              onPress={onPressHandler}
+              onPress={onLogin}
               android_ripple={{color: '#996600'}}
               hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
               <Text style={styles.text}> Đăng nhập </Text>
