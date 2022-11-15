@@ -7,6 +7,7 @@ export default function InfoScreen({navigation}){
             <Text style ={styles.text}>
                 InfoScreen
             </Text>
+            
         </View>
     )
 }
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     text:{
         fontSize:20,
         color:'#000000',
+        
     },
 
 })

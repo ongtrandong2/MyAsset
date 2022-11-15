@@ -1,102 +1,86 @@
 //import { StatusBar } from 'expo-status-bar';
-import React , {useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../components/CustomButton';
 
-export default function SuccessScreen({ navigation }) {
+export default function SuccessScreen({navigation}) {
+  const onPressHandler_Home = () => {
+    navigation.navigate('Login');
+  };
 
-  
-  const onPressHandler_Home = () =>{
-    navigation.navigate('Login')
-  }
-
-  React.useEffect (()=> {
+  React.useEffect(() => {
     setTimeout(() => {
-      navigation.replace('FirstInput')
-    }, 1000)
-    return ()=>{}
-  },[])
+      navigation.replace('FirstInput');
+    }, 1000);
+    return () => {};
+  }, []);
 
   return (
     <SafeAreaView style={styles.view}>
       <View style={styles.row}>
         <Pressable
           onPress={onPressHandler_Home}
-          android_ripple={{ color: '#bbbbbb' }}
-        >
-         
+          android_ripple={{color: '#bbbbbb'}}>
           <Image
             style={styles.icon}
             source={require('../assets/images/Home.png')}
-            resizeMode='stretch'
+            resizeMode="stretch"
           />
         </Pressable>
       </View>
-      <View style = {styles.body}>
-      <View style={styles.title_view}>
-        <View style={styles.icon1_view}>
-          <Image
-            style={styles.icon_money}
-            source={require('../assets/images/icon_money.png')}
-            resizeMode='stretch'
-          >
-          </Image>
-        </View>
+      <View style={styles.body}>
+        <View style={styles.title_view}>
+          <View style={styles.icon1_view}>
+            <Image
+              style={styles.icon_money}
+              source={require('../assets/images/icon_money.png')}
+              resizeMode="stretch"
+            />
+          </View>
 
-        <View style={styles.lable_view}>
-          <View style={styles.lable}>
-            <Text style={styles.text}>MY ASSET</Text>
+          <View style={styles.lable_view}>
+            <View style={styles.lable}>
+              <Text style={styles.text}>MY ASSET</Text>
+            </View>
           </View>
         </View>
+
+        <Image
+          style={styles.image}
+          source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
+          resizeMode="stretch"
+        />
+
+        <Text style={{color: 'black', fontSize: 25, textAlign: 'center'}}>
+          Tạo tài khoản mới thành công!
+        </Text>
       </View>
-
-      <Image
-        style={styles.image}
-        source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
-        resizeMode='stretch'
-      >
-      </Image>
-
-      <Text style={{ color: 'black', fontSize: 25, textAlign: 'center' }} >
-        Tạo tài khoản mới thành công!
-      </Text>
-
-      
-      </View>
-
     </SafeAreaView>
-
-  )
+  );
 }
 
-
 const styles = StyleSheet.create({
-
-  view:{
+  view: {
     //marginTop:-3,
-    flex:1,
-    backgroundColor:'#ffffff'
+    flex: 1,
+    backgroundColor: '#ffffff',
   },
   body: {
-
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     //justifyContent:'center',
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-
   },
-
-
 
   text: {
     color: 'black',
     fontSize: 15,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   title_view: {
@@ -106,8 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 50,
     marginTop: 50,
-
-
   },
 
   icon1_view: {
@@ -143,20 +125,14 @@ const styles = StyleSheet.create({
   },
 
   image: {
-
     width: 300,
     height: 300,
     margin: 10,
-
-
   },
 
   row: {
     alignItems: 'flex-end',
     backgroundColor: '#ffffff',
-    margin:20,
+    margin: 20,
   },
-
-
-
 });
