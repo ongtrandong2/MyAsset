@@ -29,7 +29,7 @@ const LoginGoogle = props => {
         onPress={() => {
           console.log('signed in');
           onGoogleButtonPress().then(() => {
-            props.navigation.navigate('SuccessScreen');
+            props.navigation.navigate('Success');
           });
         }}
       />
