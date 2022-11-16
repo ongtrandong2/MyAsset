@@ -2,26 +2,47 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import React from 'react';
 import {Button} from 'react-native';
-
+import {StyleSheet, View} from 'react-native';
 GoogleSignin.configure({
   webClientId:
     '937708738118-tols9h26v4l08hadb1jggco6u8bjt7cd.apps.googleusercontent.com',
 });
-export default function GoogleSignInButton() {
+
+const LoginGoogle = (props, navigation) => {
+  async function onGoogleButtonPress() {
+    const {idToken} = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken, null);
+    return auth().signInWithCredential(googleCredential);
+  }
+  function onSignOut() {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'))
+      .catch(error => console.log(error));
+    GoogleSignin.signOut();
+  }
+  console.log(props);
   return (
-    <Button
-      title="Google Sign-In"
-      onPress={() =>
-        onGoogleButtonPress()
-        .then(() => console.log('Signed in with Google!'))
-        .catch(err => console.log(err))
-      }
-    />
+    <View style={styles.container}>
+      <Button
+        title="Google Sign-In"
+        onPress={() => {
+          console.log('signed in');
+          onGoogleButtonPress().then(() => {
+            props.navigation.navigate('WelcomeScreen');
+          });
+        }}
+      />
+      <Button title="Google Sign-Out" onPress={onSignOut} />
+    </View>
   );
-}
-async function onGoogleButtonPress() {
-  await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-  const {idToken} = await GoogleSignin.signIn();
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  return auth().signInWithCredential(googleCredential);
-}
+};
+
+export default LoginGoogle;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
