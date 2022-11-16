@@ -5,10 +5,10 @@ import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable } from 'r
 // import { AntDesign } from '@expo/vector-icons';  // icon user
 // import { MaterialCommunityIcons } from '@expo/vector-icons'; // icon eye
 
+import GoogleSignInButton from '../auth/GoogleSignIn';
 
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-
 
 export default function Login({ navigation }) {
 
@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!')
     }
     else {
-     navigation.navigate("WelcomeScreen");
+      navigation.navigate("HomeScreen");
     }
 
   }
@@ -64,6 +64,7 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
+            placeholderTextColor ={'grey'}
             onChangeText={(value) => setName(value)}
 
             right={<TextInput.Icon icon={require('../assets/images/user2.png')}/>}
@@ -75,6 +76,7 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Mật khẩu"
+            placeholderTextColor ={'grey'}
             secureTextEntry={passwordVisible}
             onChangeText={(value) => setPassword(value)}
             right={
@@ -120,7 +122,9 @@ export default function Login({ navigation }) {
               <Text style={styles.text}>Đăng kí tài khoản mới</Text>
             </Pressable>
           </View>
-
+        </View>
+        <View style={styles.body_view}>
+          <GoogleSignInButton/>
         </View>
       </ScrollView>
     </View>
@@ -165,7 +169,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '10%',
-    marginTop: 30, //
+    marginTop: 10, //
+    marginBottom:20,
     //padding:10,
 
 

@@ -46,6 +46,7 @@ allprojects {
             }
         }
         google()
+        mavenCentral()  // Maven Central repository
         maven { url 'https://www.jitpack.io' }
     }
 }

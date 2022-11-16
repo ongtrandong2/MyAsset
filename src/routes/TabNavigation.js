@@ -1,24 +1,46 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {StyleSheet, Text, View, TouchableOpacity, Image, } from "react-native";
 
-import HomeScreen from "../screens/HomeScreen";
-import PlanScreen from "../screens/PlanScreen";
-import PossessionScreen from "../screens/PossessionScreen";
-import StatisticsScreen from "../screens/StatisticsScreen";
+import {HomeStack, PlanStack, StatisticsStack, PossessionStack, PostStack} from '../routes/StackNavigation';
 
 const Tab = createBottomTabNavigator();
+const CustomTabBarButton = ({children,onPress}) =>(
+    <TouchableOpacity
+        style = {{
+            top:-30,
+            justifyContent:'center',
+            alignItems:'center',
+            ...styles.shadow,
+        }}
+        onPress = {onPress}
+    >
+        <View style= {{
+            width:50,
+            height:50,
+            borderRadius:35,
+            
+        }}>
+            {children}
+        </View>
+
+    </TouchableOpacity>
+)
 
 const Tabs = () =>{
     return(
         <Tab.Navigator
             tabBarOptions={{
                 showLabel: false,
-                style:{...styles.tab_style,...styles.shadow}
+                style:{...styles.tab_style,...styles.shadow},
+                keyboardHidesTabBar:true,
+           
             }}
+            
+            
         >
             <Tab.Screen
                 name="HomeScreen"
-                component={HomeScreen}
+                component={HomeStack}
                 options = {{
 
                     tabBarIcon:({focused})=>(
@@ -27,8 +49,8 @@ const Tabs = () =>{
                                 source = {require('../assets/images/home2.png')}
                                 resizeMode = "stretch"
                                 style ={{
-                                    width:25,
-                                    height:25,
+                                    width:35,
+                                    height:35,
                                     opacity:focused ? 1: 0.5
 
                                 }}
@@ -37,6 +59,7 @@ const Tabs = () =>{
                             <Text style = {{color: focused? "#000000" : "#748c94"}}>Tổng quan</Text>
                         </View>
                     ),
+                   
 
                 }}
 
@@ -44,7 +67,7 @@ const Tabs = () =>{
 
             <Tab.Screen
                 name = "PlanScreen"
-                component={PlanScreen}
+                component={PlanStack}
                 options={{
                     tabBarIcon:({focused}) => (
                         <View style = {styles.icon_view}>
@@ -52,9 +75,9 @@ const Tabs = () =>{
                                 source = {require('../assets/images/plan.png')}
                                 resizeMode = "stretch"
                                 style ={{
-                                    width:25,
-                                    height:25,
-                                    opacity:focused ? 1 : 0.8,
+                                    width:35,
+                                    height:35,
+                                    opacity:focused ? 1 : 0.5,
                                    
                                 }}
                             />
@@ -64,10 +87,29 @@ const Tabs = () =>{
 
                 }}
             />
-
+            <Tab.Screen 
+                name="PostScreen"
+                component={PostStack}
+                options = {{
+                    tabBarIcon:({focused}) =>(
+                        <Image
+                            source ={require('../assets/images/plusItem.png')}
+                            resizeMode = "stretch"
+                            style={{
+                                width:70,
+                                height:80,
+                            }}
+                        />
+                    ),
+                    tabBarButton:(props)=>(
+                        <CustomTabBarButton{...props}/>
+                    )
+                }}
+            
+            />
             <Tab.Screen
                 name="StatisticsScreen"
-                component={StatisticsScreen}
+                component={StatisticsStack}
                 options={{
                     tabBarIcon:({focused}) =>(
                         <View style={styles.icon_view}>
@@ -75,9 +117,9 @@ const Tabs = () =>{
                                 source={require('../assets/images/chart.png')}
                                 resizeMode="stretch"
                                 style={{
-                                    width:25,
-                                    height:25,
-                                    opacity: focused ? 1: 0.8,
+                                    width:35,
+                                    height:35,
+                                    opacity: focused ? 1: 0.5,
                                     
                                 }}
                             />
@@ -90,7 +132,7 @@ const Tabs = () =>{
 
             <Tab.Screen
                 name="PossessionScreen"
-                component={PossessionScreen}
+                component={PossessionStack}
                 options={{
                     tabBarIcon:({focused})=>(
                         <View style = {styles.icon_view}>
@@ -98,9 +140,9 @@ const Tabs = () =>{
                                 source={require('../assets/images/shop.png')}
                                 resizeMode="stretch"
                                 style={{
-                                    width:25,
-                                    height:25,
-                                    opacity: focused ? 1 : 0.8
+                                    width:35,
+                                    height:35,
+                                    opacity: focused ? 1 : 0.5,
                                 }}
                             />
                             <Text style={{color: focused? "#000000":"#748c94"}}>Tài sản</Text>
@@ -108,6 +150,9 @@ const Tabs = () =>{
                     )
                 }}
             />
+
+            
+
 
         </Tab.Navigator>
     )
@@ -117,8 +162,9 @@ const Tabs = () =>{
 const styles = StyleSheet.create({
     tab_style:{
         position:'absolute',
+        
 
-        bottom:25,
+        bottom:20,
         left:20,
         right:20,
         borderRadius:15,
@@ -129,10 +175,11 @@ const styles = StyleSheet.create({
         height:90,
     },
     shadow:{
-        shadowColor:'#7F5Df0',
+        //shadowColor:'#7F5Df0',
+        shadowColor:'black',
         shadowOffset:{
             width:0,
-            height:10,
+            height:20,
         },
 
         shadowOpacity:0.2,

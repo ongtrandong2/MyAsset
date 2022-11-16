@@ -1,26 +1,21 @@
-
 import React from 'react';
 
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-export default function WelcomeScreen ({ navigation }) {
-
+export default function WelcomeScreen({navigation}) {
   const onPressHandler = () => {
-    navigation.navigate("Login");
-  }
+    navigation.navigate('Login');
+  };
 
   return (
     <View style={styles.body}>
-      
       <View style={styles.title_view}>
         <View style={styles.icon1_view}>
           <Image
             style={styles.icon_money}
             source={require('../assets/images/icon_money.png')}
-            resizeMode='stretch'
-          >
-          </Image>
+            resizeMode="stretch"></Image>
         </View>
 
         <View style={styles.lable_view}>
@@ -33,34 +28,29 @@ export default function WelcomeScreen ({ navigation }) {
       <Image
         style={styles.image}
         source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
-        resizeMode='stretch'
-      >
-      </Image>
-      <Text style={{ color: 'black', fontSize: 40, fontWeight: 'bold' }}> WELCOME!</Text>
+        resizeMode="stretch"></Image>
+      <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
+        {' '}
+        WELCOME!
+      </Text>
     </View>
-
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   body: {
-
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    
+
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-
   },
-
-  
 
   text: {
     color: 'black',
     fontSize: 15,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   title_view: {
@@ -70,15 +60,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 50,
     marginTop: 50,
-
-
   },
 
   icon1_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    
+
     marginLeft: 10,
     height: 30,
   },
@@ -107,13 +95,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-
     width: 300,
     height: 300,
     margin: 10,
-
-
   },
-
-
 });
