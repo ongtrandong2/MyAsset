@@ -23,8 +23,6 @@ export default function WelcomeScreen({navigation}) {
           <View />
         </View>
 
-        	
-
         <View style={styles.lable_view}>
           <View style={styles.lable}>
             <Text style={styles.text}>MY ASSET</Text>
