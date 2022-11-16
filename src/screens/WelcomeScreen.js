@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
+import {View, StyleSheet, Text, Image, Button} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function WelcomeScreen({navigation}) {
@@ -15,8 +15,15 @@ export default function WelcomeScreen({navigation}) {
           <Image
             style={styles.icon_money}
             source={require('../assets/images/icon_money.png')}
-            resizeMode="stretch"></Image>
+            resizeMode="stretch"
+          />
+          <View>
+            <Text>Hello</Text>
+          </View>
+          <View />
         </View>
+
+        	
 
         <View style={styles.lable_view}>
           <View style={styles.lable}>
@@ -28,11 +35,13 @@ export default function WelcomeScreen({navigation}) {
       <Image
         style={styles.image}
         source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
-        resizeMode="stretch"></Image>
+        resizeMode="stretch"
+      />
       <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
         {' '}
         WELCOME!
       </Text>
+      <Button title="Next" onPress={() => navigation.navigate('HomeScreen')} />
     </View>
   );
 }

@@ -1,57 +1,47 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {useState} from 'react';
+import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable, } from 'react-native';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  Pressable,
-} from 'react-native';
-import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import firestore from '@react-native-firebase/firestore';
+import {CheckAccount} from '../Redux/UserAccount';
+import {useDispatch, useSelector} from 'react-redux';
+
+
 
 export default function Login({navigation}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const check = useSelector(state => state.userAccount.value);
+  const dispatch = useDispatch();
 
-  const onPressHandler = props => {
-    if (name.length == 0 || password.length == 0) {
+  const onLogin = () => {
+    if (name.length == 0 || password.length == 0)
+    {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
-    } else {
-      navigation.navigate('WelcomeScreen');
+    } 
+    else 
+    {
+        // dispatch(CheckAccount({
+        //   name: name,
+        //   password: password, 
+        // }))
+
+        navigation.navigate('HomeScreen');
     }
+
+   //if(check === true)
+          //navigation.navigate('HomeScreen');
+    //else Alert.alert('Warning!', 'Vui lòng kiểm tra tên tài khoản hoặc mật khẩu!');
+
+
   };
 
   const onPressHandler_Register = () => {
+
     navigation.navigate('RegisterScreen');
-  };
-  const LoginUser = async (user, pass) => {
-    firestore()
-      .collection('Accounts')
-      .doc(user)
-      .get()
-      .then(documentSnapshot => {
-        if (documentSnapshot.exists == true) {
-          var pass2 = documentSnapshot.data();
-          console.log(pass2);
-          if (pass == pass2.password) {
-            console.log('success');
-            navigation.navigate('WelcomeScreen');
-          } else {
-            console.log('wrong password');
-          }
-        } else {
-          console.log('user not found');
-        }
-      })
-      .catch(error => console.log(error));
+
   };
   return (
     <View style={styles.body}>
@@ -61,7 +51,7 @@ export default function Login({navigation}) {
             style={styles.icon_money}
             source={require('../assets/images/icon_money.png')}
             resizeMode="stretch"
-          />
+           />
         </View>
         <View style={styles.lable_view}>
           <View style={styles.lable}>
@@ -76,7 +66,7 @@ export default function Login({navigation}) {
             style={styles.image}
             source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
             resizeMode="stretch"
-          />
+           />
         </View>
 
         <View style={styles.body_view}>
@@ -84,6 +74,7 @@ export default function Login({navigation}) {
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
             onChangeText={value => setName(value)}
+            value={name}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
@@ -96,6 +87,7 @@ export default function Login({navigation}) {
             placeholder="Mật khẩu"
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
+            value={password}
             right={
               <TextInput.Icon
                 icon={
@@ -123,10 +115,7 @@ export default function Login({navigation}) {
           <View style={styles.login_button}>
             <Pressable
               style={{position: 'absolute'}}
-              onPress={() => {
-                LoginUser(name, password);
-              }}
-              // onPress={onPressHandler}
+              onPress={onLogin}
               android_ripple={{color: '#996600'}}
               hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
               <Text style={styles.text}> Đăng nhập </Text>
@@ -142,9 +131,6 @@ export default function Login({navigation}) {
               <Text style={styles.text}>Đăng kí tài khoản mới</Text>
             </Pressable>
           </View>
-        </View>
-        <View style={styles.body_view}>
-          <LoginGoogle navigation={navigation} />
         </View>
       </ScrollView>
     </View>
