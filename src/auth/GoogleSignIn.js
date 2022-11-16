@@ -8,7 +8,7 @@ GoogleSignin.configure({
     '937708738118-tols9h26v4l08hadb1jggco6u8bjt7cd.apps.googleusercontent.com',
 });
 
-const LoginGoogle = (props, navigation) => {
+const LoginGoogle = props => {
   async function onGoogleButtonPress() {
     const {idToken} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken, null);
@@ -29,7 +29,7 @@ const LoginGoogle = (props, navigation) => {
         onPress={() => {
           console.log('signed in');
           onGoogleButtonPress().then(() => {
-            props.navigation.navigate('WelcomeScreen');
+            props.navigation.navigate('SuccessScreen');
           });
         }}
       />
