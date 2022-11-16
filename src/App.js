@@ -14,6 +14,7 @@ function App () {
 
   return(
 
+
     <Provider store={Store}>
       <StatusBar 
         barStyle = 'dark-content'
