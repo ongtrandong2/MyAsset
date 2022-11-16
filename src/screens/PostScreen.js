@@ -271,7 +271,7 @@ function Income() {
               />
               <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>Cá nhân</Text>
             </View> 
-
+            
             <View style = {styles.checkbox_row}>
               <RadioButton
                 value="second"
@@ -285,11 +285,10 @@ function Income() {
       </View>
 
       <View style={styles.row}>
-        
-
+            
       </View>
         
-      
+    
     </View>
   );
 }

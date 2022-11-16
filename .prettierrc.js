@@ -4,13 +4,8 @@ module.exports = {
   bracketSpacing: false,
   singleQuote: true,
   trailingComma: 'all',
+  endOfLine:'auto',
 };
-'prettier/prettier':[
-  'error',
-  {
-    'endOfLine':'auto',
-  }
-]
 
 
 

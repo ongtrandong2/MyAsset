@@ -17,8 +17,13 @@ export default function WelcomeScreen({navigation}) {
             source={require('../assets/images/icon_money.png')}
             resizeMode="stretch"
           />
-          <Text>Hee</Text>
+          <View>
+            <Text>Hello</Text>
+          </View>
+          <View />
         </View>
+
+        	
 
         <View style={styles.lable_view}>
           <View style={styles.lable}>

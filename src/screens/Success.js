@@ -46,6 +46,7 @@ export default function SuccessScreen({navigation}) {
             </View>
           </View>
         </View>
+        
 
         <Image
           style={styles.image}
