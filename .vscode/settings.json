@@ -1,0 +1,22 @@
+{
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    },
+    "[json]": {
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on"
+        },
+        "editor.suggest.snippetsPreventQuickSuggestions": false
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "tabnine.experimentalAutoImports": false,
+    "[dockerfile]": {
+        "editor.quickSuggestions": {
+            "comments": "on"
+        }
+    },
+    "reactSnippets.settings.prettierEnabled": true,
+    "emmet.showSuggestionsAsSnippets": true
+}

@@ -15,5 +15,5 @@ const TotalMoney = createSlice({
   },
 });
 
-export const {UpdateMoney,IncreaseTotal ,DecreaseTotal  } = TotalMoney.actions;
+export const {UpdateMoney, IncreaseTotal, DecreaseTotal} = TotalMoney.actions;
 export default TotalMoney.reducer;

@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-unused-vars */
 //import { StatusBar } from 'expo-status-bar';
 import React, {useEffect} from 'react';
 
@@ -15,7 +17,7 @@ export default function SuccessScreen({navigation}) {
       navigation.replace('FirstInput');
     }, 1000);
     return () => {};
-  }, []);
+  });
 
   return (
     <SafeAreaView style={styles.view}>
@@ -46,7 +48,6 @@ export default function SuccessScreen({navigation}) {
             </View>
           </View>
         </View>
-        
 
         <Image
           style={styles.image}

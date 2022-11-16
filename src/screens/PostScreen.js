@@ -4,65 +4,59 @@ import HeaderTab from '../components/Header_Tab';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import CustomButton from '../components/CustomButton';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Checkbox, RadioButton}  from 'react-native-paper';
+import {Checkbox, RadioButton} from 'react-native-paper';
 
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {addIncome} from '../Redux/IncomeData';
-import {addOutcome} from '../Redux/OutcomeData'; 
+import {addOutcome} from '../Redux/OutcomeData';
 import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 
 const data_in = [
-  { key:'1', value: 'Tiền Lương' },
-  { key:'2', value: 'Cho thuê' },
-  { key:'3', value: 'Bán hàng' },
-  { key:'4', value: 'Tiền thưởng' },
-  { key:'5', value: 'Cổ phiếu' },
-  { key:'6', value: 'Phiếu giảm giá' },
-  { key:'7', value: 'Vietlott' },
+  {key: '1', value: 'Tiền Lương'},
+  {key: '2', value: 'Cho thuê'},
+  {key: '3', value: 'Bán hàng'},
+  {key: '4', value: 'Tiền thưởng'},
+  {key: '5', value: 'Cổ phiếu'},
+  {key: '6', value: 'Phiếu giảm giá'},
+  {key: '7', value: 'Vietlott'},
 ];
 
 const data_out = [
-  { key:'1', value: 'Ăn uống' },
-  { key:'2', value: 'Quần áo' },
-  { key:'3', value: 'Mua Sắm' },
-  { key:'4', value: 'Giao thông' },
-  { key:'5', value: 'Nhà ở' },
-  { key:'6', value: 'Du lịch' },
-  { key:'7', value: 'Giáo dục' },
-  
+  {key: '1', value: 'Ăn uống'},
+  {key: '2', value: 'Quần áo'},
+  {key: '3', value: 'Mua Sắm'},
+  {key: '4', value: 'Giao thông'},
+  {key: '5', value: 'Nhà ở'},
+  {key: '6', value: 'Du lịch'},
+  {key: '7', value: 'Giáo dục'},
 ];
 
-
-
 function Outcome() {
-  const [isFocus,setIsFocus] = useState(false);
-  const [outcomeName,setOutcomeName] = useState('');
-  const [outcomeValue,setOutcomeValue] = useState('');
+  const [isFocus, setIsFocus] = useState(false);
+  const [outcomeName, setOutcomeName] = useState('');
+  const [outcomeValue, setOutcomeValue] = useState('');
 
-  const outcomeData = useSelector(state =>state.outcomeData);
+  const outcomeData = useSelector(state => state.outcomeData);
   const dispatch = useDispatch();
 
   //console.log(outcomeData);
 
-  const onSaveData = () =>{
-    if(outcomeName!=='' && outcomeValue!=='')
-    {
+  const onSaveData = () => {
+    if (outcomeName !== '' && outcomeValue !== '') {
       dispatch(
         addOutcome({
           key: outcomeData.length,
           name: outcomeName,
           value: outcomeValue,
-        })
-      )
+        }),
+      );
 
-      dispatch(
-        DecreaseTotal(Number(outcomeValue))
-      )
+      dispatch(DecreaseTotal(Number(outcomeValue)));
     }
 
     setOutcomeName('');
     setOutcomeValue('');
-  }
+  };
 
   return (
     <View style={styles.view}>
@@ -75,38 +69,35 @@ function Outcome() {
           <View style={styles.sub_row}>
             <Text style={{fontSize: 20, color: '#000000'}}>1.Khoản chi:</Text>
             <Dropdown
-            style={styles.dropdown}
-           
-            placeholderStyle={{fontSize: 18}}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            
-            data={data_out}
-            //search = {false}//show or hide the input seacrh
-            maxHeight={300}
-            labelField="value" //extract the data from data item
-            valueField="key" // extract the primay key from data item
-            placeholder={!isFocus ? 'Chọn khoản chi' : '...'}
-            searchPlaceholder="Search..."
-            value={outcomeName} //
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setOutcomeName(item.value); //
-              setIsFocus(false);
-            }}
-          />
-          
+              style={styles.dropdown}
+              placeholderStyle={{fontSize: 18}}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              data={data_out}
+              //search = {false}//show or hide the input seacrh
+              maxHeight={300}
+              labelField="value" //extract the data from data item
+              valueField="key" // extract the primay key from data item
+              placeholder={!isFocus ? 'Chọn khoản chi' : '...'}
+              searchPlaceholder="Search..."
+              value={outcomeName} //
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setOutcomeName(item.value); //
+                setIsFocus(false);
+              }}
+            />
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.sub_row}>
             <Text style={{fontSize: 20, color: '#000000'}}>2.Số tiền: </Text>
-            <TextInput 
+            <TextInput
               style={styles.textInput_box}
-              onChangeText = {setOutcomeValue}  
-              value = {outcomeValue} 
+              onChangeText={setOutcomeValue}
+              value={outcomeValue}
             />
           </View>
         </View>
@@ -123,8 +114,10 @@ function Outcome() {
         </View>
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>1.Tên hiện vật:</Text>
-            
+            <Text style={{fontSize: 20, color: '#000000'}}>
+              1.Tên hiện vật:
+            </Text>
+
             <TextInput style={styles.textInput_box} />
           </View>
         </View>
@@ -148,7 +141,7 @@ function Outcome() {
           <CustomButton
             style={{height: 30, width: 100}}
             title={'Lưu'}
-            onPressFunction={()=>onSaveData()}
+            onPressFunction={() => onSaveData()}
           />
         </View>
       </ScrollView>
@@ -157,38 +150,33 @@ function Outcome() {
 }
 
 function Income() {
- 
-  const [isFocus,setIsFocus] = useState(false);
-  const [incomeName,setIncomeName] = useState('');
-  const [incomeValue,setIncomeValue] = useState('');
-  
+  const [isFocus, setIsFocus] = useState(false);
+  const [incomeName, setIncomeName] = useState('');
+  const [incomeValue, setIncomeValue] = useState('');
+
   const incomeData = useSelector(state => state.incomeData);
   const dispatch = useDispatch();
 
   const [checked, setChecked] = useState('first');
 
   //console.log(incomeData);
-  
-  const onSaveIncome = () =>{
-    if(incomeName!== ''&& incomeValue!=='')
-    {
-        dispatch(
-          addIncome({
-            key: incomeData.length,
-            name: incomeName,
-            value: incomeValue,
 
-          }),
-        );
+  const onSaveIncome = () => {
+    if (incomeName !== '' && incomeValue !== '') {
+      dispatch(
+        addIncome({
+          key: incomeData.length,
+          name: incomeName,
+          value: incomeValue,
+        }),
+      );
 
-        dispatch(
-          IncreaseTotal(Number(incomeValue))
-        );
+      dispatch(IncreaseTotal(Number(incomeValue)));
     }
     setIncomeName('');
     setIncomeValue('');
-  }
-  
+  };
+
   return (
     <View style={styles.view}>
       <View style={styles.title_view}>
@@ -200,49 +188,43 @@ function Income() {
           <Text style={{fontSize: 20, color: '#000000'}}>1.Khoản thu :</Text>
           <Dropdown
             style={styles.dropdown}
-           
             placeholderStyle={{fontSize: 18}}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
-            
             data={data_in}
-            search = {false}
+            search={false}
             maxHeight={300}
-            labelField="value" 
-            valueField="key" 
+            labelField="value"
+            valueField="key"
             placeholder={!isFocus ? 'Chọn khoản thu' : '...'}
             //searchPlaceholder="Search..."
-            value={incomeName} 
+            value={incomeName}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={item => {
-              setIncomeName(item.value); 
+              setIncomeName(item.value);
               setIsFocus(false);
             }}
           />
-          
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.sub_row}>
           <Text style={{fontSize: 20, color: '#000000'}}>2.Số tiền:</Text>
-          <TextInput 
+          <TextInput
             style={styles.textInput_box}
-            onChangeText = {setIncomeValue}  
-            value = {incomeValue}
+            onChangeText={setIncomeValue}
+            value={incomeValue}
           />
-    
         </View>
       </View>
-
-      
 
       <View style={styles.row}>
         <CustomButton
           style={{height: 30, width: 100}}
           title={'Lưu'}
-          onPressFunction={()=>onSaveIncome()}
+          onPressFunction={() => onSaveIncome()}
         />
       </View>
 
@@ -253,42 +235,42 @@ function Income() {
       <View style={styles.row}>
         <View style={styles.sub_row}>
           <Text style={{fontSize: 20, color: '#000000'}}>1.Tên hiện vật:</Text>
-            
+
           <TextInput style={styles.textInput_box} />
         </View>
       </View>
 
       <View style={styles.row}>
-          <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>2.Nguồn tiền:</Text>
+        <View style={styles.sub_row}>
+          <Text style={{fontSize: 20, color: '#000000'}}>2.Nguồn tiền:</Text>
 
-            <View style = {styles.checkbox_row}>
-              <RadioButton
-                value="first"
-                status={ checked === 'first' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('first')}
-                color={'black'}
-              />
-              <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>Cá nhân</Text>
-            </View> 
-            
-            <View style = {styles.checkbox_row}>
-              <RadioButton
-                value="second"
-                status={ checked === 'second' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('second')}
-                color={'black'}
-              />
-              <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>Khác</Text>
-            </View> 
+          <View style={styles.checkbox_row}>
+            <RadioButton
+              value="first"
+              status={checked === 'first' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('first')}
+              color={'black'}
+            />
+            <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>
+              Cá nhân
+            </Text>
           </View>
+
+          <View style={styles.checkbox_row}>
+            <RadioButton
+              value="second"
+              status={checked === 'second' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('second')}
+              color={'black'}
+            />
+            <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>
+              Khác
+            </Text>
+          </View>
+        </View>
       </View>
 
-      <View style={styles.row}>
-            
-      </View>
-        
-    
+      <View style={styles.row}></View>
     </View>
   );
 }
@@ -397,16 +379,14 @@ const styles = StyleSheet.create({
 
   selectedTextStyle: {
     fontSize: 18,
-    color:'black',
+    color: 'black',
   },
 
-  checkbox_row:{
-    flexDirection:'row',
+  checkbox_row: {
+    flexDirection: 'row',
     //backgroundColor:'pink',
-    width:100,
-    height:30,
-    marginHorizontal:5,
+    width: 100,
+    height: 30,
+    marginHorizontal: 5,
   },
-
-  
 });

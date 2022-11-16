@@ -16,7 +16,7 @@ function App() {
     <Provider store={Store}>
       <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <NavigationContainer>
-        <RootNavigation/>
+        <RootNavigation />
       </NavigationContainer>
       {/* <FirstInput/> */}
     </Provider>

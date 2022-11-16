@@ -1,13 +1,19 @@
 import React from 'react';
 import {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Image, Alert, Pressable, } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  Pressable,
+} from 'react-native';
 
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import {CheckAccount} from '../Redux/UserAccount';
 import {useDispatch, useSelector} from 'react-redux';
-
-
 
 export default function Login({navigation}) {
   const [name, setName] = useState('');
@@ -17,31 +23,24 @@ export default function Login({navigation}) {
   const dispatch = useDispatch();
 
   const onLogin = () => {
-    if (name.length == 0 || password.length == 0)
-    {
+    if (name.length == 0 || password.length == 0) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
-    } 
-    else 
-    {
-        // dispatch(CheckAccount({
-        //   name: name,
-        //   password: password, 
-        // }))
+    } else {
+      // dispatch(CheckAccount({
+      //   name: name,
+      //   password: password,
+      // }))
 
-        navigation.navigate('HomeScreen');
+      navigation.navigate('HomeScreen');
     }
 
-   //if(check === true)
-          //navigation.navigate('HomeScreen');
+    //if(check === true)
+    //navigation.navigate('HomeScreen');
     //else Alert.alert('Warning!', 'Vui lòng kiểm tra tên tài khoản hoặc mật khẩu!');
-
-
   };
 
   const onPressHandler_Register = () => {
-
     navigation.navigate('RegisterScreen');
-
   };
   return (
     <View style={styles.body}>
@@ -51,7 +50,7 @@ export default function Login({navigation}) {
             style={styles.icon_money}
             source={require('../assets/images/icon_money.png')}
             resizeMode="stretch"
-           />
+          />
         </View>
         <View style={styles.lable_view}>
           <View style={styles.lable}>
@@ -66,7 +65,7 @@ export default function Login({navigation}) {
             style={styles.image}
             source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
             resizeMode="stretch"
-           />
+          />
         </View>
 
         <View style={styles.body_view}>
@@ -79,7 +78,6 @@ export default function Login({navigation}) {
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
           />
-
         </View>
 
         <View style={styles.body_view}>
@@ -160,7 +158,6 @@ const styles = StyleSheet.create({
     height: 300,
     marginTop: 5, //
     alignItems: 'center',
-
   },
 
   title_view: {
@@ -252,6 +249,5 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     width: 150,
     backgroundColor: '#ffffff',
-
   },
 });

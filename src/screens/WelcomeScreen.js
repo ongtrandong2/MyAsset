@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import {View, StyleSheet, Text, Image, Button} from 'react-native';
@@ -17,13 +19,9 @@ export default function WelcomeScreen({navigation}) {
             source={require('../assets/images/icon_money.png')}
             resizeMode="stretch"
           />
-          <View>
-            <Text>Hello</Text>
-          </View>
+
           <View />
         </View>
-
-        	
 
         <View style={styles.lable_view}>
           <View style={styles.lable}>
