@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, SafeAreaView, ScrollView, Pressable, Animated,  } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  Pressable,
+  Animated,
+} from 'react-native';
 import HeaderTab from '../components/Header_Tab';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -7,20 +15,16 @@ import {useSelector, useDispatch} from 'react-redux';
 //import { addPossession } from '../Redux/PossessionData';
 //import {addIncome} from '../Redux/IncomeData';
 
-
 export default function HomeScreen({navigation}) {
+  const money = useSelector(state => state.totalMoney.value);
 
-  const money = useSelector((state)=>state.totalMoney.value);
-  
-  const incomeData = useSelector(state=>state.incomeData);
-  const outcomeData = useSelector(state=>state.outcomeData);
+  const incomeData = useSelector(state => state.incomeData);
+  const outcomeData = useSelector(state => state.outcomeData);
   const dispatch = useDispatch();
   const [number, setNumber] = useState('50%');
 
-
   return (
-
-    <View style = {styles.view}>
+    <View style={styles.view}>
       <HeaderTab
         onPressHandler={() => navigation.navigate('InfoScreen')}
         fontSize={20}
@@ -29,7 +33,7 @@ export default function HomeScreen({navigation}) {
 
       <View style={styles.row}>
         <Text style={{color: '#BB2424', fontSize: 20, fontWeight: 'bold'}}>
-          {money}  VNĐ
+          {money} VNĐ
         </Text>
       </View>
 
@@ -39,14 +43,13 @@ export default function HomeScreen({navigation}) {
 
       <View style={styles.big_row}>
         <Text style={{color: '#000000', fontSize: 15}}>
-          Upgrade this function 
+          Upgrade this function
         </Text>
       </View>
 
       <View style={styles.big_row}>
         <View style={styles.slider_view}>
-
-          <View style = {styles.progressBar}>
+          <View style={styles.progressBar}>
             <Animated.View
               style={
                 ([StyleSheet.absoluteFill],
@@ -78,39 +81,38 @@ export default function HomeScreen({navigation}) {
       <View style={styles.big_row}>
         <View style={styles.box_view}>
           <ScrollView>
-            {incomeData.map((item,index)=>{
-                return(
-                 <View style={styles.figure_view} key ={index}>
-                    <View style={styles.name_view}>
-                      <Text style={styles.text}>{item.name}</Text>
-                    </View>
-
-                    <View style={styles.money_view}>
-                      <Text style={[styles.text,{color:'#00CC00'}]}>+ {item.value}  vnđ</Text>
-                    </View>
-                 </View>
-                )
-
-              })}
-
-            {outcomeData.map((item, index)=>{
-              return(
+            {incomeData.map((item, index) => {
+              return (
                 <View style={styles.figure_view} key={index}>
                   <View style={styles.name_view}>
                     <Text style={styles.text}>{item.name}</Text>
                   </View>
 
                   <View style={styles.money_view}>
-                    <Text style={[styles.text,{color:'#DF2828'}]}>- {item.value}  vnđ</Text>
+                    <Text style={[styles.text, {color: '#00CC00'}]}>
+                      + {item.value} vnđ
+                    </Text>
                   </View>
                 </View>
-              )
-              
+              );
             })}
 
+            {outcomeData.map((item, index) => {
+              return (
+                <View style={styles.figure_view} key={index}>
+                  <View style={styles.name_view}>
+                    <Text style={styles.text}>{item.name}</Text>
+                  </View>
 
+                  <View style={styles.money_view}>
+                    <Text style={[styles.text, {color: '#DF2828'}]}>
+                      - {item.value} vnđ
+                    </Text>
+                  </View>
+                </View>
+              );
+            })}
           </ScrollView>
-
         </View>
       </View>
 
@@ -141,15 +143,13 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-
-
-    },
+  },
 
   text: {
     fontSize: 15,
     color: '#000000',
-    fontWeight:'bold',
-    },
+    fontWeight: 'bold',
+  },
 
   row: {
     flexDirection: 'row',
@@ -207,8 +207,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     borderRadius: 5,
     flexDirection: 'row',
-
-    },
-
-
-})
+  },
+});

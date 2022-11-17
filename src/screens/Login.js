@@ -43,7 +43,7 @@ export default function Login({navigation}) {
           console.log(pass2);
           if (pass == pass2.password) {
             console.log('success');
-            navigation.navigate('Success');
+            navigation.navigate('HomeScreen');
           } else {
             console.log('wrong password');
           }

@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
 
-import {StyleSheet, View, ScrollView, Text, Pressable, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  Pressable,
+  Image,
+  Alert,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native-paper';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
@@ -13,7 +21,7 @@ import {UpdateMoney} from '../Redux/TotalMoney';
 import {addPossession, removePossession} from '../Redux/PossessionData';
 
 export default function FirstInput({navigation}) {
-  const money = useSelector((state) => state.totalMoney.value);
+  const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
 
@@ -21,7 +29,7 @@ export default function FirstInput({navigation}) {
 
   const [textName, setTextName] = useState('');
   const [textValue, setTextValue] = useState('');
-  
+
   //console.log(possessionData);
 
   const check = () => {
@@ -38,27 +46,22 @@ export default function FirstInput({navigation}) {
     setTextValue('');
   };
 
-  const onComplete = ()=>{
-    if(setTextMoney!=='')
-    {
-      dispatch(UpdateMoney(Number(textMoney)))
-      navigation.navigate('HomeScreen')
+  const onComplete = () => {
+    if (setTextMoney !== '') {
+      dispatch(UpdateMoney(Number(textMoney)));
+      navigation.navigate('HomeScreen');
+    } else {
+      Alert.alert('Warning! Vui lòng nhập dữ liệu');
     }
-    else
-    {
-      Alert.alert('Warning! Vui lòng nhập dữ liệu')
-    }
-  }
+  };
 
-  const onPressHandler_Back =() =>{
+  const onPressHandler_Back = () => {
     navigation.navigate('Login');
-  }
+  };
 
   return (
     <SafeAreaView style={styles.view}>
-      <Header
-        onPressFunctionBack={onPressHandler_Back}
-      />
+      <Header onPressFunctionBack={onPressHandler_Back} />
       <ScrollView>
         <View style={styles.row}>
           <Text style={styles.title}>Vui lòng nhập tài sản của bạn !</Text>
@@ -75,7 +78,7 @@ export default function FirstInput({navigation}) {
               placeholder="0"
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}
-              value = {textMoney}
+              value={textMoney}
               keyboardType={'numeric'}
             />
           </View>
@@ -88,13 +91,21 @@ export default function FirstInput({navigation}) {
         </View>
 
         {/* Create an array of item list */}
-        
+
         {possessionData.map((item, index) => {
           return (
             <View style={styles.column} key={index}>
               <View style={[{height: 100, width: '90%'}, styles.money_box]}>
-                <Text style={[styles.text,{marginVertical:0,color:'red',fontSize: 25,}]}>{item.name}</Text>
-                <Text style={[styles.text,{marginVertical:0}]}>{item.value}</Text>
+                <Text
+                  style={[
+                    styles.text,
+                    {marginVertical: 0, color: 'red', fontSize: 25},
+                  ]}>
+                  {item.name}
+                </Text>
+                <Text style={[styles.text, {marginVertical: 0}]}>
+                  {item.value}
+                </Text>
                 <View style={styles.bin_view}>
                   <Pressable
                     onPress={() => dispatch(removePossession(index))}
@@ -123,7 +134,6 @@ export default function FirstInput({navigation}) {
               onChangeText={setTextValue}
               value={textValue}
             />
-
           </View>
 
           <View style={styles.icon_plus}>
@@ -144,7 +154,6 @@ export default function FirstInput({navigation}) {
             //onPressFunction={()=>navigation.navigate('HomeScreen')}
             onPressFunction={onComplete}
           />
-          
         </View>
       </ScrollView>
     </SafeAreaView>

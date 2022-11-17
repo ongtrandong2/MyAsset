@@ -15,7 +15,7 @@ export default function SuccessScreen({navigation}) {
       navigation.replace('FirstInput');
     }, 1000);
     return () => {};
-  }, []);
+  });
 
   return (
     <SafeAreaView style={styles.view}>

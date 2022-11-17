@@ -9,16 +9,13 @@ import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
 
-import FirstInputScreen from './screens/FirstInputScreen';
-
 function App() {
   return (
     <Provider store={Store}>
       <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <NavigationContainer>
-        <RootNavigation/>
+        <RootNavigation />
       </NavigationContainer>
-      {/* <FirstInput/> */}
     </Provider>
   );
 }
