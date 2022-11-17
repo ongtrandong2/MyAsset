@@ -46,7 +46,7 @@ export default function WelcomeScreen({ navigation }) {
       />
       <Text style={{ color: 'black', fontSize: 40, fontWeight: 'bold' }}>
         {' '}
-        WELCOME!
+        Welcome
       </Text>
       <Button title="Next" onPress={() => navigation.navigate('HomeScreen')} />
     </View>
