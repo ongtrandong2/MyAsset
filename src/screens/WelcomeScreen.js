@@ -2,10 +2,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import {View, StyleSheet, Text, Image, Button} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { View, StyleSheet, Text, Image, Button } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function WelcomeScreen({navigation}) {
+
+
+
+export default function WelcomeScreen({ navigation }) {
   const onPressHandler = () => {
     navigation.navigate('Login');
   };
@@ -23,6 +26,12 @@ export default function WelcomeScreen({navigation}) {
           <View />
         </View>
 
+        <View>
+          <Text style={styles.title}>Welcome to React Native!</Text>
+
+        </View>
+
+
         <View style={styles.lable_view}>
           <View style={styles.lable}>
             <Text style={styles.text}>MY ASSET</Text>
@@ -35,7 +44,7 @@ export default function WelcomeScreen({navigation}) {
         source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
         resizeMode="stretch"
       />
-      <Text style={{color: 'black', fontSize: 40, fontWeight: 'bold'}}>
+      <Text style={{ color: 'black', fontSize: 40, fontWeight: 'bold' }}>
         {' '}
         WELCOME!
       </Text>

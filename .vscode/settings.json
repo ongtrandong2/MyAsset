@@ -5,8 +5,8 @@
     },
     "[json]": {
         "editor.quickSuggestions": {
-            "comments": "on",
-            "strings": "on"
+            "comments": true,
+            "strings": true
         },
         "editor.suggest.snippetsPreventQuickSuggestions": false
     },
