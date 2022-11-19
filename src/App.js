@@ -12,7 +12,7 @@ import Store from './Redux/Store';
 function App() {
   return (
     <Provider store={Store}>
-      <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
+      <StatusBar barStyle="dark-content" backgroundColor={'transparent'}  translucent />
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>

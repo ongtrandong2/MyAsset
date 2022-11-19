@@ -18,10 +18,10 @@ export default function RegisterScreen({navigation}) {
   const [confirm, setConfirm] = useState('');
   const CheckData = () => {
     if (
-      name.length == 0 ||
-      username.length == 0 ||
-      password.length == 0 ||
-      confirm.length == 0
+      name.length === 0 ||
+      username.length === 0 ||
+      password.length === 0 ||
+      confirm.length === 0
     ) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
     } else if (

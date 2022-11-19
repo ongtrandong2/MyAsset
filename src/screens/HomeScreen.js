@@ -24,7 +24,7 @@ export default function HomeScreen({navigation}) {
   const [number, setNumber] = useState('50%');
 
   return (
-    <View style={styles.view}>
+    <View style={[{paddingTop:30},styles.view]}>
       <HeaderTab
         onPressHandler={() => navigation.navigate('InfoScreen')}
         fontSize={20}
