@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
+import firestore from '@react-native-firebase/firestore';
 
 export default function RegisterScreen({navigation}) {
   const onPressHandler = () => {
@@ -16,6 +17,7 @@ export default function RegisterScreen({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [email, setEmail] = useState('');
   const CheckData = () => {
     if (
       name.length === 0 ||
@@ -31,91 +33,110 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
-      navigation.navigate('Success');
     }
+    firestore()
+      .collection('Accounts')
+      .doc(username)
+      .set({name: name, password: password, email: email})
+      .then(() => {
+        navigation.navigate('Success');
+      })
+      .catch(error => console.log(error));
   };
 
   return (
     <KeyboardAvoidingView style={styles.view}>
-      <SafeAreaView>
-        <Header onPressFunctionBack={onPressHandler} />
-        <ScrollView>
-          {/* <View style = {styles.container}> */}
-          <View style={styles.row}>
-            <Text style={{color: 'black', fontSize: 30, marginBottom: 10}}>
-              Đăng kí tài khoản mới
-            </Text>
-          </View>
+      {/* <SafeAreaView> */}
+      <Header onPressFunctionBack={onPressHandler} />
+      <ScrollView>
+        {/* <View style = {styles.container}> */}
+        <View style={styles.row}>
+          <Text style={{color: 'black', fontSize: 30, marginBottom: 10}}>
+            Đăng kí tài khoản mới
+          </Text>
+        </View>
 
-          <View style={styles.text_view}>
-            <Text style={styles.text}>
-              1. Tên người dùng
-              <Text style={{color: 'red'}}> *</Text>
-            </Text>
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            1. Tên người dùng
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              onChangeText={value => setName(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setName(value)}
+          />
+        </View>
 
-          <View style={styles.text_view}>
-            <Text style={styles.text}>
-              2. Tên đăng nhập
-              <Text style={{color: 'red'}}> *</Text>
-            </Text>
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            2. Tên đăng nhập
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              onChangeText={value => setUsername(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setUsername(value)}
+          />
+        </View>
 
-          <View style={styles.text_view}>
-            <Text style={styles.text}>
-              3. Mật khẩu
-              <Text style={{color: 'red'}}> *</Text>
-            </Text>
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            3. Email
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              secureTextEntry
-              onChangeText={value => setPassword(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setEmail(value)}
+          />
+        </View>
 
-          <View style={styles.text_view}>
-            <Text style={styles.text}>
-              4. Xác nhận mật khẩu
-              <Text style={{color: 'red'}}> *</Text>
-            </Text>
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            4. Mật khẩu
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              secureTextEntry
-              onChangeText={value => setConfirm(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            secureTextEntry
+            onChangeText={value => setPassword(value)}
+          />
+        </View>
 
-          <View style={styles.row_button}>
-            <CustomButton
-              style={{width: 150, height: 40}}
-              title={'Tạo tài khoản'}
-              onPressFunction={CheckData}
-            />
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            5. Xác nhận mật khẩu
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          
-        </ScrollView>
-      </SafeAreaView>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            secureTextEntry
+            onChangeText={value => setConfirm(value)}
+          />
+        </View>
+
+        <View style={styles.row_button}>
+          <CustomButton
+            style={{width: 150, height: 40}}
+            title={'Tạo tài khoản'}
+            onPressFunction={CheckData}
+          />
+        </View>
+      </ScrollView>
+      {/* </SafeAreaView> */}
     </KeyboardAvoidingView>
   );
 }
@@ -129,7 +150,7 @@ const styles = StyleSheet.create({
 
   view: {
     flex: 1,
-    backgroundColor : '#ffffff',
+    backgroundColor: '#ffffff',
   },
 
   text: {
@@ -145,7 +166,8 @@ const styles = StyleSheet.create({
 
   row_button: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 20,
+    marginBottom: 20,
     justifyContent: 'center',
   },
 

@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Pressable,
-  Modal,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, Image, Pressable, Modal} from 'react-native';
 
-const HeaderTab = (props) => {
-  const [showModal,setShowModal] = useState(false);
+const HeaderTab = props => {
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <View style={styles.view}>
@@ -26,24 +19,23 @@ const HeaderTab = (props) => {
         <View style={styles.option_view}>
           <View style={styles.box}>
             <Pressable
-              onPress={()=>setShowModal(true)}
-              android_ripple={{ color: '#bbbbbb' }}>
-
+              onPress={() => setShowModal(true)}
+              android_ripple={{color: '#bbbbbb'}}>
               <Image
-                style={{ height: 25, width: 25 }}
-                //source={require('../assets/images/Setting.png')}
-                source={{uri:'https://img.icons8.com/ios-glyphs/30/null/menu-2.png'}}
+                style={{height: 25, width: 25}}
+                source={{
+                  uri: 'https://img.icons8.com/ios-glyphs/30/null/menu-2.png',
+                }}
                 resizeMode="stretch"
               />
             </Pressable>
           </View>
 
-
           <View style={styles.box}>
             <Pressable
               onPress={props.onPressHandler}
               //onPress={()=>navigation.navigate('InfoScreen')}
-              android_ripple={{ color: '#bbbbbb' }}>
+              android_ripple={{color: '#bbbbbb'}}>
               <Image
                 style={styles.icon}
                 source={require('../assets/images/user2.png')}
@@ -51,13 +43,11 @@ const HeaderTab = (props) => {
               />
             </Pressable>
           </View>
-
-
         </View>
       </View>
 
       <View header_view>
-        <Text style={[{ fontSize: props.fontSize }, styles.title]}>
+        <Text style={[{fontSize: props.fontSize}, styles.title]}>
           {props.title}
         </Text>
       </View>
@@ -65,36 +55,55 @@ const HeaderTab = (props) => {
       <Modal
         visible={showModal}
         transparent={true}
-        animationType='fade'
-        onRequestClose={()=>setShowModal(false)}
-        statusBarTranslucent
-      
-      >
+        animationType="fade"
+        onRequestClose={() => setShowModal(false)}
+        statusBarTranslucent>
         <View style={styles.center_view}>
           <View style={styles.mini_view}>
             <View style={styles.modal_view}>
               <View style={styles.mini_row}>
                 <Pressable
-                  onPress={()=>setShowModal(false)}
-                  android_ripple={{ color: 'grey' }}
-                //style={({ pressed }) => [{ backgroundColor: pressed ? 'grey' : 'white' }]}
+                  onPress={() => setShowModal(false)}
+                  android_ripple={{color: 'grey'}}
+                  //style={({ pressed }) => [{ backgroundColor: pressed ? 'grey' : 'white' }]}
                 >
                   <Image
-                    style={{ height: 25, width: 25, marginRight: 10, borderRadius: 10 }}
-                    source={{ uri: 'https://img.icons8.com/material-outlined/24/null/delete-sign.png' }}
-
+                    style={{
+                      height: 25,
+                      width: 25,
+                      marginRight: 10,
+                      borderRadius: 10,
+                    }}
+                    source={{
+                      uri: 'https://img.icons8.com/material-outlined/24/null/delete-sign.png',
+                    }}
                   />
                 </Pressable>
               </View>
 
-              <View style={{ alignItems: 'center', justifyContent: 'center', flex: 0.75 }}>
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 0.75,
+                }}>
                 <Pressable
-                  //onPress={() => { navigation.navigate('ChangePassword') }}
-                  android_ripple={{ color: '#C6E2FF' }}
-                  style={({ pressed }) => [{ backgroundColor: pressed ? '#C6E2FF' : 'white' }]}
-                >
-                  <Text style={{ fontSize: 20, fontFamily: 'Itim-Regular', color: 'black', textDecorationLine: 'underline', }}>
-                    Đăng xuất</Text>
+                  onPress={() => {
+                    navigation.navigate('Login');
+                  }}
+                  android_ripple={{color: '#C6E2FF'}}
+                  style={({pressed}) => [
+                    {backgroundColor: pressed ? '#C6E2FF' : 'white'},
+                  ]}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontFamily: 'Itim-Regular',
+                      color: 'black',
+                      textDecorationLine: 'underline',
+                    }}>
+                    Đăng xuất
+                  </Text>
                 </Pressable>
               </View>
             </View>
@@ -189,14 +198,13 @@ const styles = StyleSheet.create({
   //   borderRadius: 20,
   //   backgroundColor: 'white',
   //},
-  ///// Modal 
+  ///// Modal
   center_view: {
     flex: 1,
     //justifyContent: 'center',
     alignItems: 'flex-end',
     backgroundColor: '#00000099',
     flexDirection: 'column',
-
   },
 
   modal_view: {
@@ -205,11 +213,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#ffffff',
     borderRadius: 10,
-    //marginRight:5, 
+    //marginRight:5,
     //alignItems: 'center',
     //justifyContent: 'center',
     flexDirection: 'column',
-
   },
 
   mini_view: {
@@ -218,7 +225,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginRight: 20,
     paddingTop: 100,
-
   },
 
   mini_row: {
@@ -226,13 +232,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     //backgroundColor: 'blue',
     justifyContent: 'flex-end',
-
-
   },
-
-
-
-
 });
 
 export default HeaderTab;
