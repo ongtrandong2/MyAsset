@@ -22,7 +22,7 @@ export default function PossessionScreen({navigation}) {
               <View style={styles.row} key={index}>
                 <View style={styles.name_view}>
                   <Text style={styles.text}>
-                    {Number(item.key) + 1}. {item.name}
+                    {Number(index) + 1}. {item.name}
                   </Text>
                 </View>
                 <View style={styles.money_view}>

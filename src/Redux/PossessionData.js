@@ -8,6 +8,7 @@ const PossessionData = createSlice({
         key: action.payload.key,
         name: action.payload.name,
         value: action.payload.value,
+        note: action.payload.note,
       };
       state.push(newPossession);
     },

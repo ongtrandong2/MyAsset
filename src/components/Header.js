@@ -26,11 +26,11 @@ const Header = props => {
         </View>
         <Text style={styles.text}>MY ASSET</Text>
         <View style={styles.option_view}>
-          <View style={styles.box}>
+          {/* <View style={styles.box}>
             <Pressable
               onPress={props.onPressFunctionSetting}
               android_ripple={{color: '#bbbbbb'}}>
-              {/* <AntDesign name="home" size={24} color="black" /> */}
+             
               <Image
                 style={{height: 16, width: 5}}
                 source={require('../assets/images/Setting.png')}
@@ -42,20 +42,20 @@ const Header = props => {
             <Pressable
               onPress={props.onPressFunctionUser}
               android_ripple={{color: '#bbbbbb'}}>
-              {/* <AntDesign name="home" size={24} color="black" /> */}
+              
               <Image
                 style={styles.icon}
                 source={require('../assets/images/user2.png')}
                 resizeMode="stretch"
               />
             </Pressable>
-          </View>
+          </View> */}
 
           <View style={styles.box}>
             <Pressable
               onPress={props.onPressFunctionBack}
               android_ripple={{color: '#bbbbbb'}}>
-              {/* <AntDesign name="back" size={24} color="black" /> */}
+             
               <Image
                 style={styles.icon}
                 source={require('../assets/images/Back.png')}
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    marginTop: 20, //
+    marginTop: 10, //
     //backgroundColor:'#2F88FF',
     //position:'relative'
   },
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Wallpoet-Regular',
   },
 
   iconmoney_view: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     //backgroundColor: 'green',
-    marginLeft: 10,
+    //marginLeft: 10,
     height: '50%',
     width: '70%',
   },

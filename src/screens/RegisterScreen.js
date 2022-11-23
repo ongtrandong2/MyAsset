@@ -113,7 +113,7 @@ export default function RegisterScreen({navigation}) {
             />
           </View>
 
-          {/* </View> */}
+          
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
 
   view: {
     flex: 1,
+    backgroundColor : '#ffffff',
   },
 
   text: {

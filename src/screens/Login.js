@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import {useState} from 'react';
 
@@ -10,26 +10,22 @@ import {
   Image,
   Alert,
   Pressable,
+  StatusBar,
+ 
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
+import CustomButton from '../components/CustomButton';
 
 export default function Login({navigation}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  const onPressHandler = props => {
-    if (name.length == 0 || password.length == 0) {
-      Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
-    } else {
-      navigation.navigate('WelcomeScreen');
-    }
-  };
 
-  const onPressHandler_Register = () => {
+  const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
   const LoginUser = async (user, pass) => {
@@ -40,21 +36,24 @@ export default function Login({navigation}) {
       .then(documentSnapshot => {
         if (documentSnapshot.exists == true) {
           var pass2 = documentSnapshot.data();
-          console.log(pass2);
+          //console.log(pass2);
           if (pass == pass2.password) {
-            console.log('success');
+            //console.log('success');
             navigation.navigate('HomeScreen');
           } else {
-            console.log('wrong password');
+            //console.log('wrong password');
+            Alert.alert('Waring','Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu');
           }
         } else {
-          console.log('user not found');
+          //console.log('user not found');
+          Alert.alert('Waring','Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!')
         }
       })
       .catch(error => console.log(error));
   };
   return (
     <View style={styles.body}>
+      {/* <StatusBar barStyle="dark-content" backgroundColor={'transparent'} /> */}
       <View style={styles.title_view}>
         <View style={styles.icon1_view}>
           <Image
@@ -65,7 +64,7 @@ export default function Login({navigation}) {
         </View>
         <View style={styles.lable_view}>
           <View style={styles.lable}>
-            <Text style={styles.text}>MY ASSET</Text>
+            <Text style={[styles.text,{fontFamily:'Wallpoet-Regular'}]}>MY ASSET</Text>
           </View>
         </View>
       </View>
@@ -83,7 +82,9 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
+            placeholderStyle={{color:'grey'}}
             onChangeText={value => setName(value)}
+            value = {name}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
@@ -94,8 +95,10 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Mật khẩu"
+            placeholderStyle={{color:'grey',opacity:0.5}}
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
+            value={password}
             right={
               <TextInput.Icon
                 icon={
@@ -109,7 +112,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={styles.body_view}>
+        <View style={[styles.body_view,{paddingTop:10}]}>
           <View style={styles.forgetpass}>
             <Pressable>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
@@ -120,28 +123,19 @@ export default function Login({navigation}) {
         </View>
 
         <View style={styles.body_view}>
-          <View style={styles.login_button}>
-            <Pressable
-              style={{position: 'absolute'}}
-              onPress={() => {
-                LoginUser(name, password);
-              }}
-              // onPress={onPressHandler}
-              android_ripple={{color: '#996600'}}
-              hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-              <Text style={styles.text}> Đăng nhập </Text>
-            </Pressable>
-          </View>
+          <CustomButton 
+              style={{width: 150, height: 40}}
+              title={'Đăng nhập'}
+              onPressFunction={()=>{LoginUser(name,password)}}
+          />
         </View>
 
-        <View style={styles.body_view}>
-          <View style={styles.signup_button}>
-            <Pressable
-              onPress={onPressHandler_Register}
-              android_ripple={{color: '#996600'}}>
-              <Text style={styles.text}>Đăng kí tài khoản mới</Text>
-            </Pressable>
-          </View>
+        <View style={[styles.body_view,{padding:10}]}>
+            <CustomButton
+              style={{width: 230, height: 40}}
+              title={'Đăng kí tài khoản mới'}
+              onPressFunction={onRegister}
+            />
         </View>
         <View style={styles.body_view}>
           <LoginGoogle navigation={navigation} />
@@ -159,6 +153,7 @@ const styles = StyleSheet.create({
     //justifyContent:'center',
     backgroundColor: '#ffffff',
     flexDirection: 'column',
+    
   },
 
   text: {
@@ -181,8 +176,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '10%',
-    marginTop: 30, //
-    //padding:10,
+    //marginTop: 30, //
+    paddingTop:35,
+    paddingBottom:35,
   },
 
   lable: {
@@ -222,8 +218,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
-    //padding:5,
+    //margin: 1,
+    padding:3,
   },
 
   TextInput_style: {
@@ -231,32 +227,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     width: '70%',
     backgroundColor: '#ffffff',
-  },
-
-  login_button: {
-    marginTop: 10,
-    borderWidth: 2,
-    borderRadius: 20,
-    width: 150,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    //backgroundColor: '#BAE8F2',
-    backgroundColor: '#FFC700',
-    //borderColor: '#331CC2',
-    borderColor: '#000000',
-  },
-
-  signup_button: {
-    marginTop: 10,
-    borderWidth: 2,
-    borderRadius: 20,
-    width: 200,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFC700',
-    borderColor: '#000000',
   },
 
   forgetpass: {

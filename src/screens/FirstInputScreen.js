@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   StyleSheet,
@@ -9,19 +9,20 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {TextInput} from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput, Divider } from 'react-native-paper';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
-import {useSelector, useDispatch} from 'react-redux';
-import {UpdateMoney} from '../Redux/TotalMoney';
-import {addPossession, removePossession} from '../Redux/PossessionData';
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateMoney } from '../Redux/TotalMoney';
+import { addPossession, removePossession } from '../Redux/PossessionData';
+import generateUUID from '../functions/generateUUID';
 
-export default function FirstInput({navigation}) {
-  const money = useSelector(state => state.totalMoney.value);
+export default function FirstInput({ navigation }) {
+  //const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
 
@@ -29,16 +30,19 @@ export default function FirstInput({navigation}) {
 
   const [textName, setTextName] = useState('');
   const [textValue, setTextValue] = useState('');
+  //const [number, setNumber] = useState(0);
 
   //console.log(possessionData);
 
   const check = () => {
     if (textName !== '' && textValue !== '') {
+      //setNumber(number + 1);
       dispatch(
         addPossession({
-          key: possessionData.length,
+          key: generateUUID(),
           name: textName,
           value: textValue,
+          note:null,
         }),
       );
     }
@@ -72,7 +76,7 @@ export default function FirstInput({navigation}) {
         </View>
 
         <View style={styles.row}>
-          <View style={[{height: 50, width: '90%'}, styles.money_box]}>
+          <View style={[{ height: 50, width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_style}
               placeholder="0"
@@ -95,21 +99,26 @@ export default function FirstInput({navigation}) {
         {possessionData.map((item, index) => {
           return (
             <View style={styles.column} key={index}>
-              <View style={[{height: 100, width: '90%'}, styles.money_box]}>
-                <Text
-                  style={[
-                    styles.text,
-                    {marginVertical: 0, color: 'red', fontSize: 25},
-                  ]}>
-                  {item.name}
-                </Text>
-                <Text style={[styles.text, {marginVertical: 0}]}>
-                  {item.value}
-                </Text>
+              <View style={[{ height: 200, width: '90%' }, styles.money_box]}>
+                <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
+                  <Text
+                    style={[
+                      styles.text,
+                      { marginVertical: 0, color: 'red', fontSize: 25 },
+                    ]}>
+                    {item.name}
+                  </Text>
+                </View>
+
+                <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
+                  <Text style={[styles.text, { marginVertical: 0 }]}>
+                    {item.value}
+                  </Text>
+                </View>
                 <View style={styles.bin_view}>
                   <Pressable
                     onPress={() => dispatch(removePossession(index))}
-                    android_ripple={{color: '#bbbbbb'}}>
+                    android_ripple={{ color: '#bbbbbb' }}>
                     <Image
                       source={require('../assets/images/bin_icon.png')}
                       resizeMode="stretch"
@@ -121,7 +130,7 @@ export default function FirstInput({navigation}) {
           );
         })}
         <View style={styles.column}>
-          <View style={[{height: 200, width: '90%'}, styles.money_box]}>
+          <View style={[{ height: 200, width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_item}
               placeholder={'Tên'}
@@ -133,13 +142,14 @@ export default function FirstInput({navigation}) {
               placeholder="Trị giá"
               onChangeText={setTextValue}
               value={textValue}
+              keyboardType={'numeric'}
             />
           </View>
 
           <View style={styles.icon_plus}>
             <Pressable
               onPress={() => check()}
-              android_ripple={{color: '#bbbbbb'}}>
+              android_ripple={{ color: '#bbbbbb' }}>
               <Image
                 source={require('../assets/images/Plus.png')}
                 resizeMode="stretch"
@@ -149,7 +159,7 @@ export default function FirstInput({navigation}) {
         </View>
         <View style={styles.row}>
           <CustomButton
-            style={{width: 150, height: 40}}
+            style={{ width: 150, height: 40 }}
             title={'Hoàn tất'}
             //onPressFunction={()=>navigation.navigate('HomeScreen')}
             onPressFunction={onComplete}
@@ -217,7 +227,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: '80%',
     borderBottomColor: 'black',
-    //borderBottomWidth:1,
     backgroundColor: '#ffffff',
     fontSize: 20,
     textAlign: 'left',
@@ -254,6 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
+    paddingTop: 5,
 
     //marginHorizontal:5,
   },

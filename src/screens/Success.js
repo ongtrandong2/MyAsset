@@ -19,17 +19,6 @@ export default function SuccessScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.view}>
-      <View style={styles.row}>
-        <Pressable
-          onPress={onPressHandler_Home}
-          android_ripple={{color: '#bbbbbb'}}>
-          <Image
-            style={styles.icon}
-            source={require('../assets/images/Home.png')}
-            resizeMode="stretch"
-          />
-        </Pressable>
-      </View>
       <View style={styles.body}>
         <View style={styles.title_view}>
           <View style={styles.icon1_view}>

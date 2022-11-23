@@ -5,7 +5,11 @@ import InfoScreen from '../screens/InfoScreen';
 import PlanScreen from '../screens/PlanScreen';
 import PossessionScreen from '../screens/PossessionScreen';
 import StatisticsScreen from '../screens/StatisticsScreen';
-import PostScreen from '../screens/PostScreen';
+import ChangePassword from '../screens/ChangePassword';
+import StackInfo from './StackInfo';
+
+
+import TabPost from '../routes/TabPost';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -15,7 +19,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{header: () => null}}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="InfoScreen" component={InfoScreen} />
+      <Stack.Screen name="InfoScreen" component={StackInfo} />
     </Stack.Navigator>
   );
 };
@@ -24,6 +28,7 @@ const PlanStack = () => {
   return (
     <Stack.Navigator screenOptions={{header: () => null}}>
       <Stack.Screen name="PlanScreen" component={PlanScreen} />
+      <Stack.Screen name="InfoScreen" component={StackInfo} />
     </Stack.Navigator>
   );
 };
@@ -48,9 +53,11 @@ const PossessionStack = () => {
 const PostStack = () => {
   return (
     <Stack.Navigator screenOptions={{header: () => null}}>
-      <Stack.Screen name="Income" component={PostScreen} />
+      <Stack.Screen name="Post" component={TabPost} />
     </Stack.Navigator>
   );
 };
+
+
 
 export {HomeStack, PlanStack, StatisticsStack, PossessionStack, PostStack};

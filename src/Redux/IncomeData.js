@@ -8,6 +8,7 @@ const IncomeData = createSlice({
                 key: action.payload.key,
                 name: action.payload.name,
                 value: action.payload.value,
+                flag: action.payload.flag,
             };
             state.push(newIncome);
         },

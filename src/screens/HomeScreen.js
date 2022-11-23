@@ -7,6 +7,7 @@ import {
   ScrollView,
   Pressable,
   Animated,
+  StatusBar
 } from 'react-native';
 import HeaderTab from '../components/Header_Tab';
 
@@ -24,7 +25,8 @@ export default function HomeScreen({navigation}) {
   const [number, setNumber] = useState('50%');
 
   return (
-    <View style={[{paddingTop:30},styles.view]}>
+    <View style={styles.view}>
+      
       <HeaderTab
         onPressHandler={() => navigation.navigate('InfoScreen')}
         fontSize={20}
@@ -83,33 +85,44 @@ export default function HomeScreen({navigation}) {
           <ScrollView>
             {incomeData.map((item, index) => {
               return (
-                <View style={styles.figure_view} key={index}>
-                  <View style={styles.name_view}>
-                    <Text style={styles.text}>{item.name}</Text>
-                  </View>
+                <View  key={index}>
+                  {item.flag ===1 && (
+                    <View style = {styles.figure_view}>
+                      <View style={styles.name_view}>
+                        <Text style={styles.text}>{item.name}</Text>
+                      </View>
 
-                  <View style={styles.money_view}>
-                    <Text style={[styles.text, {color: '#00CC00'}]}>
-                      + {item.value} vnđ
-                    </Text>
-                  </View>
+                      <View style={styles.money_view}>
+                        <Text style={[styles.text, {color: '#00CC00'}]}>
+                          + {item.value} vnđ
+                        </Text>
+                      </View> 
+                    </View>
+
+                  )}
+                  
                 </View>
               );
             })}
 
             {outcomeData.map((item, index) => {
               return (
-                <View style={styles.figure_view} key={index}>
-                  <View style={styles.name_view}>
-                    <Text style={styles.text}>{item.name}</Text>
-                  </View>
+                <View key = {index}>
+                  {item.flag===1 && (
+                    <View style={styles.figure_view} >
+                      <View style={styles.name_view}>
+                        <Text style={styles.text}>{item.name}</Text>
+                      </View>
 
-                  <View style={styles.money_view}>
-                    <Text style={[styles.text, {color: '#DF2828'}]}>
-                      - {item.value} vnđ
-                    </Text>
-                  </View>
+                      <View style={styles.money_view}>
+                          <Text style={[styles.text, {color: '#DF2828'}]}>- {item.value} vnđ </Text>
+                      </View>
+                    </View>
+                  )}
+
                 </View>
+
+                
               );
             })}
           </ScrollView>
@@ -123,7 +136,7 @@ export default function HomeScreen({navigation}) {
       <View style={styles.big_row}>
         <View style={styles.box_view}>
           <ScrollView>
-            <View style={styles.figure_view}>
+            {/* <View style={styles.figure_view}>
               <View style={styles.name_view}>
                 <Text style={styles.text}>Nhà</Text>
               </View>
@@ -131,7 +144,51 @@ export default function HomeScreen({navigation}) {
               <View style={styles.money_view}>
                 <Text style={styles.text}>1</Text>
               </View>
-            </View>
+            </View> */}
+            {incomeData.map((item, index) => {
+              return (
+                <View  key={index}>
+                  {item.flag ===0 && (
+                    <View style = {styles.figure_view}>
+                      <View style={styles.name_view}>
+                        <Text style={styles.text}>- {item.name}</Text>
+                      </View>
+
+                      <View style={styles.money_view}>
+                        <Text style={[styles.text, {color: '#00CC00'}]}>
+                          + {item.value} vnđ
+                        </Text>
+                      </View> 
+                    </View>
+
+                  )}
+                  
+                </View>
+              );
+            })}
+
+            {outcomeData.map((item, index) => {
+              return (
+                <View key = {index}>
+                  {item.flag===0 && (
+                    <View style={styles.figure_view} >
+                      <View style={styles.name_view}>
+                        <Text style={styles.text}>+ {item.name}</Text>
+                      </View>
+
+                      <View style={styles.money_view}>
+                          <Text style={[styles.text, {color: '#DF2828'}]}>- {item.value} vnđ </Text>
+                      </View>
+                    </View>
+                  )}
+
+                </View>
+
+                
+              );
+            })}
+
+            
           </ScrollView>
         </View>
       </View>

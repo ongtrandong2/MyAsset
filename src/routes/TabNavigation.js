@@ -36,7 +36,7 @@ const Tabs = () => {
       tabBarOptions={{
         showLabel: false,
         style: {...styles.tab_style, ...styles.shadow},
-        keyboardHidesTabBar: true,
+        keyboardHidesTabBar: true, //
       }}>
       <Tab.Screen
         name="HomeScreen"
@@ -48,8 +48,8 @@ const Tabs = () => {
                 source={require('../assets/images/home2.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 45,
+                  height: 45,
                   opacity: focused ? 1 : 0.5,
                 }}
               />
@@ -72,8 +72,8 @@ const Tabs = () => {
                 source={require('../assets/images/plan.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 45,
+                  height: 45,
                   opacity: focused ? 1 : 0.5,
                 }}
               />
@@ -88,7 +88,7 @@ const Tabs = () => {
         name="PostScreen"
         component={PostStack}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: () => (
             <Image
               source={require('../assets/images/plusItem.png')}
               resizeMode="stretch"
@@ -111,8 +111,8 @@ const Tabs = () => {
                 source={require('../assets/images/chart.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 45,
+                  height: 45,
                   opacity: focused ? 1 : 0.5,
                 }}
               />
@@ -134,8 +134,8 @@ const Tabs = () => {
                 source={require('../assets/images/shop.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 45,
+                  height: 45,
                   opacity: focused ? 1 : 0.5,
                 }}
               />
@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
 
     elevation: 0,
-    backgroundColor: '#FFC700',
-
+    //backgroundColor: '#FFC700',
+    backgroundColor: 'yellow',
     height: 90,
   },
   shadow: {
