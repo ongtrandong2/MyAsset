@@ -33,15 +33,15 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
+      firestore()
+        .collection('Accounts')
+        .doc(username)
+        .set({name: name, password: password, email: email})
+        .then(() => {
+          navigation.navigate('Success');
+        })
+        .catch(error => console.log(error));
     }
-    firestore()
-      .collection('Accounts')
-      .doc(username)
-      .set({name: name, password: password, email: email})
-      .then(() => {
-        navigation.navigate('Success');
-      })
-      .catch(error => console.log(error));
   };
 
   return (

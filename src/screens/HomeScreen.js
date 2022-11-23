@@ -7,7 +7,7 @@ import {
   ScrollView,
   Pressable,
   Animated,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import HeaderTab from '../components/Header_Tab';
 
@@ -26,7 +26,6 @@ export default function HomeScreen({navigation}) {
 
   return (
     <View style={styles.view}>
-      
       <HeaderTab
         onPressHandler={() => navigation.navigate('InfoScreen')}
         fontSize={20}
@@ -85,9 +84,9 @@ export default function HomeScreen({navigation}) {
           <ScrollView>
             {incomeData.map((item, index) => {
               return (
-                <View  key={index}>
-                  {item.flag ===1 && (
-                    <View style = {styles.figure_view}>
+                <View key={index}>
+                  {item.flag === 1 && (
+                    <View style={styles.figure_view}>
                       <View style={styles.name_view}>
                         <Text style={styles.text}>{item.name}</Text>
                       </View>
@@ -96,33 +95,30 @@ export default function HomeScreen({navigation}) {
                         <Text style={[styles.text, {color: '#00CC00'}]}>
                           + {item.value} vnđ
                         </Text>
-                      </View> 
+                      </View>
                     </View>
-
                   )}
-                  
                 </View>
               );
             })}
 
             {outcomeData.map((item, index) => {
               return (
-                <View key = {index}>
-                  {item.flag===1 && (
-                    <View style={styles.figure_view} >
+                <View key={index}>
+                  {item.flag === 1 && (
+                    <View style={styles.figure_view}>
                       <View style={styles.name_view}>
                         <Text style={styles.text}>{item.name}</Text>
                       </View>
 
                       <View style={styles.money_view}>
-                          <Text style={[styles.text, {color: '#DF2828'}]}>- {item.value} vnđ </Text>
+                        <Text style={[styles.text, {color: '#DF2828'}]}>
+                          - {item.value} vnđ{' '}
+                        </Text>
                       </View>
                     </View>
                   )}
-
                 </View>
-
-                
               );
             })}
           </ScrollView>
@@ -147,9 +143,9 @@ export default function HomeScreen({navigation}) {
             </View> */}
             {incomeData.map((item, index) => {
               return (
-                <View  key={index}>
-                  {item.flag ===0 && (
-                    <View style = {styles.figure_view}>
+                <View key={index}>
+                  {item.flag === 0 && (
+                    <View style={styles.figure_view}>
                       <View style={styles.name_view}>
                         <Text style={styles.text}>- {item.name}</Text>
                       </View>
@@ -158,37 +154,32 @@ export default function HomeScreen({navigation}) {
                         <Text style={[styles.text, {color: '#00CC00'}]}>
                           + {item.value} vnđ
                         </Text>
-                      </View> 
+                      </View>
                     </View>
-
                   )}
-                  
                 </View>
               );
             })}
 
             {outcomeData.map((item, index) => {
               return (
-                <View key = {index}>
-                  {item.flag===0 && (
-                    <View style={styles.figure_view} >
+                <View key={index}>
+                  {item.flag === 0 && (
+                    <View style={styles.figure_view}>
                       <View style={styles.name_view}>
                         <Text style={styles.text}>+ {item.name}</Text>
                       </View>
 
                       <View style={styles.money_view}>
-                          <Text style={[styles.text, {color: '#DF2828'}]}>- {item.value} vnđ </Text>
+                        <Text style={[styles.text, {color: '#DF2828'}]}>
+                          - {item.value} vnđ{' '}
+                        </Text>
                       </View>
                     </View>
                   )}
-
                 </View>
-
-                
               );
             })}
-
-            
           </ScrollView>
         </View>
       </View>

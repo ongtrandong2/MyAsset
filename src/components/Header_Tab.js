@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Pressable, Modal} from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const HeaderTab = props => {
   const [showModal, setShowModal] = useState(false);
-
+  const navigation = useNavigation();
   return (
     <View style={styles.view}>
       <View style={styles.header_view}>

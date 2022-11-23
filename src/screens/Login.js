@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {useState} from 'react';
 
@@ -11,7 +10,6 @@ import {
   Alert,
   Pressable,
   StatusBar,
- 
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
@@ -23,7 +21,6 @@ export default function Login({navigation}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
-
 
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
@@ -42,11 +39,17 @@ export default function Login({navigation}) {
             navigation.navigate('HomeScreen');
           } else {
             //console.log('wrong password');
-            Alert.alert('Waring','Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu');
+            Alert.alert(
+              'Waring',
+              'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu',
+            );
           }
         } else {
           //console.log('user not found');
-          Alert.alert('Waring','Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!')
+          Alert.alert(
+            'Waring',
+            'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!',
+          );
         }
       })
       .catch(error => console.log(error));
@@ -64,7 +67,9 @@ export default function Login({navigation}) {
         </View>
         <View style={styles.lable_view}>
           <View style={styles.lable}>
-            <Text style={[styles.text,{fontFamily:'Wallpoet-Regular'}]}>MY ASSET</Text>
+            <Text style={[styles.text, {fontFamily: 'Wallpoet-Regular'}]}>
+              MY ASSET
+            </Text>
           </View>
         </View>
       </View>
@@ -82,9 +87,9 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
-            placeholderStyle={{color:'grey'}}
+            placeholderStyle={{color: 'grey'}}
             onChangeText={value => setName(value)}
-            value = {name}
+            value={name}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
@@ -95,7 +100,7 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Mật khẩu"
-            placeholderStyle={{color:'grey',opacity:0.5}}
+            placeholderStyle={{color: 'grey', opacity: 0.5}}
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
             value={password}
@@ -112,7 +117,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view,{paddingTop:10}]}>
+        <View style={[styles.body_view, {paddingTop: 10}]}>
           <View style={styles.forgetpass}>
             <Pressable>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
@@ -123,19 +128,21 @@ export default function Login({navigation}) {
         </View>
 
         <View style={styles.body_view}>
-          <CustomButton 
-              style={{width: 150, height: 40}}
-              title={'Đăng nhập'}
-              onPressFunction={()=>{LoginUser(name,password)}}
+          <CustomButton
+            style={{width: 150, height: 40}}
+            title={'Đăng nhập'}
+            onPressFunction={() => {
+              LoginUser(name, password);
+            }}
           />
         </View>
 
-        <View style={[styles.body_view,{padding:10}]}>
-            <CustomButton
-              style={{width: 230, height: 40}}
-              title={'Đăng kí tài khoản mới'}
-              onPressFunction={onRegister}
-            />
+        <View style={[styles.body_view, {padding: 10}]}>
+          <CustomButton
+            style={{width: 230, height: 40}}
+            title={'Đăng kí tài khoản mới'}
+            onPressFunction={onRegister}
+          />
         </View>
         <View style={styles.body_view}>
           <LoginGoogle navigation={navigation} />
@@ -153,7 +160,6 @@ const styles = StyleSheet.create({
     //justifyContent:'center',
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-    
   },
 
   text: {
@@ -177,8 +183,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: '10%',
     //marginTop: 30, //
-    paddingTop:35,
-    paddingBottom:35,
+    paddingTop: 35,
+    paddingBottom: 35,
   },
 
   lable: {
@@ -219,7 +225,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //margin: 1,
-    padding:3,
+    padding: 3,
   },
 
   TextInput_style: {
