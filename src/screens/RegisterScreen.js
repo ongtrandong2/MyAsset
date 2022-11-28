@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {View, StyleSheet, Text, TextInput, Keyboard, Alert} from 'react-native';
 import {Directions, ScrollView} from 'react-native-gesture-handler';
@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
+import {firebase} from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 export default function RegisterScreen({navigation}) {
@@ -14,17 +15,11 @@ export default function RegisterScreen({navigation}) {
   };
 
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [email, setEmail] = useState('');
   const CheckData = () => {
-    if (
-      name.length === 0 ||
-      username.length === 0 ||
-      password.length === 0 ||
-      confirm.length === 0
-    ) {
+    if (name.length === 0 || password.length === 0 || confirm.length === 0) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
     } else if (
       password.length != 0 &&
@@ -33,14 +28,43 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
-      firestore()
-        .collection('Accounts')
-        .doc(username)
-        .set({name: name, password: password, email: email})
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          navigation.navigate('Success');
+          firebase
+            .auth()
+            .currentUser.sendEmailVerification({
+              handleCodeInApp: true,
+              url: 'https://myasset-5493e.firebaseapp.com',
+            })
+            .then(() => {
+              Alert.alert(
+                'Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',
+              );
+            })
+            .catch(error => {
+              Alert.alert(error.message);
+            })
+            .then(() => {
+              firebase
+                .firestore()
+                .collection('Accounts')
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                  name: name,
+                  password: password,
+                  email: email,
+                  verified: true,
+                });
+            });
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          Alert.alert(error.message);
+        })
+        .then(() => {
+          navigation.navigate('Login');
+        });
     }
   };
 
@@ -72,21 +96,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            2. Tên đăng nhập
-            <Text style={{color: 'red'}}> *</Text>
-          </Text>
-        </View>
-
-        <View style={styles.row}>
-          <TextInput
-            style={styles.textinput_style}
-            onChangeText={value => setUsername(value)}
-          />
-        </View>
-
-        <View style={styles.text_view}>
-          <Text style={styles.text}>
-            3. Email
+            2. Email
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -100,7 +110,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            4. Mật khẩu
+            3. Mật khẩu
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -115,7 +125,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            5. Xác nhận mật khẩu
+            4. Xác nhận mật khẩu
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -166,8 +176,7 @@ const styles = StyleSheet.create({
 
   row_button: {
     flexDirection: 'row',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 40,
     justifyContent: 'center',
   },
 

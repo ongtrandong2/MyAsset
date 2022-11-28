@@ -1,58 +1,39 @@
 import React from 'react';
 import {useState} from 'react';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  Pressable,
-  StatusBar,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, Alert, Pressable} from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
 
 export default function Login({navigation}) {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
-  const LoginUser = async (user, pass) => {
-    firestore()
-      .collection('Accounts')
-      .doc(user)
-      .get()
-      .then(documentSnapshot => {
-        if (documentSnapshot.exists == true) {
-          var pass2 = documentSnapshot.data();
-          //console.log(pass2);
-          if (pass == pass2.password) {
-            //console.log('success');
+  const LoginUser = async (email, password) => {
+    if (email.length == 0 || password.length == 0) {
+      Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+    } else {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          if (firebase.auth().currentUser.emailVerified) {
             navigation.navigate('HomeScreen');
           } else {
-            //console.log('wrong password');
-            Alert.alert(
-              'Waring',
-              'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu',
-            );
+            Alert.alert('Warning!', 'Vui lòng xác nhận email!');
           }
-        } else {
-          //console.log('user not found');
-          Alert.alert(
-            'Waring',
-            'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!',
-          );
-        }
-      })
-      .catch(error => console.log(error));
+        })
+        .catch(error => {
+          Alert.alert('Warning!', error.message);
+        });
+    }
   };
   return (
     <View style={styles.body}>
@@ -88,8 +69,8 @@ export default function Login({navigation}) {
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
             placeholderStyle={{color: 'grey'}}
-            onChangeText={value => setName(value)}
-            value={name}
+            onChangeText={value => setEmail(value)}
+            value={email}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
@@ -132,7 +113,7 @@ export default function Login({navigation}) {
             style={{width: 150, height: 40}}
             title={'Đăng nhập'}
             onPressFunction={() => {
-              LoginUser(name, password);
+              LoginUser(email, password);
             }}
           />
         </View>

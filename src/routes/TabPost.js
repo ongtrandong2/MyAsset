@@ -13,7 +13,7 @@ export default function TabPost() {
         inactiveTintColor: '#CCCCCC',
         showLabel: true, // hide the name of the App
         labelStyle: {fontSize: 20, fontWeight: 'bold'},
-        style:{paddingTop:0}
+        style: {paddingTop: 0},
       }}>
       <Tab.Screen name="CHI TIÊU" component={Outcome} />
       <Tab.Screen name="THU NHẬP" component={Income} />

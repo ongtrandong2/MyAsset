@@ -1,9 +1,29 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
+import {useEffect} from 'react';
+import {useState} from 'react';
+import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
-
-export default function InfoScreen({ navigation }) {
+import {firebase} from '@react-native-firebase/firestore';
+import {doc, getDoc} from 'firebase/firestore';
+export default function InfoScreen({navigation}) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('Accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.exists) {
+          setName(snapshot.data().name);
+          setEmail(snapshot.data().email);
+        } else {
+          console.log('No such document!');
+        }
+      });
+  });
   return (
     <View style={styles.view}>
       <Header
@@ -12,94 +32,106 @@ export default function InfoScreen({ navigation }) {
         title="THÔNG TIN CÁ NHÂN"
       />
 
-
       <View style={styles.big_row}>
-
         <View style={styles.title}>
           <View style={styles.circle}>
-            <Text style={{ fontSize: 50, fontWeight: 'bold', color: "black" }}>Đ</Text>
+            <Text style={{fontSize: 50, fontWeight: 'bold', color: 'black'}}>
+              Đ
+            </Text>
           </View>
 
           <View style={styles.name_box}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>ĐÔNG ĐÔNG</Text>
+            <Text style={{fontSize: 30, fontWeight: 'bold', color: 'black'}}>
+              {name}
+            </Text>
           </View>
         </View>
 
-
-        <View style={[styles.row, { height: 10 }]}>
-
-        </View>
+        <View style={[styles.row, {height: 10}]}></View>
 
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 20, height: 20, marginRight: 5 }}
+              style={{width: 20, height: 20, marginRight: 5}}
               source={require('../assets/images/user2.png')}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View
+              style={{height: 40, width: '90%', justifyContent: 'flex-end'}}>
               <Text style={styles.text}>Tên đăng nhập</Text>
             </View>
           </View>
 
           <View style={styles.right_box}>
-            <Text style={styles.text}>Đông Đông</Text>
+            <Text style={styles.text}>{name}</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 30, height: 30, marginRight: 5,justifyContent:'flex-end' }}
-              source={{uri:'https://img.icons8.com/ios/50/null/secured-letter--v1.png'}}
+              style={{
+                width: 30,
+                height: 30,
+                marginRight: 5,
+                justifyContent: 'flex-end',
+              }}
+              source={{
+                uri: 'https://img.icons8.com/ios/50/null/secured-letter--v1.png',
+              }}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View
+              style={{height: 40, width: '90%', justifyContent: 'flex-end'}}>
               <Text style={styles.text}>Email</Text>
             </View>
           </View>
 
-          <View style={[styles.right_box,{width:200}]}>
-            <Text style={styles.text}>dongdong@gmail.com</Text>
+          <View style={[styles.right_box, {width: 200}]}>
+            <Text style={styles.text}>{email}</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 20, height: 20, marginRight: 5 }}
+              style={{width: 20, height: 20, marginRight: 5}}
               source={require('../assets/images/key.png')}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View
+              style={{height: 40, width: '90%', justifyContent: 'flex-end'}}>
               <Text style={styles.text}>Mật khẩu</Text>
             </View>
           </View>
 
           <View style={styles.right_box}>
             <Pressable
-              onPress={()=>{navigation.navigate('ChangePassword')}}
+              onPress={() => {
+                navigation.navigate('ChangePassword');
+              }}
               android_ripple={{color: '#CCFFFF'}}
-              style={({pressed}) => [{backgroundColor: pressed ? '#CCFFFF' : 'white'}]}
-            >
-                <Text style={styles.press_text}>Đổi mật khẩu</Text>
+              style={({pressed}) => [
+                {backgroundColor: pressed ? '#CCFFFF' : 'white'},
+              ]}>
+              <Text style={styles.press_text}>Đổi mật khẩu</Text>
             </Pressable>
           </View>
-
         </View>
       </View>
 
-      <View style = {[styles.big_row, {paddingTop:30}]}>
-          <CustomButton
-              title = {'Chỉnh sửa thông tin cá nhân'}
-              style = {{height: 40, width: 250}}
-              onPressFunction={()=>{navigation.navigate('ChangeInfo')}}
-          />
+      <View style={[styles.big_row, {paddingTop: 30}]}>
+        <CustomButton
+          title={'Chỉnh sửa thông tin cá nhân'}
+          style={{height: 40, width: 250}}
+          onPressFunction={() => {
+            navigation.navigate('ChangeInfo');
+          }}
+        />
       </View>
-
     </View>
   );
 }
@@ -109,20 +141,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-
   },
 
   text: {
     fontSize: 20,
     color: '#000000',
-    fontFamily: 'Itim-Regular'
+    fontFamily: 'Itim-Regular',
   },
 
   big_row: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -136,8 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: 'black'
-
+    borderBottomColor: 'black',
   },
   title: {
     flexDirection: 'row',
@@ -149,11 +178,9 @@ const styles = StyleSheet.create({
     //justifyContent:'center',
     alignItems: 'center',
     padding: 10,
-
   },
 
   circle: {
-
     width: 100,
     height: 100,
     borderRadius: 100,
@@ -161,14 +188,12 @@ const styles = StyleSheet.create({
     //marginLeft:10,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
 
   name_box: {
     width: 200,
     height: 40,
     //backgroundColor:'yellow',
-
   },
 
   left_box: {
@@ -179,7 +204,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     //justifyContent:'center',
     flexDirection: 'row',
-
   },
 
   right_box: {
@@ -190,14 +214,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 5,
   },
-  press_text:{
+  press_text: {
     fontSize: 20,
     color: '#0000CC',
     //fontStyle:'italic',
     fontFamily: 'Itim-Regular',
-    textDecorationLine:'underline',
-
+    textDecorationLine: 'underline',
   },
-
 });
-
