@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Pressable, Image, KeyboardAvoidingView} from 'react-native';
 
 
 import CustomButton from '../components/CustomButton';
@@ -12,7 +12,8 @@ import { addOutcome } from '../Redux/OutcomeData';
 import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 import PossessionData, { addPossession } from '../Redux/PossessionData';
 
-import generateUUID from '../functions/generateUUID';
+import generateUUID from '../constants/generateUUID';
+import scale from '../constants/scale';
 
 const data_in = [
     {key: '1', value: 'Tiền Lương'},
@@ -113,7 +114,7 @@ const data_in = [
     
    
     return (
-      <View style={styles.view}>
+      <KeyboardAvoidingView style={styles.view}>
         <ScrollView>
         
         <View style={styles.title_view}>
@@ -122,12 +123,12 @@ const data_in = [
   
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>1.Khoản thu :</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>1.Khoản thu :</Text>
 
             {flag === true ? (
               <View style={styles.customDropList}>
                 <TextInput
-                  style={[styles.textInput_box, { borderBottomWidth: 0, width:180, padding:0, fontSize:18 }]}
+                  style={[styles.textInput_box, { borderBottomWidth: 0, width:'90%', padding:0, fontSize:scale(15) }]}
                   placeholder='Nhập Khoản thu khác'
                   onChangeText={setIncomeName}
                   value={incomeName}
@@ -137,7 +138,7 @@ const data_in = [
                   android_ripple={{ color: 'grey' }}
                 >
                   <Image
-                    style={{ height: 20, width: 20 }}
+                    style={{ height: scale(20), width: scale(20) }}
                     source={{ uri: 'https://img.icons8.com/pastel-glyph/64/null/expand-arrow.png' }}
                     resizeMode="stretch"
                   />
@@ -148,7 +149,7 @@ const data_in = [
             ) : 
             <Dropdown
               style={styles.dropdown}
-              placeholderStyle={{fontSize: 18, color:'black'}}
+              placeholderStyle={{fontSize: scale(18), color:'black'}}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               data={data_in}
@@ -172,7 +173,7 @@ const data_in = [
   
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>2.Số tiền:</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>2.Số tiền:</Text>
             <TextInput
               style={styles.textInput_box}
               onChangeText={setIncomeValue}
@@ -181,21 +182,21 @@ const data_in = [
           </View>
         </View>
   
-        <View style={[styles.row,{paddingTop:10}]}>
+        <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{height: 30, width: 100}}
+            style={{height: scale(30), width: '20%'}}
             title={'Lưu'}
             onPressFunction={() => onSaveIncome()}
           />
         </View>
   
-        <View style={styles.title_view}>
+        <View style={[styles.title_view,{marginTop: scale(10)}]}>
           <Text style={styles.text}>TÀI SẢN</Text>
         </View>
   
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>1.Tên hiện vật:</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>1.Tên hiện vật:</Text>
   
             <TextInput 
               style={styles.textInput_box} 
@@ -205,9 +206,9 @@ const data_in = [
           </View>
         </View>
   
-        <View style={[styles.row,{paddingVertical:0}]}>
+        <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>2.Nguồn tiền:</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>2.Nguồn tiền:</Text>
   
             <View style={styles.checkbox_row}>
               <RadioButton
@@ -216,17 +217,15 @@ const data_in = [
                 onPress={() => { setChecked('first') , setPossessionValue('')} }
                 color={'black'}
               />
-              <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>Cá nhân</Text>
-            </View>
-  
-            <View style={styles.checkbox_row}>
+              <Text style={{fontSize: scale(20), color: '#000000'}}>Cá nhân</Text>
+           
               <RadioButton
                 value="second"
                 status={checked === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => {setChecked('second'), setPossessionValue('0')}}
                 color={'black'}
               />
-              <Text style={{fontSize: 20, color: '#000000', marginTop: 4}}>Khác</Text>
+              <Text style={{fontSize: scale(20), color: '#000000'}}>Khác</Text>
             </View>
           </View>
         </View>
@@ -235,12 +234,12 @@ const data_in = [
         <View style={styles.row}>
           <View style={styles.sub_row}>
             <Image
-              style = {{height:10,width:10}}
+              style = {{height:scale(10),width:scale(10), marginBottom:scale(7)}}
               source={require('../assets/images/dot.png')}
               resizeMode='stretch'
               
             />
-            <Text style={{fontSize: 20, color: '#000000'}}>Số tiền:</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>Số tiền:</Text>
   
             <TextInput 
                 style={styles.textInput_box} 
@@ -263,7 +262,7 @@ const data_in = [
 
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{fontSize: 20, color: '#000000'}}>3.Ghi chú:</Text>
+            <Text style={{fontSize: scale(20), color: '#000000'}}>3.Ghi chú:</Text>
   
             <TextInput 
                 style={styles.textInput_box} 
@@ -275,9 +274,9 @@ const data_in = [
         </View>
               
 
-        <View style={[styles.row,{paddingTop: 10, paddingBottom:100}]}>
+        <View style={[styles.row,{paddingTop: scale(10), paddingBottom:scale(100)}]}>
           <CustomButton
-            style={{ height: 30, width: 100 }}
+            style={{ height: scale(30), width: '20%' }}
             title={'Lưu'}
             onPressFunction={() => onSavePossession()}
           />
@@ -285,7 +284,7 @@ const data_in = [
 
 
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -296,21 +295,21 @@ const data_in = [
       backgroundColor: '#ffffff',
     },
     text: {
-      fontSize: 20,
+      fontSize: scale(20),
       color: '#000000',
     },
-    tab_view: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      top: 10,
-    },
+    // tab_view: {
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    //   top: 10,
+    // },
     title_view: {
       alignItems: 'center',
       justifyContent: 'center',
       width: '100%',
-      height: 50,
+      height: scale(50),
       backgroundColor: '#FFEFB6',
-      marginTop: 10,
+      marginTop: scale(10),
       borderTopColor: '#FF5C00',
       borderBottomColor: '#FF5C00',
       borderTopWidth: 2,
@@ -319,17 +318,18 @@ const data_in = [
     row: {
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 5,
-      //padding:10,
+      //marginTop: 5,
+      paddingTop:scale(5),
       backgroundColor: '#ffffff',
       //backgroundColor:'blue',
+      paddingHorizontal:scale(5),
     },
   
     sub_row: {
       flexDirection: 'row',
       justifyContent:'space-between',
       //marginTop:10,
-      height: 50,
+      height: scale(50),
       //marginHorizontal: 45,
       //backgroundColor:'pink',
       width: '90%',
@@ -338,72 +338,58 @@ const data_in = [
     },
   
     textInput_box: {
-      marginHorizontal: 10,
-      height: 30,
+      //marginHorizontal: 10,
+      height: scale(30),
       width: '60%',
       //backgroundColor:'pink',
       borderBottomWidth: 1,
       borderBottomColor: '#000000',
-      padding: 2,
-      fontSize: 20,
+      padding: scale(2),
+      fontSize: scale(20),
     },
     /// Drop down Style
   
     dropdown: {
-      height: 30,
+      height: scale(30),
       width: '60%',
       borderColor: 'black',
       borderBottomWidth: 1,
       //borderRadius: 8,
-      paddingHorizontal: 8,
+      //paddingHorizontal: 8,
     },
   
-    label: {
-      position: 'absolute',
-      backgroundColor: 'white',
-      left: 22,
-      top: 8,
-      zIndex: 999,
-      paddingHorizontal: 8,
-      fontSize: 18,
-    },
-  
+    
     inputSearchStyle: {
-      height: 40,
-      fontSize: 18,
+      height: scale(40),
+      fontSize: scale(18),
       color: '#000000',
     },
   
     selectedTextStyle: {
-      fontSize: 18,
+      fontSize: scale(18),
       color: 'black',
     },
   
-    checkbox_row: {
-      flexDirection: 'row',
-      //backgroundColor:'pink',
-      width: 100,
-      height: 30,
-      marginHorizontal: 5,
-    },
 
     customDropList: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       //backgroundColor:'pink',
-      //width:'60%',
-      width: 220,
-      height: 30,
+      
+      width: '60%',
+      height: scale(30),
       alignItems: 'center',
       borderBottomWidth: 1,
       //paddingHorizontal:10,
     },
     checkbox_row: {
       flexDirection: 'row',
-      //backgroundColor:'pink',
-      width: 100,
-      height: 30,
-      marginHorizontal: 5,
+      //backgroundColor:'blue',
+      width: '60%',
+      height: scale(30),
+      marginHorizontal:scale(5),
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   
   });

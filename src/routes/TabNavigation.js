@@ -1,19 +1,19 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
-import {
-  HomeStack,
-  PlanStack,
-  StatisticsStack,
-  PossessionStack,
-  PostStack,
-} from '../routes/StackNavigation';
+import HomeScreen from '../screens/HomeScreen';
+import PlanScreen from '../screens/PlanScreen';
+import PossessionScreen from '../screens/PossessionScreen';
+import StatisticsScreen from '../screens/StatisticsScreen';
+import TabPost from './TabPost';
+import scale from '../constants/scale';
 
 const Tab = createBottomTabNavigator();
 const CustomTabBarButton = ({children, onPress}) => (
   <TouchableOpacity
     style={{
-      top: -30,
+      //top: -30,
+      top:-10,
       justifyContent: 'center',
       alignItems: 'center',
       ...styles.shadow,
@@ -33,14 +33,19 @@ const CustomTabBarButton = ({children, onPress}) => (
 const Tabs = () => {
   return (
     <Tab.Navigator
+      initialRouteName='HomeScreen'
       tabBarOptions={{
         showLabel: false,
         style: {...styles.tab_style, ...styles.shadow},
-        keyboardHidesTabBar: true, //
-      }}>
+        keyboardHidesTabBar: true,
+        tabBarHideOnKeyboard :true, 
+      }}
+
+      header={{}}
+      >
       <Tab.Screen
         name="HomeScreen"
-        component={HomeStack}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.icon_view}>
@@ -48,13 +53,13 @@ const Tabs = () => {
                 source={require('../assets/images/home2.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 45,
-                  height: 45,
+                  width: scale(50),
+                  height: scale(50),
                   opacity: focused ? 1 : 0.5,
                 }}
               />
 
-              <Text style={{color: focused ? '#000000' : '#748c94'}}>
+              <Text style={[{color: focused ? '#000000' : '#748c94'}, styles.text]}>
                 Tổng quan
               </Text>
             </View>
@@ -64,7 +69,7 @@ const Tabs = () => {
 
       <Tab.Screen
         name="PlanScreen"
-        component={PlanStack}
+        component={PlanScreen}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.icon_view}>
@@ -72,12 +77,12 @@ const Tabs = () => {
                 source={require('../assets/images/plan.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 45,
-                  height: 45,
+                  width: scale(50),
+                  height: scale(50),
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={{color: focused ? '#000000' : '#748c94'}}>
+              <Text style={[{color: focused ? '#000000' : '#748c94'},styles.text]}>
                 Kế hoạch
               </Text>
             </View>
@@ -86,7 +91,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="PostScreen"
-        component={PostStack}
+        component={TabPost}
         options={{
           tabBarIcon: () => (
             <Image
@@ -103,7 +108,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="StatisticsScreen"
-        component={StatisticsStack}
+        component={StatisticsScreen}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.icon_view}>
@@ -111,12 +116,12 @@ const Tabs = () => {
                 source={require('../assets/images/chart.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 45,
-                  height: 45,
+                  width: scale(50),
+                  height: scale(50),
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={{color: focused ? '#000000' : '#748c94'}}>
+              <Text style={[{color: focused ? '#000000' : '#748c94'},styles.text]}>
                 Thống kê
               </Text>
             </View>
@@ -126,7 +131,7 @@ const Tabs = () => {
 
       <Tab.Screen
         name="PossessionScreen"
-        component={PossessionStack}
+        component={PossessionScreen}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={styles.icon_view}>
@@ -134,12 +139,12 @@ const Tabs = () => {
                 source={require('../assets/images/shop.png')}
                 resizeMode="stretch"
                 style={{
-                  width: 45,
-                  height: 45,
+                  width: scale(50),
+                  height: scale(50),
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={{color: focused ? '#000000' : '#748c94'}}>
+              <Text style={[{color: focused ? '#000000' : '#748c94'}, styles.text]}>
                 Tài sản
               </Text>
             </View>
@@ -153,23 +158,22 @@ const Tabs = () => {
 const styles = StyleSheet.create({
   tab_style: {
     position: 'absolute',
-
-    bottom: 20,
-    left: 20,
-    right: 20,
+    bottom: scale(20),
+    left: scale(20),
+    right: scale(20),
     borderRadius: 15,
-
     elevation: 0,
     //backgroundColor: '#FFC700',
     backgroundColor: 'yellow',
-    height: 90,
+    height: scale(100),
+    width:'90%'
   },
   shadow: {
     //shadowColor:'#7F5Df0',
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
-      height: 20,
+      height: scale(20),
     },
 
     shadowOpacity: 0.2,
@@ -180,7 +184,10 @@ const styles = StyleSheet.create({
   icon_view: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 10,
+    //top: scale(5),
+  },
+  text:{
+    fontSize:scale(15),
   },
 });
 

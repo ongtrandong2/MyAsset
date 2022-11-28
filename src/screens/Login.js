@@ -1,25 +1,25 @@
 
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
   Alert,
   Pressable,
-  StatusBar,
- 
-} from 'react-native';
+  KeyboardAvoidingView,
+}
+  from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import {TextInput} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
+import scale from '../constants/scale';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -39,37 +39,36 @@ export default function Login({navigation}) {
           //console.log(pass2);
           if (pass == pass2.password) {
             //console.log('success');
-            navigation.navigate('HomeScreen');
+            navigation.navigate('Drawer');
           } else {
             //console.log('wrong password');
-            Alert.alert('Waring','Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu');
+            Alert.alert('Waring', 'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu');
           }
         } else {
           //console.log('user not found');
-          Alert.alert('Waring','Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!')
+          Alert.alert('Waring', 'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!')
         }
       })
       .catch(error => console.log(error));
   };
   return (
-    <View style={styles.body}>
-      {/* <StatusBar barStyle="dark-content" backgroundColor={'transparent'} /> */}
-      <View style={styles.title_view}>
-        <View style={styles.icon1_view}>
-          <Image
-            style={styles.icon_money}
-            source={require('../assets/images/icon_money.png')}
-            resizeMode="stretch"
-          />
-        </View>
-        <View style={styles.lable_view}>
-          <View style={styles.lable}>
-            <Text style={[styles.text,{fontFamily:'Wallpoet-Regular'}]}>MY ASSET</Text>
+    <KeyboardAvoidingView style={styles.body} >
+      <ScrollView>
+        <View style={styles.title_view}>
+          <View style={styles.icon1_view}>
+            <Image
+              style={styles.icon_money}
+              source={require('../assets/images/icon_money.png')}
+              resizeMode="stretch"
+            />
+          </View>
+          <View style={styles.label_view}>
+            <View style={styles.label}>
+              <Text style={{ fontFamily: 'Wallpoet-Regular', color: 'black', fontSize: scale(20) }}>MY ASSET</Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      <ScrollView>
         <View style={styles.body_view}>
           <Image
             style={styles.image}
@@ -82,7 +81,7 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
-            placeholderStyle={{color:'grey'}}
+            placeholderTextColor={'grey'}
             onChangeText={value => setName(value)}
             value = {name}
             right={
@@ -95,7 +94,7 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Mật khẩu"
-            placeholderStyle={{color:'grey',opacity:0.5}}
+            placeholderTextColor={'grey'}
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
             value={password}
@@ -112,7 +111,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view,{paddingTop:10}]}>
+        <View style={[styles.body_view,{paddingTop:scale(10)}]}>
           <View style={styles.forgetpass}>
             <Pressable>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
@@ -124,7 +123,7 @@ export default function Login({navigation}) {
 
         <View style={styles.body_view}>
           <CustomButton 
-              style={{width: 150, height: 40}}
+              style={{width: '40%', height:scale(40)}}
               title={'Đăng nhập'}
               onPressFunction={()=>{LoginUser(name,password)}}
           />
@@ -132,85 +131,80 @@ export default function Login({navigation}) {
 
         <View style={[styles.body_view,{padding:10}]}>
             <CustomButton
-              style={{width: 230, height: 40}}
+              style={{width: '60%', height: scale(40)}}
               title={'Đăng kí tài khoản mới'}
               onPressFunction={onRegister}
             />
         </View>
-        <View style={styles.body_view}>
+
+        {/* <View style={styles.body_view}> */}
           <LoginGoogle navigation={navigation} />
-        </View>
+        {/* </View> */}
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    //alignItems: 'center',
-    //justifyContent: 'flex-start',
-    //justifyContent:'center',
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-    
+    //paddingBottom:20,
   },
 
   text: {
     color: 'black',
-    fontSize: 15,
+    fontSize: scale(15),
     textAlign: 'center',
     fontWeight: 'bold',
   },
 
   image: {
-    width: 300,
+    width: '80%',
     height: 300,
-    marginTop: 5, //
+    //marginTop: 5,
     alignItems: 'center',
   },
 
   title_view: {
-    backgroundColor: '#ffffff',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: '10%',
-    //marginTop: 30, //
-    paddingTop:35,
-    paddingBottom:35,
+    paddingHorizontal: scale(20),
+    backgroundColor: '#ffffff',
   },
 
-  lable: {
+  label: {
     borderWidth: 4,
     borderRadius: 20,
     borderColor: '#FFC700',
-    height: 50,
-    width: 200,
+    height: scale(50),
+    width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#ffffff',
   },
 
-  lable_view: {
+  label_view: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 30,
-    marginRight: 20,
+    height: scale(30),
+    //marginRight: 20,
+    backgroundColor:'#ffffff',
   },
 
   icon1_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fffffff'
 
-    marginLeft: 10,
-    height: 30,
   },
 
   icon_money: {
-    width: 70,
-    height: 70,
+    width: scale(70),
+    height:scale(70),
   },
 
   body_view: {
@@ -219,20 +213,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //margin: 1,
-    padding:3,
+    padding: scale(3),
   },
 
   TextInput_style: {
-    //borderBottomWidth: 1,
     borderBottomColor: 'black',
     width: '70%',
     backgroundColor: '#ffffff',
+    //fontSize:18,
   },
 
   forgetpass: {
     //borderBottomWidth: 1,
     borderBottomColor: 'black',
-    width: 150,
+    width: '50%',
     backgroundColor: '#ffffff',
   },
 });

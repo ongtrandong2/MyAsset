@@ -8,10 +8,10 @@ import {
   Pressable,
   Image,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TextInput, Divider } from 'react-native-paper';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import { TextInput } from 'react-native-paper';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
@@ -19,7 +19,8 @@ import CustomButton from '../components/CustomButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { UpdateMoney } from '../Redux/TotalMoney';
 import { addPossession, removePossession } from '../Redux/PossessionData';
-import generateUUID from '../functions/generateUUID';
+import generateUUID from '../constants/generateUUID';
+import scale from '../constants/scale';
 
 export default function FirstInput({ navigation }) {
   //const money = useSelector(state => state.totalMoney.value);
@@ -42,7 +43,7 @@ export default function FirstInput({ navigation }) {
           key: generateUUID(),
           name: textName,
           value: textValue,
-          note:null,
+          note: null,
         }),
       );
     }
@@ -53,7 +54,7 @@ export default function FirstInput({ navigation }) {
   const onComplete = () => {
     if (setTextMoney !== '') {
       dispatch(UpdateMoney(Number(textMoney)));
-      navigation.navigate('HomeScreen');
+      navigation.navigate('Drawer');
     } else {
       Alert.alert('Warning! Vui lòng nhập dữ liệu');
     }
@@ -64,19 +65,19 @@ export default function FirstInput({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.view}>
-      <Header onPressFunctionBack={onPressHandler_Back} />
+    <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
-        <View style={styles.row}>
-          <Text style={styles.title}>Vui lòng nhập tài sản của bạn !</Text>
-        </View>
-
+        <Header
+          onPressFunctionBack={onPressHandler_Back}
+          title={'Vui lòng nhập tài sản của bạn!'}
+          style={styles.title}
+        />
         <View style={styles.text_view}>
           <Text style={styles.text}>Số tiền</Text>
         </View>
 
         <View style={styles.row}>
-          <View style={[{ height: 50, width: '90%' }, styles.money_box]}>
+          <View style={[{ height: scale(50), width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_style}
               placeholder="0"
@@ -99,19 +100,16 @@ export default function FirstInput({ navigation }) {
         {possessionData.map((item, index) => {
           return (
             <View style={styles.column} key={index}>
-              <View style={[{ height: 200, width: '90%' }, styles.money_box]}>
+              <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
                 <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
                   <Text
-                    style={[
-                      styles.text,
-                      { marginVertical: 0, color: 'red', fontSize: 25 },
-                    ]}>
+                    style={[styles.text, {color: 'red', fontSize: scale(20) },]}>
                     {item.name}
                   </Text>
                 </View>
 
                 <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
-                  <Text style={[styles.text, { marginVertical: 0 }]}>
+                  <Text style={styles.text}>
                     {item.value}
                   </Text>
                 </View>
@@ -130,16 +128,18 @@ export default function FirstInput({ navigation }) {
           );
         })}
         <View style={styles.column}>
-          <View style={[{ height: 200, width: '90%' }, styles.money_box]}>
+          <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_item}
-              placeholder={'Tên'}
+              placeholder='Tên'
+              placeholderTextColor = {'grey'}
               onChangeText={setTextName}
               value={textName}
             />
             <TextInput
               style={styles.textInput_item}
               placeholder="Trị giá"
+              placeholderTextColor={'grey'}
               onChangeText={setTextValue}
               value={textValue}
               keyboardType={'numeric'}
@@ -157,16 +157,18 @@ export default function FirstInput({ navigation }) {
             </Pressable>
           </View>
         </View>
-        <View style={styles.row}>
+        <View style={[styles.row,{paddingBottom:scale(10)}]}>
           <CustomButton
-            style={{ width: 150, height: 40 }}
+            style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
-            //onPressFunction={()=>navigation.navigate('HomeScreen')}
+            
             onPressFunction={onComplete}
           />
         </View>
+
+
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -174,6 +176,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingTop:scale(20),
   },
 
   // body: {
@@ -184,19 +187,18 @@ const styles = StyleSheet.create({
   row: {
     justifyContent: 'center',
     flexDirection: 'row',
-    margin: 5,
-    marginHorizontal: 30,
+    paddingHorizontal: scale(30),
   },
   column: {
     justifyContent: 'center',
     flexDirection: 'column',
-    margin: 5,
-    marginHorizontal: 30,
+    margin: scale(5),
+    marginHorizontal: scale(30),
     alignItems: 'center',
   },
 
   title: {
-    fontSize: 30,
+    fontSize: scale(30),
     color: '#FFC700',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -204,73 +206,72 @@ const styles = StyleSheet.create({
 
   text_view: {
     alignItems: 'flex-start',
-    marginHorizontal: 45,
-    marginTop: 20,
+    marginHorizontal: scale(45),
+    marginTop: scale(20),
   },
 
   text: {
-    fontSize: 20,
+    fontSize: scale(20),
     color: '#000000',
   },
 
   textInput_style: {
-    height: 30,
+    height: scale(30),
     width: '80%',
     borderBottomColor: 'black',
     //borderBottomWidth:1,
     backgroundColor: '#ffffff',
-    fontSize: 20,
+    fontSize: scale(20),
     textAlign: 'left',
   },
 
   textInput_item: {
-    height: 30,
+    height: scale(30),
     width: '80%',
     borderBottomColor: 'black',
     backgroundColor: '#ffffff',
-    fontSize: 20,
+    fontSize: scale(20),
     textAlign: 'left',
-    marginVertical: 20,
+    marginVertical: scale(20),
   },
 
   money_box: {
     borderWidth: 2,
     borderColor: '#FFC700',
     borderRadius: 10,
-    marginTop: 10,
-    padding: 10,
+    marginTop: scale(10),
+    padding: scale(10),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ffffff',
+    //backgroundColor:'pink'
+
   },
 
   second_row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
-
-    height: 50,
-    marginHorizontal: 45,
+    paddingTop: scale(20),
+    paddingHorizontal: scale(45),
   },
 
   secondtext_view: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'flex-start',
+
   },
 
   icon_plus: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingTop: 5,
+    paddingTop: scale(5),
 
-    //marginHorizontal:5,
   },
 
   bin_view: {
     alignItems: 'center',
-    marginTop: 5,
-    //backgroundColor:'pink'
+    marginTop: scale(5),
   },
 });

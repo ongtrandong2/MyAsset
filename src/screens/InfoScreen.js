@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
-import Header from '../components/Header';
+import HeaderDrawer from '../components/Header_Drawer';
 import CustomButton from '../components/CustomButton';
+import scale from '../constants/scale';
 
 export default function InfoScreen({ navigation }) {
   return (
     <View style={styles.view}>
-      <Header
-        onPressFunctionBack={() => navigation.navigate('HomeScreen')}
-        fontSize={20}
+      <HeaderDrawer
+        onPress={() => navigation.openDrawer('HomeScreen')}
+        fontSize={scale(20)}
         title="THÔNG TIN CÁ NHÂN"
+        style = {{color:'black', fontWeight: 'bold'}}
       />
 
 
@@ -17,28 +19,26 @@ export default function InfoScreen({ navigation }) {
 
         <View style={styles.title}>
           <View style={styles.circle}>
-            <Text style={{ fontSize: 50, fontWeight: 'bold', color: "black" }}>Đ</Text>
+            <Text style={{ fontSize: scale(50), fontWeight: 'bold', color: "black" }}>Đ</Text>
           </View>
 
           <View style={styles.name_box}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>ĐÔNG ĐÔNG</Text>
+            <Text style={{ fontSize: scale(30), fontWeight: 'bold', color: 'black' }}>ĐÔNG ĐÔNG</Text>
           </View>
         </View>
 
 
-        <View style={[styles.row, { height: 10 }]}>
-
-        </View>
+        
 
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 20, height: 20, marginRight: 5 }}
+              style={{ width: scale(20), height: scale(20), marginRight: 5 }}
               source={require('../assets/images/user2.png')}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View style={{ height: scale(50), width: '90%', justifyContent: 'flex-end', }} >
               <Text style={styles.text}>Tên đăng nhập</Text>
             </View>
           </View>
@@ -51,30 +51,30 @@ export default function InfoScreen({ navigation }) {
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 30, height: 30, marginRight: 5,justifyContent:'flex-end' }}
+              style={{ width: scale(30), height: scale(30), marginRight: scale(5),justifyContent:'flex-end' }}
               source={{uri:'https://img.icons8.com/ios/50/null/secured-letter--v1.png'}}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View style={{ height: scale(40), width: '90%', justifyContent: 'flex-end', }} >
               <Text style={styles.text}>Email</Text>
             </View>
           </View>
 
-          <View style={[styles.right_box,{width:200}]}>
-            <Text style={styles.text}>dongdong@gmail.com</Text>
+          <View style={[styles.right_box,{height:scale(60),paddingBottom:scale(2)}]}>
+            <Text style={styles.text}>21520112@gm.uit.edu.vn</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.left_box}>
             <Image
-              style={{ width: 20, height: 20, marginRight: 5 }}
+              style={{ width: scale(20), height: scale(20), marginRight: scale(5) }}
               source={require('../assets/images/key.png')}
               resizeMode="stretch"
             />
             {/* <Text style = {{fontSize:30}}>Hello</Text> */}
-            <View style={{ height: 40, width: '90%', justifyContent: 'flex-end', }} >
+            <View style={{ height: scale(40), width: '90%', justifyContent: 'flex-end', }} >
               <Text style={styles.text}>Mật khẩu</Text>
             </View>
           </View>
@@ -83,7 +83,7 @@ export default function InfoScreen({ navigation }) {
             <Pressable
               onPress={()=>{navigation.navigate('ChangePassword')}}
               android_ripple={{color: '#CCFFFF'}}
-              style={({pressed}) => [{backgroundColor: pressed ? '#CCFFFF' : 'white'}]}
+              style={({pressed}) => [{backgroundColor: pressed ? '#CCFFFF' : 'white', marginBottom:2}]}
             >
                 <Text style={styles.press_text}>Đổi mật khẩu</Text>
             </Pressable>
@@ -92,10 +92,10 @@ export default function InfoScreen({ navigation }) {
         </View>
       </View>
 
-      <View style = {[styles.big_row, {paddingTop:30}]}>
+      <View style = {[styles.big_row, {paddingTop:scale(20)}]}>
           <CustomButton
               title = {'Chỉnh sửa thông tin cá nhân'}
-              style = {{height: 40, width: 250}}
+              style = {{height: scale(40), width: '70%'}}
               onPressFunction={()=>{navigation.navigate('ChangeInfo')}}
           />
       </View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
+    fontSize: scale(20),
     color: '#000000',
     fontFamily: 'Itim-Regular'
   },
@@ -130,52 +130,53 @@ const styles = StyleSheet.create({
     //padding:10,
     //backgroundColor:'pink',
     //paddingHorizontal:10,
-    width: '90%',
-    marginTop: 10,
-    height: 50,
+    width: '95%',
+    marginTop: scale(20),
+    //height: scale(50),
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: 'black'
+    borderBottomColor: 'black',
+    flexWrap:'wrap',
 
   },
   title: {
     flexDirection: 'row',
-    //backgroundColor:'pink',
     width: '90%',
-    height: 100,
-    marginTop: 30,
+    paddingVertical: scale(10),
     justifyContent: 'space-between',
-    //justifyContent:'center',
     alignItems: 'center',
-    padding: 10,
 
   },
 
   circle: {
 
-    width: 100,
-    height: 100,
-    borderRadius: 100,
+    width: scale(100),
+    height: scale(100),
+    borderRadius: scale(100),
     backgroundColor: 'yellow',
-    //marginLeft:10,
     alignItems: 'center',
     justifyContent: 'center',
 
   },
 
   name_box: {
-    width: 200,
-    height: 40,
+    width: '70%',
+    height: scale(100),
     //backgroundColor:'yellow',
+    //flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+
 
   },
 
   left_box: {
-    width: 140,
-    height: 40,
+    //width: 140,
+    flex:1.25,
+    height: scale(50),
     //backgroundColor:'blue',
-    marginLeft: 10,
+    //marginLeft: 10,
     alignItems: 'center',
     //justifyContent:'center',
     flexDirection: 'row',
@@ -183,15 +184,16 @@ const styles = StyleSheet.create({
   },
 
   right_box: {
-    width: 140,
-    height: 50,
+    //width: 140,
+    flex:1.75,
+    height: scale(50),
     //backgroundColor:'pink',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    padding: 5,
+    //padding: 5,
   },
   press_text:{
-    fontSize: 20,
+    fontSize: scale(20),
     color: '#0000CC',
     //fontStyle:'italic',
     fontFamily: 'Itim-Regular',

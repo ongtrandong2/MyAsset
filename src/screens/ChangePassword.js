@@ -1,24 +1,26 @@
-import React , { useState } from'react';
-import {View, StyleSheet, Text, ScrollView, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
+import scale from '../constants/scale';
 
-export default function ChangePassword({navigation}){
+export default function ChangePassword({ navigation }) {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    
-    
 
-    return(
-        <View style = {styles.view}>
-            <Header
-                onPressFunctionBack={()=>navigation.navigate('InfoScreen')}
-                fontSize={20}
-                title="ĐỔI MẬT KHẨU"
-            />
+
+
+    return (
+        <KeyboardAvoidingView style={styles.view}>
             <ScrollView>
-                <View style = {[styles.row,{paddingTop:30}]}> 
+                <Header
+                    onPressFunctionBack={() => navigation.navigate('InfoScreen')}
+                    fontSize={scale(20)}
+                    title="ĐỔI MẬT KHẨU"
+                    style = {{color: 'black', fontWeight: 'bold'}}
+                />
+                <View style = {[styles.row,{paddingTop:scale(30)}]}> 
                     <View style = {styles.title}>
                         <Text style = {styles.text}>1. Mật khẩu cũ</Text>
                     </View>
@@ -32,7 +34,7 @@ export default function ChangePassword({navigation}){
                     />
                 </View>
 
-                <View style = {[styles.row,{paddingTop:30}]}> 
+                <View style = {[styles.row,{paddingTop:scale(30)}]}> 
                     <View style = {styles.title}>
                         <Text style = {styles.text}>2. Mật khẩu mới</Text>
                     </View>
@@ -46,7 +48,7 @@ export default function ChangePassword({navigation}){
                     />
                 </View>
 
-                <View style = {[styles.row,{paddingTop:30}]}> 
+                <View style = {[styles.row,{paddingTop:scale(30)}]}> 
                     <View style = {styles.title}>
                         <Text style = {styles.text}>3. Xác nhận mật khẩu mới</Text>
                     </View>
@@ -61,57 +63,56 @@ export default function ChangePassword({navigation}){
                 </View>
 
 
-                <View style = {{paddingTop:30, alignItems:'center', paddingBottom:30}}>
+                <View style = {{paddingTop:scale(30), alignItems:'center', paddingBottom:scale(30)}}>
                     <CustomButton
                         title = {'Lưu thay đổi'}
-                        style = {{height: 40, width: 220}}
+                        style = {{height: scale(40), width: scale(220)}}
                         //onPressFunctionBack = {}
                     />
                 </View>
 
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
-    view:{
-        flex:1,
-        backgroundColor:'#ffffff',
-        flexDirection:'column',
-        paddingTop:30,
-
+    view: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+        flexDirection: 'column',
+       
     },
-    text:{
-        fontSize:20,
-        color:'black',
-        fontFamily:'Itim-Regular'
+    text: {
+        fontSize: scale(20),
+        color: 'black',
+        fontFamily: 'Itim-Regular'
     },
-    row:{
-        flexDirection:'row',
+    row: {
+        flexDirection: 'row',
         //justifyContent:'space-between'
-        paddingHorizontal:30,
-        paddingVertical:5,
+        paddingHorizontal: scale(30),
+        paddingVertical: scale(5),
     },
-    title:{
+    title: {
         //width:200,
-        flex:2,
+        flex: 2,
         //height:30,
         //backgroundColor:'blue',
-        alignItems:'flex-start',
-        justifyContent:'center',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
 
     },
 
-    change_box:{
-        flex:2,
+    change_box: {
+        flex: 2,
         //height:30,
-        backgroundColor:'white',
-        borderColor:'#FFC700',
-        borderWidth:2,
-        borderRadius:20,
-        paddingHorizontal:20,
-        fontSize:18,
+        backgroundColor: 'white',
+        borderColor: '#FFC700',
+        borderWidth: 2,
+        borderRadius: 20,
+        paddingHorizontal: scale(20),
+        fontSize: scale(18),
     },
 })
 

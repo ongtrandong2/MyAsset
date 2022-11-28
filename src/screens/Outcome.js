@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Modal, Image } from 'react-native';
+import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Modal, Image, KeyboardAvoidingView } from 'react-native';
 
 import CustomButton from '../components/CustomButton';
 import { Dropdown } from 'react-native-element-dropdown';
 import { RadioButton } from 'react-native-paper';
+import scale from '../constants/scale';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -13,7 +14,7 @@ import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
 import { addPossession, removePossession } from '../Redux/PossessionData';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
-import generateUUID from '../functions/generateUUID';
+import generateUUID from '../constants/generateUUID';
 
 
 const data_out = [
@@ -102,7 +103,7 @@ export default function Outcome() {
 
   return (
 
-    <View style={styles.view}>
+    <KeyboardAvoidingView style={styles.view}>
      
       <ScrollView>
         <View style={styles.title_view}>
@@ -111,13 +112,13 @@ export default function Outcome() {
 
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{ fontSize: 20, color: '#000000' }}>1.Khoản chi:</Text>
+            <Text style={{ fontSize: scale(20), color: '#000000' }}>1.Khoản chi:</Text>
 
 
              {flag === true ? (
               <View style={styles.customDropList}>
                 <TextInput
-                  style={[styles.textInput_box, { borderBottomWidth: 0, width:180, padding:0, fontSize:18 }]}
+                  style={[styles.textInput_box, { borderBottomWidth: 0, width:'90%', padding:0, fontSize:scale(15) }]}
                   placeholder='Nhập Khoản chi khác'
                   onChangeText={setOutcomeName}
                   value={outcomeName}
@@ -127,7 +128,7 @@ export default function Outcome() {
                   android_ripple={{ color: 'grey' }}
                 >
                   <Image
-                    style={{ height: 20, width: 20 }}
+                    style={{ height: scale(20), width: scale(20) }}
                     source={{ uri: 'https://img.icons8.com/pastel-glyph/64/null/expand-arrow.png' }}
                     resizeMode="stretch"
                   />
@@ -140,7 +141,7 @@ export default function Outcome() {
 
             <Dropdown
               style={styles.dropdown}
-              placeholderStyle={{fontSize: 18, color:'black'}}
+              placeholderStyle={{fontSize: scale(18), color:'black'}}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               data={data_out}
@@ -166,7 +167,7 @@ export default function Outcome() {
 
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{ fontSize: 20, color: '#000000' }}>2.Số tiền: </Text>
+            <Text style={{ fontSize: scale(20), color: '#000000' }}>2.Số tiền: </Text>
             <TextInput
               style={styles.textInput_box}
               onChangeText={setOutcomeValue}
@@ -174,31 +175,32 @@ export default function Outcome() {
             />
           </View>
         </View>
-        <View style={[styles.row,{paddingTop:10}]}>
+        <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{ height: 30, width: 100 }}
+            style={{ height: scale(30), width: '20%' }}
             title={'Lưu'}
             onPressFunction={onSaveOutcome}
           />
         </View>
 
-        <View style={[styles.title_view, { marginTop: 10 }]}>
+        <View style={[styles.title_view, { marginTop: scale(10) }]}>
           <Text style={styles.text}>TÀI SẢN</Text>
         </View>
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{ fontSize: 20, color: '#000000' }}>1.Tên hiện vật:</Text>
+            <Text style={{ fontSize:scale(20), color: '#000000' }}>1.Tên hiện vật:</Text>
 
             {/* <TextInput 
                 style={styles.textInput_box}
                 onChangeText={setPossessionName}
                 value = {possessionName}
             /> */}
+            
             <Dropdown
               style={styles.dropdown}
-              placeholderStyle={{fontSize: 18, color:'black'}}
+              placeholderStyle={{fontSize:scale(20), color:'black'}}
               selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
+              //inputSearchStyle={styles.inputSearchStyle}
               data={possessionData}
               dropdownPosition='auto'
               maxHeight={300}
@@ -222,7 +224,7 @@ export default function Outcome() {
 
         <View style={styles.row}>
           <View style={styles.sub_row}>
-            <Text style={{ fontSize: 20, color: '#000000' }}>2.Số tiền: </Text>
+            <Text style={{ fontSize: scale(20), color: '#000000' }}>2.Số tiền: </Text>
 
             <TextInput 
                 style={styles.textInput_box} 
@@ -244,9 +246,9 @@ export default function Outcome() {
           </View>
         </View> */}
 
-        <View style={[styles.row,{paddingTop:10}]}>
+        <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{ height: 30, width: 100 }}
+            style={{ height: scale(30), width: '20%' }}
             title={'Lưu'}
             onPressFunction={() => onSavePossession()}
           />
@@ -254,7 +256,7 @@ export default function Outcome() {
 
 
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -268,21 +270,22 @@ const styles = StyleSheet.create({
    // paddingTop:30,
   },
   text: {
-    fontSize: 20,
+    fontSize: scale(20),
     color: '#000000',
   },
-  tab_view: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 10,
-  },
+  // tab_view: {
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   top: 10,
+    
+  // },
   title_view: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: 50,
+    height: scale(50),
     backgroundColor: '#FFEFB6',
-    marginTop: 10,
+    marginTop: scale(10),
     borderTopColor: '#FF5C00',
     borderBottomColor: '#FF5C00',
     borderTopWidth: 2,
@@ -291,55 +294,56 @@ const styles = StyleSheet.create({
   row: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
-    //padding:10,
+    //marginTop: 5,
+    paddingTop:scale(5),
     backgroundColor: '#ffffff',
     //backgroundColor:'blue',
+    paddingHorizontal:scale(5),
   },
 
   sub_row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     //marginTop:10,
-    height: 50,
+    height: scale(50),
     //marginHorizontal: 45,
     //backgroundColor:'pink',
     width: '90%',
-    //padding: 10,
+    //paddingRight: scale(5),
     alignItems: 'flex-end',
   },
 
   textInput_box: {
-    marginHorizontal: 10,
-    height: 30,
+    //marginHorizontal: 10,
+    height: scale(30),
     //width: '60%',
-    width: 200,
+    width: '60%',
     //backgroundColor:'pink',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
-    padding: 2,
-    fontSize: 20,
+    padding: scale(2),
+    fontSize: scale(20),
   },
   /// Drop down Style
 
   dropdown: {
-    height: 30,
+    height: scale(30),
     width: '60%',
     borderColor: 'black',
     borderBottomWidth: 1,
-    //borderRadius: 8,
-    paddingHorizontal: 8,
+    //paddingHorizontal: 8,
+    
   },
 
 
   inputSearchStyle: {
-    height: 40,
-    fontSize: 18,
+    height: scale(40),
+    fontSize: scale(18),
     color: '#000000',
   },
 
   selectedTextStyle: {
-    fontSize: 18,
+    fontSize: scale(18),
     color: 'black',
   },
 
@@ -347,22 +351,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     //backgroundColor:'pink',
-    //width:'60%',
-    width: 220,
-    height: 30,
+    
+    width: '60%',
+    height: scale(30),
     alignItems: 'center',
     borderBottomWidth: 1,
     //paddingHorizontal:10,
   },
 
-  modal_style: {
-    width: 300,
-    height: 100,
-    borderWidth: 1,
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
-  }
+  // modal_style: {
+  //   width: 300,
+  //   height: 100,
+  //   borderWidth: 1,
+  //   backgroundColor: '#ffffff',
+  //   borderRadius: 10,
+  //   paddingHorizontal: 10,
+  //   paddingTop: 10,
+  //   paddingBottom: 10,
+  // }
 });

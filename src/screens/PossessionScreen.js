@@ -1,39 +1,68 @@
-import React from 'react';
-import {View, StyleSheet, Text, ScrollView} from 'react-native';
-import HeaderTab from '../components/Header_Tab';
-import {useSelector, useDispatch} from 'react-redux';
-import {addPossession, removePossession} from '../Redux/PossessionData';
+import React , {useState}from 'react';
+import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
+import HeaderDrawer from '../components/Header_Drawer';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPossession, removePossession } from '../Redux/PossessionData';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import scale from '../constants/scale';
 
-export default function PossessionScreen({navigation}) {
+export default function PossessionScreen({ navigation }) {
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
-
+  const [flag, setFlag] = useState(false);
+  const [position, setPosition] = useState(-1);
+  const onVisible = (item) =>{
+    setPosition(item.key);
+    setFlag(!flag);
+  }
+  //console.log(position);
   return (
-    <View style={styles.view}>
-      <HeaderTab
-        onPressHandler={() => navigation.navigate('InfoScreen')}
-        fontSize={20}
-        title="TÀI SẢN"
-      />
+    <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
-        <View style={styles.big_row}>
-          {possessionData.map((item, index) => {
-            return (
-              <View style={styles.row} key={index}>
+
+        <HeaderDrawer
+          onPress={() => navigation.openDrawer('HomeScreen')}
+          fontSize={20}
+          title="TÀI SẢN"
+          style={{ color: 'black', fontWeight: 'bold' }}
+        />
+
+        {possessionData.map((item, index) => {
+
+          return (
+            <View style={styles.big_row} key={index} >
+              <Pressable
+                onPress = {()=>onVisible(item)}
+                android_ripple={{ color: '#996600' }}
+                style={({ pressed }) => [styles.row, { backgroundColor: pressed ? '#FF9900' : '#FFEBA3' }]}
+              >
                 <View style={styles.name_view}>
                   <Text style={styles.text}>
                     {Number(index) + 1}. {item.name}
                   </Text>
                 </View>
+
                 <View style={styles.money_view}>
                   <Text style={styles.text}>{item.value} vnđ</Text>
                 </View>
-              </View>
-            );
-          })}
-        </View>
+              </Pressable>
+
+              {position === item.key && flag===true &&(
+                <View style = {[styles.row,{justifyContent:'flex-start'}]}>
+                   <Text style={styles.text}>Ghi chú:  {item.note} </Text>   
+                </View>
+              )}
+
+
+
+            </View>
+          );
+        })}
+
+
+
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -45,7 +74,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
+    fontSize: scale(20),
     color: '#000000',
   },
 
@@ -53,18 +82,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#FFEBA3',
     width: '90%',
-    height: 40,
+    height: scale(40),
     flexDirection: 'row',
-    margin: 5,
+    margin: scale(5),
     justifyContent: 'center',
-    padding: 5,
+    padding: scale(5),
   },
 
   big_row: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    //justifyContent: 'space-between',
+    //backgroundColor:'pink',
   },
 
   name_view: {
@@ -81,4 +111,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
+
+  column: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  }
 });

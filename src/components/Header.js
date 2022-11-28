@@ -7,12 +7,9 @@ import {
   Pressable,
   KeyboardAvoidingView,
 } from 'react-native';
+import scale from '../constants/scale';
 
 const Header = props => {
-  const [showModal, setShowModal] = useState(false);
-  // const onPressFunctionUser = () =>{
-  //     setShowModal(!showModal)
-  // }
 
   return (
     <View style={styles.view}>
@@ -24,21 +21,10 @@ const Header = props => {
             resizeMode="stretch"
           />
         </View>
-        <Text style={styles.text}>MY ASSET</Text>
+        <Text style={styles.text}>  MY ASSET</Text>
         <View style={styles.option_view}>
+          
           {/* <View style={styles.box}>
-            <Pressable
-              onPress={props.onPressFunctionSetting}
-              android_ripple={{color: '#bbbbbb'}}>
-             
-              <Image
-                style={{height: 16, width: 5}}
-                source={require('../assets/images/Setting.png')}
-                resizeMode="stretch"
-              />
-            </Pressable>
-          </View>
-          <View style={styles.box}>
             <Pressable
               onPress={props.onPressFunctionUser}
               android_ripple={{color: '#bbbbbb'}}>
@@ -63,13 +49,26 @@ const Header = props => {
               />
             </Pressable>
           </View>
+
+          {/* <View style={styles.box}>
+            <Pressable
+              onPress={props.onPressFunctionSetting}
+              android_ripple={{color: '#bbbbbb'}}>
+             
+              <Image
+                style={{height: 16, width: 5}}
+                source={require('../assets/images/Setting.png')}
+                resizeMode="stretch"
+              />
+            </Pressable>
+          </View> */}
         </View>
       </View>
 
       <View header_view>
         {/* <Text style = {[{fontSize: {...props.fontSize}},styles.title]}>{props.title}</Text> */}
 
-        <Text style={[{fontSize: props.fontSize}, styles.title]}>
+        <Text style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
           {props.title}
         </Text>
       </View>
@@ -80,24 +79,25 @@ const Header = props => {
 const styles = StyleSheet.create({
   view: {
     width: '100%',
-    height: '10%',
+    //height:'10%',
     alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    marginTop: 10, //
-    //backgroundColor:'#2F88FF',
-    //position:'relative'
+    justifyContent: 'center',
+    //flex:1,
+    backgroundColor:'#ffffff',
+    paddingHorizontal:scale(10),
   },
 
   header_view: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    paddingHorizontal:scale(30),
+    //backgroundColor:'pink'
   },
 
   text: {
     color: 'black',
-    fontSize: 20,
+    fontSize: scale(25),
     fontFamily: 'Wallpoet-Regular',
   },
 
@@ -105,61 +105,40 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: 'green',
-    //marginLeft: 10,
-    height: '50%',
-    width: '70%',
   },
 
   option_view: {
     flex: 3,
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    //backgroundColor: 'red',
-    marginLeft: 10,
-    height: '50%',
-    width: '70%',
+    flexDirection:'row',
+    justifyContent: 'flex-end',
+   
+    
   },
 
   box: {
-    width: 30,
-    height: 30,
-    margin: 5,
-
+    width: '30%',
+    height: scale(30),
     justifyContent: 'center',
     alignItems: 'center',
+    //backgroundColor: 'blue',
   },
 
   icon_money: {
-    width: 50,
-    height: 50,
-    marginLeft: 10,
+    width: scale(50),
+    height: scale(50),
   },
 
   title: {
-    marginBottom: 10,
-    fontWeight: 'bold',
     color: 'black',
   },
 
   icon: {
-    width: 16,
-    height: 16,
-    color: 'blue',
+    width: scale(16),
+    height: scale(16),
+    //color: 'blue',
   },
 
-  modal_view: {
-    marginLeft: 170,
-    marginTop: 50,
-    width: 200,
-    height: 200,
-    borderWidth: 1,
-    borderRadius: 20,
-    backgroundColor: 'white',
-    //alignItems: "center",
-    //justifyContent: "center",
-  },
+  
 });
 
 export default Header;

@@ -2,7 +2,8 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import React from 'react';
 import {StyleSheet, View, Text, Button, Image, Pressable} from 'react-native';
-//import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import scale from '../constants/scale';
+
 GoogleSignin.configure({
   webClientId:
     '937708738118-tols9h26v4l08hadb1jggco6u8bjt7cd.apps.googleusercontent.com',
@@ -78,19 +79,19 @@ const styles = StyleSheet.create({
   },
 
   row_view: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems:'center',
+    //backgroundColor: 'pink',
 
   },
 
   box:{
-    width: 300,
-    height: 50,
+    width:'70%',
+    height: scale(50),
     //backgroundColor: 'green',
     flexDirection:'row',
     //justifyContent: 'space-between',
-    padding:5,
+    //padding:5,
     paddingLeft:10,
     borderRadius:20,
     borderWidth:1,
@@ -99,26 +100,29 @@ const styles = StyleSheet.create({
     
   },
   icon:{
-    
-    flex:0.5,
+    //width:'20%',
+    flex:0.2,
     //backgroundColor: 'blue',
     alignItems:'center',
     justifyContent:'center',
     
+    
   },
   title:{
-    //width:200,
-    flex:2.5,
-    //height: 50,
-    //backgroundColor:'pink',
+    //width:'90%',
+    flex:0.8,
+    //height: scale(50),
+    //backgroundColor:'green',
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
+    //flexWrap:'wrap',
+    paddingLeft:10,
   },
 
   text:{
     color:'#0000CC',
-    fontSize:20,
-    textAlign:'center',
+    fontSize:scale(20),
+    //textAlign:'center',
     fontWeight:'bold',
 
   }
