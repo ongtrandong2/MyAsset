@@ -34,7 +34,14 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
-      navigation.navigate('Success');
+      firestore()
+        .collection('Accounts')
+        .doc(username)
+        .set({name: name, password: password, email: email})
+        .then(() => {
+          navigation.navigate('Success');
+        })
+        .catch(error => console.log(error));
     }
   };
 
@@ -54,26 +61,26 @@ export default function RegisterScreen({navigation}) {
             </Text>
           </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              onChangeText={value => setName(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setName(value)}
+          />
+        </View>
 
-          <View style={styles.text_view}>
-            <Text style={styles.text}>
-              2. Tên đăng nhập
-              <Text style={{color: 'red'}}> *</Text>
-            </Text>
-          </View>
+        <View style={styles.text_view}>
+          <Text style={styles.text}>
+            2. Tên đăng nhập
+            <Text style={{color: 'red'}}> *</Text>
+          </Text>
+        </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              onChangeText={value => setUsername(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setUsername(value)}
+          />
+        </View>
 
           <View style={styles.text_view}>
             <Text style={styles.text}>
@@ -96,13 +103,12 @@ export default function RegisterScreen({navigation}) {
             </Text>
           </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              secureTextEntry
-              onChangeText={value => setPassword(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            onChangeText={value => setEmail(value)}
+          />
+        </View>
 
           <View style={styles.text_view}>
             <Text style={styles.text}>
@@ -111,13 +117,13 @@ export default function RegisterScreen({navigation}) {
             </Text>
           </View>
 
-          <View style={styles.row}>
-            <TextInput
-              style={styles.textinput_style}
-              secureTextEntry
-              onChangeText={value => setConfirm(value)}
-            />
-          </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textinput_style}
+            secureTextEntry
+            onChangeText={value => setPassword(value)}
+          />
+        </View>
 
           <View style={styles.row_button}>
             <CustomButton

@@ -35,34 +35,33 @@ const LoginGoogle = props => {
         }}
       />
       <Button title="Google Sign-Out" onPress={onSignOut} /> */}
-      <View style = {styles.row_view}>
-
+      <View style={styles.row_view}>
         <Pressable
-            onPress={() => {
-              console.log('signed in');
-              onGoogleButtonPress().then(() => {
-                props.navigation.navigate('Success');
-              });
-            }}
-            android_ripple={{color: '#CCFFFF'}}
-            style={({pressed}) => [
-              {backgroundColor: pressed ? '#0099FF' : 'white'},
-            ]}
-        >
+          onPress={() => {
+            console.log('signed in');
+            onGoogleButtonPress().then(() => {
+              props.navigation.navigate('Success');
+            });
+          }}
+          android_ripple={{color: '#CCFFFF'}}
+          style={({pressed}) => [
+            {backgroundColor: pressed ? '#0099FF' : 'white'},
+          ]}>
           <View style={styles.box}>
-            <View style = {styles.icon}>
-              <Image 
-                style={{height:40, width:40}}
-                source={{uri:'https://img.icons8.com/fluency/48/null/google-logo.png'}}
+            <View style={styles.icon}>
+              <Image
+                style={{height: 40, width: 40}}
+                source={{
+                  uri: 'https://img.icons8.com/fluency/48/null/google-logo.png',
+                }}
                 resizeMode="stretch"
-              /> 
+              />
             </View>
-            <View style = {styles.title}>
+            <View style={styles.title}>
               <Text style={styles.text}>Continue with Google</Text>
             </View>
           </View>
         </Pressable>
-          
       </View>
 
       {/* <Button title="Google Sign-Out" onPress={onSignOut} /> */}
@@ -89,15 +88,13 @@ const styles = StyleSheet.create({
     width:'70%',
     height: scale(50),
     //backgroundColor: 'green',
-    flexDirection:'row',
+    flexDirection: 'row',
     //justifyContent: 'space-between',
     //padding:5,
     paddingLeft:10,
     borderRadius:20,
     borderWidth:1,
     borderColor: 'green',
-
-    
   },
   icon:{
     //width:'20%',

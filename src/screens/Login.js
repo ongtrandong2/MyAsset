@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useState } from 'react';
 
@@ -23,7 +22,6 @@ export default function Login({ navigation }) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
-
 
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
@@ -83,7 +81,7 @@ export default function Login({ navigation }) {
             placeholder="Tên đăng nhập"
             placeholderTextColor={'grey'}
             onChangeText={value => setName(value)}
-            value = {name}
+            value={name}
             right={
               <TextInput.Icon icon={require('../assets/images/user2.png')} />
             }
