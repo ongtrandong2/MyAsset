@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {View, StyleSheet, Text, TextInput, Keyboard, Alert} from 'react-native';
 import {Directions, ScrollView} from 'react-native-gesture-handler';
@@ -7,6 +7,8 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
+import {firebase} from '@react-native-firebase/auth';
+
 
 export default function RegisterScreen({navigation}) {
   const onPressHandler = () => {
@@ -14,7 +16,6 @@ export default function RegisterScreen({navigation}) {
   };
 
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [email, setEmail] = useState('');
@@ -34,14 +35,43 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
-      firestore()
-        .collection('Accounts')
-        .doc(username)
-        .set({name: name, password: password, email: email})
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          navigation.navigate('Success');
+          firebase
+            .auth()
+            .currentUser.sendEmailVerification({
+              handleCodeInApp: true,
+              url: 'https://myasset-5493e.firebaseapp.com',
+            })
+            .then(() => {
+              Alert.alert(
+                'Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',
+              );
+            })
+            .catch(error => {
+              Alert.alert(error.message);
+            })
+            .then(() => {
+              firebase
+                .firestore()
+                .collection('Accounts')
+                .doc(firebase.auth().currentUser.uid)
+                .set({
+                  name: name,
+                  password: password,
+                  email: email,
+                  verified: true,
+                });
+            });
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          Alert.alert(error.message);
+        })
+        .then(() => {
+          navigation.navigate('Login');
+        });
     }
   };
 

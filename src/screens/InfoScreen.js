@@ -5,6 +5,31 @@ import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 
 export default function InfoScreen({ navigation }) {
+import {useEffect} from 'react';
+import {useState} from 'react';
+import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
+import Header from '../components/Header';
+import CustomButton from '../components/CustomButton';
+import {firebase} from '@react-native-firebase/firestore';
+import {doc, getDoc} from 'firebase/firestore';
+export default function InfoScreen({navigation}) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('Accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.exists) {
+          setName(snapshot.data().name);
+          setEmail(snapshot.data().email);
+        } else {
+          console.log('No such document!');
+        }
+      });
+  });
   return (
     <View style={styles.view}>
       <HeaderDrawer
@@ -14,16 +39,14 @@ export default function InfoScreen({ navigation }) {
         style = {{color:'black', fontWeight: 'bold'}}
       />
 
-
       <View style={styles.big_row}>
-
         <View style={styles.title}>
           <View style={styles.circle}>
             <Text style={{ fontSize: scale(50), fontWeight: 'bold', color: "black" }}>Đ</Text>
           </View>
 
           <View style={styles.name_box}>
-            <Text style={{ fontSize: scale(30), fontWeight: 'bold', color: 'black' }}>ĐÔNG ĐÔNG</Text>
+            <Text style={{ fontSize: scale(30), fontWeight: 'bold', color: 'black' }}>{name}</Text>
           </View>
         </View>
 
@@ -44,7 +67,7 @@ export default function InfoScreen({ navigation }) {
           </View>
 
           <View style={styles.right_box}>
-            <Text style={styles.text}>Đông Đông</Text>
+            <Text style={styles.text}>{name}</Text>
           </View>
         </View>
 
@@ -62,7 +85,7 @@ export default function InfoScreen({ navigation }) {
           </View>
 
           <View style={[styles.right_box,{height:scale(60),paddingBottom:scale(2)}]}>
-            <Text style={styles.text}>21520112@gm.uit.edu.vn</Text>
+            <Text style={styles.text}>{email}</Text>
           </View>
         </View>
 
@@ -81,14 +104,15 @@ export default function InfoScreen({ navigation }) {
 
           <View style={styles.right_box}>
             <Pressable
-              onPress={()=>{navigation.navigate('ChangePassword')}}
+              onPress={() => {
+                navigation.navigate('ChangePassword');
+              }}
               android_ripple={{color: '#CCFFFF'}}
               style={({pressed}) => [{backgroundColor: pressed ? '#CCFFFF' : 'white', marginBottom:2}]}
             >
                 <Text style={styles.press_text}>Đổi mật khẩu</Text>
             </Pressable>
           </View>
-
         </View>
       </View>
 
@@ -99,7 +123,6 @@ export default function InfoScreen({ navigation }) {
               onPressFunction={()=>{navigation.navigate('ChangeInfo')}}
           />
       </View>
-
     </View>
   );
 }
@@ -109,20 +132,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     flexDirection: 'column',
-
   },
 
   text: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular'
+    fontFamily: 'Itim-Regular',
   },
 
   big_row: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -157,7 +178,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
 
   name_box: {
@@ -180,7 +200,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     //justifyContent:'center',
     flexDirection: 'row',
-
   },
 
   right_box: {
@@ -197,9 +216,6 @@ const styles = StyleSheet.create({
     color: '#0000CC',
     //fontStyle:'italic',
     fontFamily: 'Itim-Regular',
-    textDecorationLine:'underline',
-
+    textDecorationLine: 'underline',
   },
-
 });
-

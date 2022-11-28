@@ -2,23 +2,23 @@ import React from 'react';
 import { useState } from 'react';
 
 import {
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
   Alert,
   Pressable,
-  KeyboardAvoidingView,
-}
-  from 'react-native';
+  StatusBar,
+} from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import { TextInput } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-paper';
+import {ScrollView} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 
-export default function Login({ navigation }) {
+export default function Login({navigation}) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -37,14 +37,20 @@ export default function Login({ navigation }) {
           //console.log(pass2);
           if (pass == pass2.password) {
             //console.log('success');
-            navigation.navigate('Drawer');
+            navigation.navigate('HomeScreen');
           } else {
             //console.log('wrong password');
-            Alert.alert('Waring', 'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu');
+            Alert.alert(
+              'Waring',
+              'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu',
+            );
           }
         } else {
           //console.log('user not found');
-          Alert.alert('Waring', 'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!')
+          Alert.alert(
+            'Waring',
+            'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!',
+          );
         }
       })
       .catch(error => console.log(error));
@@ -79,7 +85,7 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
-            placeholderTextColor={'grey'}
+            placeholderStyle={{color: 'grey'}}
             onChangeText={value => setName(value)}
             value={name}
             right={
@@ -120,10 +126,12 @@ export default function Login({ navigation }) {
         </View>
 
         <View style={styles.body_view}>
-          <CustomButton 
-              style={{width: '40%', height:scale(40)}}
-              title={'Đăng nhập'}
-              onPressFunction={()=>{LoginUser(name,password)}}
+          <CustomButton
+            style={{width: 150, height: 40}}
+            title={'Đăng nhập'}
+            onPressFunction={() => {
+              LoginUser(name, password);
+            }}
           />
         </View>
 
