@@ -16,6 +16,7 @@ export default function RegisterScreen({navigation}) {
   };
 
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [email, setEmail] = useState('');
@@ -29,9 +30,9 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
     } else if (
-      password.length != 0 &&
-      confirm.length != 0 &&
-      password != confirm
+      password.length !== 0 &&
+      confirm.length !== 0 &&
+      password !== confirm
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
@@ -70,7 +71,7 @@ export default function RegisterScreen({navigation}) {
           Alert.alert(error.message);
         })
         .then(() => {
-          navigation.navigate('Login');
+          navigation.navigate('Success'); //
         });
     }
   };
@@ -136,7 +137,8 @@ export default function RegisterScreen({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.textinput_style}
-            onChangeText={value => setEmail(value)}
+            secureTextEntry
+            onChangeText={value => setPassword(value)}
           />
         </View>
 
@@ -151,7 +153,7 @@ export default function RegisterScreen({navigation}) {
           <TextInput
             style={styles.textinput_style}
             secureTextEntry
-            onChangeText={value => setPassword(value)}
+            onChangeText={value => setConfirm(value)}
           />
         </View>
 

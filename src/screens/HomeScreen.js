@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,6 +17,9 @@ import { useSelector, useDispatch } from 'react-redux';
 //import { addPossession } from '../Redux/PossessionData';
 //import {addIncome} from '../Redux/IncomeData';
 
+
+
+
 export default function HomeScreen({ navigation }) {
   const money = useSelector(state => state.totalMoney.value);
 
@@ -25,6 +28,9 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [number, setNumber] = useState('50%');
 
+  
+
+  
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -87,7 +93,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {incomeData.map((item, index) => {
+              {incomeData.slice(0).reverse().map((item, index) => {
                 return (
                   <View key={index}>
                     {item.flag === 1 && (
@@ -109,7 +115,7 @@ export default function HomeScreen({ navigation }) {
                 );
               })}
 
-              {outcomeData.map((item, index) => {
+              {outcomeData.slice(0).reverse().map((item, index) => {
                 return (
                   <View key={index}>
                     {item.flag === 1 && (
@@ -190,7 +196,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
         <View style = {{paddingTop:200}}>
-                
+          
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

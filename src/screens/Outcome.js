@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Modal, Image, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Modal, Image, KeyboardAvoidingView, Pressable } from 'react-native';
 
 import CustomButton from '../components/CustomButton';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -12,7 +12,7 @@ import { addOutcome } from '../Redux/OutcomeData';
 import {addIncome} from '../Redux/IncomeData';
 import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
 import { addPossession, removePossession } from '../Redux/PossessionData';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+
 
 import generateUUID from '../constants/generateUUID';
 
@@ -118,7 +118,7 @@ export default function Outcome() {
              {flag === true ? (
               <View style={styles.customDropList}>
                 <TextInput
-                  style={[styles.textInput_box, { borderBottomWidth: 0, width:'90%', padding:0, fontSize:scale(15) }]}
+                  style={[styles.textInput_box, { borderBottomWidth: 0, width:'90%', padding:0, fontSize:scale(18) }]}
                   placeholder='Nhập Khoản chi khác'
                   onChangeText={setOutcomeName}
                   value={outcomeName}

@@ -1,5 +1,5 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import PlanScreen from '../screens/PlanScreen';
@@ -9,23 +9,31 @@ import TabPost from './TabPost';
 import scale from '../constants/scale';
 
 const Tab = createBottomTabNavigator();
-const CustomTabBarButton = ({children, onPress}) => (
+const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
+
     style={{
-      //top: -30,
-      top:-10,
+      top: -10,
       justifyContent: 'center',
       alignItems: 'center',
       ...styles.shadow,
+      //position: 'absolute',
+      bottom: 25,
+      zIndex: 999,
+
     }}
-    onPress={onPress}>
+    onPress={onPress}
+
+  >
     <View
       style={{
         width: 50,
         height: 50,
         borderRadius: 35,
+
       }}>
       {children}
+
     </View>
   </TouchableOpacity>
 );
@@ -36,18 +44,18 @@ const Tabs = () => {
       initialRouteName='HomeScreen'
       tabBarOptions={{
         showLabel: false,
-        style: {...styles.tab_style, ...styles.shadow},
+        style: { ...styles.tab_style, ...styles.shadow },
         keyboardHidesTabBar: true,
-        tabBarHideOnKeyboard :true, 
+        tabBarHideOnKeyboard: true,
       }}
 
       header={{}}
-      >
+    >
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.icon_view}>
               <Image
                 source={require('../assets/images/home2.png')}
@@ -59,7 +67,7 @@ const Tabs = () => {
                 }}
               />
 
-              <Text style={[{color: focused ? '#000000' : '#748c94'}, styles.text]}>
+              <Text style={[{ color: focused ? '#000000' : '#748c94' }, styles.text]}>
                 Tổng quan
               </Text>
             </View>
@@ -71,7 +79,7 @@ const Tabs = () => {
         name="PlanScreen"
         component={PlanScreen}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.icon_view}>
               <Image
                 source={require('../assets/images/plan.png')}
@@ -82,7 +90,7 @@ const Tabs = () => {
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={[{color: focused ? '#000000' : '#748c94'},styles.text]}>
+              <Text style={[{ color: focused ? '#000000' : '#748c94' }, styles.text]}>
                 Kế hoạch
               </Text>
             </View>
@@ -110,7 +118,7 @@ const Tabs = () => {
         name="StatisticsScreen"
         component={StatisticsScreen}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.icon_view}>
               <Image
                 source={require('../assets/images/chart.png')}
@@ -121,7 +129,7 @@ const Tabs = () => {
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={[{color: focused ? '#000000' : '#748c94'},styles.text]}>
+              <Text style={[{ color: focused ? '#000000' : '#748c94' }, styles.text]}>
                 Thống kê
               </Text>
             </View>
@@ -133,7 +141,7 @@ const Tabs = () => {
         name="PossessionScreen"
         component={PossessionScreen}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <View style={styles.icon_view}>
               <Image
                 source={require('../assets/images/shop.png')}
@@ -144,7 +152,7 @@ const Tabs = () => {
                   opacity: focused ? 1 : 0.5,
                 }}
               />
-              <Text style={[{color: focused ? '#000000' : '#748c94'}, styles.text]}>
+              <Text style={[{ color: focused ? '#000000' : '#748c94' }, styles.text]}>
                 Tài sản
               </Text>
             </View>
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
     //backgroundColor: '#FFC700',
     backgroundColor: 'yellow',
     height: scale(100),
-    width:'90%'
+    zIndex: 999,
   },
   shadow: {
     //shadowColor:'#7F5Df0',
@@ -186,8 +194,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //top: scale(5),
   },
-  text:{
-    fontSize:scale(15),
+  text: {
+    fontSize: scale(15),
   },
 });
 

@@ -10,6 +10,7 @@ import {
   Alert,
   Pressable,
   StatusBar,
+  KeyboardAvoidingView,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
@@ -37,7 +38,7 @@ export default function Login({navigation}) {
           //console.log(pass2);
           if (pass == pass2.password) {
             //console.log('success');
-            navigation.navigate('HomeScreen');
+            navigation.navigate('Drawer');
           } else {
             //console.log('wrong password');
             Alert.alert(
@@ -85,7 +86,7 @@ export default function Login({navigation}) {
           <TextInput
             style={styles.TextInput_style}
             placeholder="Tên đăng nhập"
-            placeholderStyle={{color: 'grey'}}
+            placeholderTextColor={'grey'}
             onChangeText={value => setName(value)}
             value={name}
             right={
