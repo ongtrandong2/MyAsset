@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView, Modal, Button, Animated } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView, Modal, Button, Animated, Alert } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import CustomButton from '../components/CustomButton';
 import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from "moment";
-import {useSelector, useDispatch} from 'react-redux';
-import { addPlan } from '../Redux/PlanData';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { addPlan} from '../Redux/PlanData';
 
 
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
- 
+
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
@@ -27,6 +26,7 @@ export default function PlanScreen({ navigation }) {
   const dispatch = useDispatch();
 
   //console.log(planData);
+  //console.log(percentage);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -38,7 +38,7 @@ export default function PlanScreen({ navigation }) {
 
   const handleConfirm = (date) => {
     //console.warn("A date has been picked: ", date);
-    setDateSelect(moment(date).format('DD - MM - YYYY'));
+    setDateSelect(moment(date).format('YYYY-MM-DD'));
     hideDatePicker();
 
   };
@@ -54,27 +54,35 @@ export default function PlanScreen({ navigation }) {
 
   const handleConfirm_Finish = (date) => {
     //console.warn("A date has been picked: ", date);
-    setDateFinish(moment(date).format('DD - MM - YYYY'));
+    setDateFinish(moment(date).format('YYYY-MM-DD'));
     hideDatePicker_Finish(); // 
 
   };
 
-  const onConfirmPlan = () =>{
-    if(dateSelect !== ''  && dateFinish !== '' && budget!==''	)
-    {
+  const onConfirmPlan = () => {
+    if (dateSelect !== '' && dateFinish !== '' && budget !== '') {
+      const d1 = new Date(dateSelect);
+      const d2 = new Date(dateFinish);
+      if (d1.getTime() > d2.getTime()) {
+        Alert.alert('Warning', 'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!');
+      }
+      else {
         dispatch(
           addPlan({
             dateStart: dateSelect,
             dateFinish: dateFinish,
             budget: budget,
-            currentuse:0,
+            currentuse: 0,
+            percentage_of_use: 0,
+            isExceed: false,
           })
         )
         setDateSelect('');
         setDateFinish('');
         setBudget('');
+      }
     }
-  } 
+  }
 
 
   return (
@@ -87,70 +95,48 @@ export default function PlanScreen({ navigation }) {
           style={{ color: 'black', fontWeight: 'bold' }}
         />
 
-        <View style={[styles.big_row,{marginTop: scale(20)}]}>
-          <View style={styles.slider_view}>
-            <View style= {styles.figure_view}>
-              <Text style = {[styles.text,{color:'red'}]}>1/11/2022 - 30/11/2022</Text>
-            </View>
-            <View style={styles.progressBar}>
-              <Animated.View
-                style={
-                  ([StyleSheet.absoluteFill],
-                  {
-                    backgroundColor: '#FF9900',
-                    width: number,
-                    borderRadius: 5,
-                  })
-                }
-              />
-            </View>
+        {planData.map((item, index) => {
+          return (
+            <View key={index}>
+              <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                <View style={styles.slider_view}>
+                  <View style={styles.figure_view}>
+                    <Text style={[styles.text, { color: 'red' }]}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                  </View>
+                  <View style={styles.progressBar}>
+                    <Animated.View
+                      style={
+                        ([StyleSheet.absoluteFill],
+                        {
+                          backgroundColor: item.isExceed === true ? 'hsl(0,74%,52%)' : "hsl(111,84%,36%)",
+                          width: String(item.percentage_of_use)+"%",
+                          borderRadius: 5,
+                        })
+                      }
+                    />
+                  </View>
 
 
-            <View style={styles.figure_view}>
-              <View style={styles.name_view}>
-                <Text style={[styles.text, { color: 'black' }]}>50000</Text>
+                  <View style={styles.figure_view}>
+                    <View style={styles.name_view}>
+                      <Text style={[styles.text, { color: 'black' }]}>{item.currentuse}</Text>
+                    </View>
+
+                    <View style={styles.money_view}>
+                      <Text style={[styles.text, { color: 'black' }]}>{item.budget} VND</Text>
+                    </View>
+                  </View>
+
+                </View>
               </View>
 
-              <View style={styles.money_view}>
-                <Text style={[styles.text, { color: 'black' }]}> vnđ</Text>
-              </View>
+
+              
+
             </View>
+          )
+        })}
 
-          </View>
-        </View>
-
-
-        <View style={[styles.big_row,{marginTop: scale(20)}]}>
-          <View style={styles.slider_view}>
-            <View style= {styles.figure_view}>
-              <Text style = {[styles.text,{color:'red'}]}>1/11/2022 - 30/11/2022</Text>
-            </View>
-            <View style={styles.progressBar}>
-              <Animated.View
-                style={
-                  ([StyleSheet.absoluteFill],
-                  {
-                    backgroundColor: '#FF9900',
-                    width: number ? number : '50%',
-                    borderRadius: 5,
-                  })
-                }
-              />
-            </View>
-
-
-            <View style={styles.figure_view}>
-              <View style={styles.name_view}>
-                <Text style={[styles.text, { color: 'black' }]}>50000</Text>
-              </View>
-
-              <View style={styles.money_view}>
-                <Text style={[styles.text, { color: 'black' }]}> vnđ</Text>
-              </View>
-            </View>
-
-          </View>
-        </View>
 
       </ScrollView>
 
@@ -261,11 +247,7 @@ export default function PlanScreen({ navigation }) {
             </ScrollView>
           </View>
         </View>
-
-
       </Modal>
-
-
 
     </KeyboardAvoidingView>
   );
@@ -324,7 +306,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     //backgroundColor: 'pink',
-    paddingTop:scale(30)
+    paddingTop: scale(30)
   },
 
   row: {
@@ -385,13 +367,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderWidth: 1,
+    paddingHorizontal: 10,
 
   },
   modal_bigrow: {
     alignItems: 'center',
     flexDirection: 'column',
     paddingVertical: 20,
-    justifyContent:'center',
+    justifyContent: 'center',
   },
 
   modal_row: {
@@ -416,7 +399,7 @@ const styles = StyleSheet.create({
   },
 
   text_modal: {
-    fontSize: scale(20),
+    fontSize: scale(25),
     color: '#000000',
     fontFamily: 'Itim-Regular',
   },

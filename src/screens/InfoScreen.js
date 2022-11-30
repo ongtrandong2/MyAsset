@@ -11,21 +11,21 @@ import {doc, getDoc} from 'firebase/firestore';
 export default function InfoScreen({navigation}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection('Accounts')
-  //     .doc(firebase.auth().currentUser.uid)
-  //     .get()
-  //     .then(snapshot => {
-  //       if (snapshot.exists) {
-  //         setName(snapshot.data().name);
-  //         setEmail(snapshot.data().email);
-  //       } else {
-  //         console.log('No such document!');
-  //       }
-  //     });
-  // });
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('Accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.exists) {
+          setName(snapshot.data().name);
+          setEmail(snapshot.data().email);
+        } else {
+          console.log('No such document!');
+        }
+      });
+  });
   return (
     <View style={styles.view}>
       <HeaderDrawer

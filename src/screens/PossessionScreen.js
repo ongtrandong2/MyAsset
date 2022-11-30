@@ -33,7 +33,7 @@ export default function PossessionScreen({ navigation }) {
             <View style={styles.big_row} key={index} >
               <Pressable
                 onPress = {()=>onVisible(item)}
-                android_ripple={{ color: '#996600' }}
+                //android_ripple={{ color: '#996600' }}
                 style={({ pressed }) => [styles.row, { backgroundColor: pressed ? '#FF9900' : '#FFEBA3' }]}
               >
                 <View style={styles.name_view}>
@@ -43,12 +43,12 @@ export default function PossessionScreen({ navigation }) {
                 </View>
 
                 <View style={styles.money_view}>
-                  <Text style={styles.text}>{item.value} vnđ</Text>
+                  <Text style={styles.text}>{item.value} VND</Text>
                 </View>
               </Pressable>
 
               {position === item.key && flag===true &&(
-                <View style = {[styles.row,{justifyContent:'flex-start'}]}>
+                <View style = {[styles.row,{justifyContent:'center', alignItems:'center'}]}>
                    <Text style={styles.text}>Ghi chú:  {item.note} </Text>   
                 </View>
               )}
@@ -79,14 +79,14 @@ const styles = StyleSheet.create({
   },
 
   row: {
-    borderRadius: 5,
+    borderRadius: 20,
     backgroundColor: '#FFEBA3',
     width: '90%',
-    height: scale(40),
+    height: scale(50),
     flexDirection: 'row',
     margin: scale(5),
     justifyContent: 'center',
-    padding: scale(5),
+    padding: scale(10),
   },
 
   big_row: {

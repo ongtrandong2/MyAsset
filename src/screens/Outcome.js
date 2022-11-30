@@ -3,18 +3,18 @@ import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Modal, Image,
 
 import CustomButton from '../components/CustomButton';
 import { Dropdown } from 'react-native-element-dropdown';
-import { RadioButton } from 'react-native-paper';
 import scale from '../constants/scale';
 
 import { useSelector, useDispatch } from 'react-redux';
-
-import { addOutcome } from '../Redux/OutcomeData';
-import {addIncome} from '../Redux/IncomeData';
 import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import { removePossession } from '../Redux/PossessionData';
 
 
 import generateUUID from '../constants/generateUUID';
+import { addData } from '../Redux/IncomeOutcome';
+import moment from 'moment';
+
+import { IncreaseCurrentUse } from '../Redux/PlanData';
 
 
 const data_out = [
@@ -36,32 +36,37 @@ export default function Outcome() {
   const [outcomeValue, setOutcomeValue] = useState('');
   const [possessionName, setPossessionName] = useState('');
   const [possessionValue, setPossessionValue] = useState(''); 
-  const [number1, setNumber1] = useState(0);
   const [keyDelete, setKeyDelete] = useState(0);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const [flag, setFlag] = useState(false);
   
-  const outcomeData = useSelector(state => state.outcomeData);
   const possessionData = useSelector(state =>state.possessionData);
   const dispatch = useDispatch();
 
   //console.log(outcomeData);
   //console.log(keyDelete);
- 
+  
 
   const onSaveOutcome = () => {
     if (outcomeName !== '' && outcomeValue !== '') {
-      
+
+      setCurrentDate(new Date());
       dispatch(
-        addOutcome({
+        addData({
           key: generateUUID(),
           name: outcomeName,
           value: outcomeValue,
-          flag:1,
+          isIncome: false,
+          isPossession: false,
+          time:moment(currentDate).format("YYYY-MM-DD HH:mm:ss"), 
+
         }),
       );
 
       dispatch(DecreaseTotal(Number(outcomeValue)));
+      
+
       setOutcomeName('');
       setOutcomeValue('');
     }  
@@ -85,12 +90,15 @@ export default function Outcome() {
       //console.log(index);
       dispatch(removePossession(index));     
      //setNumber1(number1+1);
+      setCurrentDate(new Date());
       dispatch(
-        addIncome({
+        addData({
           key: generateUUID(),
           name: possessionName,
           value: possessionValue,
-          flag:0,
+          isIncome: true,
+          isPossession: true,
+          time:moment(currentDate).format("YYYY-MM-DD HH:mm:ss"),
         }),
       );
 
@@ -155,11 +163,6 @@ export default function Outcome() {
               value={outcomeName} //
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
-              // onChange={item => {
-              //     setOutcomeName(item.value); //
-              //     setIsFocus(false);
-              // }}
-
               onChange={(item)=>Check(item)}
             />}
           </View>
@@ -189,12 +192,6 @@ export default function Outcome() {
         <View style={styles.row}>
           <View style={styles.sub_row}>
             <Text style={{ fontSize:scale(20), color: '#000000' }}>1.Tên hiện vật:</Text>
-
-            {/* <TextInput 
-                style={styles.textInput_box}
-                onChangeText={setPossessionName}
-                value = {possessionName}
-            /> */}
             
             <Dropdown
               style={styles.dropdown}
@@ -235,16 +232,7 @@ export default function Outcome() {
           </View>
         </View>
 
-        {/* <View style={styles.row}>
-          <View style={styles.sub_row}>
-            <Text style={{ fontSize: 20, color: '#000000' }}>3.Ghi chú: </Text>
-            <TextInput 
-                style={styles.textInput_box} 
-                onChangeText={setNote}
-                value = {note}
-            />
-          </View>
-        </View> */}
+       
 
         <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton

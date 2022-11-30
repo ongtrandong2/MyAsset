@@ -9,12 +9,27 @@ const PlanData = createSlice ({
                 dateFinish: action.payload.dateFinish,
                 budget: action.payload.budget,
                 currentuse: action.payload.currentuse,
+                percentage_of_use: action.payload.percentage_of_use,
+                isExceed: action.payload.isExceed,
             };
             state.push(newPlan);
+        },
+        IncreaseCurrentUse:(state, action)=>{
+            state[action.payload.index].currentuse += action.payload.value;
+            state[action.payload.index].percentage_of_use += ( action.payload.value / state[action.payload.index].budget ) *100;
+            if(state[action.payload.index].percentage_of_use >= 100)
+            {
+                state[action.payload.index].isExceed = true;
+                state[action.payload.index].percentage_of_use = 100;
+            } 
+            else 
+            {
+                state[action.payload.index].isExceed = false;
+            }
         },
 
     },
 });
 
-export const {addPlan} = PlanData.actions;
+export const { addPlan,IncreaseCurrentUse } = PlanData.actions;
 export default PlanData.reducer;

@@ -6,11 +6,11 @@ import {
   ScrollView,
   Pressable,
   Animated,
-  StatusBar,
   KeyboardAvoidingView
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
+import moment from 'moment';
 
 import { useSelector, useDispatch } from 'react-redux';
 //import {TotalMoney} from '../Redux/TotalMoney';
@@ -25,12 +25,10 @@ export default function HomeScreen({ navigation }) {
 
   const incomeData = useSelector(state => state.incomeData);
   const outcomeData = useSelector(state => state.outcomeData);
+  const IncomeOutCome = useSelector(state => state.IncomeOutCome);
   const dispatch = useDispatch();
   const [number, setNumber] = useState('50%');
 
-  
-
-  
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -80,7 +78,7 @@ export default function HomeScreen({ navigation }) {
               </View>
 
               <View style={styles.money_view}>
-                <Text style={[styles.text, { color: 'red' }]}>{money} vnđ</Text>
+                <Text style={[styles.text, { color: 'red' }]}>{money} VND</Text>
               </View>
             </View>
           </View>
@@ -93,19 +91,21 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {incomeData.slice(0).reverse().map((item, index) => {
+              {IncomeOutCome.slice(0).reverse().map((item, index) => {
                 return (
                   <View key={index}>
-                    {item.flag === 1 && (
+                    {item.isPossession === false && (
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
                           <Text style={styles.text}>{item.name}</Text>
                         </View>
 
                         <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: '#00CC00' }]}>
-                            + {item.value} vnđ
-                          </Text>
+                          {item.isIncome === true ? 
+                            (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>) 
+                            :
+                            (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+                          }
                         </View>
                       </View>
 
@@ -115,26 +115,7 @@ export default function HomeScreen({ navigation }) {
                 );
               })}
 
-              {outcomeData.slice(0).reverse().map((item, index) => {
-                return (
-                  <View key={index}>
-                    {item.flag === 1 && (
-                      <View style={styles.figure_view} >
-                        <View style={styles.name_view}>
-                          <Text style={styles.text}>{item.name}</Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} vnđ </Text>
-                        </View>
-                      </View>
-                    )}
-
-                  </View>
-
-
-                );
-              })}
+              
             </ScrollView>
           </View>
         </View>
@@ -148,46 +129,31 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.box_view}>
             <ScrollView>
 
-              {incomeData.map((item, index) => {
+              {IncomeOutCome.slice(0).reverse().map((item, index) => {
                 return (
                   <View key={index}>
-                    {item.flag === 0 && (
+                    {item.isPossession === true && (
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
-                          <Text style={styles.text}>- {item.name}</Text>
+                          {item.isIncome === false ? 
+                              (<Text style={styles.text}>+ {item.name}</Text>)
+                              :
+                              (<Text style={styles.text}>- {item.name}</Text>)
+                          }
                         </View>
 
                         <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: '#00CC00' }]}>
-                            + {item.value} vnđ
-                          </Text>
+                          {item.isIncome === true ? 
+                              (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+                              : 
+                              (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+                          }
                         </View>
                       </View>
 
                     )}
 
                   </View>
-                );
-              })}
-
-              {outcomeData.map((item, index) => {
-                return (
-                  <View key={index}>
-                    {item.flag === 0 && (
-                      <View style={styles.figure_view} >
-                        <View style={styles.name_view}>
-                          <Text style={styles.text}>+ {item.name}</Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} vnđ </Text>
-                        </View>
-                      </View>
-                    )}
-
-                  </View>
-
-
                 );
               })}
 
@@ -195,8 +161,8 @@ export default function HomeScreen({ navigation }) {
             </ScrollView>
           </View>
         </View>
-        <View style = {{paddingTop:200}}>
-          
+        <View style={{ paddingTop: 200 }}>
+
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

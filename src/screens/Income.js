@@ -7,13 +7,15 @@ import {Dropdown} from 'react-native-element-dropdown';
 import { RadioButton} from 'react-native-paper';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {addIncome} from '../Redux/IncomeData';
-import { addOutcome } from '../Redux/OutcomeData';
 import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 import PossessionData, { addPossession } from '../Redux/PossessionData';
 
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
+
+import { addData } from '../Redux/IncomeOutcome';
+import { IncreaseCurrentUse } from '../Redux/PlanData';
+import moment from 'moment';
 
 const data_in = [
     {key: '1', value: 'Tiền Lương'},
@@ -34,45 +36,46 @@ const data_in = [
     const [possessionName, setPossessionName] = useState('');
     const [possessionValue, setPossessionValue] = useState('');
     const [note,setNote] = useState('');
-    //const [number1, setNumber1] = useState(0);
-  
-    const possessionData = useSelector(state => state.possessionData);
-    //const [number2, setNumber2] = useState(possessionData.length);
-
     const [flag, setFlag] = useState(false);
     
   
-    const incomeData = useSelector(state => state.incomeData);
-    const outcomeData = useSelector(state => state.outcomeData);
+    const IncomeOutCome = useSelector(state=> state.IncomeOutCome);
+    const planData = useSelector (state => state.planData);
     const dispatch = useDispatch();
   
     const [checked, setChecked] = useState('first');
+    const [currentDate, setCurrentDate] = useState(new Date()); //
   
     //console.log(incomeData);
-    //console.log(outcomeData);
-
-    //console.log(possessionValue);
-
+    //console.log(possessionData);
+    //console.log(IncomeOutCome);
+    console.log(planData);
     const onSaveIncome = () => {
       if (incomeName !== '' && incomeValue !== '') {
+        setCurrentDate(new Date());
         dispatch(
-          addIncome({
+          addData({
             key: generateUUID(),
             name: incomeName,
             value: incomeValue,
-            flag:1,
+            isIncome: true,
+            isPossession: false,
+            time: moment(currentDate).format("YYYY-MM-DD HH:mm:ss"),
           }),
         );
   
         dispatch(IncreaseTotal(Number(incomeValue)));
+       
         setIncomeName('');
         setIncomeValue('');
+        
       }
       
     };
 
     const onSavePossession = () =>{
       if (possessionName!== '' && possessionValue!== '' ) {
+        setCurrentDate(new Date());
         dispatch(
           addPossession({
             key: generateUUID(),
@@ -82,16 +85,32 @@ const data_in = [
           }),
         );
 
-          dispatch(
-            addOutcome({
-              key: generateUUID(),
-              name: possessionName,
-              value: possessionValue,
-              flag:0, //possession => flag = 0 
+        dispatch(
+          addData({
+            key: generateUUID(),
+            name: possessionName,
+            value: possessionValue,
+            isIncome: false, 
+            isPossession: true,
+            time:moment(currentDate).format("YYYY-MM-DD HH:mm:ss"),
           }),
         );
 
         dispatch(DecreaseTotal(Number(possessionValue)));
+        let  d1 = new Date(moment(currentDate).format("YYYY-MM-DD"));
+        planData.map((item, index)=>{
+            let  d2 = new Date(item.dateStart);
+            let  d3 = new Date(item.dateFinish)
+            if( d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime())
+            {
+                dispatch(IncreaseCurrentUse({
+                  index: index,
+                  value: Number(possessionValue),
+                }));
+            }
+        })
+        
+        
 
         setPossessionName('');
         setPossessionValue('');
@@ -153,12 +172,10 @@ const data_in = [
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               data={data_in}
-              //search={false}
               maxHeight={300}
               labelField="value"
               valueField="key"
               placeholder={!isFocus ? incomeName : '...'}
-              //searchPlaceholder="Search..."
               value={incomeName}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
