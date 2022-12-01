@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 
   box:{
-    width:'80%',
+    width:'70%',
     height: scale(50),
     //backgroundColor: 'green',
     flexDirection: 'row',
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     //height: scale(50),
     //backgroundColor:'green',
     justifyContent: 'center',
-    //alignItems: 'center',
+    alignItems: 'center',
     //flexWrap:'wrap',
     //paddingLeft:10,
   },
