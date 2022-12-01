@@ -85,16 +85,18 @@ const styles = StyleSheet.create({
   },
 
   box:{
-    width:'70%',
+    width:'80%',
     height: scale(50),
     //backgroundColor: 'green',
     flexDirection: 'row',
     //justifyContent: 'space-between',
     //padding:5,
-    paddingLeft:10,
+    //paddingLeft:10,
     borderRadius:20,
     borderWidth:1,
     borderColor: 'green',
+    justifyContent:'center',
+    alignItems: 'center',
   },
   icon:{
     //width:'20%',
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //alignItems: 'center',
     //flexWrap:'wrap',
-    paddingLeft:10,
+    //paddingLeft:10,
   },
 
   text:{

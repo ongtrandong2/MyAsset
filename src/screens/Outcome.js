@@ -180,7 +180,7 @@ export default function Outcome() {
         </View>
         <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{ height: scale(30), width: '20%' }}
+            style={{ height: scale(40), width: '20%' }}
             title={'Lưu'}
             onPressFunction={onSaveOutcome}
           />
@@ -236,7 +236,7 @@ export default function Outcome() {
 
         <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{ height: scale(30), width: '20%' }}
+            style={{ height: scale(40), width: '20%' }}
             title={'Lưu'}
             onPressFunction={() => onSavePossession()}
           />

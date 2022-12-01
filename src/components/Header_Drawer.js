@@ -8,6 +8,7 @@ import {
  
 } from 'react-native';
 import scale from '../constants/scale';
+import Feather from 'react-native-vector-icons/Feather';
 
 const HeaderDrawer = (props) => {
   
@@ -29,11 +30,19 @@ const HeaderDrawer = (props) => {
             <Pressable
               onPress={props.onPress}
               android_ripple={{ color: '#bbbbbb' }}>
-              <Image
+              {/* <Image
                 style={{ height: scale(25), width: scale(25) }}
                 //source={require('../assets/images/Setting.png')}
                 source={{uri:'https://img.icons8.com/ios-filled/50/null/menu-rounded.png'}}
                 resizeMode="stretch"
+              /> */}
+              <Feather
+                  name = 'menu'
+                  size ={24}
+                  color = 'black'
+                  style ={{
+                    position:'absolute'
+                  }}
               />
             </Pressable>
           </View>

@@ -201,7 +201,7 @@ const data_in = [
   
         <View style={[styles.row,{paddingTop:scale(10)}]}>
           <CustomButton
-            style={{height: scale(30), width: '20%'}}
+            style={{height: scale(40), width: '20%'}}
             title={'Lưu'}
             onPressFunction={() => onSaveIncome()}
           />
@@ -251,7 +251,7 @@ const data_in = [
         <View style={styles.row}>
           <View style={styles.sub_row}>
             <Image
-              style = {{height:scale(10),width:scale(10)}}
+              style = {{height:scale(10),width:scale(10), marginBottom:scale(10), marginLeft:scale(10)}}
               source={require('../assets/images/dot.png')}
               resizeMode='stretch'
               
@@ -293,7 +293,7 @@ const data_in = [
 
         <View style={[styles.row,{paddingTop: scale(10), paddingBottom:scale(100)}]}>
           <CustomButton
-            style={{ height: 30, width: '20%' }}
+            style={{ height: scale(40), width: '20%' }}
             title={'Lưu'}
             onPressFunction={() => onSavePossession()}
           />

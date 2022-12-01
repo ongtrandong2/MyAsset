@@ -38,7 +38,7 @@ export default function InfoScreen({navigation}) {
       <View style={styles.big_row}>
         <View style={styles.title}>
           <View style={styles.circle}>
-            <Text style={{ fontSize: scale(50), fontWeight: 'bold', color: "black" }}>Đ</Text>
+            <Text style={{ fontSize: scale(50), fontWeight: 'bold', color: "black" }}>{name.charAt(0)}</Text>
           </View>
 
           <View style={styles.name_box}>
@@ -115,7 +115,7 @@ export default function InfoScreen({navigation}) {
       <View style = {[styles.big_row, {paddingTop:scale(20)}]}>
           <CustomButton
               title = {'Chỉnh sửa thông tin cá nhân'}
-              style = {{height: scale(40), width: '70%'}}
+              style = {{height: scale(40), width: '80%'}}
               onPressFunction={()=>{navigation.navigate('ChangeInfo')}}
           />
       </View>
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   left_box: {
     //width: 140,
     flex:1.25,
-    height: scale(50),
+    height: scale(60),
     //backgroundColor:'blue',
     //marginLeft: 10,
     alignItems: 'center',

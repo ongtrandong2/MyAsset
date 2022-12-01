@@ -179,7 +179,7 @@ export default function PlanScreen({ navigation }) {
             <ScrollView>
               <View style={styles.modal_bigrow}>
 
-                <Text style={{ color: 'red', fontSize: scale(30), fontWeight: 'bold' }}>Kế hoạch mới</Text>
+                <Text style={{ color: 'red', fontSize: scale(25), fontWeight: 'bold' }}>Kế hoạch mới</Text>
 
 
 
@@ -272,8 +272,8 @@ const styles = StyleSheet.create({
 
     position: 'absolute',
     zIndex: 999,
-    right: 30,
-    bottom: 100,
+    right: scale(30),
+    bottom: scale(150),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -289,7 +289,6 @@ const styles = StyleSheet.create({
   },
 
   shadow: {
-    //shadowColor:'#7F5Df0',
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -305,7 +304,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    //backgroundColor: 'pink',
     paddingTop: scale(30)
   },
 
@@ -363,7 +361,7 @@ const styles = StyleSheet.create({
   },
   modal_box: {
     width: '100%',
-    height: '120%',
+    height: '150%',
     backgroundColor: 'white',
     borderRadius: 20,
     borderWidth: 1,
@@ -375,31 +373,33 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
+    
   },
 
   modal_row: {
     flexDirection: 'row',
-    //alignSelf: 'flex-start',
-    //paddingHorizontal: 20,
-    //justifyContent:'flex-end',
     alignItems: 'flex-end',
     paddingVertical: 15,
+    width: '100%',
+    justifyContent:'center',
+    
+    
   },
   textInput_style: {
     //paddingHorizontal: scale(10),
-    padding: scale(2),
-    paddingLeft: 0,
-    fontSize: scale(20),
+    //padding: scale(2),
+    //paddingLeft: 0,
+    fontSize: scale(18),
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    width: '60%',
+    width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
 
   },
 
   text_modal: {
-    fontSize: scale(25),
+    fontSize: scale(20),
     color: '#000000',
     fontFamily: 'Itim-Regular',
   },

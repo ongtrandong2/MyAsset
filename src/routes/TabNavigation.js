@@ -46,10 +46,12 @@ const Tabs = () => {
         showLabel: false,
         style: { ...styles.tab_style, ...styles.shadow },
         keyboardHidesTabBar: true,
-        tabBarHideOnKeyboard: true,
+        
       }}
 
-      header={{}}
+      screenOptions={{
+        tabBarHideOnKeyboard: true,
+      }}
     >
       <Tab.Screen
         name="HomeScreen"
