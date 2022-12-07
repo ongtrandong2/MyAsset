@@ -40,9 +40,6 @@ const HeaderDrawer = (props) => {
                   name = 'menu'
                   size ={24}
                   color = 'black'
-                  style ={{
-                    position:'absolute'
-                  }}
               />
             </Pressable>
           </View>

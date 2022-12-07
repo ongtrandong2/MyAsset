@@ -5,6 +5,7 @@ const PlanData = createSlice ({
     reducers: {
         addPlan: (state, action) =>{
             const newPlan = {
+                key:action.payload.key,
                 dateStart: action.payload.dateStart,
                 dateFinish: action.payload.dateFinish,
                 budget: action.payload.budget,

@@ -10,7 +10,6 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-paper';
 
 import Header from '../components/Header';
@@ -21,6 +20,7 @@ import { UpdateMoney } from '../Redux/TotalMoney';
 import { addPossession, removePossession } from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function FirstInput({ navigation }) {
   //const money = useSelector(state => state.totalMoney.value);

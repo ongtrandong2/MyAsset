@@ -8,6 +8,9 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {firebase} from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
+import Feather from 'react-native-vector-icons/Feather';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -85,8 +88,8 @@ export default function Login({navigation}) {
           placeholderTextColor={'grey'}
           onChangeText={value => setEmail(value)}
           value={email}
-          right={
-            <TextInput.Icon icon={require('../assets/images/user2.png')} />
+          left={
+            <TextInput.Icon icon={()=>(<Fontisto name="email" size={24} color = 'black'/>)} />
           }
         />
       </View>
@@ -99,12 +102,15 @@ export default function Login({navigation}) {
           secureTextEntry={passwordVisible}
           onChangeText={value => setPassword(value)}
           value={password}
+          left={
+            <TextInput.Icon icon={()=>(<Ionicons name="md-key-outline" size={24} color = 'black'/>)} />
+          }
           right={
             <TextInput.Icon
               icon={
                 passwordVisible
-                  ? require('../assets/images/eye_off.png')
-                  : require('../assets/images/eye.png')
+                  ? ()=>(<Feather name='eye-off' size={24} color="black"/>)
+                  : ()=>(<Feather name='eye' size={24} color="black"/>)
               }
               onPress={() => setPasswordVisible(!passwordVisible)}
             />
@@ -134,7 +140,7 @@ export default function Login({navigation}) {
 
       <View style={[styles.body_view,{padding:10}]}>
           <CustomButton
-            style={{width: '70%', height: scale(40)}}
+            style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
             onPressFunction={onRegister}
           />
@@ -221,9 +227,10 @@ body_view: {
 
 TextInput_style: {
   borderBottomColor: 'black',
-  width: '70%',
+  width: '80%',
+  //height:scale(60),
   backgroundColor: '#ffffff',
-  //fontSize:18,
+  fontSize:scale(18),
 },
 
 forgetpass: {

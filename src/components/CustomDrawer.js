@@ -11,7 +11,10 @@ const CustomDrawerItem = props =>{
             //activeOpacity={0.5}
             //underlayColor='#dddddd'
         >
-            <Image source = {props.icon} />
+            <Image 
+                source = {props.icon} 
+                resizeMode = {'stretch'}
+            />
             <Text style = {styles.text}>{props.label}</Text>
 
         </TouchableOpacity>
@@ -28,6 +31,7 @@ const CustomDrawer = props =>{
                     resizeMode = 'stretch'
                 />
             </View>
+            <View style = {{borderBottomWidth:1, borderBottomColor: 'black', alignItem: 'center', justifyContent:'center', marginHorizontal: 10}}></View>
             <DrawerContentScrollView contentContainerStyle={{backgroundColor:'#ffffff'}}>
                 <CustomDrawerItem
                     style = {styles.itemContainer}
@@ -89,7 +93,7 @@ const styles = StyleSheet.create({
         width:'80%',
         height:scale(50),
         alignSelf:'center',
-        borderBottomWidth:1,
+        //borderBottomWidth:1,
         borderBottomColor:'#000000',
         marginVertical:scale(10),
         //backgroundColor:'blue',

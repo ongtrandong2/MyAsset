@@ -117,6 +117,7 @@ export default function RegisterScreen({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.textinput_style}
+            secureTextEntry
             onChangeText={value => setPassword(value)}
           />
         </View>

@@ -12,7 +12,6 @@ const CustomButton = props => {
         {backgroundColor: pressed ? '#996600' : '#FFC700'},
         styles.button,
         {...props.style},
-        
       ]}>
       <Text style={styles.text}>{props.title}</Text>
     </Pressable>

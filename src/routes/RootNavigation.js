@@ -1,6 +1,5 @@
 import React from 'react';
 import Login from '../screens/Login';
-import WelcomeScreen from '../screens/WelcomeScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInputScreen';

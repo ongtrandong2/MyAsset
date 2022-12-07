@@ -6,28 +6,44 @@ import {
   ScrollView,
   Pressable,
   Animated,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Modal,
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import moment from 'moment';
+import CustomModal from '../components/CustomModal';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { ShowModal } from '../Redux/ModalNumber';
+import { TextInput } from 'react-native-paper';
 //import {TotalMoney} from '../Redux/TotalMoney';
 //import { addPossession } from '../Redux/PossessionData';
 //import {addIncome} from '../Redux/IncomeData';
 
 
 
-
 export default function HomeScreen({ navigation }) {
   const money = useSelector(state => state.totalMoney.value);
-
-  const incomeData = useSelector(state => state.incomeData);
-  const outcomeData = useSelector(state => state.outcomeData);
-  const IncomeOutCome = useSelector(state => state.IncomeOutCome);
+  const IncomeOutcome = useSelector(state => state.IncomeOutcome);
+  const planData = useSelector(state => state.planData);
+  const isShowModal = useSelector(state => state.modalNumber.IsShowModal);
+  const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
   const [number, setNumber] = useState('50%');
+  //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
+  const [currentDate, setCurrentDate] = useState(new Date());
+  let d1 = new Date(moment(currentDate).format("YYYY-MM"));
+
+  let plan = planData.filter(item => {
+    let d2 = new Date(moment(item.dateStart).format("YYYY-MM"));
+    let d3 = new Date(item.dateFinish)
+    return (
+      d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()
+    )
+  })
+
+  //console.log(plan);
 
   return (
     <KeyboardAvoidingView style={styles.view}>
@@ -50,39 +66,48 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.big_row}>
-          <Text style={{ color: '#000000', fontSize: scale(15) }}>
-            Upgrade this function
+          <Text style={{ color: '#000000', fontSize: scale(18), fontFamily: 'Itim-Regular' }}>
+            KẾ HOẠCH
           </Text>
         </View>
 
+        {plan.map((item, index) => {
+          return (
+            <View key={index}>
+              <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                <View style={styles.slider_view}>
+                  <View style={[styles.figure_view, { height: scale(20) }]}>
+                    <Text style={{ fontSize: scale(15), color: 'black' }}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                  </View>
+                  <View style={styles.progressBar}>
+                    <Animated.View
+                      style={
+                        ([StyleSheet.absoluteFill],
+                        {
+                          backgroundColor: '#FF9900',
+                          width:String(item.percentage_of_use)+"%",
+                          borderRadius: 5,
+                        })
+                      }
+                    />
+                  </View>
 
+                  <View style={styles.figure_view}>
+                    <View style={styles.name_view}>
+                      <Text style={[styles.text, { color: 'red' }]}>{item.currentuse}</Text>
+                    </View>
 
-        <View style={styles.big_row}>
-          <View style={styles.slider_view}>
-            <View style={styles.progressBar}>
-              <Animated.View
-                style={
-                  ([StyleSheet.absoluteFill],
-                  {
-                    backgroundColor: '#FF9900',
-                    width: number ? number : '50%',
-                    borderRadius: 5,
-                  })
-                }
-              />
-            </View>
-
-            <View style={styles.figure_view}>
-              <View style={styles.name_view}>
-                <Text style={[styles.text, { color: 'red' }]}>50000</Text>
+                    <View style={styles.money_view}>
+                      <Text style={[styles.text, { color: 'red' }]}>{item.budget} VND</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
-
-              <View style={styles.money_view}>
-                <Text style={[styles.text, { color: 'red' }]}>{money} VND</Text>
-              </View>
             </View>
-          </View>
-        </View>
+          )
+        })}
+
+
 
         <View style={styles.big_row}>
           <Text style={[styles.text, { fontWeight: 'bold' }]}>THU CHI GẦN ĐÂY</Text>
@@ -91,31 +116,35 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {IncomeOutCome.slice(0).reverse().map((item, index) => {
+              {IncomeOutcome.slice(0).reverse().map((item, index) => {
                 return (
                   <View key={index}>
-                    {item.isPossession === false && (
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
-                          <Text style={styles.text}>{item.name}</Text>
+                          { item.isPossession  ? 
+                                ( item.isIncome ? (<Text style={styles.text}>{item.name} - BÁN</Text>)
+                                               : (<Text style={styles.text}>{item.name} - MUA</Text>)
+                              
+                           ) : ( <Text style={styles.text}>{item.name}</Text> )}
+                          
                         </View>
 
                         <View style={styles.money_view}>
-                          {item.isIncome === true ? 
-                            (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>) 
+                          {item.isIncome === true ?
+                            (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
                             :
                             (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
                           }
                         </View>
                       </View>
 
-                    )}
+                    
 
                   </View>
                 );
               })}
 
-              
+
             </ScrollView>
           </View>
         </View>
@@ -129,42 +158,47 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.box_view}>
             <ScrollView>
 
-              {IncomeOutCome.slice(0).reverse().map((item, index) => {
+              {possessionData.slice(0).reverse().map((item, index) => {
                 return (
-                  <View key={index}>
-                    {item.isPossession === true && (
+                   <View key={index}>
+                    
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
-                          {item.isIncome === false ? 
-                              (<Text style={styles.text}>+ {item.name}</Text>)
-                              :
-                              (<Text style={styles.text}>- {item.name}</Text>)
-                          }
+                          
+                          <Text style={styles.text}> {item.name}</Text>
                         </View>
 
                         <View style={styles.money_view}>
-                          {item.isIncome === true ? 
-                              (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
-                              : 
-                              (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
-                          }
+                          
+                          <Text style={[styles.text, { color: 'hsl(36,100%,52%)' }]}> {item.value} VND</Text>
                         </View>
                       </View>
 
-                    )}
+                    
 
                   </View>
                 );
               })}
 
-
+             
             </ScrollView>
           </View>
         </View>
         <View style={{ paddingTop: 200 }}>
-
+        
         </View>
       </ScrollView>
+
+      <Modal
+        visible={isShowModal}
+        onRequestClose={() => dispatch(ShowModal(false))}
+        transparent
+        //statusBarTranslucent
+        animationType='fade'
+      >
+        <CustomModal />
+
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -208,26 +242,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEFB6',
     padding: scale(10),
     borderRadius: scale(10),
+   
   },
 
   figure_view: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    //backgroundColor:'green',
-    width: '95%',
+    //justifyContent: 'space-between',
+    width: '100%',
     height: scale(30),
     marginBottom: scale(5),
   },
 
   name_view: {
-    flex: 0.5,
+    flex: 1,
     //paddingHorizontal: scale(5),
     //backgroundColor:'pink',
 
   },
 
   money_view: {
-    flex: 0.5,
+    flex: 1,
     paddingHorizontal: scale(5),
     //backgroundColor:'blue',
     alignItems: 'flex-end',
@@ -240,4 +274,6 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     flexDirection: 'row',
   },
+  /// Modal 
+
 });

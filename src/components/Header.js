@@ -58,7 +58,7 @@ const Header = props => {
               <Image
                 style={{height: 16, width: 5}}
                 source={require('../assets/images/Setting.png')}
-                resizeMode="stretch"
+                resizeMode="stretch" m
               />
             </Pressable>
           </View> */}

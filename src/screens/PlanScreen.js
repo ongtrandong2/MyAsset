@@ -8,6 +8,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
 import { addPlan} from '../Redux/PlanData';
+import generateUUID from '../constants/generateUUID';
 
 
 export default function PlanScreen({ navigation }) {
@@ -69,6 +70,7 @@ export default function PlanScreen({ navigation }) {
       else {
         dispatch(
           addPlan({
+            key: generateUUID(),
             dateStart: dateSelect,
             dateFinish: dateFinish,
             budget: budget,
@@ -130,18 +132,12 @@ export default function PlanScreen({ navigation }) {
                 </View>
               </View>
 
-
-              
-
             </View>
           )
         })}
 
 
       </ScrollView>
-
-
-
 
       <View style={styles.floatingbutton}>
         <Pressable
@@ -177,17 +173,17 @@ export default function PlanScreen({ navigation }) {
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
             <ScrollView>
-              <View style={styles.modal_bigrow}>
-
+              <KeyboardAvoidingView style={styles.modal_bigrow}>
                 <Text style={{ color: 'red', fontSize: scale(25), fontWeight: 'bold' }}>Kế hoạch mới</Text>
-
-
-
                 <View style={styles.modal_row}>
                   <Text style={styles.text_modal}>1. Ngày bắt đầu : </Text>
                   <TextInput
                     style={styles.textInput_style}
                     onChangeText={setDateSelect}
+                    placeholderTextColor={'black'}
+                    textColor='blue'
+                    activeUnderlineColor='black'
+
                     value={dateSelect}
                     right={
                       <TextInput.Icon
@@ -209,7 +205,9 @@ export default function PlanScreen({ navigation }) {
                   <TextInput
                     style={styles.textInput_style}
                     onChangeText={setDateFinish}
-                    placeholderTextColor={'black'}
+                    placeholderTextColor='black'
+                    textColor='blue'
+                    activeUnderlineColor='black'
                     value={dateFinish}
                     right={
                       <TextInput.Icon
@@ -234,6 +232,10 @@ export default function PlanScreen({ navigation }) {
                     style={styles.textInput_style}
                     onChangeText={setBudget}
                     value={budget}
+                    placeholderTextColor='black'
+                    underlineStyle={{borderWidth:0}}
+                    textColor='blue'
+                    activeUnderlineColor='black'
                   />
                 </View>
 
@@ -243,12 +245,11 @@ export default function PlanScreen({ navigation }) {
                   onPressFunction={onConfirmPlan}
                 />
 
-              </View>
+              </KeyboardAvoidingView>
             </ScrollView>
           </View>
         </View>
       </Modal>
-
     </KeyboardAvoidingView>
   );
 }
@@ -351,7 +352,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-
   ///Modal of input plan
   modal_view: {
     flex: 1,
@@ -390,11 +390,12 @@ const styles = StyleSheet.create({
     //padding: scale(2),
     //paddingLeft: 0,
     fontSize: scale(18),
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomWidth: 0.5,
+    //borderBottomColor: 'black',
     width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
+    
 
   },
 
