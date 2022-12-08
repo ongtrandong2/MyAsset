@@ -236,8 +236,11 @@ export default function DailyCost() {
                         </View>
                         <View style={[styles.row, { paddingTop: scale(10) }]}>
                             <CustomButton
-                                style={{ height: scale(40), width: '20%' }}
-                                title={'Lưu'}
+                                style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
+                                colorPress = {'#FFC700'}
+                                colorUnpress = {'#ffdc61'}
+                                text_style={styles.text_style}
+                                title={'LƯU'}
                                 onPressFunction={onSaveOutcome}
                             />
                         </View>
@@ -306,8 +309,11 @@ export default function DailyCost() {
 
                         <View style={[styles.row, { paddingTop: scale(10) }]}>
                             <CustomButton
-                                style={{ height: scale(40), width: '20%' }}
-                                title={'Lưu'}
+                                style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
+                                colorPress = {'#FFC700'}
+                                colorUnpress = {'#ffdc61'}
+                                text_style={styles.text_style}
+                                title={'LƯU'}
                                 onPressFunction={() => onSaveIncome()} 
                             />
                         </View>
@@ -329,6 +335,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: scale(20),
         color: '#000000',
+    },
+    text_style:{
+        color: 'black',
+        fontSize: scale(20),
+        fontFamily:'Itim-Regular'
     },
     tab_view: {
         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
+import {View, StyleSheet, Text, Button, TextInput} from 'react-native';
 import moment from 'moment';
 
 export default function StatisticsScreen() {
@@ -29,7 +29,9 @@ export default function StatisticsScreen() {
         //onPress={()=>setCurrentDate(new Date())}
         onPress={Check}
       />
+      
       <Text>{moment(currentDate).format("YYYY-MM-DD ")}</Text>
+      
       
      
     </View>

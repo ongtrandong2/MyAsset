@@ -51,6 +51,9 @@ export default function ChangeInfo({ navigation }) {
                     <CustomButton
                         title={'Lưu thông tin cá nhân'}
                         style={{ height: scale(40), width: '60%' }}
+                        colorPress = {'#FFC700'}
+                        colorUnpress = {'#ffdc61'}
+                        text_style={styles.text_style}
                     //onPressFunction = {}
                     />
                 </View>
@@ -100,4 +103,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: scale(20),
         fontSize: scale(18),
     },
+    text_style:{
+        color: 'black',
+        fontSize: scale(18),
+        fontWeight: 'bold',
+    },
+    
 })

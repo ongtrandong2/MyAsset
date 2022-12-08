@@ -67,6 +67,9 @@ export default function ChangePassword({ navigation }) {
                     <CustomButton
                         title = {'Lưu thay đổi'}
                         style = {{height: scale(40), width: scale(220)}}
+                        colorPress = {'#FFC700'}
+                        colorUnpress = {'#ffdc61'}
+                        text_style={styles.text_style}
                         //onPressFunctionBack = {}
                     />
                 </View>
@@ -113,6 +116,16 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingHorizontal: scale(20),
         fontSize: scale(18),
+    },
+    text_style:{
+        color: 'black',
+        fontSize: scale(18),
+        fontWeight: 'bold',
+    },
+    text_style:{
+        color: 'black',
+        fontSize: scale(18),
+        fontWeight: 'bold',
     },
 })
 

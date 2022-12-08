@@ -132,6 +132,9 @@ export default function Login({navigation}) {
         <CustomButton
           style={{width: '40%', height: scale(40)}}
           title={'Đăng nhập'}
+          colorPress = {'#FFC700'}
+          colorUnpress = {'#ffdc61'}
+          text_style={styles.text_style}
           onPressFunction={() => {
             LoginUser(email, password);
           }}
@@ -142,6 +145,9 @@ export default function Login({navigation}) {
           <CustomButton
             style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
+            colorPress = {'#FFC700'}
+            colorUnpress = {'#ffdc61'}
+            text_style={styles.text_style}
             onPressFunction={onRegister}
           />
       </View>
@@ -238,6 +244,11 @@ forgetpass: {
   borderBottomColor: 'black',
   width: '50%',
   backgroundColor: '#ffffff',
+},
+text_style:{
+  color: 'black',
+  fontSize: scale(18),
+  fontWeight: 'bold',
 },
 });
     

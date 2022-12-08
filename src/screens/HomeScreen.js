@@ -16,10 +16,7 @@ import CustomModal from '../components/CustomModal';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { ShowModal } from '../Redux/ModalNumber';
-import { TextInput } from 'react-native-paper';
-//import {TotalMoney} from '../Redux/TotalMoney';
-//import { addPossession } from '../Redux/PossessionData';
-//import {addIncome} from '../Redux/IncomeData';
+
 
 
 
@@ -37,7 +34,7 @@ export default function HomeScreen({ navigation }) {
 
   let plan = planData.filter(item => {
     let d2 = new Date(moment(item.dateStart).format("YYYY-MM"));
-    let d3 = new Date(item.dateFinish)
+    let d3 = new Date(item.dateFinish);
     return (
       d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()
     )
@@ -71,6 +68,12 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
 
+        { planData.length === 0 ? (
+          <View style = {styles.big_row}>
+            <Text style = {{ fontSize: scale(20) ,  color: '#CDCACA', fontFamily: 'Itim-Regular'}}>Chưa có kế hoạch cho tháng này!</Text> 
+          </View>
+        ) :(
+        <>
         {plan.map((item, index) => {
           return (
             <View key={index}>
@@ -106,7 +109,7 @@ export default function HomeScreen({ navigation }) {
             </View>
           )
         })}
-
+       </> )}
 
 
         <View style={styles.big_row}>
@@ -116,7 +119,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {IncomeOutcome.slice(0).reverse().map((item, index) => {
+              {IncomeOutcome.slice(0,10).reverse().map((item, index) => {
                 return (
                   <View key={index}>
                       <View style={styles.figure_view}>
@@ -158,7 +161,7 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.box_view}>
             <ScrollView>
 
-              {possessionData.slice(0).reverse().map((item, index) => {
+              {possessionData.slice(0,10).reverse().map((item, index) => {
                 return (
                    <View key={index}>
                     
@@ -184,9 +187,9 @@ export default function HomeScreen({ navigation }) {
             </ScrollView>
           </View>
         </View>
-        <View style={{ paddingTop: 200 }}>
+        {/* <View style={{ paddingTop: 200 }}>
         
-        </View>
+        </View> */}
       </ScrollView>
 
       <Modal

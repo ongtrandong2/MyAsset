@@ -161,7 +161,9 @@ export default function FirstInput({ navigation }) {
           <CustomButton
             style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
-            
+            colorPress = {'#FFC700'}
+            colorUnpress = {'#ffdc61'}
+            text_style={styles.text_style}
             onPressFunction={onComplete}
           />
         </View>

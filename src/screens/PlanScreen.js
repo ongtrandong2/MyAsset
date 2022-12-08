@@ -11,6 +11,7 @@ import { addPlan} from '../Redux/PlanData';
 import generateUUID from '../constants/generateUUID';
 
 
+
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -22,6 +23,7 @@ export default function PlanScreen({ navigation }) {
   const [dateFinish, setDateFinish] = useState('');
   const [budget, setBudget] = useState('');
   const [number, setNumber] = useState(0);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
@@ -62,10 +64,15 @@ export default function PlanScreen({ navigation }) {
 
   const onConfirmPlan = () => {
     if (dateSelect !== '' && dateFinish !== '' && budget !== '') {
-      const d1 = new Date(dateSelect);
-      const d2 = new Date(dateFinish);
+      let d = new Date(moment(currentDate).format("YYYY-MM-DD"));
+      let d1 = new Date(dateSelect);
+      let d2 = new Date(dateFinish);
       if (d1.getTime() > d2.getTime()) {
         Alert.alert('Warning', 'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!');
+      }
+      else if (d.getTime() > d1.getTime())
+      {
+        Alert.alert('Warning', 'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!')
       }
       else {
         dispatch(
@@ -96,7 +103,15 @@ export default function PlanScreen({ navigation }) {
           title="KẾ HOẠCH"
           style={{ color: 'black', fontWeight: 'bold' }}
         />
-
+        
+        {planData.length ===0 ? (
+          <View style = {[styles.big_row, {alignItems:'center'}]}>
+              <Text style = {{ fontSize: scale(50) ,  color: '#CDCACA', fontFamily: 'Itim-Regular'}}>Chưa có dữ liệu</Text>
+              
+          </View>
+          
+        ) : (
+        <>
         {planData.map((item, index) => {
           return (
             <View key={index}>
@@ -134,7 +149,8 @@ export default function PlanScreen({ navigation }) {
 
             </View>
           )
-        })}
+        })} 
+        </>)}
 
 
       </ScrollView>
@@ -190,6 +206,7 @@ export default function PlanScreen({ navigation }) {
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker}
                       />
+                      
                     }
                   />
                   <DateTimePickerModal
@@ -214,6 +231,7 @@ export default function PlanScreen({ navigation }) {
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker_Finish}
                       />
+                      
                     }
                   />
 
@@ -240,8 +258,11 @@ export default function PlanScreen({ navigation }) {
                 </View>
 
                 <CustomButton
-                  style={{ height: scale(50), width: '30%', marginTop: 30 }}
-                  title='Lưu'
+                  style={{ height: scale(40), width: '30%', borderColor: 'orange'}}
+                  colorPress = {'#FFC700'}
+                  colorUnpress = {'#ffdc61'}
+                  text_style={styles.text_style}
+                  title={'LƯU'}
                   onPressFunction={onConfirmPlan}
                 />
 
@@ -258,7 +279,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-    flexDirection: 'column',
+   
   },
 
   text: {
@@ -266,7 +287,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'Itim-Regular',
   },
-
 
 
   floatingbutton: {
@@ -291,11 +311,6 @@ const styles = StyleSheet.create({
 
   shadow: {
     shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: scale(20),
-    },
-
     shadowOpacity: 0.2,
     shadowRadius: 3.5,
     elevation: 5,
@@ -331,14 +346,11 @@ const styles = StyleSheet.create({
   },
 
   name_view: {
-    flex: 0.5,
-    //paddingHorizontal: scale(5),
-    //backgroundColor:'pink',
-
+    flex: 1,
   },
 
   money_view: {
-    flex: 0.5,
+    flex: 1,
     paddingHorizontal: scale(5),
     //backgroundColor:'blue',
     alignItems: 'flex-end',
@@ -361,7 +373,7 @@ const styles = StyleSheet.create({
   },
   modal_box: {
     width: '100%',
-    height: '150%',
+    height: '120%',
     backgroundColor: 'white',
     borderRadius: 20,
     borderWidth: 1,
@@ -403,6 +415,12 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
     color: '#000000',
     fontFamily: 'Itim-Regular',
+  },
+
+  text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
   },
 
 

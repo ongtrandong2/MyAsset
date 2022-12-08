@@ -141,6 +141,9 @@ export default function RegisterScreen({navigation}) {
           <CustomButton
             style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
+            colorPress = {'#FFC700'}
+            colorUnpress = {'#ffdc61'}
+            text_style={styles.text_style}
             onPressFunction={CheckData}
           />
         </View>
@@ -197,4 +200,10 @@ const styles = StyleSheet.create({
     padding: scale(10),
     fontSize: scale(20),
   },
+
+  text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+},
 });

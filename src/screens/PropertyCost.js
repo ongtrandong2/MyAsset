@@ -215,8 +215,11 @@ export default function PropertyCost() {
                             </View>
                         </View><View style={[styles.row, { paddingTop: scale(10), paddingBottom: scale(100) }]}>
                             <CustomButton
-                                style={{ height: scale(40), width: '20%' }}
-                                title={'Lưu'}
+                                style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
+                                colorPress = {'#FFC700'}
+                                colorUnpress = {'#ffdc61'}
+                                text_style={styles.text_style}
+                                title={'LƯU'}
                                 onPressFunction={() => onSavePurchase()} />
                         </View>
                     </>
@@ -269,8 +272,11 @@ export default function PropertyCost() {
 
                         <View style={[styles.row, { paddingTop: scale(10) }]}>
                             <CustomButton
-                                style={{ height: scale(40), width: '20%' }}
-                                title={'Lưu'}
+                                style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
+                                colorPress = {'#FFC700'}
+                                colorUnpress = {'#ffdc61'}
+                                text_style={styles.text_style}
+                                title={'LƯU'}
                                 onPressFunction={() => onSaveSell()}
                             />
                         </View>
@@ -290,6 +296,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: scale(20),
         color: '#000000',
+    },
+    text_style:{
+        color: 'black',
+        fontSize: scale(20),
+        fontFamily:'Itim-Regular'
     },
     tab_view: {
         alignItems: 'center',
