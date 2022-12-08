@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { SliderComponent } from 'react-native';
 const PlanData = createSlice ({
     name: 'PlanData',
     initialState:[],
@@ -29,8 +30,23 @@ const PlanData = createSlice ({
             }
         },
 
+        removePlan: (state, action)=>{
+            state.splice(action.payload,1);
+        },
+
+        updatePlan: (state, action) =>{
+            state[action.payload.index] = {
+                dateStart: action.payload.dateStart,
+                dateFinish: action.payload.dateFinish,
+                budget: action.payload.budget,
+                currentuse: action.payload.currentuse,
+                percentage_of_use: action.payload.percentage_of_use,
+                isExceed: action.payload.isExceed,
+            };
+        },
+
     },
 });
 
-export const { addPlan,IncreaseCurrentUse } = PlanData.actions;
+export const { addPlan,IncreaseCurrentUse,removePlan, updatePlan } = PlanData.actions;
 export default PlanData.reducer;

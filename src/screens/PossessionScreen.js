@@ -20,12 +20,12 @@ export default function PossessionScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
 
-        <HeaderDrawer
+        {/* <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           fontSize={20}
           title="TÀI SẢN"
           style={{ color: 'black', fontWeight: 'bold' }}
-        />
+        /> */}
 
         {possessionData.map((item, index) => {
 

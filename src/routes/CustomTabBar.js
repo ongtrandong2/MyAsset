@@ -101,28 +101,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         //paddingBottom:15,
         width: '100%',
-        //backgroundColor:'pink',
-        height:scale(150),
+        height:scale(130),
         zIndex:999,
     },
     tabBarContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        //backgroundColor: 'rgba(255,199,0,67)',
         backgroundColor: 'hsl(47,100%,66%)',
         width: '100%',
-        //borderRadius: 15,
         height: scale(100),
-        
-        
         zIndex: 99999,
     },
     itemContainer: {
         flex: 1,
         alignItems: 'center',
-        //justifyContent:'center',
-        
 
     },
     plusButtonContainer: {

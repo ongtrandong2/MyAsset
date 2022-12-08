@@ -7,9 +7,11 @@ import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
-import { addPlan} from '../Redux/PlanData';
+import { addPlan, removePlan, updatePlan } from '../Redux/PlanData';
 import generateUUID from '../constants/generateUUID';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { onChange } from 'react-native-reanimated';
 
 
 export default function PlanScreen({ navigation }) {
@@ -28,7 +30,7 @@ export default function PlanScreen({ navigation }) {
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
 
-  //console.log(planData);
+  console.log(planData);
   //console.log(percentage);
 
   const showDatePicker = () => {
@@ -67,25 +69,28 @@ export default function PlanScreen({ navigation }) {
       let d = new Date(moment(currentDate).format("YYYY-MM-DD"));
       let d1 = new Date(dateSelect);
       let d2 = new Date(dateFinish);
+      
       if (d1.getTime() > d2.getTime()) {
         Alert.alert('Warning', 'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!');
       }
-      else if (d.getTime() > d1.getTime())
-      {
+      else if (d.getTime() > d1.getTime()) {
         Alert.alert('Warning', 'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!')
       }
       else {
-        dispatch(
-          addPlan({
-            key: generateUUID(),
-            dateStart: dateSelect,
-            dateFinish: dateFinish,
-            budget: budget,
-            currentuse: 0,
-            percentage_of_use: 0,
-            isExceed: false,
-          })
-        )
+        
+          dispatch(
+            addPlan({
+              key: generateUUID(),
+              dateStart: dateSelect,
+              dateFinish: dateFinish,
+              budget: budget,
+              currentuse: 0,
+              percentage_of_use: 0,
+              isExceed: false,
+            })
+          )
+        
+       
         setDateSelect('');
         setDateFinish('');
         setBudget('');
@@ -93,7 +98,14 @@ export default function PlanScreen({ navigation }) {
     }
   }
 
-
+  const onChangePlan = ({index,item}) =>{
+      setShowModal(true);
+      setDateSelect(item.dateStart);
+      setDateFinish(item.dateFinish);
+      //onConfirmPlan(index,item, flag = 1);
+      onConfirmPlan(index,item);
+  }
+ 
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -103,54 +115,76 @@ export default function PlanScreen({ navigation }) {
           title="KẾ HOẠCH"
           style={{ color: 'black', fontWeight: 'bold' }}
         />
-        
-        {planData.length ===0 ? (
-          <View style = {[styles.big_row, {alignItems:'center'}]}>
-              <Text style = {{ fontSize: scale(50) ,  color: '#CDCACA', fontFamily: 'Itim-Regular'}}>Chưa có dữ liệu</Text>
-              
+
+        {planData.length === 0 ? (
+          <View style={[styles.big_row, { alignItems: 'center' }]}>
+            <Text style={{ fontSize: scale(50), color: '#CDCACA', fontFamily: 'Itim-Regular' }}>Chưa có dữ liệu</Text>
           </View>
-          
+
         ) : (
-        <>
-        {planData.map((item, index) => {
-          return (
-            <View key={index}>
-              <View style={[styles.big_row, { marginTop: scale(20) }]}>
-                <View style={styles.slider_view}>
-                  <View style={styles.figure_view}>
-                    <Text style={[styles.text, { color: 'red' }]}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
-                  </View>
-                  <View style={styles.progressBar}>
-                    <Animated.View
-                      style={
-                        ([StyleSheet.absoluteFill],
-                        {
-                          backgroundColor: item.isExceed === true ? 'hsl(0,74%,52%)' : "hsl(111,84%,36%)",
-                          width: String(item.percentage_of_use)+"%",
-                          borderRadius: 5,
-                        })
-                      }
-                    />
-                  </View>
+          <>
+            {planData.map((item, index) => {
+              return (
+                <View key={index}>
+                  <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                    <View style={styles.slider_view}>
+                      <View style={[styles.figure_view, { paddingBottom: 3 }]}>
+                        <Text style={[styles.text, { color: 'red' }]}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                        <View style={styles.updatebox}>
+                          <Pressable
+                            android_ripple={{ color: '#bbbbbb' }}
+                            style = {{ marginRight: 7}}
+                            onPress = {()=>onChangePlan({index, item})}
+                          >
+                            <MaterialCommunityIcons
+                              name='pencil-outline'
+                              size={20}
+                              color={'#1C1B1F'}
+                              
+                            />
+                          </Pressable>
+                          <Pressable
+                            android_ripple={{ color: '#bbbbbb' }}
+                            onPress = {()=>dispatch(removePlan(index))}
+                          >
+                            <AntDesign
+                              name='delete'
+                              size={20}
+                              color={'#1C1B1F'}
+                            />
+                          </Pressable>
+                        </View>
+
+                      </View>
+                      <View style={styles.progressBar}>
+                        <Animated.View
+                          style={
+                            ([StyleSheet.absoluteFill],
+                            {
+                              backgroundColor: item.isExceed === true ? 'hsl(0,74%,52%)' : "hsl(111,84%,36%)",
+                              width: String(item.percentage_of_use) + "%",
+                              borderRadius: 5,
+                            })
+                          }
+                        />
+                      </View>
 
 
-                  <View style={styles.figure_view}>
-                    <View style={styles.name_view}>
-                      <Text style={[styles.text, { color: 'black' }]}>{item.currentuse}</Text>
+                      <View style={styles.figure_view}>
+                        <View style={styles.name_view}>
+                          <Text style={[styles.text, { color: 'black' }]}>{item.currentuse}</Text>
+                        </View>
+
+                        <View style={styles.money_view}>
+                          <Text style={[styles.text, { color: 'black' }]}>{item.budget} VND</Text>
+                        </View>
+                      </View>
                     </View>
-
-                    <View style={styles.money_view}>
-                      <Text style={[styles.text, { color: 'black' }]}>{item.budget} VND</Text>
-                    </View>
                   </View>
-
                 </View>
-              </View>
-
-            </View>
-          )
-        })} 
-        </>)}
+              )
+            })}
+          </>)}
 
 
       </ScrollView>
@@ -199,14 +233,14 @@ export default function PlanScreen({ navigation }) {
                     placeholderTextColor={'black'}
                     textColor='blue'
                     activeUnderlineColor='black'
-
+                    editable = {false}
                     value={dateSelect}
                     right={
                       <TextInput.Icon
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker}
                       />
-                      
+
                     }
                   />
                   <DateTimePickerModal
@@ -224,6 +258,7 @@ export default function PlanScreen({ navigation }) {
                     onChangeText={setDateFinish}
                     placeholderTextColor='black'
                     textColor='blue'
+                    editable = {false}
                     activeUnderlineColor='black'
                     value={dateFinish}
                     right={
@@ -231,7 +266,7 @@ export default function PlanScreen({ navigation }) {
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker_Finish}
                       />
-                      
+
                     }
                   />
 
@@ -251,16 +286,16 @@ export default function PlanScreen({ navigation }) {
                     onChangeText={setBudget}
                     value={budget}
                     placeholderTextColor='black'
-                    underlineStyle={{borderWidth:0}}
+                    underlineStyle={{ borderWidth: 0 }}
                     textColor='blue'
                     activeUnderlineColor='black'
                   />
                 </View>
 
                 <CustomButton
-                  style={{ height: scale(40), width: '30%', borderColor: 'orange'}}
-                  colorPress = {'#FFC700'}
-                  colorUnpress = {'#ffdc61'}
+                  style={{ height: scale(40), width: '30%', borderColor: 'orange' }}
+                  colorPress={'#FFC700'}
+                  colorUnpress={'#ffdc61'}
                   text_style={styles.text_style}
                   title={'LƯU'}
                   onPressFunction={onConfirmPlan}
@@ -279,7 +314,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-   
+
   },
 
   text: {
@@ -305,7 +340,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-
 
   },
 
@@ -341,8 +375,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     //backgroundColor:'green',
     width: '100%',
-    height: scale(30),
-    //marginBottom: scale(5),
+    alignItems: 'flex-end',
+  },
+
+  updatebox: {
+    flexDirection: 'row',
+    
   },
 
   name_view: {
@@ -385,7 +423,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
-    
+
   },
 
   modal_row: {
@@ -393,9 +431,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingVertical: 15,
     width: '100%',
-    justifyContent:'center',
-    
-    
+    justifyContent: 'center',
+
+
   },
   textInput_style: {
     //paddingHorizontal: scale(10),
@@ -407,7 +445,7 @@ const styles = StyleSheet.create({
     width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
-    
+
 
   },
 
@@ -417,7 +455,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Itim-Regular',
   },
 
-  text_style:{
+  text_style: {
     color: 'black',
     fontSize: scale(18),
     fontWeight: 'bold',

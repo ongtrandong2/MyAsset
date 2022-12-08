@@ -17,9 +17,6 @@ import CustomModal from '../components/CustomModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { ShowModal } from '../Redux/ModalNumber';
 
-
-
-
 export default function HomeScreen({ navigation }) {
   const money = useSelector(state => state.totalMoney.value);
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
@@ -34,13 +31,15 @@ export default function HomeScreen({ navigation }) {
 
   let plan = planData.filter(item => {
     let d2 = new Date(moment(item.dateStart).format("YYYY-MM"));
-    let d3 = new Date(item.dateFinish);
+    let d3 = new Date(moment(item.dateFinish).format("YYYY-MM"));
     return (
       d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()
     )
   })
 
-  //console.log(plan);
+  plan.sort ((a,b)=>  new Date(...a.dateStart.split("-")) - new Date(...b.dateStart.split("-"))); 
+ 
+  console.log(plan);
 
   return (
     <KeyboardAvoidingView style={styles.view}>
@@ -68,13 +67,13 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
 
-        { planData.length === 0 ? (
+        { plan.length === 0 ? (
           <View style = {styles.big_row}>
             <Text style = {{ fontSize: scale(20) ,  color: '#CDCACA', fontFamily: 'Itim-Regular'}}>Chưa có kế hoạch cho tháng này!</Text> 
           </View>
         ) :(
         <>
-        {plan.map((item, index) => {
+        {plan.slice(0,1).map((item, index) => {
           return (
             <View key={index}>
               <View style={[styles.big_row, { marginTop: scale(20) }]}>

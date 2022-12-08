@@ -14,3 +14,4 @@ export default configureStore({
     modalNumber: ModalNumber,
   },
 });
+ //Update state depend on action in UI 
