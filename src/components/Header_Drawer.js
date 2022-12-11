@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Pressable,
- 
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
+import Feather from 'react-native-vector-icons/Feather';
 
-const HeaderDrawer = (props) => {
-  
+const HeaderDrawer = props => {
   return (
     <View style={styles.view}>
       <View style={styles.header_view}>
@@ -21,34 +14,28 @@ const HeaderDrawer = (props) => {
             resizeMode="stretch"
           />
         </View>
-        <Text style={styles.text}>MY ASSET</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.text}>MY</Text>
+          <Text style={styles.text}>ASSET</Text>
+        </View>
 
         <View style={styles.option_view}>
-
           <View style={styles.box}>
             <Pressable
               onPress={props.onPress}
-              android_ripple={{ color: '#bbbbbb' }}>
-              <Image
-                style={{ height: scale(25), width: scale(25) }}
-                //source={require('../assets/images/Setting.png')}
-                source={{uri:'https://img.icons8.com/ios-filled/50/null/menu-rounded.png'}}
-                resizeMode="stretch"
-              />
+              android_ripple={{color: '#bbbbbb'}}>
+              <Feather name="menu" size={30} color="black" />
             </Pressable>
           </View>
-
-
-
         </View>
       </View>
 
-      <View header_view>
-        <Text style={[{ fontSize: props.fontSize }, styles.title,{...props.style}]}>
+      <View style={styles.header_view}>
+        <Text
+          style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
           {props.title}
         </Text>
       </View>
-
     </View>
   );
 };
@@ -56,19 +43,16 @@ const HeaderDrawer = (props) => {
 const styles = StyleSheet.create({
   view: {
     width: '100%',
-    //height: '10%',
     alignItems: 'center',
     justifyContent: 'center',
-    //marginTop: 10, //
-    paddingHorizontal:10,
-    //backgroundColor:'pink',
+    //paddingHorizontal:10,
   },
 
   header_view: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal:scale(10),
+    //paddingHorizontal:scale(10),
   },
 
   text: {
@@ -79,20 +63,18 @@ const styles = StyleSheet.create({
 
   iconmoney_view: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    //backgroundColor: 'blue'
+    alignItems: 'flex-end',
+    paddingRight: 5,
   },
 
   option_view: {
-    flex: 3,
-    flexDirection:'row',
+    flex: 4,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
   },
 
   box: {
     width: '30%',
-    height: scale(30),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -105,14 +87,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
   },
-
-  icon: {
-    width: scale(20),
-    height: scale(20),
-  },
-
- 
-  
 });
 
 export default HeaderDrawer;

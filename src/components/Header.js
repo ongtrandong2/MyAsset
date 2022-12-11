@@ -10,7 +10,6 @@ import {
 import scale from '../constants/scale';
 
 const Header = props => {
-
   return (
     <View style={styles.view}>
       <View style={styles.header_view}>
@@ -21,9 +20,8 @@ const Header = props => {
             resizeMode="stretch"
           />
         </View>
-        <Text style={styles.text}>  MY ASSET</Text>
+        <Text style={styles.text}> MY ASSET</Text>
         <View style={styles.option_view}>
-          
           {/* <View style={styles.box}>
             <Pressable
               onPress={props.onPressFunctionUser}
@@ -41,7 +39,6 @@ const Header = props => {
             <Pressable
               onPress={props.onPressFunctionBack}
               android_ripple={{color: '#bbbbbb'}}>
-             
               <Image
                 style={styles.icon}
                 source={require('../assets/images/Back.png')}
@@ -58,7 +55,7 @@ const Header = props => {
               <Image
                 style={{height: 16, width: 5}}
                 source={require('../assets/images/Setting.png')}
-                resizeMode="stretch"
+                resizeMode="stretch" m
               />
             </Pressable>
           </View> */}
@@ -68,7 +65,8 @@ const Header = props => {
       <View header_view>
         {/* <Text style = {[{fontSize: {...props.fontSize}},styles.title]}>{props.title}</Text> */}
 
-        <Text style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
+        <Text
+          style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
           {props.title}
         </Text>
       </View>
@@ -83,15 +81,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //flex:1,
-    backgroundColor:'#ffffff',
-    paddingHorizontal:scale(10),
+    backgroundColor: '#ffffff',
+    paddingHorizontal: scale(10),
   },
 
   header_view: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal:scale(30),
+    paddingHorizontal: scale(30),
     //backgroundColor:'pink'
   },
 
@@ -109,10 +107,8 @@ const styles = StyleSheet.create({
 
   option_view: {
     flex: 3,
-    flexDirection:'row',
+    flexDirection: 'row',
     justifyContent: 'flex-end',
-   
-    
   },
 
   box: {
@@ -137,8 +133,6 @@ const styles = StyleSheet.create({
     height: scale(16),
     //color: 'blue',
   },
-
-  
 });
 
 export default Header;

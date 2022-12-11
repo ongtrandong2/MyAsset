@@ -1,62 +1,70 @@
 import React from 'react';
-import { useState } from 'react';
+import {useState} from 'react';
 
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
   Alert,
   Pressable,
-  StatusBar,
+  KeyboardAvoidingView,
+  ToastAndroid,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
+import Feather from 'react-native-vector-icons/Feather';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Login({navigation}) {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
-  const LoginUser = async (user, pass) => {
-    firestore()
-      .collection('Accounts')
-      .doc(user)
-      .get()
-      .then(documentSnapshot => {
-        if (documentSnapshot.exists == true) {
-          var pass2 = documentSnapshot.data();
-          //console.log(pass2);
-          if (pass == pass2.password) {
-            //console.log('success');
-            navigation.navigate('HomeScreen');
+  const LoginUser = async (email, password) => {
+    if (email.length === 0 || password.length === 0) {
+      //Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+    } else {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          if (firebase.auth().currentUser.emailVerified) {
+            navigation.navigate('Drawer');
           } else {
-            //console.log('wrong password');
-            Alert.alert(
-              'Waring',
-              'Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu',
+            //Alert.alert('Warning!', 'Vui lòng xác nhận email!');
+            ToastAndroid.showWithGravity(
+              'Vui lòng xác nhận email!',
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM,
             );
           }
-        } else {
-          //console.log('user not found');
-          Alert.alert(
-            'Waring',
-            'Tài khoản không tồn tại. Vui lòng đăng kí tài khoản mới!',
+        })
+        .catch(error => {
+          //Alert.alert('Warning!', error.message);
+          ToastAndroid.showWithGravity(
+            'Tài khoản không tồn tại! Vui lòng đăng kí tài khoản mới!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
           );
-        }
-      })
-      .catch(error => console.log(error));
+        });
+    }
   };
   return (
-    <KeyboardAvoidingView style={styles.body} >
+    <KeyboardAvoidingView style={styles.body}>
       <ScrollView>
         <View style={styles.title_view}>
           <View style={styles.icon1_view}>
@@ -68,7 +76,14 @@ export default function Login({navigation}) {
           </View>
           <View style={styles.label_view}>
             <View style={styles.label}>
-              <Text style={{ fontFamily: 'Wallpoet-Regular', color: 'black', fontSize: scale(20) }}>MY ASSET</Text>
+              <Text
+                style={{
+                  fontFamily: 'Wallpoet-Regular',
+                  color: 'black',
+                  fontSize: scale(20),
+                }}>
+                MY ASSET
+              </Text>
             </View>
           </View>
         </View>
@@ -84,12 +99,14 @@ export default function Login({navigation}) {
         <View style={styles.body_view}>
           <TextInput
             style={styles.TextInput_style}
-            placeholder="Tên đăng nhập"
-            placeholderStyle={{color: 'grey'}}
-            onChangeText={value => setName(value)}
-            value={name}
-            right={
-              <TextInput.Icon icon={require('../assets/images/user2.png')} />
+            placeholder="Email"
+            placeholderTextColor={'grey'}
+            onChangeText={value => setEmail(value)}
+            value={email}
+            left={
+              <TextInput.Icon
+                icon={() => <Fontisto name="email" size={24} color="black" />}
+              />
             }
           />
         </View>
@@ -102,12 +119,19 @@ export default function Login({navigation}) {
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
             value={password}
+            left={
+              <TextInput.Icon
+                icon={() => (
+                  <Ionicons name="md-key-outline" size={24} color="black" />
+                )}
+              />
+            }
             right={
               <TextInput.Icon
                 icon={
                   passwordVisible
-                    ? require('../assets/images/eye_off.png')
-                    : require('../assets/images/eye.png')
+                    ? () => <Feather name="eye-off" size={24} color="black" />
+                    : () => <Feather name="eye" size={24} color="black" />
                 }
                 onPress={() => setPasswordVisible(!passwordVisible)}
               />
@@ -115,7 +139,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view,{paddingTop:scale(10)}]}>
+        <View style={[styles.body_view, {paddingTop: scale(10)}]}>
           <View style={styles.forgetpass}>
             <Pressable>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
@@ -127,24 +151,30 @@ export default function Login({navigation}) {
 
         <View style={styles.body_view}>
           <CustomButton
-            style={{width: 150, height: 40}}
+            style={{width: '40%', height: scale(40)}}
             title={'Đăng nhập'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
+            text_style={styles.text_style}
             onPressFunction={() => {
-              LoginUser(name, password);
+              LoginUser(email, password);
             }}
           />
         </View>
 
-        <View style={[styles.body_view,{padding:10}]}>
-            <CustomButton
-              style={{width: '60%', height: scale(40)}}
-              title={'Đăng kí tài khoản mới'}
-              onPressFunction={onRegister}
-            />
+        <View style={[styles.body_view, {padding: 10}]}>
+          <CustomButton
+            style={{width: '60%', height: scale(40)}}
+            title={'Đăng kí tài khoản mới'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
+            text_style={styles.text_style}
+            onPressFunction={onRegister}
+          />
         </View>
 
         {/* <View style={styles.body_view}> */}
-          <LoginGoogle navigation={navigation} />
+        <LoginGoogle navigation={navigation} />
         {/* </View> */}
       </ScrollView>
     </KeyboardAvoidingView>
@@ -188,7 +218,7 @@ const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
   },
 
   label_view: {
@@ -197,20 +227,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: scale(30),
     //marginRight: 20,
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
   },
 
   icon1_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fffffff'
-
+    backgroundColor: '#fffffff',
   },
 
   icon_money: {
     width: scale(70),
-    height:scale(70),
+    height: scale(70),
   },
 
   body_view: {
@@ -224,9 +253,10 @@ const styles = StyleSheet.create({
 
   TextInput_style: {
     borderBottomColor: 'black',
-    width: '70%',
+    width: '80%',
+    //height:scale(60),
     backgroundColor: '#ffffff',
-    //fontSize:18,
+    fontSize: scale(20),
   },
 
   forgetpass: {
@@ -234,5 +264,10 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     width: '50%',
     backgroundColor: '#ffffff',
+  },
+  text_style: {
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
   },
 });

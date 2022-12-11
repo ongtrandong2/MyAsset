@@ -15,5 +15,5 @@ const TotalMoney = createSlice({
   },
 });
 
-export const {UpdateMoney,IncreaseTotal ,DecreaseTotal  } = TotalMoney.actions;
-export default TotalMoney.reducer;
+export const {UpdateMoney, IncreaseTotal, DecreaseTotal} = TotalMoney.actions; // JS object
+export default TotalMoney.reducer; // Update state in a copy page

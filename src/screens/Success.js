@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 
 import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomButton from '../components/CustomButton';
 
 export default function SuccessScreen({navigation}) {
   const onPressHandler_Home = () => {

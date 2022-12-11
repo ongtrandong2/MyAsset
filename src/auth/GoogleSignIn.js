@@ -79,48 +79,46 @@ const styles = StyleSheet.create({
 
   row_view: {
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     //backgroundColor: 'pink',
-
   },
 
-  box:{
-    width:'70%',
+  box: {
+    width: '70%',
     height: scale(50),
     //backgroundColor: 'green',
     flexDirection: 'row',
     //justifyContent: 'space-between',
     //padding:5,
-    paddingLeft:10,
-    borderRadius:20,
-    borderWidth:1,
+    //paddingLeft:10,
+    borderRadius: 20,
+    borderWidth: 1,
     borderColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  icon:{
+  icon: {
     //width:'20%',
-    flex:0.2,
+    flex: 0.2,
     //backgroundColor: 'blue',
-    alignItems:'center',
-    justifyContent:'center',
-    
-    
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  title:{
+  title: {
     //width:'90%',
-    flex:0.8,
+    flex: 0.8,
     //height: scale(50),
     //backgroundColor:'green',
     justifyContent: 'center',
-    //alignItems: 'center',
+    alignItems: 'center',
     //flexWrap:'wrap',
-    paddingLeft:10,
+    //paddingLeft:10,
   },
 
-  text:{
-    color:'#0000CC',
-    fontSize:scale(20),
+  text: {
+    color: '#0000CC',
+    fontSize: scale(20),
     //textAlign:'center',
-    fontWeight:'bold',
-
-  }
+    fontWeight: 'bold',
+  },
 });
