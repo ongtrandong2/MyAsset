@@ -101,29 +101,32 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         //paddingBottom:15,
         width: '100%',
-        height:scale(130),
+        //height:scale(130),
+        height:'13%',
         zIndex:999,
     },
     tabBarContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        //justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: 'hsl(47,100%,66%)',
         width: '100%',
         height: scale(100),
-        zIndex: 99999,
+        zIndex: 999,
     },
     itemContainer: {
         flex: 1,
         alignItems: 'center',
-
+      
     },
     plusButtonContainer: {
-        top: -50,
+        top: scale(-30),
         bottom: 25,
-        alignItems: 'center',
+        //alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
+        
+       
     },
     text: {
         fontSize: scale(15),

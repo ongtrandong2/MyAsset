@@ -29,12 +29,14 @@ export default function PropertyCost() {
     const [checked, setChecked] = useState('first');
     const [currentDate, setCurrentDate] = useState(new Date()); //
     const [isTab1, setIsTab1] = useState(true);
-    const [keyDelete, setKeyDelete] = useState(0);
+    const [keyDelete, setKeyDelete] = useState();
 
     const possessionData = useSelector(state => state.possessionData);
     const planData = useSelector(state => state.planData);
     const dispatch = useDispatch();
    
+    //console.log(keyDelete);
+    //console.log(possessionData);
     const onSavePurchase = () => {
         if (purchaseName !== '' && purchaseValue !== '') {
             setCurrentDate(new Date());
@@ -159,7 +161,7 @@ export default function PropertyCost() {
 
                 { isTab1 ? (
                     <>
-                        <View style={styles.row}>
+                        <View style={[styles.row, {marginTop: 10} ]}>
                             <View style={styles.sub_row}>
                                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
@@ -168,7 +170,8 @@ export default function PropertyCost() {
                                     onChangeText={setPurchaseName}
                                     value={purchaseName} />
                             </View>
-                        </View><View style={styles.row}>
+                        </View>
+                        <View style={styles.row}>
                             <View style={styles.sub_row}>
                                 <Text style={styles.text}>2.Nguồn tiền:</Text>
 
@@ -191,29 +194,36 @@ export default function PropertyCost() {
                                     <Text style={styles.text}>Khác</Text>
                                 </View>
                             </View>
-                        </View><View style={styles.row}>
+                        </View>
+                        
+                        <View style={styles.row}>
                             <View style={styles.sub_row}>
-                                <Image
-                                    style={{ height: scale(10), width: scale(10), marginBottom: scale(10), marginLeft: scale(10) }}
-                                    source={require('../assets/images/dot.png')}
-                                    resizeMode='stretch' />
-                                <Text style={styles.text}>Số tiền:</Text>
+                                <View
+                                    style = {{ width: '10%'}}
+                                />
+                                <View style ={{flexDirection:'row', alignItems:'center'}}>
+                                    <View style ={{ width: 5, height: 5, borderRadius:5, backgroundColor: 'black', marginRight: 5}}/>
+                                    <Text style={styles.text}>Số tiền:</Text>
+                                </View>
 
                                 <TextInput
                                     style={styles.textInput_box}
                                     onChangeText={(value) => setPurchaseValue(value)}
                                     value={purchaseValue} />
                             </View>
-                        </View><View style={styles.row}>
+                        </View>
+                        <View style={styles.row}>
                             <View style={styles.sub_row}>
                                 <Text style={styles.text}>3.Ghi chú:</Text>
 
                                 <TextInput
                                     style={styles.textInput_box}
                                     onChangeText={setNote}
-                                    value={note} />
+                                    value={note} 
+                                />
                             </View>
-                        </View><View style={[styles.row, { paddingTop: scale(10), paddingBottom: scale(100) }]}>
+                        </View>
+                        <View style={[styles.row, { paddingTop: scale(10), paddingBottom: scale(100) }]}>
                             <CustomButton
                                 style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
                                 colorPress = {'#FFC700'}
@@ -225,7 +235,7 @@ export default function PropertyCost() {
                     </>
                 ) : (
                     <>
-                        <View style={styles.row}>
+                        <View style={[styles.row, {marginTop: 10} ]}>
                             <View style={styles.sub_row}>
                                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
@@ -311,9 +321,9 @@ const styles = StyleSheet.create({
     tab_item: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: scale(50),
+        paddingTop:scale(10),
         width: '50%',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#ffffff',  
 
     },
     tab_text: {
@@ -344,9 +354,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         //marginTop:10,
-        height: scale(50),
-        //marginHorizontal: 45,
-        //backgroundColor:'pink',
+        //height: scale(50),
+        paddingVertical:scale(10),
         width: '90%',
         //padding: 10,
         alignItems: 'flex-start',

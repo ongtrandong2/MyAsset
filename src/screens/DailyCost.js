@@ -350,9 +350,11 @@ const styles = StyleSheet.create({
     tab_item: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: scale(50),
+        //height: scale(50),
+        paddingTop:scale(10),
         width: '50%',
         backgroundColor: '#ffffff',
+        
 
     },
     tab_text: {
@@ -385,10 +387,8 @@ const styles = StyleSheet.create({
     sub_row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        //marginTop:10,
-        height: scale(50),
-        //marginHorizontal: 45,
-        //backgroundColor:'pink',
+        //height: scale(50),
+        paddingVertical:scale(10),
         width: '90%',
         //padding: 10,
         alignItems: 'flex-end',

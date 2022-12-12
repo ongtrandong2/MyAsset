@@ -9,7 +9,6 @@ import Outcome from './Outcome';
 import Income from './Income';
 import PossessionScreen from './PossessionScreen';
 
-
 export default function StatisticsScreen({navigation}) {
 
   const PossessionIndex = useSelector(state => state.modalNumber.PossessionIndex);
@@ -18,7 +17,6 @@ export default function StatisticsScreen({navigation}) {
   const dispatch = useDispatch();
   return (
     <KeyboardAvoidingView style={styles.view}>
-      
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           fontSize={scale(25)}

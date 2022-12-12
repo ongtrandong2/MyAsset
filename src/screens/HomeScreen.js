@@ -39,8 +39,6 @@ export default function HomeScreen({ navigation }) {
 
   plan.sort ((a,b)=>  new Date(...a.dateStart.split("-")) - new Date(...b.dateStart.split("-"))); 
  
-  console.log(plan);
-
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -163,7 +161,6 @@ export default function HomeScreen({ navigation }) {
               {possessionData.slice(0,10).reverse().map((item, index) => {
                 return (
                    <View key={index}>
-                    
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
                           
@@ -175,9 +172,6 @@ export default function HomeScreen({ navigation }) {
                           <Text style={[styles.text, { color: 'hsl(36,100%,52%)' }]}> {item.value} VND</Text>
                         </View>
                       </View>
-
-                    
-
                   </View>
                 );
               })}

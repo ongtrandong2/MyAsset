@@ -3,9 +3,9 @@ import {useState} from 'react';
 
 import {StyleSheet, Text, View, Image, Alert, Pressable, KeyboardAvoidingView, ToastAndroid} from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import {TextInput} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/auth';
+import { TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { firebase } from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
@@ -236,7 +236,7 @@ TextInput_style: {
   width: '80%',
   //height:scale(60),
   backgroundColor: '#ffffff',
-  fontSize:scale(18),
+  fontSize:scale(20),
 },
 
 forgetpass: {

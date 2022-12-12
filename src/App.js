@@ -10,6 +10,7 @@ import Store from './Redux/Store';
 import Nhap from './screens/Nhap';
 
 
+
 function App() {
   return (
     <Provider store={Store}>

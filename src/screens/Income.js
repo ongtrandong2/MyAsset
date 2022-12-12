@@ -12,24 +12,25 @@ export default function Income() {
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <View style={styles.month_container}>
                             <TouchableOpacity style={styles.month_item}>
-                                <Text style={styles.text}>10/10/2022</Text>
+                                <Text style={styles.text}>10/2022</Text>
                             </TouchableOpacity>
                         </View>
 
                         <View style={styles.month_container}>
                             <TouchableOpacity style={styles.month_item}>
-                                <Text style={styles.text}>10/10/2022</Text>
+                                <Text style={styles.text}>10/2022</Text>
                             </TouchableOpacity>
                         </View>
 
                         <View style={styles.month_container}>
                             <TouchableOpacity style={styles.month_item}>
-                                <Text style={styles.text}>10/10/2022</Text>
+                                <Text style={styles.text}>10/2022</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>
-                <Text>Income</Text>
+                <Text style = {{fontSize: 50}}>Income</Text>
+                
             </ScrollView>
 
             <View style={styles.bottom_tab}>
@@ -42,11 +43,10 @@ export default function Income() {
                 >
 
                     <View style={{ flex: 1, alignItems: 'center' }}>
-                        <Entypo
-                            name='pie-chart'
-                            size={30}
-                            color={'orange'}
-
+                        <Image
+                            source={require('../assets/images/piechart.png')}
+                            style={{ height: 30, width: 30 }}
+                            resizeMode="stretch"
                         />
                     </View>
                     <View style={{ flex: 2 }}>
@@ -63,11 +63,11 @@ export default function Income() {
                 >
 
                     <View style={{ flex: 1, alignItems: 'center' }}>
-                       <Image
-                            source ={require('../assets/images/linechart.png')}
-                            style ={{height: 30, width: 30}}
-                            resizeMode ="stretch"
-                       />
+                        <Image
+                            source={require('../assets/images/linechart.png')}
+                            style={{ height: 30, width: 30 }}
+                            resizeMode="stretch"
+                        />
                     </View>
                     <View style={{ flex: 2 }}>
                         <Text style={[styles.text, { fontSize: scale(30) }]}>NĂM</Text>
@@ -82,7 +82,7 @@ export default function Income() {
 const styles = StyleSheet.create({
     view: {
         flex: 1,
-        
+
     },
     big_row: {
         alignItems: 'center',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 10,
         //borderWidth:1,
-      
+
     },
 
     month_item: {

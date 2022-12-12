@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView, Modal, Button, Animated, Alert } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView, Modal, Animated, Alert } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import CustomButton from '../components/CustomButton';
@@ -7,30 +7,25 @@ import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux';
-import { addPlan, removePlan, updatePlan } from '../Redux/PlanData';
+import { addPlan, IncreaseCurrentUse, removePlan, updatePlan } from '../Redux/PlanData';
 import generateUUID from '../constants/generateUUID';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { onChange } from 'react-native-reanimated';
-
 
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
-
-
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
-
   const [isDatePickerFinishVisible, setDatePickerFinishVisibility] = useState(false);
   const [dateFinish, setDateFinish] = useState('');
   const [budget, setBudget] = useState('');
-  const [number, setNumber] = useState(0);
   const [currentDate, setCurrentDate] = useState(new Date());
-
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
+  const [flag, setFlag] = useState(false);
+  const [newData, setNewData] = useState({});
 
-  console.log(planData);
+  //console.log(planData);
   //console.log(percentage);
 
   const showDatePicker = () => {
@@ -47,7 +42,6 @@ export default function PlanScreen({ navigation }) {
     hideDatePicker();
 
   };
-
 
   const showDatePicker_Finish = () => {
     setDatePickerFinishVisibility(true);
@@ -77,7 +71,8 @@ export default function PlanScreen({ navigation }) {
         Alert.alert('Warning', 'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!')
       }
       else {
-        
+        if(flag === false)
+        {
           dispatch(
             addPlan({
               key: generateUUID(),
@@ -89,21 +84,49 @@ export default function PlanScreen({ navigation }) {
               isExceed: false,
             })
           )
-        
-       
+        }
+        else{
+          dispatch(
+            updatePlan({
+              index: newData.index,
+              dateStart: dateSelect,
+              dateFinish: dateFinish,
+              budget: budget,
+              currentuse: newData.newCurrentuse,
+              percentage_of_use: newData.newPercent,
+              isExceed: newData.newIsexceed,
+            })
+          )
+          dispatch(IncreaseCurrentUse({
+            index: newData.index,
+            value: 0,
+          }))
+          setFlag(false);
+        }
         setDateSelect('');
         setDateFinish('');
         setBudget('');
       }
     }
   }
-
-  const onChangePlan = ({index,item}) =>{
+  //console.log(newData);
+  const onChangePlan = (index,item) =>{
+    //console.log(index,item);
+      setFlag(true);
       setShowModal(true);
       setDateSelect(item.dateStart);
       setDateFinish(item.dateFinish);
-      //onConfirmPlan(index,item, flag = 1);
-      onConfirmPlan(index,item);
+      setBudget(item.budget);
+      //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
+      onConfirmPlan();
+      //console.log(item.isExceed);
+      setNewData({
+        index: index,
+        newCurrentuse: item.currentuse,
+        newPercent: item.percentage_of_use,
+        newIsexceed: item.isExceed,
+      })
+   
   }
  
   return (
@@ -134,7 +157,7 @@ export default function PlanScreen({ navigation }) {
                           <Pressable
                             android_ripple={{ color: '#bbbbbb' }}
                             style = {{ marginRight: 7}}
-                            onPress = {()=>onChangePlan({index, item})}
+                            onPress = {()=>onChangePlan(index, item)}
                           >
                             <MaterialCommunityIcons
                               name='pencil-outline'
@@ -191,7 +214,13 @@ export default function PlanScreen({ navigation }) {
 
       <View style={styles.floatingbutton}>
         <Pressable
-          onPress={() => setShowModal(true)}
+          onPress={() => {
+                  setShowModal(true); 
+                  setFlag(false);
+                  setDateSelect('');
+                  setDateFinish('');
+                  setBudget('');
+                }}
           style={({ pressed }) => [{ backgroundColor: pressed ? '#0099FF' : 'white' }, { ...styles.wrapper }, { ...styles.shadow }]}
         >
 
@@ -201,7 +230,6 @@ export default function PlanScreen({ navigation }) {
             style={{ height: scale(30), width: scale(30), borderRadius: scale(30) }}
           //style = {styles.circle}
           />
-
 
         </Pressable>
       </View>
@@ -332,6 +360,7 @@ const styles = StyleSheet.create({
     bottom: scale(150),
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
   wrapper: {
     width: scale(70),
@@ -340,6 +369,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor:'black',
 
   },
 
