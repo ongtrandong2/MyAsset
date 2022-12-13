@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: scale(30),
-    //marginRight: 20,
+    marginRight: scale(100),
     backgroundColor: '#ffffff',
   },
 
