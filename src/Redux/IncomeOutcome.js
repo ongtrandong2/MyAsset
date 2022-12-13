@@ -15,17 +15,8 @@ const IncomeOutcome = createSlice({
       };
       state.push(newData);
     },
-    updateData: (state, action) => {
-      state.map((item, index) => {
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('InOutdata')
-          .doc(item.key)
-          .delete();
-      });
-      state.map((item, index) => {
+    updateData: state => {
+      state.map(item => {
         const newData = {
           key: item.key,
           name: item.name,
@@ -40,14 +31,12 @@ const IncomeOutcome = createSlice({
           .doc(firebase.auth().currentUser.uid)
           .collection('InOutdata')
           .doc(item.key)
-          .set({newData})
-          .then(() => {
-            firebase
-              .firestore()
-              .collection('Accounts')
-              .doc(firebase.auth().currentUser.uid)
-              .set({data: true}, {merge: true});
-          });
+          .set(newData);
+        firebase
+          .firestore()
+          .collection('Accounts')
+          .doc(firebase.auth().currentUser.uid)
+          .set({data: true}, {merge: true});
       });
     },
   },

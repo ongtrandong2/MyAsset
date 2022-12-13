@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   plusButtonContainer: {
-    top: -50,
+    top: scale(-50),
     bottom: 25,
     alignItems: 'center',
     justifyContent: 'center',

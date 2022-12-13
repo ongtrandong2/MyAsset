@@ -14,7 +14,7 @@ import {
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/auth';
+import {firebase} from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
