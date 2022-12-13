@@ -53,6 +53,7 @@ export default function ChangeInfo({navigation}) {
           />
         </View>
 
+<<<<<<< HEAD
         <View style={{paddingTop: scale(30), alignItems: 'center'}}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
@@ -65,6 +66,30 @@ export default function ChangeInfo({navigation}) {
       </ScrollView>
     </KeyboardAvoidingView>
   );
+=======
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.change_box}
+                        onChangeText={(value) => setEmail(value)}
+                        value={email}
+                    />
+                </View>
+
+                <View style={{ paddingTop: scale(30), alignItems: 'center' }}>
+                    <CustomButton
+                        title={'Lưu thông tin cá nhân'}
+                        style={{ height: scale(40), width: '60%' }}
+                        colorPress = {'#FFC700'}
+                        colorUnpress = {'#ffdc61'}
+                        text_style={styles.text_style}
+                    //onPressFunction = {}
+                    />
+                </View>
+
+            </ScrollView>
+        </KeyboardAvoidingView>
+    )
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 }
 
 const styles = StyleSheet.create({
@@ -94,6 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+<<<<<<< HEAD
   change_box: {
     flex: 2,
     //height:30,
@@ -110,3 +136,44 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+=======
+    },
+    text: {
+        fontSize: scale(20),
+        color: 'black',
+        fontFamily: 'Itim-Regular'
+    },
+    row: {
+        flexDirection: 'row',
+        //justifyContent:'space-between'
+        paddingHorizontal: scale(30),
+        paddingVertical:scale(5),
+    },
+    title: {
+        //width:200,
+        flex: 2,
+        //height:30,
+        //backgroundColor:'blue',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+
+    },
+
+    change_box: {
+        flex: 2,
+        //height:30,
+        backgroundColor: 'white',
+        borderColor: '#FFC700',
+        borderWidth: 2,
+        borderRadius: 20,
+        paddingHorizontal: scale(20),
+        fontSize: scale(18),
+    },
+    text_style:{
+        color: 'black',
+        fontSize: scale(18),
+        fontWeight: 'bold',
+    },
+    
+})
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a

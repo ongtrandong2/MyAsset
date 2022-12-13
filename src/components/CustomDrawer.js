@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
 
+<<<<<<< HEAD
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity
@@ -60,6 +61,64 @@ const CustomDrawer = props => {
     </View>
   );
 };
+=======
+const CustomDrawerItem = props =>{
+    return(
+        <TouchableOpacity
+            style = {props.style}
+            onPress = {()=>props.navigation.navigate(props.component)}
+            //activeOpacity={0.5}
+            //underlayColor='#dddddd'
+        >
+            <Image 
+                source = {props.icon} 
+                resizeMode = {'stretch'}
+            />
+            <Text style = {styles.text}>{props.label}</Text>
+
+        </TouchableOpacity>
+    )
+}
+
+const CustomDrawer = props =>{
+    return (
+        <View style = {styles.container}>
+            <View style = {styles.avatarContainer}>
+                <Image 
+                    source={require('../assets/images/avatar2.png')}
+                    style = {{height:scale(100), width:scale(100)}}
+                    resizeMode = 'stretch'
+                />
+            </View>
+            <View style = {{borderBottomWidth:1, borderBottomColor: 'black', alignItem: 'center', justifyContent:'center', marginHorizontal: 10}}></View>
+            <DrawerContentScrollView contentContainerStyle={{backgroundColor:'#ffffff'}}>
+                <CustomDrawerItem
+                    style = {styles.itemContainer}
+                    label = {'Thông tin cá nhân'}
+                    icon = {require('../assets/images/user2.png')}
+                    navigation = {props.navigation}
+                    component = {'InfoScreen'}
+                />
+                <CustomDrawerItem
+                    style = {styles.itemContainer}
+                    label = {'Tổng quan'}
+                    icon = {require('../assets/images/Home.png')}
+                    navigation = {props.navigation}
+                    component = {'HomeScreen'}
+                />
+                
+
+            </DrawerContentScrollView>
+            <TouchableOpacity
+                style = {styles.signOutContainer}
+                onPress = {()=>props.navigation.navigate('Login')}
+            >
+                <Text style = {[styles.text,{marginLeft:0}]}>Đăng xuất</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 const styles = StyleSheet.create({
   text: {
     fontSize: scale(20),
@@ -85,6 +144,7 @@ const styles = StyleSheet.create({
     //backgroundColor:'blue'
   },
 
+<<<<<<< HEAD
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -97,6 +157,22 @@ const styles = StyleSheet.create({
     //backgroundColor:'blue',
     //justifyContent:'center',
   },
+=======
+    itemContainer:{
+        flexDirection:'row',
+        alignItems:'center',
+        width:'80%',
+        height:scale(50),
+        alignSelf:'center',
+        //borderBottomWidth:1,
+        borderBottomColor:'#000000',
+        marginVertical:scale(10),
+        //backgroundColor:'blue',
+        //justifyContent:'center',
+        
+        
+    },
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
   signOutContainer: {
     height: scale(50),

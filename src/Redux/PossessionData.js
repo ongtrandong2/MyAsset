@@ -43,5 +43,5 @@ const PossessionData = createSlice({
   },
 });
 
-export const {addPossession, removePossession} = PossessionData.actions;
+export const { addPossession, removePossession } = PossessionData.actions;
 export default PossessionData.reducer;

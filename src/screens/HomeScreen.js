@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, {useState, useEffect} from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 import {
   View,
   StyleSheet,
@@ -14,8 +18,13 @@ import scale from '../constants/scale';
 import moment from 'moment';
 import CustomModal from '../components/CustomModal';
 
+<<<<<<< HEAD
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal} from '../Redux/ModalNumber';
+=======
+import { useSelector, useDispatch } from 'react-redux';
+import { ShowModal } from '../Redux/ModalNumber';
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
 export default function HomeScreen({navigation}) {
   const money = useSelector(state => state.totalMoney.value);
@@ -27,6 +36,7 @@ export default function HomeScreen({navigation}) {
   const [number, setNumber] = useState('50%');
   //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
   const [currentDate, setCurrentDate] = useState(new Date());
+<<<<<<< HEAD
   let d1 = new Date(moment(currentDate).format('YYYY-MM'));
 
   let plan = planData.filter(item => {
@@ -39,7 +49,20 @@ export default function HomeScreen({navigation}) {
     (a, b) =>
       new Date(...a.dateStart.split('-')) - new Date(...b.dateStart.split('-')),
   );
+=======
+  let d1 = new Date(moment(currentDate).format("YYYY-MM"));
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
+  let plan = planData.filter(item => {
+    let d2 = new Date(moment(item.dateStart).format("YYYY-MM"));
+    let d3 = new Date(moment(item.dateFinish).format("YYYY-MM"));
+    return (
+      d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()
+    )
+  })
+
+  plan.sort ((a,b)=>  new Date(...a.dateStart.split("-")) - new Date(...b.dateStart.split("-"))); 
+ 
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -58,6 +81,7 @@ export default function HomeScreen({navigation}) {
         </View>
 
         <View style={styles.row}>
+<<<<<<< HEAD
           <Text style={{color: '#BB2424', fontSize: scale(15)}}>
             Tổng số dư
           </Text>
@@ -73,6 +97,60 @@ export default function HomeScreen({navigation}) {
             KẾ HOẠCH
           </Text>
         </View>
+=======
+          <Text style={{ color: '#BB2424', fontSize: scale(15) }}>Tổng số dư</Text>
+        </View>
+
+        <View style={styles.big_row}>
+          <Text style={{ color: '#000000', fontSize: scale(18), fontFamily: 'Itim-Regular' }}>
+            KẾ HOẠCH
+          </Text>
+        </View>
+
+        { plan.length === 0 ? (
+          <View style = {styles.big_row}>
+            <Text style = {{ fontSize: scale(20) ,  color: '#CDCACA', fontFamily: 'Itim-Regular'}}>Chưa có kế hoạch cho tháng này!</Text> 
+          </View>
+        ) :(
+        <>
+        {plan.slice(0,1).map((item, index) => {
+          return (
+            <View key={index}>
+              <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                <View style={styles.slider_view}>
+                  <View style={[styles.figure_view, { height: scale(20) }]}>
+                    <Text style={{ fontSize: scale(15), color: 'black' }}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                  </View>
+                  <View style={styles.progressBar}>
+                    <Animated.View
+                      style={
+                        ([StyleSheet.absoluteFill],
+                        {
+                          backgroundColor: '#FF9900',
+                          width:String(item.percentage_of_use)+"%",
+                          borderRadius: 5,
+                        })
+                      }
+                    />
+                  </View>
+
+                  <View style={styles.figure_view}>
+                    <View style={styles.name_view}>
+                      <Text style={[styles.text, { color: 'red' }]}>{item.currentuse}</Text>
+                    </View>
+
+                    <View style={styles.money_view}>
+                      <Text style={[styles.text, { color: 'red' }]}>{item.budget} VND</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          )
+        })}
+       </> )}
+
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
         {plan.length === 0 ? (
           <View style={styles.big_row}>
@@ -141,6 +219,7 @@ export default function HomeScreen({navigation}) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
+<<<<<<< HEAD
               {IncomeOutcome.slice(0, 10)
                 .reverse()
                 .map((item, index) => {
@@ -174,6 +253,37 @@ export default function HomeScreen({navigation}) {
                     </View>
                   );
                 })}
+=======
+              {IncomeOutcome.slice(0,10).reverse().map((item, index) => {
+                return (
+                  <View key={index}>
+                      <View style={styles.figure_view}>
+                        <View style={styles.name_view}>
+                          { item.isPossession  ? 
+                                ( item.isIncome ? (<Text style={styles.text}>{item.name} - BÁN</Text>)
+                                               : (<Text style={styles.text}>{item.name} - MUA</Text>)
+                              
+                           ) : ( <Text style={styles.text}>{item.name}</Text> )}
+                          
+                        </View>
+
+                        <View style={styles.money_view}>
+                          {item.isIncome === true ?
+                            (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+                            :
+                            (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+                          }
+                        </View>
+                      </View>
+
+                    
+
+                  </View>
+                );
+              })}
+
+
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
             </ScrollView>
           </View>
         </View>
@@ -185,6 +295,7 @@ export default function HomeScreen({navigation}) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
+<<<<<<< HEAD
               {possessionData
                 .slice(0, 10)
                 .reverse()
@@ -193,10 +304,20 @@ export default function HomeScreen({navigation}) {
                     <View key={index}>
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
+=======
+
+              {possessionData.slice(0,10).reverse().map((item, index) => {
+                return (
+                   <View key={index}>
+                      <View style={styles.figure_view}>
+                        <View style={styles.name_view}>
+                          
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
                           <Text style={styles.text}> {item.name}</Text>
                         </View>
 
                         <View style={styles.money_view}>
+<<<<<<< HEAD
                           <Text
                             style={[styles.text, {color: 'hsl(36,100%,52%)'}]}>
                             {' '}
@@ -207,6 +328,17 @@ export default function HomeScreen({navigation}) {
                     </View>
                   );
                 })}
+=======
+                          
+                          <Text style={[styles.text, { color: 'hsl(36,100%,52%)' }]}> {item.value} VND</Text>
+                        </View>
+                      </View>
+                  </View>
+                );
+              })}
+
+             
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
             </ScrollView>
           </View>
         </View>
@@ -220,8 +352,15 @@ export default function HomeScreen({navigation}) {
         onRequestClose={() => dispatch(ShowModal(false))}
         transparent
         //statusBarTranslucent
+<<<<<<< HEAD
         animationType="fade">
         <CustomModal />
+=======
+        animationType='fade'
+      >
+        <CustomModal />
+
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
       </Modal>
     </KeyboardAvoidingView>
   );
@@ -266,6 +405,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEFB6',
     padding: scale(10),
     borderRadius: scale(10),
+   
   },
 
   figure_view: {
@@ -296,5 +436,10 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     flexDirection: 'row',
   },
+<<<<<<< HEAD
   /// Modal
+=======
+  /// Modal 
+
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 });

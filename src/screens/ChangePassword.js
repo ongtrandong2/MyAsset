@@ -152,10 +152,17 @@ export default function ChangePassword({navigation}) {
             paddingBottom: scale(30),
           }}>
           <CustomButton
+<<<<<<< HEAD
             title={'Lưu thay đổi'}
             style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
+=======
+            title = {'Lưu thay đổi'}
+            style = {{height: scale(40), width: scale(220)}}
+            colorPress = {'#FFC700'}
+            colorUnpress = {'#ffdc61'}
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
             text_style={styles.text_style}
             onPressFunction={() => {
               onChangePassword(oldPassword, newPassword, confirmPassword);
@@ -191,6 +198,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+<<<<<<< HEAD
 
   change_box: {
     flex: 2,
@@ -208,3 +216,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+=======
+
+  change_box: {
+    flex: 2,
+    //height:30,
+    backgroundColor: 'white',
+    borderColor: '#FFC700',
+    borderWidth: 2,
+    borderRadius: 20,
+    paddingHorizontal: scale(20),
+    fontSize: scale(18),
+  },
+  text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+ },
+ text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+},
+
+});
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a

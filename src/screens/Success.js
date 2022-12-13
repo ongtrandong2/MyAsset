@@ -3,6 +3,10 @@ import React, {useEffect} from 'react';
 
 import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
 export default function SuccessScreen({navigation}) {
   const onPressHandler_Home = () => {

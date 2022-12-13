@@ -91,10 +91,17 @@ const styles = StyleSheet.create({
     //justifyContent: 'space-between',
     //padding:5,
     //paddingLeft:10,
+<<<<<<< HEAD
     borderRadius: 20,
     borderWidth: 1,
     borderColor: 'green',
     justifyContent: 'center',
+=======
+    borderRadius:20,
+    borderWidth:1,
+    borderColor: 'green',
+    justifyContent:'center',
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
     alignItems: 'center',
   },
   icon: {

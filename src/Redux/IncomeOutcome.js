@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {firebase} from '@react-native-firebase/firestore';
 import {createSlice} from '@reduxjs/toolkit';
 const IncomeOutcome = createSlice({
@@ -43,3 +44,26 @@ const IncomeOutcome = createSlice({
 });
 export const {addData, updateData} = IncomeOutcome.actions;
 export default IncomeOutcome.reducer;
+=======
+import {createSlice} from '@reduxjs/toolkit';
+const IncomeOutcome = createSlice({
+    name: 'IncomeOutcome',
+    initialState: [],
+    reducers:{
+       addData:(state, action) =>{
+            const newData = {
+                key: action.payload.key,
+                name: action.payload.name,
+                value: action.payload.value,
+                isIncome: action.payload.isIncome,
+                isPossession: action.payload.isPossession,
+                time: action.payload.time,
+            };
+            state.push(newData);
+       },
+    },
+});
+
+export const { addData } = IncomeOutcome.actions;
+export default IncomeOutcome.reducer;
+>>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
