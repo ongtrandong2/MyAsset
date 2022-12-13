@@ -25,10 +25,6 @@ export default function PossessionScreen({navigation}) {
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
         {/* <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           fontSize={20}
@@ -40,19 +36,12 @@ export default function PossessionScreen({navigation}) {
           return (
             <View style={styles.big_row} key={index}>
               <Pressable
-<<<<<<< HEAD
                 onPress={() => onVisible(item)}
                 //android_ripple={{ color: '#996600' }}
                 style={({pressed}) => [
                   styles.row,
                   {backgroundColor: pressed ? '#FF9900' : '#FFEBA3'},
                 ]}>
-=======
-                onPress = {()=>onVisible(item)}
-                //android_ripple={{ color: '#996600' }}
-                style={({ pressed }) => [styles.row, { backgroundColor: pressed ? '#FF9900' : '#FFEBA3' }]}
-              >
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
                 <View style={styles.name_view}>
                   <Text style={styles.text}>
                     {Number(index) + 1}. {item.name}
@@ -64,7 +53,6 @@ export default function PossessionScreen({navigation}) {
                 </View>
               </Pressable>
 
-<<<<<<< HEAD
               {position === item.key && flag === true && (
                 <View
                   style={[
@@ -72,11 +60,6 @@ export default function PossessionScreen({navigation}) {
                     {justifyContent: 'center', alignItems: 'center'},
                   ]}>
                   <Text style={styles.text}>Ghi chú: {item.note} </Text>
-=======
-              {position === item.key && flag===true &&(
-                <View style = {[styles.row,{justifyContent:'center', alignItems:'center'}]}>
-                   <Text style={styles.text}>Ghi chú:  {item.note} </Text>   
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
                 </View>
               )}
             </View>

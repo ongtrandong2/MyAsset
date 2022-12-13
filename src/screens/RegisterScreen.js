@@ -6,11 +6,7 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-<<<<<<< HEAD
 import {firebase} from '@react-native-firebase/auth';
-=======
-import {firebase} from '@react-native-firebase/firestore';
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
 export default function RegisterScreen({navigation}) {
   const onPressHandler = () => {
@@ -145,13 +141,8 @@ export default function RegisterScreen({navigation}) {
           <CustomButton
             style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
-<<<<<<< HEAD
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
-=======
-            colorPress = {'#FFC700'}
-            colorUnpress = {'#ffdc61'}
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
             text_style={styles.text_style}
             onPressFunction={CheckData}
           />
@@ -210,18 +201,9 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
   },
 
-<<<<<<< HEAD
   text_style: {
     color: 'black',
     fontSize: scale(18),
     fontWeight: 'bold',
   },
 });
-=======
-  text_style:{
-    color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
-},
-});
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a

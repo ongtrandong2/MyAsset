@@ -10,11 +10,7 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-<<<<<<< HEAD
 import {TextInput} from 'react-native-paper';
-=======
-import { TextInput } from 'react-native-paper';
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
@@ -180,13 +176,8 @@ export default function FirstInput({navigation}) {
           <CustomButton
             style={{width: '40%', height: scale(40)}}
             title={'Hoàn tất'}
-<<<<<<< HEAD
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
-=======
-            colorPress = {'#FFC700'}
-            colorUnpress = {'#ffdc61'}
->>>>>>> 4f193f86a5e6e6cf8acb380b0be9369de188bc2a
             text_style={styles.text_style}
             onPressFunction={onComplete}
           />
