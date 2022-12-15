@@ -1,9 +1,9 @@
 import React , {useState}from 'react';
-import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView, Pressable} from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPossession, removePossession } from '../Redux/PossessionData';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+
 import scale from '../constants/scale';
 
 export default function PossessionScreen({ navigation }) {

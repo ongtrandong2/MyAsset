@@ -150,9 +150,14 @@ export default function FirstInput({ navigation }) {
             <Pressable
               onPress={() => check()}
               android_ripple={{ color: '#bbbbbb' }}>
-              <Image
-                source={require('../assets/images/Plus.png')}
-                resizeMode="stretch"
+              <AntDesign
+                  name = 'pluscircleo'
+                  size = {30}
+                  color = {'#000000'}
+                  style ={{
+                    paddingVertical: 10,
+                  }}
+
               />
             </Pressable>
           </View>
@@ -275,5 +280,10 @@ const styles = StyleSheet.create({
   bin_view: {
     alignItems: 'center',
     marginTop: scale(5),
+  },
+  text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
   },
 });

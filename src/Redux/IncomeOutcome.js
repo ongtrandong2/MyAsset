@@ -14,8 +14,14 @@ const IncomeOutcome = createSlice({
             };
             state.push(newData);
        },
+       removeData: (state, action) =>{
+            state.splice(action.payload,1);
+       },
+       changeData: (state, action) =>{
+          state[action.payload.index].value = action.payload.value;
+       },
     },
 });
 
-export const { addData } = IncomeOutcome.actions;
+export const { addData, removeData, changeData } = IncomeOutcome.actions;
 export default IncomeOutcome.reducer;

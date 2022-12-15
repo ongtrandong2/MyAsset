@@ -36,6 +36,7 @@ const PlanData = createSlice ({
 
         updatePlan: (state, action) =>{
             state[action.payload.index] = {
+                key: state[action.payload.index].key,
                 dateStart: action.payload.dateStart,
                 dateFinish: action.payload.dateFinish,
                 budget: action.payload.budget,

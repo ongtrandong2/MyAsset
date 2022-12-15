@@ -10,6 +10,18 @@
       "sha1": "541b4ee96a4419d10f67fcc001a739a055298e47"
     },
     {
+      "path": "src/assets/fonts/Lato-Bold.ttf",
+      "sha1": "542498221d97bee5bdbccf86ee8890bf8e8005c9"
+    },
+    {
+      "path": "src/assets/fonts/Lato-Italic.ttf",
+      "sha1": "190187b720ec2f2ff2e4281237e301000e09673f"
+    },
+    {
+      "path": "src/assets/fonts/Lato-Regular.ttf",
+      "sha1": "e923c72eda5e50a87e18ff5c71e9ef4b3b6455a3"
+    },
+    {
       "path": "src/assets/fonts/Montserrat-Regular.ttf",
       "sha1": "de57aa03e4821fdbe6c34ec2c895e8b5c914e837"
     },

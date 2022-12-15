@@ -35,36 +35,26 @@ const LoginGoogle = props => {
         }}
       />
       <Button title="Google Sign-Out" onPress={onSignOut} /> */}
-      <View style={styles.row_view}>
-        <Pressable
-          onPress={() => {
-            console.log('signed in');
-            onGoogleButtonPress().then(() => {
-              props.navigation.navigate('Success');
-            });
-          }}
-          android_ripple={{color: '#CCFFFF'}}
-          style={({pressed}) => [
-            {backgroundColor: pressed ? '#0099FF' : 'white'},
-          ]}>
-          <View style={styles.box}>
-            <View style={styles.icon}>
-              <Image
-                style={{height: 40, width: 40}}
-                source={{
-                  uri: 'https://img.icons8.com/fluency/48/null/google-logo.png',
-                }}
-                resizeMode="stretch"
-              />
-            </View>
-            <View style={styles.title}>
-              <Text style={styles.text}>Continue with Google</Text>
-            </View>
-          </View>
-        </Pressable>
-      </View>
-
       {/* <Button title="Google Sign-Out" onPress={onSignOut} /> */}
+      <Pressable
+        //style = {styles.row}
+        style={({pressed}) => [ styles.row,{backgroundColor: pressed ? '#0099FF' : 'white'}]}
+        onPress={() => {
+          console.log('signed in');
+          onGoogleButtonPress().then(() => {
+            props.navigation.navigate('Success');
+          });
+        }}
+      >
+        <Image
+          style={{height: 40, width: 40}}
+          source={{
+            uri: 'https://img.icons8.com/fluency/48/null/google-logo.png',
+          }}
+          resizeMode="stretch"
+        />
+        <Text style = {[styles.text, {paddingLeft: 10}]}>Continue with Google</Text>
+      </Pressable>
     </View>
   );
 };
@@ -73,56 +63,29 @@ export default LoginGoogle;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent:'center',
+    //borderWidth:1,
   },
-
-  row_view: {
-    justifyContent: 'center',
-    alignItems:'center',
-    //backgroundColor: 'pink',
-
-  },
-
-  box:{
-    width:'70%',
-    height: scale(50),
-    //backgroundColor: 'green',
+  row: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
-    //padding:5,
-    //paddingLeft:10,
-    borderRadius:20,
-    borderWidth:1,
-    borderColor: 'green',
     justifyContent:'center',
-    alignItems: 'center',
+    //width: '60%',
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: 'blue',
+    alignItems:'center'
+    //alignSelf:'center',
   },
-  icon:{
-    //width:'20%',
-    flex:0.2,
-    //backgroundColor: 'blue',
-    alignItems:'center',
-    justifyContent:'center',
-    
-    
-  },
-  title:{
-    //width:'90%',
-    flex:0.8,
-    //height: scale(50),
-    //backgroundColor:'green',
-    justifyContent: 'center',
-    alignItems: 'center',
-    //flexWrap:'wrap',
-    //paddingLeft:10,
-  },
-
   text:{
     color:'#0000CC',
     fontSize:scale(20),
-    //textAlign:'center',
     fontWeight:'bold',
+  },
 
-  }
+  
+
+  
 });

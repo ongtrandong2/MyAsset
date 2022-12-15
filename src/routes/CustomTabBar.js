@@ -69,7 +69,7 @@ const CustomTabBar = (props) => {
         else if (currentIndex === 1) return (require('../assets/images/plan.png'));
         else if (currentIndex === 2) return (require('../assets/images/plusItem.png'));
         else if (currentIndex === 3) return (require('../assets/images/chart.png'));
-        else if (currentIndex === 4) return (require('../assets/images/shop.png'));
+        else if (currentIndex === 4) return (require('../assets/images/history.png'));
     }
     return (
         <View style={styles.container}>
@@ -129,7 +129,10 @@ const styles = StyleSheet.create({
        
     },
     text: {
-        fontSize: scale(15),
+        fontSize: scale(16),
+        //fontFamily:'Lato-Bold',
+        fontFamily:'Lato-Regular',
+        color:'black',
     },
 
 });

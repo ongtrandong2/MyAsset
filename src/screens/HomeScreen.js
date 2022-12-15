@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     height: scale(200),
     backgroundColor: '#FFEFB6',
     padding: scale(10),
-    borderRadius: scale(10),
+    borderRadius: scale(30),
    
   },
 

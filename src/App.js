@@ -7,7 +7,7 @@ import 'react-native-gesture-handler';
 import StatisticsScreen from './screens/StatisticsScreen';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
-import Nhap from './screens/Nhap';
+import History from './screens/History';
 
 
 
@@ -18,8 +18,8 @@ function App() {
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
-      {/* <StatisticsScreen/> */}
-      {/* <Nhap/> */}
+      {/* <History/> */}
+    
     </Provider>
   );
 }

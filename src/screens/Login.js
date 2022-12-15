@@ -151,10 +151,9 @@ export default function Login({navigation}) {
             onPressFunction={onRegister}
           />
       </View>
-
-      {/* <View style={styles.body_view}> */}
-        <LoginGoogle navigation={navigation} />
-      {/* </View> */}
+   
+      <LoginGoogle navigation={navigation} />
+    
     </ScrollView>
   </KeyboardAvoidingView>
 );

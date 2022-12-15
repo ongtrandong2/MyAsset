@@ -227,7 +227,7 @@ export default function PropertyCost() {
                             <CustomButton
                                 style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
                                 colorPress = {'#FFC700'}
-                                colorUnpress = {'#ffdc61'}
+                                colorUnpress = {'#ffeba3'}
                                 text_style={styles.text_style}
                                 title={'LƯU'}
                                 onPressFunction={() => onSavePurchase()} />
@@ -284,7 +284,7 @@ export default function PropertyCost() {
                             <CustomButton
                                 style={{ height: scale(40), width: '20%', borderColor: 'orange'}}
                                 colorPress = {'#FFC700'}
-                                colorUnpress = {'#ffdc61'}
+                                colorUnpress = {'#ffeba3'}
                                 text_style={styles.text_style}
                                 title={'LƯU'}
                                 onPressFunction={() => onSaveSell()}

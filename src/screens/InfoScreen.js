@@ -48,7 +48,7 @@ export default function InfoScreen({ navigation }) {
           </View>
         </View>
 
-        <View style={[styles.big_row,{paddingTop: 30}]}>
+        <View style={[styles.big_row, { paddingTop: 30 }]}>
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Feather
@@ -60,9 +60,7 @@ export default function InfoScreen({ navigation }) {
               <Text style={styles.text}>Tên đăng nhập </Text>
             </View>
 
-            <View style={styles.right_box}>
-              <Text style={styles.text} numberOfLines={2}>{name}</Text>
-            </View>
+            <Text style={styles.text} numberOfLines={2}>{name}</Text>
           </View>
 
           <View style={styles.row}>
@@ -76,9 +74,7 @@ export default function InfoScreen({ navigation }) {
               <Text style={styles.text}>Email</Text>
             </View>
 
-            <View style={styles.right_box}>
-              <Text style={styles.text} numberOfLines={2}>{email}</Text>
-            </View>
+            <Text style={styles.text} numberOfLines={2}>{email}</Text>
           </View>
 
           <View style={styles.row}>
@@ -91,26 +87,26 @@ export default function InfoScreen({ navigation }) {
               <Text style={styles.text}>Mật khẩu</Text>
             </View>
 
-            <View style={styles.right_box}>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate('ChangePassword');
-                }}
-                android_ripple={{ color: '#CCFFFF' }}
-                style={({ pressed }) => [{ backgroundColor: pressed ? '#CCFFFF' : 'white' }]}
-              >
-                <Text style={styles.press_text}>Đổi mật khẩu</Text>
-              </Pressable>
-            </View>
+
+            <Pressable
+              onPress={() => {
+                navigation.navigate('ChangePassword');
+              }}
+              android_ripple={{ color: '#CCFFFF' }}
+              style={({ pressed }) => [{ backgroundColor: pressed ? '#CCFFFF' : 'white' }]}
+            >
+              <Text style={styles.press_text}>Đổi mật khẩu</Text>
+            </Pressable>
+
           </View>
         </View>
 
-        <View style={[styles.big_row, { paddingTop: 30}]}>
+        <View style={[styles.big_row, { paddingTop: 30 }]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
             style={{ height: scale(40), width: '70%' }}
-            colorPress = {'#FFC700'}
-            colorUnpress = {'#ffdc61'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
             onPressFunction={() => { navigation.navigate('ChangeInfo') }}
           />
@@ -142,7 +138,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'grey',
-
   },
 
   title: {
@@ -183,11 +178,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Itim-Regular',
     textDecorationLine: 'underline',
   },
-  text_style:{
+  text_style: {
     color: 'black',
     fontSize: scale(18),
     fontWeight: 'bold',
-},
+  },
 
 
 })

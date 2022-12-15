@@ -134,7 +134,7 @@ export default function PlanScreen({ navigation }) {
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(20)}
+          fontSize={scale(30)}
           title="KẾ HOẠCH"
           style={{ color: 'black', fontWeight: 'bold' }}
         />
@@ -149,10 +149,10 @@ export default function PlanScreen({ navigation }) {
             {planData.map((item, index) => {
               return (
                 <View key={index}>
-                  <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                  <View style={styles.big_row}>
                     <View style={styles.slider_view}>
                       <View style={[styles.figure_view, { paddingBottom: 3 }]}>
-                        <Text style={[styles.text, { color: 'red' }]}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                        <Text style={styles.text}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
                         <View style={styles.updatebox}>
                           <Pressable
                             android_ripple={{ color: '#bbbbbb' }}
@@ -163,7 +163,6 @@ export default function PlanScreen({ navigation }) {
                               name='pencil-outline'
                               size={20}
                               color={'#1C1B1F'}
-                              
                             />
                           </Pressable>
                           <Pressable
@@ -191,16 +190,15 @@ export default function PlanScreen({ navigation }) {
                           }
                         />
                       </View>
-
-
                       <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          <Text style={[styles.text, { color: 'black' }]}>{item.currentuse}</Text>
-                        </View>
+                          <Text style={[styles.text, { color: item.isExceed? 'hsl(0,74%,52%)': 'hsl(111,84%,36%)' }]}>{item.currentuse}</Text>
+                          <Text style={[styles.text, { color: 'rgb(255,153,0)'}]}>{item.budget} VND</Text>
+                      </View>
 
-                        <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: 'black' }]}>{item.budget} VND</Text>
-                        </View>
+                      <View style={{alignItems:'center'}}>
+                          {item.isExceed ? (
+                            <Text style = {[styles.text,{ color: 'hsl(0,74%,52%)', fontSize: scale(18) }]}>Vượt định mức: {item.currentuse - item.budget}</Text>
+                          ): null}
                       </View>
                     </View>
                   </View>
@@ -245,8 +243,8 @@ export default function PlanScreen({ navigation }) {
         <Pressable
           style={styles.modal_view}
           onPress={() => setShowModal(false)}
-        >
-        </Pressable>
+        />
+        
 
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
@@ -268,7 +266,6 @@ export default function PlanScreen({ navigation }) {
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker}
                       />
-
                     }
                   />
                   <DateTimePickerModal
@@ -294,7 +291,6 @@ export default function PlanScreen({ navigation }) {
                         icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
                         onPress={showDatePicker_Finish}
                       />
-
                     }
                   />
 
@@ -323,7 +319,7 @@ export default function PlanScreen({ navigation }) {
                 <CustomButton
                   style={{ height: scale(40), width: '30%', borderColor: 'orange' }}
                   colorPress={'#FFC700'}
-                  colorUnpress={'#ffdc61'}
+                  colorUnpress={'#ffeba3'}
                   text_style={styles.text_style}
                   title={'LƯU'}
                   onPressFunction={onConfirmPlan}
@@ -384,7 +380,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: scale(30)
+    paddingTop: scale(30),
+    
   },
 
   row: {
@@ -395,9 +392,9 @@ const styles = StyleSheet.create({
   slider_view: {
     alignItems: 'center',
     justifyContent: 'center',
-    //backgroundColor:'pink',
+    
     width: '90%',
-    height: scale(50),
+   
   },
 
   figure_view: {
@@ -406,23 +403,15 @@ const styles = StyleSheet.create({
     //backgroundColor:'green',
     width: '100%',
     alignItems: 'flex-end',
+    //alignItems: 'center',
+   
+    
   },
 
   updatebox: {
     flexDirection: 'row',
-    
   },
 
-  name_view: {
-    flex: 1,
-  },
-
-  money_view: {
-    flex: 1,
-    paddingHorizontal: scale(5),
-    //backgroundColor:'blue',
-    alignItems: 'flex-end',
-  },
 
   progressBar: {
     height: scale(10),
@@ -438,6 +427,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#00000099',
+    
   },
   modal_box: {
     width: '100%',
@@ -450,7 +440,7 @@ const styles = StyleSheet.create({
   },
   modal_bigrow: {
     alignItems: 'center',
-    flexDirection: 'column',
+    //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
 
@@ -490,7 +480,5 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     fontWeight: 'bold',
   },
-
-
 
 });
