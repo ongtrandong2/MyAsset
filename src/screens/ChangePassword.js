@@ -152,10 +152,10 @@ export default function ChangePassword({navigation}) {
             paddingBottom: scale(30),
           }}>
           <CustomButton
-            title={'Lưu thay đổi'}
-            style={{height: scale(40), width: scale(220)}}
-            colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            title = {'Lưu thay đổi'}
+            style = {{height: scale(40), width: scale(220)}}
+            colorPress = {'#FFC700'}
+            colorUnpress = {'#ffdc61'}
             text_style={styles.text_style}
             onPressFunction={() => {
               onChangePassword(oldPassword, newPassword, confirmPassword);
@@ -202,9 +202,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     fontSize: scale(18),
   },
-  text_style: {
+  text_style:{
     color: 'black',
     fontSize: scale(18),
     fontWeight: 'bold',
-  },
+ },
+ text_style:{
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+},
+
 });

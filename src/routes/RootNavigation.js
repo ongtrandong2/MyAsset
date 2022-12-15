@@ -5,7 +5,6 @@ import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInputScreen';
 import HomeScreen from '../screens/HomeScreen';
 import DrawerNavigation from './DrawerNavigation';
-
 import Tabs from './TabNavigation';
 
 import {createStackNavigator} from '@react-navigation/stack';

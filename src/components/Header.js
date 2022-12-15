@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import scale from '../constants/scale';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header = props => {
   return (
@@ -20,7 +21,10 @@ const Header = props => {
             resizeMode="stretch"
           />
         </View>
-        <Text style={styles.text}> MY ASSET</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.text}>MY</Text>
+          <Text style={styles.text}>ASSET</Text>
+        </View>
         <View style={styles.option_view}>
           {/* <View style={styles.box}>
             <Pressable
@@ -39,11 +43,7 @@ const Header = props => {
             <Pressable
               onPress={props.onPressFunctionBack}
               android_ripple={{color: '#bbbbbb'}}>
-              <Image
-                style={styles.icon}
-                source={require('../assets/images/Back.png')}
-                resizeMode="stretch"
-              />
+              <AntDesign name={'back'} size={24} color={'black'} />
             </Pressable>
           </View>
 
