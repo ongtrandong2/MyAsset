@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     flex: 4,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    
   },
 
   box: {

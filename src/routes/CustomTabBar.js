@@ -94,6 +94,7 @@ const CustomTabBar = (props) => {
 
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
     container: {
         position: 'absolute',
         bottom: 0,
@@ -132,5 +133,40 @@ const styles = StyleSheet.create({
         fontSize: scale(15),
     },
 
+=======
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    //paddingBottom:15,
+    width: '100%',
+    height: scale(130),
+    zIndex: 999,
+  },
+  tabBarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'hsl(47,100%,66%)',
+    width: '100%',
+    height: scale(100),
+    zIndex: 99999,
+  },
+  itemContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  plusButtonContainer: {
+    top: scale(-50),
+    bottom: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+  },
+  text: {
+    fontSize: scale(15),
+  },
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 });
 export default CustomTabBar;

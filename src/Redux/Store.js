@@ -12,7 +12,11 @@ export default configureStore({
     planData: PlanData,
     IncomeOutcome: IncomeOutcome,
     modalNumber: ModalNumber,
+<<<<<<< HEAD
     year: Year,
+=======
+   year: Year,
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
   },
 });
 //Update state depend on action in UI 

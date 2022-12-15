@@ -37,6 +37,17 @@ export default function HomeScreen({ navigation }) {
     )
   })
 
+<<<<<<< HEAD
+=======
+  let plan = planData.filter(item => {
+    let d2 = new Date(moment(item.dateStart).format("YYYY-MM"));
+    let d3 = new Date(moment(item.dateFinish).format("YYYY-MM"));
+    return (
+      d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()
+    )
+  })
+
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
   plan.sort ((a,b)=>  new Date(...a.dateStart.split("-")) - new Date(...b.dateStart.split("-"))); 
  
   return (

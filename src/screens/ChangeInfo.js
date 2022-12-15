@@ -60,7 +60,6 @@ export default function ChangeInfo({navigation}) {
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
-            //onPressFunction = {}
           />
         </View>
       </ScrollView>

@@ -8,7 +8,7 @@ const TotalMoney = createSlice({
     },
     IncreaseTotal: (state, action) => {
       state.value += action.payload;
-    },
+    }, 
     DecreaseTotal: (state, action) => {
       state.value -= action.payload;
     },

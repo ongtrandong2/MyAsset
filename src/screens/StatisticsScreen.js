@@ -104,4 +104,23 @@ const styles = StyleSheet.create({
 
   },
 
+<<<<<<< HEAD
+=======
+  month_container: {
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    //borderWidth:1,
+  },
+
+  month_item:{
+    backgroundColor:'hsl(47,100%,78%)',
+    borderColor: '#ffc700',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal:20,
+    borderWidth: 2,
+
+  },
+
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 });

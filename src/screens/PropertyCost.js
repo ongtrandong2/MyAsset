@@ -1,6 +1,23 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, ScrollView, StatusBar, Pressable, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 
+=======
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  ScrollView,
+  StatusBar,
+  Pressable,
+  Image,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from 'react-native';
+import {firebase} from '@react-native-firebase/firestore';
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
 import CustomButton from '../components/CustomButton';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -11,9 +28,15 @@ import { addPossession, removePossession } from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 
+<<<<<<< HEAD
 import IncomeOutcome, { addData } from '../Redux/IncomeOutcome';
 import { IncreaseCurrentUse } from '../Redux/PlanData';
 import { ShowTab } from '../Redux/ModalNumber';
+=======
+import IncomeOutcome, {addData, updateData} from '../Redux/IncomeOutcome';
+import {IncreaseCurrentUse} from '../Redux/PlanData';
+import {ShowTab} from '../Redux/ModalNumber';
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 import moment from 'moment';
 import CheckboxComponent from '../components/CheckboxComponent';
 
@@ -49,6 +72,7 @@ export default function PropertyCost() {
                 }),
             );
 
+<<<<<<< HEAD
             dispatch(
                 addData({
                     key: generateUUID(),
@@ -77,10 +101,50 @@ export default function PropertyCost() {
             setPurchaseValue('');
             setNote('');
             //setChecked('first');
+=======
+  const onSavePurchase = () => {
+    if (purchaseName !== '' && purchaseValue !== '') {
+      setCurrentDate(new Date());
+      dispatch(
+        addPossession({
+          key: generateUUID(),
+          name: purchaseName,
+          value: purchaseValue,
+          note: note,
+        }),
+      );
+
+      dispatch(
+        addData({
+          key: generateUUID(),
+          name: purchaseName,
+          value: purchaseValue,
+          isIncome: false,
+          isPossession: true,
+          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+        }),
+      );
+      dispatch(updateData());
+      if (checked === 'first') {
+        dispatch(DecreaseTotal(Number(purchaseValue)));
+      }
+      let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
+      planData.map((item, index) => {
+        let d2 = new Date(item.dateStart);
+        let d3 = new Date(item.dateFinish);
+        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+          dispatch(
+            IncreaseCurrentUse({
+              index: index,
+              value: Number(purchaseValue),
+            }),
+          );
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
         }
 
     }
 
+<<<<<<< HEAD
     const onSaveSell = () => {
         if (sellName !== '' && sellValue !== '') {
             let index = possessionData.map(index => index.key).indexOf(keyDelete);
@@ -104,6 +168,36 @@ export default function PropertyCost() {
             setSellValue('');
 
         }
+=======
+  const onSaveSell = () => {
+    if (sellName !== '' && sellValue !== '') {
+      let index = possessionData.map(index => index.key).indexOf(keyDelete);
+      //   firebase
+      //     .firestore()
+      //     .collection('Accounts')
+      //     .doc(firebase.auth().currentUser.uid)
+      //     .collection('InOutdata')
+      //     .doc(keyDelete)
+      //     .delete();
+      //console.log(index);
+      dispatch(removePossession(index));
+      //setNumber1(number1+1);
+      setCurrentDate(new Date());
+      dispatch(
+        addData({
+          key: generateUUID(),
+          name: sellName,
+          value: sellValue,
+          isIncome: true,
+          isPossession: true,
+          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+        }),
+      );
+      dispatch(updateData());
+      dispatch(IncreaseTotal(Number(sellValue)));
+      setSellName('');
+      setSellValue('');
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
     }
 
 

@@ -3,9 +3,15 @@ import {useState} from 'react';
 
 import {StyleSheet, Text, View, Image, Alert, Pressable, KeyboardAvoidingView, ToastAndroid} from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
+<<<<<<< HEAD
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { firebase } from '@react-native-firebase/auth';
+=======
+import {TextInput} from 'react-native-paper';
+import {ScrollView} from 'react-native-gesture-handler';
+import {firebase} from '@react-native-firebase/firestore';
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
@@ -71,7 +77,11 @@ export default function Login({navigation}) {
             <Text style={{ fontFamily: 'Wallpoet-Regular', color: 'black', fontSize: scale(20) }}>MY ASSET</Text>
           </View>
         </View>
+<<<<<<< HEAD
       </View>
+=======
+      </ScrollView>
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
       <View style={styles.body_view}>
         <Image
@@ -154,11 +164,17 @@ export default function Login({navigation}) {
 
       {/* <View style={styles.body_view}> */}
         <LoginGoogle navigation={navigation} />
+<<<<<<< HEAD
       {/* </View> */}
     </ScrollView>
   </KeyboardAvoidingView>
 );
 }
+=======
+        {/* </View> */}
+      </KeyboardAvoidingView>
+)}
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
 const styles = StyleSheet.create({
 body: {
@@ -200,6 +216,7 @@ label: {
   backgroundColor:'#ffffff',
 },
 
+<<<<<<< HEAD
 label_view: {
   flex: 2,
   alignItems: 'center',
@@ -208,6 +225,16 @@ label_view: {
   //marginRight: 20,
   backgroundColor:'#ffffff',
 },
+=======
+  label_view: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: scale(30),
+    marginRight: scale(100),
+    backgroundColor: '#ffffff',
+  },
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
 icon1_view: {
   flex: 1,
@@ -217,9 +244,19 @@ icon1_view: {
 
 },
 
+<<<<<<< HEAD
 icon_money: {
   width: scale(70),
   height:scale(70),
+=======
+body_view: {
+  backgroundColor: '#ffffff',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  //margin: 1,
+  padding: scale(3),
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 },
 
 body_view: {

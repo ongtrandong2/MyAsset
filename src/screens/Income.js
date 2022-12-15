@@ -4,6 +4,7 @@ import scale from '../constants/scale';
 import Entypo from 'react-native-vector-icons/Entypo'
 
 export default function Income() {
+<<<<<<< HEAD
     const [isMonth, setIsMonth] = useState(true);
     return (
         <KeyboardAvoidingView style={styles.view}>
@@ -78,6 +79,82 @@ export default function Income() {
         </KeyboardAvoidingView>
     );
 };
+=======
+  const [isMonth, setIsMonth] = useState(true);
+  return (
+    <KeyboardAvoidingView style={styles.view}>
+      <ScrollView>
+        <View style={styles.big_row}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.month_container}>
+              <TouchableOpacity style={styles.month_item}>
+                <Text style={styles.text}>10/2022</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.month_container}>
+              <TouchableOpacity style={styles.month_item}>
+                <Text style={styles.text}>10/2022</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.month_container}>
+              <TouchableOpacity style={styles.month_item}>
+                <Text style={styles.text}>10/2022</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+        <Text style={{fontSize: 50}}>Income</Text>
+      </ScrollView>
+
+      <View style={styles.bottom_tab}>
+        <TouchableOpacity
+          style={[
+            styles.bottom_item,
+            {
+              borderRightWidth: 2,
+              backgroundColor: isMonth ? '#ffeba3' : '#ffffff',
+            },
+          ]}
+          onPress={() => setIsMonth(true)}>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/piechart.png')}
+              style={{height: 30, width: 30}}
+              resizeMode="stretch"
+            />
+          </View>
+          <View style={{flex: 2}}>
+            <Text style={[styles.text, {fontSize: scale(30)}]}>THÁNG</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.bottom_item,
+            {
+              borderLeftWidth: 2,
+              backgroundColor: !isMonth ? '#ffeba3' : '#ffffff',
+            },
+          ]}
+          onPress={() => setIsMonth(false)}>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/linechart.png')}
+              style={{height: 30, width: 30}}
+              resizeMode="stretch"
+            />
+          </View>
+          <View style={{flex: 2}}>
+            <Text style={[styles.text, {fontSize: scale(30)}]}>NĂM</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+  );
+}
+>>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
 const styles = StyleSheet.create({
     view: {
