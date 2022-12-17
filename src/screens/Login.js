@@ -90,9 +90,10 @@ export default function Login({navigation}) {
 
         <View style={styles.body_view}>
           <Image
-            style={styles.icon_money}
-            source={require('../assets/images/icon_money.png')}
+            style={styles.image}
+            source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
             resizeMode="stretch"
+
           />
         </View>
 

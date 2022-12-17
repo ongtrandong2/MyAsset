@@ -76,6 +76,5 @@ const PlanData = createSlice ({
   },
 );
 
-export const {addPlan, IncreaseCurrentUse, removePlan, updatePlan} =
-  PlanData.actions;
+export const {addPlan, IncreaseCurrentUse, removePlan, updatePlan} = PlanData.actions;
 export default PlanData.reducer;
