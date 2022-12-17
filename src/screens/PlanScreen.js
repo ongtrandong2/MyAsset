@@ -134,9 +134,7 @@ export default function PlanScreen({ navigation }) {
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(30)}
           title="KẾ HOẠCH"
-          style={{ color: 'black', fontWeight: 'bold' }}
         />
 
         {planData.length === 0 ? (

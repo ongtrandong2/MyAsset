@@ -19,9 +19,7 @@ export default function StatisticsScreen({navigation}) {
     <KeyboardAvoidingView style={styles.view}>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(25)}
           title="THỐNG KÊ"
-          style={{ color: 'black', fontWeight: 'bold' }}
         />
 
         <View style={styles.row}>
@@ -76,7 +74,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(24),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    //fontFamily: 'Itim-Regular',
+    //fontFamily: 'Lato-Regular',
+    fontFamily: 'Inter-Regular',
   },
 
   tab_selected: {

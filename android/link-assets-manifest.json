@@ -2,8 +2,16 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/DancingScript-Regular.ttf",
-      "sha1": "b52e869bd47b6e98fd907ae00b1828916451b3b0"
+      "path": "src/assets/fonts/Inter-Bold.ttf",
+      "sha1": "48747b7a60086f97af0d373febcbd1f1bee87f17"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Medium.ttf",
+      "sha1": "a418a8ba73bbcfa8c131c426ab836d78457afa9b"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Regular.ttf",
+      "sha1": "7237d9cf55f177702066a28a4dde1e4c7e8ab576"
     },
     {
       "path": "src/assets/fonts/Itim-Regular.ttf",
@@ -20,14 +28,6 @@
     {
       "path": "src/assets/fonts/Lato-Regular.ttf",
       "sha1": "e923c72eda5e50a87e18ff5c71e9ef4b3b6455a3"
-    },
-    {
-      "path": "src/assets/fonts/Montserrat-Regular.ttf",
-      "sha1": "de57aa03e4821fdbe6c34ec2c895e8b5c914e837"
-    },
-    {
-      "path": "src/assets/fonts/Montserrat-SemiBold.ttf",
-      "sha1": "8580dec824bbdb6ce24d04d3aaf360776339f0a7"
     },
     {
       "path": "src/assets/fonts/Wallpoet-Regular.ttf",

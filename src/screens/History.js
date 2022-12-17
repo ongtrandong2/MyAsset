@@ -24,6 +24,7 @@ export default function History({ navigation }) {
   const [newIndex, setNewIndex] = useState();
   const [newTime, setNewTime] = useState('');
   const [oldValue, setOldValue] = useState('');
+  const [newisIncome, setNewisIncome] = useState(true);
   var result = [];
 
   IncomeOutcome.slice(0).reverse().map((item, index) => {
@@ -72,7 +73,7 @@ export default function History({ navigation }) {
     dispatch(removeData(index));
   }
 
-  const onChangeData = (keyChange, name, value, time ) =>{
+  const onChangeData = (keyChange, name, value, time, isIncome ) =>{
     setShowModal(true);
     setNewName(name);
     setNewValue(value);
@@ -80,9 +81,11 @@ export default function History({ navigation }) {
     setNewIndex(index);
     setNewTime(time);
     setOldValue(value);
+    setNewisIncome(isIncome);
    
   }
   //console.log(newTime);
+  //console.log(newisIncome);
   const onConfirmChange = () =>{
     if(newValue !== "")
     {
@@ -90,22 +93,25 @@ export default function History({ navigation }) {
         index: newIndex,
         value: newValue,
       }))
-      let d1 = new Date(moment(newTime).format("YYYY-MM-DD"));
-      planData.map((item, index)=>{
-        let d2 = new Date(item.dateStart);
-        let d3 = new Date(item.dateFinish);
-        if( d1.getTime()>= d2.getTime() && d1.getTime()<= d3.getTime())
-        {
-          dispatch(IncreaseCurrentUse({
-            index: index,
-            value: -Number(oldValue),
-          }))
-          dispatch(IncreaseCurrentUse({
-            index:index,
-            value: Number(newValue),
-          }))
-        }
-      })
+      if( newisIncome === false )
+      {
+        let d1 = new Date(moment(newTime).format("YYYY-MM-DD"));
+        planData.map((item, index)=>{
+          let d2 = new Date(item.dateStart);
+          let d3 = new Date(item.dateFinish);
+          if( d1.getTime()>= d2.getTime() && d1.getTime()<= d3.getTime())
+          {
+            dispatch(IncreaseCurrentUse({
+              index: index,
+              value: -Number(oldValue),
+            }))
+            dispatch(IncreaseCurrentUse({
+              index:index,
+              value: Number(newValue),
+            }))
+          }
+        })
+      }
       setShowModal(false);
       ToastAndroid.showWithGravity(
         'Cập nhật thông tin thành công!',
@@ -121,9 +127,7 @@ export default function History({ navigation }) {
       <>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(25)}
           title="LỊCH SỬ"
-          style={{ color: 'black', fontWeight: 'bold' }}
         />
         <View style={{ paddingTop: 10 }}>
           <SectionList
@@ -169,7 +173,7 @@ export default function History({ navigation }) {
                   <Pressable
                     android_ripple={{ color: '#bbbbbb' }}
                     style={{ marginRight: 7 }}
-                    onPress={() => onChangeData(item.key, item.name, item.value, item.time)}
+                    onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
                   >
                     <MaterialCommunityIcons
                       name='pencil-outline'

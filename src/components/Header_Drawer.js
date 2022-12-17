@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     //paddingHorizontal:scale(10),
+   
 
   },
 
@@ -118,7 +119,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: 'black',
+    color: '#000000',
+    //fontFamily:'Lato-Regular',
+    //fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Bold',
+    //fontFamily:'Lato-Bold',
+    fontSize: scale(30)
+    
   },
 
 

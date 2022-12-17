@@ -44,7 +44,7 @@ export default function HomeScreen({ navigation }) {
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(20)}
+          //fontSize={scale(20)}
           title="TỔNG QUAN"
           style={{ color: 'black', fontWeight: 'bold' }}
         />
