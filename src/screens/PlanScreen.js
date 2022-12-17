@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView, Modal, Animated, Alert } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  KeyboardAvoidingView,
+  ScrollView,
+  Modal,
+  Animated,
+  Alert,
+} from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import CustomButton from '../components/CustomButton';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import moment from "moment";
-import { useSelector, useDispatch } from 'react-redux';
-import { addPlan, IncreaseCurrentUse, removePlan, updatePlan } from '../Redux/PlanData';
+import moment from 'moment';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  addPlan,
+  IncreaseCurrentUse,
+  removePlan,
+  updatePlan,
+} from '../Redux/PlanData';
 import generateUUID from '../constants/generateUUID';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function PlanScreen({ navigation }) {
+export default function PlanScreen({navigation}) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
-  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] = useState(false);
+  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] =
+    useState(false);
   const [dateFinish, setDateFinish] = useState('');
   const [budget, setBudget] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -36,11 +53,10 @@ export default function PlanScreen({ navigation }) {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
+  const handleConfirm = date => {
     //console.warn("A date has been picked: ", date);
     setDateSelect(moment(date).format('YYYY-MM-DD'));
     hideDatePicker();
-
   };
 
   const showDatePicker_Finish = () => {
@@ -51,28 +67,30 @@ export default function PlanScreen({ navigation }) {
     setDatePickerFinishVisibility(false);
   };
 
-  const handleConfirm_Finish = (date) => {
+  const handleConfirm_Finish = date => {
     //console.warn("A date has been picked: ", date);
     setDateFinish(moment(date).format('YYYY-MM-DD'));
-    hideDatePicker_Finish(); // 
-
+    hideDatePicker_Finish(); //
   };
 
   const onConfirmPlan = () => {
     if (dateSelect !== '' && dateFinish !== '' && budget !== '') {
-      let d = new Date(moment(currentDate).format("YYYY-MM-DD"));
+      let d = new Date(moment(currentDate).format('YYYY-MM-DD'));
       let d1 = new Date(dateSelect);
       let d2 = new Date(dateFinish);
-      
+
       if (d1.getTime() > d2.getTime()) {
-        Alert.alert('Warning', 'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!');
-      }
-      else if (d.getTime() > d1.getTime()) {
-        Alert.alert('Warning', 'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!')
-      }
-      else {
-        if(flag === false)
-        {
+        Alert.alert(
+          'Warning',
+          'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!',
+        );
+      } else if (d.getTime() > d1.getTime()) {
+        Alert.alert(
+          'Warning',
+          'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!',
+        );
+      } else {
+        if (flag === false) {
           dispatch(
             addPlan({
               key: generateUUID(),
@@ -82,10 +100,9 @@ export default function PlanScreen({ navigation }) {
               currentuse: 0,
               percentage_of_use: 0,
               isExceed: false,
-            })
-          )
-        }
-        else{
+            }),
+          );
+        } else {
           dispatch(
             updatePlan({
               index: newData.index,
@@ -95,12 +112,14 @@ export default function PlanScreen({ navigation }) {
               currentuse: newData.newCurrentuse,
               percentage_of_use: newData.newPercent,
               isExceed: newData.newIsexceed,
-            })
-          )
-          dispatch(IncreaseCurrentUse({
-            index: newData.index,
-            value: 0,
-          }))
+            }),
+          );
+          dispatch(
+            IncreaseCurrentUse({
+              index: newData.index,
+              value: 0,
+            }),
+          );
           setFlag(false);
         }
         setDateSelect('');
@@ -108,27 +127,24 @@ export default function PlanScreen({ navigation }) {
         setBudget('');
       }
     }
-  }
+  };
   //console.log(newData);
-  const onChangePlan = (index,item) =>{
-    //console.log(index,item);
-      setFlag(true);
-      setShowModal(true);
-      setDateSelect(item.dateStart);
-      setDateFinish(item.dateFinish);
-      setBudget(item.budget);
-      //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
-      onConfirmPlan();
-      //console.log(item.isExceed);
-      setNewData({
-        index: index,
-        newCurrentuse: item.currentuse,
-        newPercent: item.percentage_of_use,
-        newIsexceed: item.isExceed,
-      })
-   
-  }
- 
+  const onChangePlan = ({index, item}) => {
+    setFlag(true);
+    setShowModal(true);
+    setDateSelect(item.dateStart);
+    setDateFinish(item.dateFinish);
+    //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
+    onConfirmPlan({index, item});
+    //console.log(item.isExceed);
+    setNewData({
+      index: index,
+      newCurrentuse: item.currentuse,
+      newPercent: item.percentage_of_use,
+      newIsexceed: item.isExceed,
+    });
+  };
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -138,10 +154,16 @@ export default function PlanScreen({ navigation }) {
         />
 
         {planData.length === 0 ? (
-          <View style={[styles.big_row, { alignItems: 'center' }]}>
-            <Text style={{ fontSize: scale(50), color: '#CDCACA', fontFamily: 'Itim-Regular' }}>Chưa có dữ liệu</Text>
+          <View style={[styles.big_row, {alignItems: 'center'}]}>
+            <Text
+              style={{
+                fontSize: scale(50),
+                color: '#CDCACA',
+                fontFamily: 'Itim-Regular',
+              }}>
+              Chưa có dữ liệu
+            </Text>
           </View>
-
         ) : (
           <>
             {planData.map((item, index) => {
@@ -153,36 +175,36 @@ export default function PlanScreen({ navigation }) {
                         <Text style={styles.text}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
                         <View style={styles.updatebox}>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
-                            style = {{ marginRight: 7}}
-                            onPress = {()=>onChangePlan(index, item)}
-                          >
+                            android_ripple={{color: '#bbbbbb'}}
+                            style={{marginRight: 7}}
+                            onPress={() => onChangePlan({index, item})}>
                             <MaterialCommunityIcons
-                              name='pencil-outline'
+                              name="pencil-outline"
                               size={20}
                               color={'#1C1B1F'}
                             />
                           </Pressable>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
-                            onPress = {()=>dispatch(removePlan(index))}
-                          >
+                            android_ripple={{color: '#bbbbbb'}}
+                            onPress={() => dispatch(removePlan(index))}>
                             <AntDesign
-                              name='delete'
+                              name="delete"
                               size={20}
                               color={'#1C1B1F'}
                             />
                           </Pressable>
                         </View>
-
                       </View>
                       <View style={styles.progressBar}>
                         <Animated.View
                           style={
                             ([StyleSheet.absoluteFill],
                             {
-                              backgroundColor: item.isExceed === true ? 'hsl(0,74%,52%)' : "hsl(111,84%,36%)",
-                              width: String(item.percentage_of_use) + "%",
+                              backgroundColor:
+                                item.isExceed === true
+                                  ? 'hsl(0,74%,52%)'
+                                  : 'hsl(111,84%,36%)',
+                              width: String(item.percentage_of_use) + '%',
                               borderRadius: 5,
                             })
                           }
@@ -201,32 +223,36 @@ export default function PlanScreen({ navigation }) {
                     </View>
                   </View>
                 </View>
-              )
+              );
             })}
-          </>)}
-
-
+          </>
+        )}
       </ScrollView>
 
       <View style={styles.floatingbutton}>
         <Pressable
           onPress={() => {
-                  setShowModal(true); 
-                  setFlag(false);
-                  setDateSelect('');
-                  setDateFinish('');
-                  setBudget('');
-                }}
-          style={({ pressed }) => [{ backgroundColor: pressed ? '#0099FF' : 'white' }, { ...styles.wrapper }, { ...styles.shadow }]}
-        >
-
+            setShowModal(true);
+            setFlag(false);
+            setDateSelect('');
+            setDateFinish('');
+            setBudget('');
+          }}
+          style={({pressed}) => [
+            {backgroundColor: pressed ? '#0099FF' : 'white'},
+            {...styles.wrapper},
+            {...styles.shadow},
+          ]}>
           <Image
             source={require('../assets/images/pen.png')}
             resizeMode="stretch"
-            style={{ height: scale(30), width: scale(30), borderRadius: scale(30) }}
-          //style = {styles.circle}
+            style={{
+              height: scale(30),
+              width: scale(30),
+              borderRadius: scale(30),
+            }}
+            //style = {styles.circle}
           />
-
         </Pressable>
       </View>
 
@@ -235,9 +261,7 @@ export default function PlanScreen({ navigation }) {
         onRequestClose={() => setShowModal(false)}
         transparent
         statusBarTranslucent
-        animationType='fade'
-      >
-
+        animationType="fade">
         <Pressable
           style={styles.modal_view}
           onPress={() => setShowModal(false)}
@@ -248,20 +272,29 @@ export default function PlanScreen({ navigation }) {
           <View style={styles.modal_box}>
             <ScrollView>
               <KeyboardAvoidingView style={styles.modal_bigrow}>
-                <Text style={{ color: 'red', fontSize: scale(25), fontWeight: 'bold' }}>Kế hoạch mới</Text>
+                <Text
+                  style={{
+                    color: 'red',
+                    fontSize: scale(25),
+                    fontWeight: 'bold',
+                  }}>
+                  Kế hoạch mới
+                </Text>
                 <View style={styles.modal_row}>
                   <Text style={styles.text_modal}>1. Ngày bắt đầu : </Text>
                   <TextInput
                     style={styles.textInput_style}
                     onChangeText={setDateSelect}
                     placeholderTextColor={'black'}
-                    textColor='blue'
-                    activeUnderlineColor='black'
-                    editable = {false}
+                    textColor="blue"
+                    activeUnderlineColor="black"
+                    editable={false}
                     value={dateSelect}
                     right={
                       <TextInput.Icon
-                        icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
+                        icon={{
+                          uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
+                        }}
                         onPress={showDatePicker}
                       />
                     }
@@ -279,14 +312,16 @@ export default function PlanScreen({ navigation }) {
                   <TextInput
                     style={styles.textInput_style}
                     onChangeText={setDateFinish}
-                    placeholderTextColor='black'
-                    textColor='blue'
-                    editable = {false}
-                    activeUnderlineColor='black'
+                    placeholderTextColor="black"
+                    textColor="blue"
+                    editable={false}
+                    activeUnderlineColor="black"
                     value={dateFinish}
                     right={
                       <TextInput.Icon
-                        icon={{ uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png' }}
+                        icon={{
+                          uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
+                        }}
                         onPress={showDatePicker_Finish}
                       />
                     }
@@ -300,29 +335,31 @@ export default function PlanScreen({ navigation }) {
                   />
                 </View>
 
-
                 <View style={styles.modal_row}>
-                  <Text style={styles.text_modal}>3.Định mức         : </Text>
+                  <Text style={styles.text_modal}>3.Định mức : </Text>
                   <TextInput
                     style={styles.textInput_style}
                     onChangeText={setBudget}
                     value={budget}
-                    placeholderTextColor='black'
-                    underlineStyle={{ borderWidth: 0 }}
-                    textColor='blue'
-                    activeUnderlineColor='black'
+                    placeholderTextColor="black"
+                    underlineStyle={{borderWidth: 0}}
+                    textColor="blue"
+                    activeUnderlineColor="black"
                   />
                 </View>
 
                 <CustomButton
-                  style={{ height: scale(40), width: '30%', borderColor: 'orange' }}
+                  style={{
+                    height: scale(40),
+                    width: '30%',
+                    borderColor: 'orange',
+                  }}
                   colorPress={'#FFC700'}
                   colorUnpress={'#ffeba3'}
                   text_style={styles.text_style}
                   title={'LƯU'}
                   onPressFunction={onConfirmPlan}
                 />
-
               </KeyboardAvoidingView>
             </ScrollView>
           </View>
@@ -336,7 +373,6 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-
   },
 
   text: {
@@ -345,9 +381,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Itim-Regular',
   },
 
-
   floatingbutton: {
-
     position: 'absolute',
     zIndex: 999,
     right: scale(30),
@@ -363,8 +397,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor:'black',
-
   },
 
   shadow: {
@@ -379,7 +411,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: scale(30),
-    
   },
 
   row: {
@@ -434,14 +465,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     paddingHorizontal: 10,
-
   },
   modal_bigrow: {
     alignItems: 'center',
     //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
-
   },
 
   modal_row: {
@@ -450,8 +479,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     width: '100%',
     justifyContent: 'center',
-
-
   },
   textInput_style: {
     //paddingHorizontal: scale(10),
@@ -463,8 +490,6 @@ const styles = StyleSheet.create({
     width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
-
-
   },
 
   text_modal: {
@@ -478,5 +503,4 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     fontWeight: 'bold',
   },
-
 });

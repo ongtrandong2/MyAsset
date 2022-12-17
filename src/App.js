@@ -7,9 +7,6 @@ import 'react-native-gesture-handler';
 import StatisticsScreen from './screens/StatisticsScreen';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
-import History from './screens/History';
-
-
 
 function App() {
   return (

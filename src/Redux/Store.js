@@ -12,7 +12,7 @@ export default configureStore({
     planData: PlanData,
     IncomeOutcome: IncomeOutcome,
     modalNumber: ModalNumber,
-    year: Year,
+   year: Year,
   },
 });
-//Update state depend on action in UI 
+//Update state depend on action in UI

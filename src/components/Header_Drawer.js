@@ -22,7 +22,7 @@ const HeaderDrawer = (props) => {
             resizeMode="stretch"
           />
         </View>
-        <View style={{ flexDirection: 'column' }}>
+        <View>
           <Text style={styles.text}>MY</Text>
           <Text style={styles.text}>ASSET</Text>
         </View>
@@ -62,7 +62,6 @@ const HeaderDrawer = (props) => {
           {props.title}
         </Text>
       </View>
-
     </View>
   );
 };
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //paddingHorizontal:10,
-
   },
 
   header_view: {
@@ -81,8 +79,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     //paddingHorizontal:scale(10),
-   
-
   },
 
   text: {
@@ -95,7 +91,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     paddingRight: 5,
-
   },
 
   option_view: {
@@ -127,8 +122,6 @@ const styles = StyleSheet.create({
     fontSize: scale(30)
     
   },
-
-
 
 });
 

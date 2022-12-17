@@ -11,7 +11,6 @@ import scale from '../constants/scale';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header = props => {
-
   return (
     <View style={styles.view}>
       <View style={styles.header_view}>
@@ -27,7 +26,6 @@ const Header = props => {
           <Text style = {styles.text}>ASSET</Text>
         </View>
         <View style={styles.option_view}>
-          
           {/* <View style={styles.box}>
             <Pressable
               onPress={props.onPressFunctionUser}
@@ -73,7 +71,8 @@ const Header = props => {
       <View header_view>
         {/* <Text style = {[{fontSize: {...props.fontSize}},styles.title]}>{props.title}</Text> */}
 
-        <Text style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
+        <Text
+          style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
           {props.title}
         </Text>
       </View>
@@ -88,15 +87,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //flex:1,
-    backgroundColor:'#ffffff',
-    paddingHorizontal:scale(10),
+    backgroundColor: '#ffffff',
+    paddingHorizontal: scale(10),
   },
 
   header_view: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal:scale(30),
+    paddingHorizontal: scale(30),
     //backgroundColor:'pink'
   },
 
@@ -114,10 +113,8 @@ const styles = StyleSheet.create({
 
   option_view: {
     flex: 3,
-    flexDirection:'row',
+    flexDirection: 'row',
     justifyContent: 'flex-end',
-   
-    
   },
 
   box: {
@@ -142,8 +139,6 @@ const styles = StyleSheet.create({
     height: scale(16),
     //color: 'blue',
   },
-
-  
 });
 
 export default Header;

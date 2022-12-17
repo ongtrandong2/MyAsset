@@ -15,5 +15,5 @@ const randomColor = () => {
    return `rgb(${r},${g},${b})`;
 
 }
-
+ 
 export default randomColor;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {
   StyleSheet,
@@ -10,19 +10,19 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { UpdateMoney } from '../Redux/TotalMoney';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import {useSelector, useDispatch} from 'react-redux';
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {addPossession, removePossession} from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function FirstInput({ navigation }) {
+export default function FirstInput({navigation}) {
   //const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ export default function FirstInput({ navigation }) {
         </View>
 
         <View style={styles.row}>
-          <View style={[{ height: scale(50), width: '90%' }, styles.money_box]}>
+          <View style={[{height: scale(50), width: '90%'}, styles.money_box]}>
             <TextInput
               style={styles.textInput_style}
               placeholder="0"
@@ -100,23 +100,38 @@ export default function FirstInput({ navigation }) {
         {possessionData.map((item, index) => {
           return (
             <View style={styles.column} key={index}>
-              <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
-                <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
+              <View
+                style={[{height: scale(200), width: '90%'}, styles.money_box]}>
+                <View
+                  style={[
+                    styles.textInput_item,
+                    {
+                      borderBottomWidth: 1,
+                      alignItems: 'center',
+                      borderBottomColor: 'grey',
+                    },
+                  ]}>
                   <Text
-                    style={[styles.text, {color: 'red', fontSize: scale(20) },]}>
+                    style={[styles.text, {color: 'red', fontSize: scale(20)}]}>
                     {item.name}
                   </Text>
                 </View>
 
-                <View style={[styles.textInput_item, { borderBottomWidth: 1, alignItems:'center', borderBottomColor:'grey' }]}>
-                  <Text style={styles.text}>
-                    {item.value}
-                  </Text>
+                <View
+                  style={[
+                    styles.textInput_item,
+                    {
+                      borderBottomWidth: 1,
+                      alignItems: 'center',
+                      borderBottomColor: 'grey',
+                    },
+                  ]}>
+                  <Text style={styles.text}>{item.value}</Text>
                 </View>
                 <View style={styles.bin_view}>
                   <Pressable
                     onPress={() => dispatch(removePossession(index))}
-                    android_ripple={{ color: '#bbbbbb' }}>
+                    android_ripple={{color: '#bbbbbb'}}>
                     <Image
                       source={require('../assets/images/bin_icon.png')}
                       resizeMode="stretch"
@@ -128,11 +143,11 @@ export default function FirstInput({ navigation }) {
           );
         })}
         <View style={styles.column}>
-          <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
+          <View style={[{height: scale(200), width: '90%'}, styles.money_box]}>
             <TextInput
               style={styles.textInput_item}
-              placeholder='Tên'
-              placeholderTextColor = {'grey'}
+              placeholder="Tên"
+              placeholderTextColor={'grey'}
               onChangeText={setTextName}
               value={textName}
             />
@@ -162,18 +177,16 @@ export default function FirstInput({ navigation }) {
             </Pressable>
           </View>
         </View>
-        <View style={[styles.row,{paddingBottom:scale(10)}]}>
+        <View style={[styles.row, {paddingBottom: scale(10)}]}>
           <CustomButton
-            style={{ width: '40%', height: scale(40) }}
+            style={{width: '40%', height: scale(40)}}
             title={'Hoàn tất'}
-            colorPress = {'#FFC700'}
-            colorUnpress = {'#ffdc61'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
             onPressFunction={onComplete}
           />
         </View>
-
-
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -183,7 +196,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-    paddingTop:scale(20),
+    paddingTop: scale(20),
   },
 
   // body: {
@@ -252,7 +265,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffffff',
     //backgroundColor:'pink'
-
   },
 
   second_row: {
@@ -266,7 +278,6 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'flex-start',
-
   },
 
   icon_plus: {
@@ -274,7 +285,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     paddingTop: scale(5),
-
   },
 
   bin_view: {

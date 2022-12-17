@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Image, Pressable, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
@@ -33,7 +41,7 @@ export default function InfoScreen({ navigation }) {
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          title={"THÔNG TIN CÁ NHÂN"}
+          title={'THÔNG TIN CÁ NHÂN'}
           style={{
             fontSize: scale(25),
             fontWeight: 'bold',
@@ -42,9 +50,19 @@ export default function InfoScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.title}>
             <View style={styles.circle}>
-              <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>{name.charAt(0)}</Text>
+              <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>
+                {name.charAt(0)}
+              </Text>
             </View>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black', paddingLeft: 10 }}>{name}</Text>
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: 'bold',
+                color: 'black',
+                paddingLeft: 10,
+              }}>
+              {name}
+            </Text>
           </View>
         </View>
 
@@ -52,9 +70,9 @@ export default function InfoScreen({ navigation }) {
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Feather
-                name='user'
+                name="user"
                 size={24}
-                color='black'
+                color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
               <Text style={styles.text}>Tên đăng nhập </Text>
@@ -66,9 +84,9 @@ export default function InfoScreen({ navigation }) {
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Feather
-                name='mail'
+                name="mail"
                 size={24}
-                color='black'
+                color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
               <Text style={styles.text}>Email</Text>
@@ -80,7 +98,12 @@ export default function InfoScreen({ navigation }) {
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Image
-                style={{ width: scale(20), height: scale(20), marginRight: 5, marginBottom: 5 }}
+                style={{
+                  width: scale(20),
+                  height: scale(20),
+                  marginRight: 5,
+                  marginBottom: 5,
+                }}
                 source={require('../assets/images/key.png')}
                 resizeMode="stretch"
               />
@@ -108,13 +131,13 @@ export default function InfoScreen({ navigation }) {
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
-            onPressFunction={() => { navigation.navigate('ChangeInfo') }}
+            onPressFunction={() => {
+              navigation.navigate('ChangeInfo');
+            }}
           />
         </View>
-
       </ScrollView>
     </KeyboardAvoidingView>
-
   );
 }
 
@@ -158,13 +181,11 @@ const styles = StyleSheet.create({
     fontSize: scale(20),
     color: '#000000',
     fontFamily: 'Itim-Regular',
-
   },
 
   left_box: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-
   },
 
   right_box: {

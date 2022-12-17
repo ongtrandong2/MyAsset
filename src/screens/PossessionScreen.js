@@ -6,20 +6,19 @@ import { addPossession, removePossession } from '../Redux/PossessionData';
 
 import scale from '../constants/scale';
 
-export default function PossessionScreen({ navigation }) {
+export default function PossessionScreen({navigation}) {
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [position, setPosition] = useState(-1);
-  const onVisible = (item) =>{
+  const onVisible = item => {
     setPosition(item.key);
     setFlag(!flag);
-  }
+  };
   //console.log(position);
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
-
         {/* <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           fontSize={20}
@@ -28,14 +27,15 @@ export default function PossessionScreen({ navigation }) {
         /> */}
 
         {possessionData.map((item, index) => {
-
           return (
-            <View style={styles.big_row} key={index} >
+            <View style={styles.big_row} key={index}>
               <Pressable
-                onPress = {()=>onVisible(item)}
+                onPress={() => onVisible(item)}
                 //android_ripple={{ color: '#996600' }}
-                style={({ pressed }) => [styles.row, { backgroundColor: pressed ? '#FF9900' : '#FFEBA3' }]}
-              >
+                style={({pressed}) => [
+                  styles.row,
+                  {backgroundColor: pressed ? '#FF9900' : '#FFEBA3'},
+                ]}>
                 <View style={styles.name_view}>
                   <Text style={styles.text}>
                     {Number(index) + 1}. {item.name}
@@ -47,20 +47,18 @@ export default function PossessionScreen({ navigation }) {
                 </View>
               </Pressable>
 
-              {position === item.key && flag===true &&(
-                <View style = {[styles.row,{justifyContent:'center', alignItems:'center'}]}>
-                   <Text style={styles.text}>Ghi chú:  {item.note} </Text>   
+              {position === item.key && flag === true && (
+                <View
+                  style={[
+                    styles.row,
+                    {justifyContent: 'center', alignItems: 'center'},
+                  ]}>
+                  <Text style={styles.text}>Ghi chú: {item.note} </Text>
                 </View>
               )}
-
-
-
             </View>
           );
         })}
-
-
-
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -115,5 +113,5 @@ const styles = StyleSheet.create({
   column: {
     flexDirection: 'column',
     justifyContent: 'center',
-  }
+  },
 });

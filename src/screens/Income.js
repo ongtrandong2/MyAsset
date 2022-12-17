@@ -26,7 +26,7 @@ export default function Income() {
         )
     })
 
-   
+
     var result = [];
     Income.map((item) => {
         if ((result.map(itemr => itemr.name)).indexOf(item.name) === -1) {
@@ -50,7 +50,7 @@ export default function Income() {
         total += item.value;
     })
 
-    
+
     const MONTH = [
         { month: '01' },
         { month: '02' },
@@ -99,7 +99,7 @@ export default function Income() {
         result_ByYear[newIndex].value += Number(item.value);
     })
 
-    result_ByYear.map((item)=>{
+    result_ByYear.map((item) => {
         total_ByYear += item.value;
     })
 
@@ -217,11 +217,11 @@ export default function Income() {
                             <View style={styles.big_row}>
                                 <LineChart
                                     data={{
-                                        labels: ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"],
+                                        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
                                         datasets: [
                                             {
-                                                data: result_ByYear.map( item=>item.value ),
-                                                
+                                                data: result_ByYear.map(item => item.value),
+
                                             }
                                         ]
                                     }}
@@ -230,7 +230,7 @@ export default function Income() {
                                     //height={220}
                                     //yAxisLabel="$"
                                     //yAxisSuffix="VND"
-                                    withShadow ={false}
+                                    withShadow={false}
                                     //withVerticalLines = {false}
                                     yAxisInterval={1} // optional, defaults to 1
                                     chartConfig={{
@@ -239,15 +239,15 @@ export default function Income() {
                                         backgroundGradientToOpacity: 0,
                                         backgroundGradientFrom: "#ffffff",
                                         backgroundGradientTo: "#ffffff",
-                                        fillShadowGradientFrom:'#ffffff',
-                                        fillShadowGradientFromOpacity:0,
-                                        fillShadowGradientFromOffset:0,
-                                        fillShadowGradientTo:'#ffffff',
-                                       
-                                        strokeWidth:3,
+                                        fillShadowGradientFrom: '#ffffff',
+                                        fillShadowGradientFromOpacity: 0,
+                                        fillShadowGradientFromOffset: 0,
+                                        fillShadowGradientTo: '#ffffff',
+
+                                        strokeWidth: 3,
                                         decimalPlaces: 0, // optional, defaults to 2dp
                                         color: (opacity = 0) => `rgb(91, 155, 213)`,
-                                        
+
                                         labelColor: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
                                         style: {
                                             borderRadius: 16
@@ -259,24 +259,24 @@ export default function Income() {
                                             stroke: "rgb(91, 155, 213)"
                                         }
                                     }}
-                                   
+
                                     style={{
                                         marginVertical: 8,
                                         borderRadius: 16,
-                                       
+
                                     }}
                                 />
                             </View>
 
-                            {result_ByYear.length === 0 ? null :(
-                                <ScrollView style={{height:'30%'}}>
-                                    <View style = {styles.big_row}>
+                            {result_ByYear.length === 0 ? null : (
+                                <ScrollView style={{ height: '30%' }}>
+                                    <View style={styles.big_row}>
                                         <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
-                                        {result_ByYear.map((item,index)=>{
-                                            return(
-                                                <View style = {styles.row} key={index}>
-                                                    <Text style = {styles.text}>Tháng {item.month}</Text>
-                                                    <Text style = {styles.text}>{item.value} VND</Text>
+                                        {result_ByYear.map((item, index) => {
+                                            return (
+                                                <View style={styles.row} key={index}>
+                                                    <Text style={styles.text}>Tháng {item.month}</Text>
+                                                    <Text style={styles.text}>{item.value} VND</Text>
                                                 </View>
                                             )
                                         })}
@@ -332,16 +332,15 @@ export default function Income() {
 
         </KeyboardAvoidingView>
     );
-};
+}
 
 const styles = StyleSheet.create({
     view: {
         flex: 1,
-
     },
     big_row: {
         alignItems: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
     },
 
     month_container: {
@@ -392,7 +391,3 @@ const styles = StyleSheet.create({
     }
 
 });
-
-
-
-

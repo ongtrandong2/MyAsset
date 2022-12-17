@@ -4,7 +4,6 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-
 export default function SuccessScreen({navigation}) {
   const onPressHandler_Home = () => {
     navigation.navigate('Login');
