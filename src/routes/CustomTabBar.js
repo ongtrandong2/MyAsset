@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
       
     },
     plusButtonContainer: {
-        top: scale(-30),
-        bottom: 25,
+        //top: scale(-30),
+        bottom: 5,
         //alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
+        //position: 'absolute',
         
        
     },

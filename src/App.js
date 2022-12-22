@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './routes/RootNavigation';
 import 'react-native-gesture-handler';
 import StatisticsScreen from './screens/StatisticsScreen';
+import InfoScreen from './screens/InfoScreen';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
 
@@ -15,8 +16,8 @@ function App() {
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
-      {/* <History/> */}
-    
+      {/* <InfoScreen/> */}
+  
     </Provider>
   );
 }

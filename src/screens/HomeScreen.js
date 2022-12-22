@@ -200,7 +200,6 @@ export default function HomeScreen({navigation}) {
                         <View style={styles.money_view}>
                           <Text
                             style={[styles.text, {color: 'hsl(36,100%,52%)'}]}>
-                            {' '}
                             {item.value} VND
                           </Text>
                         </View>

@@ -223,11 +223,11 @@ export default function DailyCost() {
                     placeholderStyle={{ fontSize: scale(18), color: 'black' }}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
-                    data={data_in}
+                    data={data_out}
                     maxHeight={250}
                     labelField="value"
                     valueField="key"
-                    placeholder={!isFocus1 ? outcomeName : '...'}
+                    placeholder={!isFocus ? outcomeName : '...'}
                     value={outcomeName}
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}

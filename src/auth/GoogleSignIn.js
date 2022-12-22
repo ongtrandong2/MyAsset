@@ -1,7 +1,7 @@
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import React from 'react';
-import {StyleSheet, View, Text, Button, Image, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
 
 GoogleSignin.configure({
@@ -22,22 +22,11 @@ const LoginGoogle = props => {
       .catch(error => console.log(error));
     GoogleSignin.signOut();
   }
-  console.log(props);
+  //console.log(props);
   return (
     <View style={styles.container}>
-      {/* <Button
-        title="Google Sign-In"
-        onPress={() => {
-          console.log('signed in');
-          onGoogleButtonPress().then(() => {
-            props.navigation.navigate('Success');
-          });
-        }}
-      />
-      <Button title="Google Sign-Out" onPress={onSignOut} /> */}
-      {/* <Button title="Google Sign-Out" onPress={onSignOut} /> */}
+      
       <Pressable
-        //style = {styles.row}
         style={({pressed}) => [ styles.row,{backgroundColor: pressed ? '#0099FF' : 'white'}]}
         onPress={() => {
           console.log('signed in');
@@ -66,18 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent:'center',
-    //borderWidth:1,
   },
   row: {
     flexDirection: 'row',
     justifyContent:'center',
-    //width: '60%',
     paddingHorizontal: 20,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: 'blue',
     alignItems:'center'
-    //alignSelf:'center',
   },
   text:{
     color:'#0000CC',

@@ -73,7 +73,7 @@ export default function History({ navigation }) {
     dispatch(removeData(index));
   }
 
-  const onChangeData = (keyChange, name, value, time, isIncome ) =>{
+  const onChangeData = (keyChange, name, value, time, isIncome) => {
     setShowModal(true);
     setNewName(name);
     setNewValue(value);
@@ -82,31 +82,28 @@ export default function History({ navigation }) {
     setNewTime(time);
     setOldValue(value);
     setNewisIncome(isIncome);
-   
+
   }
   //console.log(newTime);
   //console.log(newisIncome);
-  const onConfirmChange = () =>{
-    if(newValue !== "")
-    {
+  const onConfirmChange = () => {
+    if (newValue !== "") {
       dispatch(changeData({
         index: newIndex,
         value: newValue,
       }))
-      if( newisIncome === false )
-      {
+      if (newisIncome === false) {
         let d1 = new Date(moment(newTime).format("YYYY-MM-DD"));
-        planData.map((item, index)=>{
+        planData.map((item, index) => {
           let d2 = new Date(item.dateStart);
           let d3 = new Date(item.dateFinish);
-          if( d1.getTime()>= d2.getTime() && d1.getTime()<= d3.getTime())
-          {
+          if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
             dispatch(IncreaseCurrentUse({
               index: index,
               value: -Number(oldValue),
             }))
             dispatch(IncreaseCurrentUse({
-              index:index,
+              index: index,
               value: Number(newValue),
             }))
           }
@@ -120,8 +117,54 @@ export default function History({ navigation }) {
       );
     }
   }
+
   //console.log(IncomeOutcome);
   //console.log(newIndex, newName, newValue)
+  const RenderItem = ({item,index}) => {
+    //console.log(props.item)
+    return (
+      <View style={styles.item_view}>
+        {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
+        {item.isPossession ?
+          (item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
+            : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+
+          ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ paddingRight: 20 }}>
+            {item.isIncome === true ?
+              (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+              :
+              (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+            }
+          </View>
+          <Pressable
+            android_ripple={{ color: '#bbbbbb' }}
+            style={{ marginRight: 7 }}
+            onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
+          >
+            <MaterialCommunityIcons
+              name='pencil-outline'
+              size={18}
+              color={'#000000'}
+            />
+          </Pressable>
+          <Pressable
+            android_ripple={{ color: '#bbbbbb' }}
+            onPress={() => onRemoveData(item.key)}
+          >
+            <AntDesign
+              name='delete'
+              size={18}
+              color={'#000000'}
+            />
+          </Pressable>
+        </View>
+      </View>
+    )
+
+  }
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <>
@@ -155,44 +198,46 @@ export default function History({ navigation }) {
                 </View>)
             }}
             renderItem={({ item, index }) => (
-              <View style={styles.item_view}>
-                {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
-                { item.isPossession  ? 
-                                ( item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
-                                               : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
-                              
-                           ) : ( <Text style={styles.text}>{index + 1}. {item.name}</Text> )}
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ paddingRight: 20 }}>
-                    {item.isIncome === true ?
-                      (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
-                      :
-                      (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
-                    }
-                  </View>
-                  <Pressable
-                    android_ripple={{ color: '#bbbbbb' }}
-                    style={{ marginRight: 7 }}
-                    onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
-                  >
-                    <MaterialCommunityIcons
-                      name='pencil-outline'
-                      size={18}
-                      color={'#000000'}
-                    />
-                  </Pressable>
-                  <Pressable
-                    android_ripple={{ color: '#bbbbbb' }}
-                    onPress={() => onRemoveData(item.key)}
-                  >
-                    <AntDesign
-                      name='delete'
-                      size={18}
-                      color={'#000000'}
-                    />
-                  </Pressable>
-                </View>
-              </View>
+              // <View style={styles.item_view}>
+              //   {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
+              //   { item.isPossession  ? 
+              //                   ( item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
+              //                                  : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+
+              //              ) : ( <Text style={styles.text}>{index + 1}. {item.name}</Text> )}
+              //   <View style={{ flexDirection: 'row' }}>
+              //     <View style={{ paddingRight: 20 }}>
+              //       {item.isIncome === true ?
+              //         (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+              //         :
+              //         (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+              //       }
+              //     </View>
+              //     <Pressable
+              //       android_ripple={{ color: '#bbbbbb' }}
+              //       style={{ marginRight: 7 }}
+              //       onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
+              //     >
+              //       <MaterialCommunityIcons
+              //         name='pencil-outline'
+              //         size={18}
+              //         color={'#000000'}
+              //       />
+              //     </Pressable>
+              //     <Pressable
+              //       android_ripple={{ color: '#bbbbbb' }}
+              //       onPress={() => onRemoveData(item.key)}
+              //     >
+              //       <AntDesign
+              //         name='delete'
+              //         size={18}
+              //         color={'#000000'}
+              //       />
+              //     </Pressable>
+              //   </View>
+              // </View>
+
+              <RenderItem item={item} index={index} />
             )}
           />
         </View>
@@ -208,10 +253,10 @@ export default function History({ navigation }) {
         <Pressable
           style={styles.modal_view}
           onPress={() => {
-                        setShowModal(false),
-                        setNewName(''),
-                        setNewValue('')
-                      }}
+            setShowModal(false),
+              setNewName(''),
+              setNewValue('')
+          }}
         />
 
         <View style={styles.modal_view}>
@@ -220,45 +265,45 @@ export default function History({ navigation }) {
               <View style={styles.modal_row}>
                 <Text style={styles.modal_text}>1. Mục thu/chi: </Text>
                 <TextInput
-                    style = {{
-                      width: '60%',
-                      borderBottomWidth: 1,
-                      fontSize: scale(20),
-                      height: scale(30),
-                      padding:0,
-                      paddingHorizontal: 4,
-                      textAlign: 'center',
-                      fontFamily:'Itim-Regular'
-                    }}
-                    editable = {false}
-                    placeholder = {newName}
-                    placeholderTextColor = {'#000000'}
+                  style={{
+                    width: '60%',
+                    borderBottomWidth: 1,
+                    fontSize: scale(20),
+                    height: scale(30),
+                    padding: 0,
+                    paddingHorizontal: 4,
+                    textAlign: 'center',
+                    fontFamily: 'Itim-Regular'
+                  }}
+                  editable={false}
+                  placeholder={newName}
+                  placeholderTextColor={'#000000'}
                 />
               </View>
-              
+
               <View style={styles.modal_row}>
                 <Text style={styles.modal_text}>2. Số tiền </Text>
                 <TextInput
-                    style = {{
-                      width: '60%',
-                      borderBottomWidth: 1,
-                      fontSize: scale(18),
-                      height: scale(30),
-                      padding:2,
-                      paddingHorizontal: 4,
-                      textAlign: 'center',
-                      fontFamily:'Itim-Regular'
-                    }}
-                    //placeholder = {newValue}
-                    //placeholderTextColor = {'#000000'}
-                    onChangeText = {setNewValue}
-                    value = { newValue }
-                    keyboardType = {'numeric'}
+                  style={{
+                    width: '60%',
+                    borderBottomWidth: 1,
+                    fontSize: scale(18),
+                    height: scale(30),
+                    padding: 2,
+                    paddingHorizontal: 4,
+                    textAlign: 'center',
+                    fontFamily: 'Itim-Regular'
+                  }}
+                  //placeholder = {newValue}
+                  //placeholderTextColor = {'#000000'}
+                  onChangeText={setNewValue}
+                  value={newValue}
+                  keyboardType={'numeric'}
                 />
               </View>
 
               <CustomButton
-                style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20}}
+                style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20 }}
                 colorPress={'#FFC700'}
                 colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
@@ -332,8 +377,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     paddingTop: 30,
-    
-    
+
+
   },
   modal_row: {
     flexDirection: 'row',
