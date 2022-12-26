@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     //fontFamily: 'Itim-Regular',
     //fontFamily: 'Lato-Regular',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   tab_selected: {

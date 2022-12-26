@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: scale(16),
         //fontFamily:'Lato-Bold',
-        fontFamily:'Lato-Regular',
+        fontFamily:'Inter-Medium',
         color:'black',
     },
 

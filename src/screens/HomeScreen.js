@@ -48,18 +48,18 @@ export default function HomeScreen({navigation}) {
           onPress={() => navigation.openDrawer('HomeScreen')}
           //fontSize={scale(20)}
           title="TỔNG QUAN"
-          style={{color: 'black', fontWeight: 'bold'}}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
 
         <View style={styles.row}>
           <Text
-            style={{color: '#BB2424', fontSize: scale(20), fontWeight: 'bold'}}>
+            style={{color: '#BB2424', fontSize: scale(20), fontFamily: 'Inter-Bold'}}>
             {money} VNĐ
           </Text>
         </View>
 
         <View style={styles.row}>
-          <Text style={{color: '#BB2424', fontSize: scale(15)}}>
+          <Text style={{ color: '#BB2424', fontSize: scale(15), fontFamily: 'Inter-Medium' }}>
             Tổng số dư
           </Text>
         </View>
@@ -68,8 +68,8 @@ export default function HomeScreen({navigation}) {
           <Text
             style={{
               color: '#000000',
-              fontSize: scale(18),
-              fontFamily: 'Itim-Regular',
+              fontSize: scale(20),
+              fontFamily: 'Inter-Bold',
             }}>
             KẾ HOẠCH
           </Text>
@@ -79,9 +79,9 @@ export default function HomeScreen({navigation}) {
           <View style={styles.big_row}>
             <Text
               style={{
-                fontSize: scale(20),
+                fontSize: scale(21),
                 color: '#CDCACA',
-                fontFamily: 'Itim-Regular',
+                fontFamily: 'Inter-Regular',
               }}>
               Chưa có kế hoạch cho tháng này!
             </Text>
@@ -134,7 +134,7 @@ export default function HomeScreen({navigation}) {
         )}
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, {fontWeight: 'bold'}]}>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(20) }]}>
             THU CHI GẦN ĐÂY
           </Text>
         </View>
@@ -180,7 +180,7 @@ export default function HomeScreen({navigation}) {
         </View>
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, {fontWeight: 'bold'}]}>TÀI SẢN</Text>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(20) }]}>TÀI SẢN</Text>
         </View>
 
         <View style={styles.big_row}>
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(15),
     color: '#000000',
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
   row: {

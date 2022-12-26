@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(20),
     marginLeft: scale(20),
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Bold',
     color: '#000000',
     marginBottom: scale(-5),
   },

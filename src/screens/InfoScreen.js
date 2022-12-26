@@ -43,21 +43,21 @@ export default function InfoScreen({ navigation }) {
           onPress={() => navigation.openDrawer('HomeScreen')}
           title={'THÔNG TIN CÁ NHÂN'}
           style={{
-            fontSize: scale(25),
-            fontWeight: 'bold',
+            fontSize: scale(30),
+            fontFamily:'Inter-Bold',
           }}
         />
         <View style={styles.big_row}>
           <View style={styles.title}>
             <View style={styles.circle}>
-              <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'black' }}>
+              <Text style={{ fontSize: 30, fontFamily: 'Inter-Medium', color: 'black' }}>
                 {name.charAt(0)}
               </Text>
             </View>
             <Text
               style={{
                 fontSize: 30,
-                fontWeight: 'bold',
+                fontFamily: 'Inter-Bold',
                 color: 'black',
                 paddingLeft: 10,
               }}>
@@ -75,7 +75,7 @@ export default function InfoScreen({ navigation }) {
                 color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
-              <Text style={styles.text}>Tên đăng nhập </Text>
+              <Text style={styles.text}>Tên đăng nhập: </Text>
             </View>
 
             <Text style={styles.text} numberOfLines={2}>{name}</Text>
@@ -89,7 +89,7 @@ export default function InfoScreen({ navigation }) {
                 color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
-              <Text style={styles.text}>Email</Text>
+              <Text style={styles.text}>Email: </Text>
             </View>
 
             <Text style={styles.text} numberOfLines={2}>{email}</Text>
@@ -107,7 +107,7 @@ export default function InfoScreen({ navigation }) {
                 source={require('../assets/images/key.png')}
                 resizeMode="stretch"
               />
-              <Text style={styles.text}>Mật khẩu</Text>
+              <Text style={styles.text}>Mật khẩu: </Text>
             </View>
 
 
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   left_box: {
@@ -196,13 +196,13 @@ const styles = StyleSheet.create({
   press_text: {
     fontSize: scale(20),
     color: '#0000CC',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
     textDecorationLine: 'underline',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(19),
+    fontFamily:'Inter-Bold',
   },
 
 

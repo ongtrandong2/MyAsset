@@ -73,7 +73,7 @@ export default function History({ navigation }) {
     dispatch(removeData(index));
   }
 
-  const onChangeData = (keyChange, name, value, time, isIncome ) =>{
+  const onChangeData = (keyChange, name, value, time, isIncome) => {
     setShowModal(true);
     setNewName(name);
     setNewValue(value);
@@ -82,31 +82,28 @@ export default function History({ navigation }) {
     setNewTime(time);
     setOldValue(value);
     setNewisIncome(isIncome);
-   
+
   }
   //console.log(newTime);
   //console.log(newisIncome);
-  const onConfirmChange = () =>{
-    if(newValue !== "")
-    {
+  const onConfirmChange = () => {
+    if (newValue !== "") {
       dispatch(changeData({
         index: newIndex,
         value: newValue,
       }))
-      if( newisIncome === false )
-      {
+      if (newisIncome === false) {
         let d1 = new Date(moment(newTime).format("YYYY-MM-DD"));
-        planData.map((item, index)=>{
+        planData.map((item, index) => {
           let d2 = new Date(item.dateStart);
           let d3 = new Date(item.dateFinish);
-          if( d1.getTime()>= d2.getTime() && d1.getTime()<= d3.getTime())
-          {
+          if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
             dispatch(IncreaseCurrentUse({
               index: index,
               value: -Number(oldValue),
             }))
             dispatch(IncreaseCurrentUse({
-              index:index,
+              index: index,
               value: Number(newValue),
             }))
           }
@@ -157,11 +154,11 @@ export default function History({ navigation }) {
             renderItem={({ item, index }) => (
               <View style={styles.item_view}>
                 {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
-                { item.isPossession  ? 
-                                ( item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
-                                               : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
-                              
-                           ) : ( <Text style={styles.text}>{index + 1}. {item.name}</Text> )}
+                {item.isPossession ?
+                  (item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
+                    : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+
+                  ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
                 <View style={{ flexDirection: 'row' }}>
                   <View style={{ paddingRight: 20 }}>
                     {item.isIncome === true ?
@@ -208,10 +205,10 @@ export default function History({ navigation }) {
         <Pressable
           style={styles.modal_view}
           onPress={() => {
-                        setShowModal(false),
-                        setNewName(''),
-                        setNewValue('')
-                      }}
+            setShowModal(false),
+              setNewName(''),
+              setNewValue('')
+          }}
         />
 
         <View style={styles.modal_view}>
@@ -220,45 +217,45 @@ export default function History({ navigation }) {
               <View style={styles.modal_row}>
                 <Text style={styles.modal_text}>1. Mục thu/chi: </Text>
                 <TextInput
-                    style = {{
-                      width: '60%',
-                      borderBottomWidth: 1,
-                      fontSize: scale(20),
-                      height: scale(30),
-                      padding:0,
-                      paddingHorizontal: 4,
-                      textAlign: 'center',
-                      fontFamily:'Itim-Regular'
-                    }}
-                    editable = {false}
-                    placeholder = {newName}
-                    placeholderTextColor = {'#000000'}
+                  style={{
+                    width: '60%',
+                    borderBottomWidth: 1,
+                    fontSize: scale(20),
+                    height: scale(30),
+                    padding: 0,
+                    paddingHorizontal: 4,
+                    textAlign: 'center',
+                    fontFamily: 'Inter-Bold'
+                  }}
+                  editable={false}
+                  placeholder={newName}
+                  placeholderTextColor={'#000000'}
                 />
               </View>
-              
+
               <View style={styles.modal_row}>
                 <Text style={styles.modal_text}>2. Số tiền </Text>
                 <TextInput
-                    style = {{
-                      width: '60%',
-                      borderBottomWidth: 1,
-                      fontSize: scale(18),
-                      height: scale(30),
-                      padding:2,
-                      paddingHorizontal: 4,
-                      textAlign: 'center',
-                      fontFamily:'Itim-Regular'
-                    }}
-                    //placeholder = {newValue}
-                    //placeholderTextColor = {'#000000'}
-                    onChangeText = {setNewValue}
-                    value = { newValue }
-                    keyboardType = {'numeric'}
+                  style={{
+                    width: '60%',
+                    borderBottomWidth: 1,
+                    fontSize: scale(18),
+                    height: scale(30),
+                    padding: 2,
+                    paddingHorizontal: 4,
+                    textAlign: 'center',
+                    fontFamily: 'Inter-Bold'
+                  }}
+                  //placeholder = {newValue}
+                  //placeholderTextColor = {'#000000'}
+                  onChangeText={setNewValue}
+                  value={newValue}
+                  keyboardType={'numeric'}
                 />
               </View>
 
               <CustomButton
-                style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20}}
+                style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20 }}
                 colorPress={'#FFC700'}
                 colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
@@ -306,7 +303,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(16),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   //Modal of change data 
@@ -332,8 +329,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     paddingTop: 30,
-    
-    
+
+
   },
   modal_row: {
     flexDirection: 'row',
@@ -347,13 +344,13 @@ const styles = StyleSheet.create({
   modal_text: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
 })

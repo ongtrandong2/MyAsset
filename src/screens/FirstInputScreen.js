@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   StyleSheet,
@@ -10,19 +10,19 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
-import {useSelector, useDispatch} from 'react-redux';
-import {UpdateMoney} from '../Redux/TotalMoney';
-import {addPossession, removePossession} from '../Redux/PossessionData';
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateMoney } from '../Redux/TotalMoney';
+import { addPossession, removePossession } from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function FirstInput({navigation}) {
+export default function FirstInput({ navigation }) {
   //const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ export default function FirstInput({navigation}) {
         </View>
 
         <View style={styles.row}>
-          <View style={[{height: scale(50), width: '90%'}, styles.money_box]}>
+          <View style={[{ height: scale(50), width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_style}
               placeholder="0"
@@ -101,7 +101,7 @@ export default function FirstInput({navigation}) {
           return (
             <View style={styles.column} key={index}>
               <View
-                style={[{height: scale(200), width: '90%'}, styles.money_box]}>
+                style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
                 <View
                   style={[
                     styles.textInput_item,
@@ -112,7 +112,7 @@ export default function FirstInput({navigation}) {
                     },
                   ]}>
                   <Text
-                    style={[styles.text, {color: 'red', fontSize: scale(20)}]}>
+                    style={[styles.text, { color: 'red', fontSize: scale(20) }]}>
                     {item.name}
                   </Text>
                 </View>
@@ -131,7 +131,7 @@ export default function FirstInput({navigation}) {
                 <View style={styles.bin_view}>
                   <Pressable
                     onPress={() => dispatch(removePossession(index))}
-                    android_ripple={{color: '#bbbbbb'}}>
+                    android_ripple={{ color: '#bbbbbb' }}>
                     <Image
                       source={require('../assets/images/bin_icon.png')}
                       resizeMode="stretch"
@@ -143,7 +143,7 @@ export default function FirstInput({navigation}) {
           );
         })}
         <View style={styles.column}>
-          <View style={[{height: scale(200), width: '90%'}, styles.money_box]}>
+          <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
             <TextInput
               style={styles.textInput_item}
               placeholder="Tên"
@@ -166,20 +166,20 @@ export default function FirstInput({navigation}) {
               onPress={() => check()}
               android_ripple={{ color: '#bbbbbb' }}>
               <AntDesign
-                  name = 'pluscircleo'
-                  size = {30}
-                  color = {'#000000'}
-                  style ={{
-                    paddingVertical: 10,
-                  }}
+                name='pluscircleo'
+                size={30}
+                color={'#000000'}
+                style={{
+                  paddingVertical: 10,
+                }}
 
               />
             </Pressable>
           </View>
         </View>
-        <View style={[styles.row, {paddingBottom: scale(10)}]}>
+        <View style={[styles.row, { paddingBottom: scale(10) }]}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: scale(30),
     color: '#FFC700',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
   text_view: {
@@ -291,9 +291,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: scale(5),
   },
-  text_style:{
+  text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Medium',
   },
 });
