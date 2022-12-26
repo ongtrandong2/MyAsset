@@ -198,6 +198,7 @@ export default function History({ navigation }) {
                 </View>)
             }}
             renderItem={({ item, index }) => (
+
               // <View style={styles.item_view}>
               //   {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
               //   { item.isPossession  ? 
@@ -273,7 +274,7 @@ export default function History({ navigation }) {
                     padding: 0,
                     paddingHorizontal: 4,
                     textAlign: 'center',
-                    fontFamily: 'Itim-Regular'
+                    fontFamily: 'Inter-Bold'
                   }}
                   editable={false}
                   placeholder={newName}
@@ -292,7 +293,9 @@ export default function History({ navigation }) {
                     padding: 2,
                     paddingHorizontal: 4,
                     textAlign: 'center',
-                    fontFamily: 'Itim-Regular'
+
+                    fontFamily: 'Inter-Bold'
+
                   }}
                   //placeholder = {newValue}
                   //placeholderTextColor = {'#000000'}
@@ -351,7 +354,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(16),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   //Modal of change data 
@@ -392,13 +395,13 @@ const styles = StyleSheet.create({
   modal_text: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
 })

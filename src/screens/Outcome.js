@@ -47,7 +47,7 @@ export default function Outcome() {
         color: randomColor(),
         legendFontColor: 'black',
         legendFontSize: 15,
-        legendFontFamily: 'Itim-Regular',
+        legendFontFamily: 'Inter-Regular',
       }
       result.push(newData);
     }

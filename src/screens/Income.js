@@ -36,7 +36,7 @@ export default function Income() {
                 color: randomColor(),
                 legendFontColor: 'black',
                 legendFontSize: 15,
-                legendFontFamily: 'Itim-Regular',
+                legendFontFamily: 'Inter-Regular',
             }
             result.push(newData);
         }
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: scale(20),
         color: '#000000',
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Inter-Regular',
     },
     bottom_tab: {
         bottom: scale(100),

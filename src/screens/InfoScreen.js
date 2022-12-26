@@ -93,12 +93,13 @@ const choosePhotoFromLibrary = () => {
           onPress={() => navigation.openDrawer('HomeScreen')}
           title={'THÔNG TIN CÁ NHÂN'}
           style={{
-            fontSize: scale(25),
-            fontWeight: 'bold',
+            fontSize: scale(30),
+            fontFamily:'Inter-Bold',
           }}
         />
         <View style={styles.big_row}>
           <View style={styles.title}>
+
             <View style={styles.user_container}>
               <Image
                 style={{ height: scale(150), width: scale(150), borderRadius: scale(100), borderWidth: 1, borderColor: '#000' }}
@@ -120,7 +121,7 @@ const choosePhotoFromLibrary = () => {
             <Text
               style={{
                 fontSize: 30,
-                fontWeight: 'bold',
+                fontFamily: 'Inter-Bold',
                 color: 'black',
                 paddingLeft: 20,
               }}>
@@ -138,6 +139,7 @@ const choosePhotoFromLibrary = () => {
                 color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
+
               <Text style={styles.text}>Tên </Text>
             </View>
 
@@ -152,7 +154,7 @@ const choosePhotoFromLibrary = () => {
                 color="black"
                 style={{ paddingBottom: 3, paddingRight: 3 }}
               />
-              <Text style={styles.text}>Email</Text>
+              <Text style={styles.text}>Email: </Text>
             </View>
 
             <Text style={styles.text} numberOfLines={2}>{email}</Text>
@@ -170,7 +172,7 @@ const choosePhotoFromLibrary = () => {
                 source={require('../assets/images/key.png')}
                 resizeMode="stretch"
               />
-              <Text style={styles.text}>Mật khẩu</Text>
+              <Text style={styles.text}>Mật khẩu: </Text>
             </View>
 
 
@@ -293,7 +295,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   left_box: {
@@ -305,13 +307,13 @@ const styles = StyleSheet.create({
   press_text: {
     fontSize: scale(20),
     color: '#0000CC',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
     textDecorationLine: 'underline',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(19),
+    fontFamily:'Inter-Bold',
   },
 
   user_container: {

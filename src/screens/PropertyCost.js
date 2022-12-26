@@ -151,7 +151,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontWeight: 'bold' }]}>MUA</Text>
+            <Text style={[styles.text, { fontFamily:'Inter-Bold' }]}>MUA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -164,7 +164,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontWeight: 'bold' }]}>BÁN</Text>
+            <Text style={[styles.text, { fontFamily:'Inter-Bold'}]}>BÁN</Text>
           </TouchableOpacity>
         </View>
 
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(20),
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Bold',
   },
   tab_view: {
     alignItems: 'center',
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
   tab_text: {
     fontSize: scale(25),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
   title_view: {
     alignItems: 'center',

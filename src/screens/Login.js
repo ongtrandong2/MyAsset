@@ -157,7 +157,7 @@ export default function Login({navigation}) {
           <View style={styles.forgetpass}>
             <Pressable>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
-                Quên mật khẩu
+                Quên mật khẩu?
               </Text>
             </Pressable>
           </View>
@@ -205,9 +205,9 @@ body: {
 
 text: {
   color: 'black',
-  fontSize: scale(15),
+  fontSize: scale(16),
   textAlign: 'center',
-  fontWeight: 'bold',
+  fontFamily: 'Inter-Bold',
 },
 
 image: {
@@ -281,8 +281,8 @@ body_view: {
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(19),
+    fontFamily: 'Inter-Bold',
   },
 });
     

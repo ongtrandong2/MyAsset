@@ -166,7 +166,7 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontWeight: 'bold' }]}>CHI TIÊU</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>CHI TIÊU</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -179,7 +179,7 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontWeight: 'bold' }]}>THU NHẬP</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>THU NHẬP</Text>
           </TouchableOpacity>
         </View>
 
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(20),
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Bold',
   },
   tab_view: {
     alignItems: 'center',
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
   tab_text: {
     fontSize: scale(25),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
   title_view: {
     alignItems: 'center',
