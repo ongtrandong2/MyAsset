@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import {
   StyleSheet,
@@ -20,6 +20,7 @@ import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PushNotification from 'react-native-push-notification';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -56,13 +57,25 @@ export default function Login({navigation}) {
         .catch(error => {
           //Alert.alert('Warning!', error.message);
           ToastAndroid.showWithGravity(
-            'Tài khoản không tồn tại! Vui lòng đăng kí tài khoản mới!',
+            'Tài khoản hoặc mật khẩu chưa đúng!',
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
         });
     }
   };
+
+  useEffect(()=>{
+    createChannels();
+  },[])
+
+  const createChannels = () =>{
+    PushNotification.createChannel({
+      channelId: "plan",
+      channelName: "plan-channel",
+
+    })
+  }
   return (
     <KeyboardAvoidingView style={styles.body}>
       <ScrollView>

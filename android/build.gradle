@@ -2,6 +2,9 @@
 def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
 buildscript {
     ext {
+        googlePlayServicesVersion = "+" // default: "+"
+        firebaseMessagingVersion = "21.1.0" // default: "21.1.0"
+
         buildToolsVersion = "31.0.0"
         minSdkVersion = 21
         compileSdkVersion = 31
@@ -48,6 +51,7 @@ allprojects {
         }
         google()
         mavenCentral()  // Maven Central repository
+        maven { url 'https://maven.google.com' }
         maven { url 'https://www.jitpack.io' }
     }
 

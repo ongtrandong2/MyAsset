@@ -117,8 +117,54 @@ export default function History({ navigation }) {
       );
     }
   }
+
   //console.log(IncomeOutcome);
   //console.log(newIndex, newName, newValue)
+  const RenderItem = ({item,index}) => {
+    //console.log(props.item)
+    return (
+      <View style={styles.item_view}>
+        {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
+        {item.isPossession ?
+          (item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
+            : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+
+          ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ paddingRight: 20 }}>
+            {item.isIncome === true ?
+              (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+              :
+              (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+            }
+          </View>
+          <Pressable
+            android_ripple={{ color: '#bbbbbb' }}
+            style={{ marginRight: 7 }}
+            onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
+          >
+            <MaterialCommunityIcons
+              name='pencil-outline'
+              size={18}
+              color={'#000000'}
+            />
+          </Pressable>
+          <Pressable
+            android_ripple={{ color: '#bbbbbb' }}
+            onPress={() => onRemoveData(item.key)}
+          >
+            <AntDesign
+              name='delete'
+              size={18}
+              color={'#000000'}
+            />
+          </Pressable>
+        </View>
+      </View>
+    )
+
+  }
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <>
@@ -152,44 +198,47 @@ export default function History({ navigation }) {
                 </View>)
             }}
             renderItem={({ item, index }) => (
-              <View style={styles.item_view}>
-                {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
-                {item.isPossession ?
-                  (item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
-                    : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
 
-                  ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ paddingRight: 20 }}>
-                    {item.isIncome === true ?
-                      (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
-                      :
-                      (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
-                    }
-                  </View>
-                  <Pressable
-                    android_ripple={{ color: '#bbbbbb' }}
-                    style={{ marginRight: 7 }}
-                    onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
-                  >
-                    <MaterialCommunityIcons
-                      name='pencil-outline'
-                      size={18}
-                      color={'#000000'}
-                    />
-                  </Pressable>
-                  <Pressable
-                    android_ripple={{ color: '#bbbbbb' }}
-                    onPress={() => onRemoveData(item.key)}
-                  >
-                    <AntDesign
-                      name='delete'
-                      size={18}
-                      color={'#000000'}
-                    />
-                  </Pressable>
-                </View>
-              </View>
+              // <View style={styles.item_view}>
+              //   {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
+              //   { item.isPossession  ? 
+              //                   ( item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
+              //                                  : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+
+              //              ) : ( <Text style={styles.text}>{index + 1}. {item.name}</Text> )}
+              //   <View style={{ flexDirection: 'row' }}>
+              //     <View style={{ paddingRight: 20 }}>
+              //       {item.isIncome === true ?
+              //         (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
+              //         :
+              //         (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+              //       }
+              //     </View>
+              //     <Pressable
+              //       android_ripple={{ color: '#bbbbbb' }}
+              //       style={{ marginRight: 7 }}
+              //       onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
+              //     >
+              //       <MaterialCommunityIcons
+              //         name='pencil-outline'
+              //         size={18}
+              //         color={'#000000'}
+              //       />
+              //     </Pressable>
+              //     <Pressable
+              //       android_ripple={{ color: '#bbbbbb' }}
+              //       onPress={() => onRemoveData(item.key)}
+              //     >
+              //       <AntDesign
+              //         name='delete'
+              //         size={18}
+              //         color={'#000000'}
+              //       />
+              //     </Pressable>
+              //   </View>
+              // </View>
+
+              <RenderItem item={item} index={index} />
             )}
           />
         </View>
@@ -244,7 +293,9 @@ export default function History({ navigation }) {
                     padding: 2,
                     paddingHorizontal: 4,
                     textAlign: 'center',
+
                     fontFamily: 'Inter-Bold'
+
                   }}
                   //placeholder = {newValue}
                   //placeholderTextColor = {'#000000'}

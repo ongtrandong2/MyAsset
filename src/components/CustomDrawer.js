@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';

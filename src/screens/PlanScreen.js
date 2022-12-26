@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -27,13 +27,13 @@ import {
 import generateUUID from '../constants/generateUUID';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import PushNotification from 'react-native-push-notification';
 
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
-  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] =
-    useState(false);
+  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] = useState(false);
   const [dateFinish, setDateFinish] = useState('');
   const [budget, setBudget] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -41,6 +41,7 @@ export default function PlanScreen({ navigation }) {
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [newData, setNewData] = useState({});
+  
 
   //console.log(planData);
   //console.log(percentage);
@@ -135,7 +136,10 @@ export default function PlanScreen({ navigation }) {
     setDateSelect(item.dateStart);
     setDateFinish(item.dateFinish);
     //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
-    onConfirmPlan({ index, item });
+
+    onConfirmPlan({index, item});
+    setBudget(item.budget);
+
     //console.log(item.isExceed);
     setNewData({
       index: index,
@@ -144,6 +148,27 @@ export default function PlanScreen({ navigation }) {
       newIsexceed: item.isExceed,
     });
   };
+
+  useEffect (()=>{
+    planData.map((item, index)=>{
+      if(item.isExceed === true)
+      {
+        let exceedMoney = item.currentuse - item.budget;
+        PushNotification.localNotification({
+          channelId: "plan",
+          title: "Thông báo",
+          message: "Kế hoạch từ ngày " + moment(item.dateStart).format('DD/MM/YYYY') 
+                + " đến ngày " + moment(item.dateFinish).format('DD/MM/YYYY') 
+                + " vượt định mức " + exceedMoney  + " VND"
+          
+        });
+      }
+    })
+  },[planData])
+  
+  //console.log(planData);
+  
+
 
   return (
     <KeyboardAvoidingView style={styles.view}>
@@ -345,6 +370,7 @@ export default function PlanScreen({ navigation }) {
                     underlineStyle={{ borderWidth: 0 }}
                     textColor="blue"
                     activeUnderlineColor="black"
+                    keyboardType='numeric'
                   />
                 </View>
 
@@ -416,6 +442,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     paddingHorizontal: scale(20),
+   
   },
 
   slider_view: {
@@ -471,14 +498,16 @@ const styles = StyleSheet.create({
     //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
+   
   },
 
   modal_row: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
     paddingVertical: 15,
-    width: '100%',
-    justifyContent: 'center',
+    width: '90%',
+    justifyContent: 'space-between',
+    alignItems:'center',
+    //borderWidth:1
   },
   textInput_style: {
     //paddingHorizontal: scale(10),
@@ -487,7 +516,7 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     borderBottomWidth: 0.5,
     //borderBottomColor: 'black',
-    width: '50%',
+    width: '60%',
     backgroundColor: '#ffffff',
     height: scale(30),
   },

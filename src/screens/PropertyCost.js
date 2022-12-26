@@ -22,7 +22,7 @@ import { addPossession, removePossession } from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 
-import IncomeOutcome, { addData, updateData } from '../Redux/IncomeOutcome';
+import IncomeOutcome, { addData } from '../Redux/IncomeOutcome';
 import { IncreaseCurrentUse } from '../Redux/PlanData';
 import { ShowTab } from '../Redux/ModalNumber';
 import moment from 'moment';
@@ -68,7 +68,7 @@ export default function PropertyCost() {
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
         }),
       );
-      dispatch(updateData());
+
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
       }
@@ -95,13 +95,7 @@ export default function PropertyCost() {
   const onSaveSell = () => {
     if (sellName !== '' && sellValue !== '') {
       let index = possessionData.map(index => index.key).indexOf(keyDelete);
-      //   firebase
-      //     .firestore()
-      //     .collection('Accounts')
-      //     .doc(firebase.auth().currentUser.uid)
-      //     .collection('InOutdata')
-      //     .doc(keyDelete)
-      //     .delete();
+    
       //console.log(index);
       dispatch(removePossession(index));
       //setNumber1(number1+1);
@@ -116,7 +110,6 @@ export default function PropertyCost() {
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
         }),
       );
-      dispatch(updateData());
       dispatch(IncreaseTotal(Number(sellValue)));
       setSellName('');
       setSellValue('');
@@ -178,7 +171,7 @@ export default function PropertyCost() {
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={styles.sub_row}>
+              <View style={[styles.sub_row, { paddingTop: 10}]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <TextInput
@@ -226,7 +219,9 @@ export default function PropertyCost() {
                 <TextInput
                   style={styles.textInput_box}
                   onChangeText={(value) => setPurchaseValue(value)}
-                  value={purchaseValue} />
+                  value={purchaseValue} 
+                  keyboardType = 'numeric'  
+                />
               </View>
             </View>
             <View style={styles.row}>
@@ -258,7 +253,7 @@ export default function PropertyCost() {
         ) : (
           <>
             <View style={styles.row}>
-              <View style={styles.sub_row}>
+              <View style={[styles.sub_row,{ paddingTop: 10}]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <Dropdown
