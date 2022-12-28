@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   Modal,
   Animated,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
@@ -29,6 +30,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PushNotification from 'react-native-push-notification';
 
+
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -41,11 +43,11 @@ export default function PlanScreen({ navigation }) {
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [newData, setNewData] = useState({});
-  
+  const [isShowItem, setIsShowItem] = useState(false);
+  const [position, setPosition] = useState(-1);
 
+  //console.log(planData[0].history[0]);
   //console.log(planData);
-  //console.log(percentage);
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -55,7 +57,6 @@ export default function PlanScreen({ navigation }) {
   };
 
   const handleConfirm = date => {
-    //console.warn("A date has been picked: ", date);
     setDateSelect(moment(date).format('YYYY-MM-DD'));
     hideDatePicker();
   };
@@ -76,6 +77,7 @@ export default function PlanScreen({ navigation }) {
 
   const onConfirmPlan = () => {
     if (dateSelect !== '' && dateFinish !== '' && budget !== '') {
+      setCurrentDate(new Date());
       let d = new Date(moment(currentDate).format('YYYY-MM-DD'));
       let d1 = new Date(dateSelect);
       let d2 = new Date(dateFinish);
@@ -113,6 +115,8 @@ export default function PlanScreen({ navigation }) {
               currentuse: newData.newCurrentuse,
               percentage_of_use: newData.newPercent,
               isExceed: newData.newIsexceed,
+              oldBudget: newData.oldBudget,
+              time_change: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
             }),
           );
           dispatch(
@@ -137,7 +141,7 @@ export default function PlanScreen({ navigation }) {
     setDateFinish(item.dateFinish);
     //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
 
-    onConfirmPlan({index, item});
+    onConfirmPlan({ index, item });
     setBudget(item.budget);
 
     //console.log(item.isExceed);
@@ -146,28 +150,69 @@ export default function PlanScreen({ navigation }) {
       newCurrentuse: item.currentuse,
       newPercent: item.percentage_of_use,
       newIsexceed: item.isExceed,
+      oldBudget: item.budget,
     });
+
+    setCurrentDate(new Date());
   };
 
-  useEffect (()=>{
-    planData.map((item, index)=>{
-      if(item.isExceed === true)
-      {
+
+
+  useEffect(() => {
+    planData.map((item, index) => {
+      if (item.isExceed === true) {
         let exceedMoney = item.currentuse - item.budget;
         PushNotification.localNotification({
           channelId: "plan",
           title: "Thông báo",
-          message: "Kế hoạch từ ngày " + moment(item.dateStart).format('DD/MM/YYYY') 
-                + " đến ngày " + moment(item.dateFinish).format('DD/MM/YYYY') 
-                + " vượt định mức " + exceedMoney  + " VND"
-          
+          message: "Kế hoạch từ ngày " + moment(item.dateStart).format('DD/MM/YYYY')
+            + " đến ngày " + moment(item.dateFinish).format('DD/MM/YYYY')
+            + " vượt định mức " + exceedMoney + " VND"
+
         });
       }
     })
-  },[planData])
-  
+  }, [planData])
+
   //console.log(planData);
-  
+  const RenderItem = ({ item, index }) => {
+    if (item.history.length === 0) {
+      return (
+        <View style={{ alignSelf: 'center' }}>
+          <Text style={[styles.text, {color: 'grey'}]}>Chưa có lần chỉnh sửa nào cho kế hoạch này!</Text>
+        </View>
+      )
+    }
+    else {
+      return (
+        <View style={{ alignSelf: 'flex-start' }}>
+          {item.history.map((item_h, index_h) => {
+            let compare = (item_h.newBudget - item_h.oldBudget);
+            let temp = 0;
+            if (compare > 0) {
+              temp = compare;
+            }
+            else temp = -compare;
+            return (
+              <View key={(index_h).toString()}>
+                <Text style={[styles.text,]}>
+                  {moment(item_h.timechange).format('DD/MM/YYYY')}:
+                  Định mức
+                  {compare > 0 ? (
+                    <Text style={[styles.text, { color: 'hsl(111,84%,36%)'}]}> tăng {temp} VND</Text>
+                  ) : (
+                    <Text style={[styles.text, { color: 'hsl(0,74%,52%)' }]}> giảm {temp} VND</Text>
+                  )}
+                </Text>
+
+                <Text style={styles.text}>{'\t\t\t\t\t\t\t\t\t\t'} {item_h.oldBudget} VND ⟶ {item_h.newBudget} VND</Text>
+              </View>
+            )
+          })}
+        </View>
+      )
+    }
+  }
 
 
   return (
@@ -220,7 +265,13 @@ export default function PlanScreen({ navigation }) {
                           </Pressable>
                         </View>
                       </View>
-                      <View style={styles.progressBar}>
+                      <TouchableOpacity
+                        style={styles.progressBar}
+                        onPress={() => {
+                          setPosition(item.key);
+                          setIsShowItem(!isShowItem);
+                        }}
+                      >
                         <Animated.View
                           style={
                             ([StyleSheet.absoluteFill],
@@ -234,7 +285,7 @@ export default function PlanScreen({ navigation }) {
                             })
                           }
                         />
-                      </View>
+                      </TouchableOpacity>
                       <View style={styles.figure_view}>
                         <Text style={[styles.text, { color: item.isExceed ? 'hsl(0,74%,52%)' : 'hsl(111,84%,36%)' }]}>{item.currentuse}</Text>
                         <Text style={[styles.text, { color: 'rgb(255,153,0)' }]}>{item.budget} VND</Text>
@@ -245,6 +296,11 @@ export default function PlanScreen({ navigation }) {
                           <Text style={[styles.text, { color: 'hsl(0,74%,52%)', fontSize: scale(18) }]}>Vượt định mức: {item.currentuse - item.budget}</Text>
                         ) : null}
                       </View>
+
+                      {position === item.key && isShowItem === true && (
+                        <RenderItem item={item} index={index} />
+                      )}
+
                     </View>
                   </View>
                 </View>
@@ -376,8 +432,8 @@ export default function PlanScreen({ navigation }) {
 
                 <CustomButton
                   style={{
-                    height: scale(40),
-                    width: '30%',
+                    paddingVertical: 5,
+                    paddingHorizontal: 20,
                     borderColor: 'orange',
                   }}
                   colorPress={'#FFC700'}
@@ -404,7 +460,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(15),
     color: '#000000',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   floatingbutton: {
@@ -442,7 +498,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     paddingHorizontal: scale(20),
-   
+
   },
 
   slider_view: {
@@ -498,7 +554,7 @@ const styles = StyleSheet.create({
     //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
-   
+
   },
 
   modal_row: {
@@ -506,7 +562,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     width: '90%',
     justifyContent: 'space-between',
-    alignItems:'center',
+    alignItems: 'center',
     //borderWidth:1
   },
   textInput_style: {

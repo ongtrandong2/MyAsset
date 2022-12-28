@@ -13,6 +13,8 @@ const PlanData = createSlice ({
                 currentuse: action.payload.currentuse,
                 percentage_of_use: action.payload.percentage_of_use,
                 isExceed: action.payload.isExceed,
+                history:[],
+
             };
             state.push(newPlan);
         },
@@ -35,15 +37,29 @@ const PlanData = createSlice ({
         },
 
         updatePlan: (state, action) =>{
-            state[action.payload.index] = {
-                key: state[action.payload.index].key,
-                dateStart: action.payload.dateStart,
-                dateFinish: action.payload.dateFinish,
-                budget: action.payload.budget,
-                currentuse: action.payload.currentuse,
-                percentage_of_use: action.payload.percentage_of_use,
-                isExceed: action.payload.isExceed,
-            };
+            // state[action.payload.index] = {
+            //     key: state[action.payload.index].key,
+            //     dateStart: action.payload.dateStart,
+            //     dateFinish: action.payload.dateFinish,
+            //     budget: action.payload.budget,
+            //     currentuse: action.payload.currentuse,
+            //     percentage_of_use: action.payload.percentage_of_use,
+            //     isExceed: action.payload.isExceed,
+            //     history: [],
+            // };
+
+            state[action.payload.index].dateStart = action.payload.dateStart,
+            state[action.payload.index].dateFinish = action.payload.dateFinish,
+            state[action.payload.index].budget = action.payload.budget,
+            state[action.payload.index].currentuse = action.payload.currentuse,
+            state[action.payload.index].percentage_of_use = action.payload.percentage_of_use,
+            state[action.payload.index].isExceed = action.payload.isExceed,
+            state[action.payload.index].history.push({
+                oldBudget: action.payload.oldBudget,
+                newBudget: action.payload.budget,
+                timechange: action.payload.time_change,
+            });
+
         },
 
     },
