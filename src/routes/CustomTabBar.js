@@ -66,7 +66,7 @@ const CustomTabBar = props => {
     else if (currentIndex === 2)
       return require('../assets/images/plusItem.png');
     else if (currentIndex === 3) return require('../assets/images/chart.png');
-    else if (currentIndex === 4) return require('../assets/images/shop.png');
+    else if (currentIndex === 4) return require('../assets/images/history.png');
   };
   return (
     <View style={styles.container}>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         //paddingBottom:15,
         width: '100%',
         //height:scale(130),
-        height:'13%',
+        //height:'13%',
         zIndex:999,
     },
     tabBarContainer: {

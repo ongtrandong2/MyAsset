@@ -2,63 +2,59 @@ import React , {useState}from 'react';
 import { View, StyleSheet, Text, ScrollView, KeyboardAvoidingView, Pressable} from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import { setShowNote } from '../Redux/PossessionData';
 
 import scale from '../constants/scale';
 
-export default function PossessionScreen({navigation}) {
+export default function PossessionScreen() {
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
-  const [flag, setFlag] = useState(false);
-  const [position, setPosition] = useState(-1);
-  const onVisible = item => {
-    setPosition(item.key);
-    setFlag(!flag);
-  };
-  //console.log(position);
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
-        {/* <HeaderDrawer
-          onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={20}
-          title="TÀI SẢN"
-          style={{ color: 'black', fontWeight: 'bold' }}
-        /> */}
+        {possessionData.length === 0 ? (
+          <View style = {styles.big_row}>
+            <Text style = {[styles.text,{color: 'grey'}]}>Chưa có tài sản!</Text>
+          </View>
+        ) : (
+        <>
+          {possessionData.map((item, index) => {
+            return (
 
-        {possessionData.map((item, index) => {
-          return (
-            <View style={styles.big_row} key={index}>
-              <Pressable
-                onPress={() => onVisible(item)}
-                //android_ripple={{ color: '#996600' }}
-                style={({pressed}) => [
-                  styles.row,
-                  {backgroundColor: pressed ? '#FF9900' : '#FFEBA3'},
-                ]}>
-                <View style={styles.name_view}>
-                  <Text style={styles.text}>
-                    {Number(index) + 1}. {item.name}
-                  </Text>
-                </View>
-
-                <View style={styles.money_view}>
-                  <Text style={styles.text}>{item.value} VND</Text>
-                </View>
-              </Pressable>
-
-              {position === item.key && flag === true && (
-                <View
-                  style={[
+              <View style={styles.big_row} key={index}>
+                <Pressable
+                  //onPress={() => onVisible(item)}
+                  onPress = {() => dispatch(setShowNote(index))}
+                  style={({pressed}) => [
                     styles.row,
-                    {justifyContent: 'center', alignItems: 'center'},
+                    {backgroundColor: pressed ? '#FF9900' : '#FFEBA3'},
                   ]}>
-                  <Text style={styles.text}>Ghi chú: {item.note} </Text>
-                </View>
-              )}
-            </View>
-          );
-        })}
+                  <View style={styles.name_view}>
+                    <Text style={styles.text}>
+                      {Number(index) + 1}. {item.name}
+                    </Text>
+                  </View>
+  
+                  <View style={styles.money_view}>
+                    <Text style={styles.text}>{item.value} VND</Text>
+                  </View>
+                </Pressable>
+  
+                {item.showNote === true && (
+                  <View
+                    style={[
+                      styles.row,
+                      {justifyContent: 'center', alignItems: 'center'},
+                    ]}>
+                    <Text style={styles.text}>Ghi chú: {item.note} </Text>
+                  </View>
+                )}
+              </View>
+            );
+          })}
+        </>
+        )}
+        
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -68,12 +64,13 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-    flexDirection: 'column',
+    paddingTop: 10,
   },
 
   text: {
     fontSize: scale(20),
     color: '#000000',
+    fontFamily: 'Inter-Medium'
   },
 
   row: {

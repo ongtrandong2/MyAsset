@@ -18,7 +18,7 @@ const TabNavigation = () =>{
             <Tab.Screen name = "PlanScreen" component = {PlanScreen} initialParams = {{label:'Kế hoạch'}}/>
             <Tab.Screen name = "Post" component = {HomeScreen} initialParams = {{label:''}} />
             <Tab.Screen name = "StatisticsScreen" component = {StatisticsScreen} initialParams = {{label:'Thống kê'}}/>
-            <Tab.Screen name = "History" component = {History} initialParams = {{label:'Lịch sử'}}/>
+            <Tab.Screen name = "History" component = {History} initialParams = {{label:'Sổ thu chi'}}/>
         </Tab.Navigator>
     )
 }

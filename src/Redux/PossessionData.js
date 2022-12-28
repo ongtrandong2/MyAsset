@@ -10,11 +10,15 @@ const PossessionData = createSlice({
         name: action.payload.name,
         value: action.payload.value,
         note: action.payload.note,
+        showNote: false,
       };
       state.push(newPossession);
     },
     removePossession: (state, action) => {
       state.splice(action.payload, 1);
+    },
+    setShowNote:(state,action)=>{
+      state[action.payload].showNote = !state[action.payload].showNote;
     },
     updateData: state => {
       state.map(item => {
@@ -43,5 +47,5 @@ const PossessionData = createSlice({
   },
 });
 
-export const { addPossession, removePossession } = PossessionData.actions;
+export const { addPossession, removePossession,setShowNote } = PossessionData.actions;
 export default PossessionData.reducer;
