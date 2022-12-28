@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
+//import AntDesign from'react-native-vector-icons/AntDesign'
 
 const CustomDrawerItem = props => {
   return (
@@ -11,7 +12,11 @@ const CustomDrawerItem = props => {
       //activeOpacity={0.5}
       //underlayColor='#dddddd'
     >
-      <Image source={props.icon} resizeMode={'stretch'} />
+      <Image 
+        source={props.icon} 
+        resizeMode={'stretch'} 
+        style = {{ height: 30, width: 30}}
+        />
       <Text style={styles.text}>{props.label}</Text>
     </TouchableOpacity>
   );
@@ -50,6 +55,13 @@ const CustomDrawer = props => {
           icon={require('../assets/images/Home.png')}
           navigation={props.navigation}
           component={'HomeScreen'}
+        />
+        <CustomDrawerItem
+          style={styles.itemContainer}
+          label={'Hướng dẫn sử dụng'}
+          icon={require('../assets/images/userguide.png')}
+          navigation={props.navigation}
+          component={'UserGuide'}
         />
       </DrawerContentScrollView>
       <TouchableOpacity
