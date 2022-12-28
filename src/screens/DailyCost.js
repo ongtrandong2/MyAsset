@@ -249,7 +249,7 @@ export default function DailyCost() {
 
             <View style={[styles.row, { paddingTop: scale(10) }]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
                 colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
@@ -326,9 +326,9 @@ export default function DailyCost() {
 
             <View style={[styles.row, { paddingTop: scale(10) }]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
-                colorUnpress={'#ffdc61'}
+                colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
                 title={'LƯU'}
                 onPressFunction={() => onSaveIncome()}

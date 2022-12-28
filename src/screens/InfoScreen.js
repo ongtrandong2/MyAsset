@@ -192,7 +192,7 @@ const choosePhotoFromLibrary = () => {
         <View style={[styles.big_row, { paddingTop: 30 }]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
-            style={{ height: scale(40), width: '70%' }}
+            //style={{ height: scale(40), width: '70%' }}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}

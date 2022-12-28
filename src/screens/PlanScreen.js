@@ -431,11 +431,7 @@ export default function PlanScreen({ navigation }) {
                 </View>
 
                 <CustomButton
-                  style={{
-                    paddingVertical: 5,
-                    paddingHorizontal: 20,
-                    borderColor: 'orange',
-                  }}
+                  
                   colorPress={'#FFC700'}
                   colorUnpress={'#ffeba3'}
                   text_style={styles.text_style}

@@ -166,7 +166,7 @@ export default function Login({navigation}) {
 
         <View style={styles.body_view}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            //style={{width: '40%', height: scale(40)}}
             title={'Đăng nhập'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
@@ -179,7 +179,7 @@ export default function Login({navigation}) {
 
         <View style={[styles.body_view, {padding: 10}]}>
           <CustomButton
-            style={{width: '60%', height: scale(40)}}
+            //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}

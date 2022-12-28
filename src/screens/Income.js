@@ -462,7 +462,7 @@ export default function Income() {
                         />
                     </View>
                     <View style={{ flex: 2 }}>
-                        <Text style={[styles.text, { fontSize: scale(25) }]}>THÁNG</Text>
+                        <Text style={[styles.text, { fontSize: scale(20) }]}>THÁNG</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -482,7 +482,7 @@ export default function Income() {
                         />
                     </View>
                     <View style={{ flex: 2 }}>
-                        <Text style={[styles.text, { fontSize: scale(25) }]}>NĂM</Text>
+                        <Text style={[styles.text, { fontSize: scale(20), paddingLeft: 5 }]}>NĂM</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -504,7 +504,7 @@ export default function Income() {
                         />
                     </View>
                     <View style={{ flex: 3 }}>
-                        <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium' }]}>TÙY CHỌN</Text>
+                        <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium',paddingLeft:5 }]}>TÙY CHỌN</Text>
                     </View>
                 </TouchableOpacity>
             </View>

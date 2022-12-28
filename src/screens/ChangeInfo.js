@@ -69,7 +69,7 @@ export default function ChangeInfo({ navigation }) {
         <View style={{ paddingTop: scale(30), alignItems: 'center' }}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
-            style={{ height: scale(40), width: '60%' }} 
+            //style={{ height: scale(40), width: '60%' }} 
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}

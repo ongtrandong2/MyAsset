@@ -153,7 +153,7 @@ export default function ChangePassword({navigation}) {
           }}>
           <CustomButton
             title={'Lưu thay đổi'}
-            style={{height: scale(40), width: scale(220)}}
+            //style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}

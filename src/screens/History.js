@@ -170,7 +170,7 @@ export default function History({ navigation }) {
       <>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          title="LỊCH SỬ"
+          title="SỔ THU CHI"
         />
         <View style={{ paddingTop: 10 }}>
           <SectionList
@@ -266,7 +266,7 @@ export default function History({ navigation }) {
               </View>
 
               <CustomButton
-                style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20 }}
+                //style={{ height: scale(40), width: '30%', borderColor: 'orange', marginTop: 20 }}
                 colorPress={'#FFC700'}
                 colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}

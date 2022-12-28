@@ -179,7 +179,7 @@ export default function FirstInput({ navigation }) {
         </View>
         <View style={[styles.row, { paddingBottom: scale(10) }]}>
           <CustomButton
-            style={{ width: '40%', height: scale(40) }}
+            //style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}

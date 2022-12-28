@@ -140,7 +140,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.row_button}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            //style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}

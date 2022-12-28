@@ -241,9 +241,9 @@ export default function PropertyCost() {
                 { paddingTop: scale(10), paddingBottom: scale(100) },
               ]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
-                colorUnpress={'#ffdc61'}
+                colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
                 title={'LƯU'}
                 onPressFunction={() => onSavePurchase()}
@@ -282,7 +282,7 @@ export default function PropertyCost() {
               </View>
             </View>
 
-            <View style={styles.row}>
+            <View style={[styles.row,{paddingTop:10}]}>
               <View style={styles.sub_row}>
                 <Text style={styles.text}>2.Số tiền: </Text>
                 <TextInput
@@ -295,9 +295,9 @@ export default function PropertyCost() {
 
             <View style={[styles.row, { paddingTop: scale(10) }]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
-                colorUnpress={'#ffdc61'}
+                colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
                 title={'LƯU'}
                 onPressFunction={() => onSaveSell()}

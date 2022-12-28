@@ -10,6 +10,7 @@ const CustomButton = props => {
         {backgroundColor: pressed ? props.colorPress : props.colorUnpress},
         styles.button,
         {...props.style},
+        
       ]}>
       <Text style={{...props.text_style}}>{props.title}</Text>
     </Pressable>
@@ -20,8 +21,11 @@ const styles = StyleSheet.create({
   button: {
     borderWidth: 2,
     borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderColor: 'orange',
   },
 });
 export default CustomButton;
