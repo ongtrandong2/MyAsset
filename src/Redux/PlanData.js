@@ -21,7 +21,7 @@ const PlanData = createSlice ({
         IncreaseCurrentUse:(state, action)=>{
             state[action.payload.index].currentuse += action.payload.value;
             state[action.payload.index].percentage_of_use = ( state[action.payload.index].currentuse / state[action.payload.index].budget ) *100;
-            if(state[action.payload.index].percentage_of_use >= 100)
+            if(state[action.payload.index].percentage_of_use > 100)
             {
                 state[action.payload.index].isExceed = true;
                 state[action.payload.index].percentage_of_use = 100;
@@ -31,21 +31,7 @@ const PlanData = createSlice ({
                 state[action.payload.index].isExceed = false;
             }
         },
-
-        DecreaseCurrentUse:(state, action)=>{
-          state[action.payload.index].currentuse -= action.payload.value;
-          state[action.payload.index].percentage_of_use = ( state[action.payload.index].currentuse / state[action.payload.index].budget ) *100;
-          if(state[action.payload.index].percentage_of_use >= 100)
-          {
-              state[action.payload.index].isExceed = true;
-              state[action.payload.index].percentage_of_use = 100;
-          } 
-          else 
-          {
-              state[action.payload.index].isExceed = false;
-          }
-        },
-        
+       
         removePlan: (state, action)=>{
             state.splice(action.payload,1);
         },
@@ -95,5 +81,5 @@ const PlanData = createSlice ({
   },
 );
 
-export const {addPlan, IncreaseCurrentUse,DecreaseCurrentUse, removePlan, updatePlan} = PlanData.actions;
+export const {addPlan, IncreaseCurrentUse,removePlan, updatePlan} = PlanData.actions;
 export default PlanData.reducer;

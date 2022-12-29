@@ -7,17 +7,18 @@ import moment from "moment";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { removeData, changeData } from "../Redux/IncomeOutcome";
-import PlanData, { IncreaseCurrentUse, DecreaseCurrentUse } from "../Redux/PlanData";
-
+import PlanData, { IncreaseCurrentUse} from "../Redux/PlanData";
 import CustomButton from '../components/CustomButton';
-
+import { setShowBottomTab } from '../Redux/TabState';
+import CustomAlert from "../components/CustomAlert";
 
 export default function History({ navigation }) {
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
   const weekday = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
-  const currentDate = new Date();
+  //const currentDate = new Date();
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   const [newName, setNewName] = useState('');
   const [newValue, setNewValue] = useState('');
@@ -25,6 +26,8 @@ export default function History({ navigation }) {
   const [newTime, setNewTime] = useState('');
   const [oldValue, setOldValue] = useState('');
   const [newisIncome, setNewisIncome] = useState(true);
+  const [showModalDelete,setShowModalDelete] = useState(false);
+  const tabState = useSelector(state => state.tabState.value);
   var result = [];
 
   IncomeOutcome.slice(0).reverse().map((item, index) => {
@@ -66,33 +69,55 @@ export default function History({ navigation }) {
       })
     }
   })
-  //console.log(result);
-  //console.log(result[0].data[2].isIncome)
-  //console.log(IncomeOutcome);
+  
   let index;
   const onRemoveData = (keyDelete, name, value, time, isIncome) => {
     index = (IncomeOutcome.map(item => item.key)).indexOf(keyDelete);
-    dispatch(removeData(index));
-    //console.log(value);
-    if (isIncome === false) {
-      let d1 = new Date(moment(time).format('YYYY-MM-DD'))
-      planData.map((item, index) => {
+    // dispatch(removeData(index));
+    // //console.log(value);
+    // if (isIncome === false) {
+    //   let d1 = new Date(moment(time).format('YYYY-MM-DD'))
+    //   planData.map((item, index) => {
+    //     let d2 = new Date(item.dateStart);
+    //     let d3 = new Date(item.dateFinish);
+    //     if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+    //       dispatch(DecreaseCurrentUse({
+    //         index: index,
+    //         value: Number(value),
+    //       }))
+    //     }
+    //   })
+    // }
+    // ToastAndroid.showWithGravity(
+    //   'Xóa 1 mục thành công!',
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.BOTTOM,
+    // );
+    setNewName(name);
+    setNewValue(value);
+    setNewIndex(index);
+    setNewTime(time);
+    setNewisIncome(isIncome);
+    setShowModalDelete(true);
+  }
+  //console.log(newName,newValue,newIndex,newTime,newisIncome);
+
+  const onConfirmDelete = () => {
+    dispatch(removeData(newIndex));
+    if(newisIncome === false) {
+      let d1 = new Date(moment(newTime).format('YYYY-MM-DD'))
+      planData.map((item,index)=>{
         let d2 = new Date(item.dateStart);
         let d3 = new Date(item.dateFinish);
-        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
-          dispatch(DecreaseCurrentUse({
+        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()){
+          dispatch(IncreaseCurrentUse({
             index: index,
-            value: Number(value),
+            value: -Number(newValue)
           }))
         }
       })
     }
-    ToastAndroid.showWithGravity(
-      'Xóa 1 mục thành công!',
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-    );
-
+    setShowModalDelete(false);
   }
 
   const onChangeData = (keyChange, name, value, time, isIncome) => {
@@ -188,53 +213,79 @@ export default function History({ navigation }) {
                 />
               </Pressable>
             </>
-          ): 
-          (<View style ={{ width: 43}}/>)}
-
+          ) :
+            (<View style={{ width: 43 }} />)}
         </View>
       </View>
     )
 
   }
 
+  let offsetY = 0;
+  const handleOnScroll = ({ nativeEvent }) => {
+    //console.log(nativeEvent.contentOffset)
+    const newOffset = nativeEvent.contentOffset.y;
+    if (newOffset <= 0) dispatch(setShowBottomTab(true))
+    offsetY < newOffset ? dispatch(setShowBottomTab(false)) : dispatch(setShowBottomTab(true));
+    //console.log('Y',offsetY);
+    offsetY = newOffset;
+
+    //console.log('New',newOffset)
+  }
+  //console.log(tabState);
+
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <>
-        <HeaderDrawer
-          onPress={() => navigation.openDrawer('HomeScreen')}
-          title="SỔ THU CHI"
+        <SectionList
+          ListHeaderComponent={() =>
+            <HeaderDrawer
+              onPress={() => navigation.openDrawer('HomeScreen')}
+              title="SỔ THU CHI"
+
+              style={{ paddingBottom: 10 }}
+            />}
+          stickyHeaderIndices={[0]}
+          keyExtractor={(item, index) => index.toString()}
+          sections={result}
+          renderSectionHeader={({ section }) => {
+            //const d = new Date(section.title.date);
+            //setCurrentDate(new Date())
+            let day;
+            let compare = (new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() - (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime();
+            //if ((new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() === (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime()) {
+            if (compare === 0) {
+              day = "Hôm nay";
+            }
+            else if (compare === 86400000) {
+              day = "Hôm qua";
+            }
+            else {
+              day = weekday[(new Date(section.title.date)).getDay()];
+            }
+            return (
+              <View style={styles.title_view}>
+                <Text style={styles.text}>{day}  {moment(section.title.date).format('DD-MM-YYYY')}</Text>
+                <Text style={[styles.text, { color: '#00CC00' }]}>+ {section.title.totalIncome} VND</Text>
+                <Text style={[styles.text, { color: '#DF2828' }]}>- {section.title.totalOutcome} VND</Text>
+              </View>)
+          }}
+          renderItem={({ item, index }) => (
+            <RenderItem item={item} index={index} />
+          )}
+          onScroll={handleOnScroll}
         />
-        <View style={{ paddingTop: 10 }}>
-          <SectionList
-            keyExtractor={(item, index) => index.toString()}
-            sections={result}
-            renderSectionHeader={({ section }) => {
-              //const d = new Date(section.title.date);
-              let day;
-              let compare = (new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() - (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime();
-              //if ((new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() === (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime()) {
-              if (compare === 0) {
-                day = "Hôm nay";
-              }
-              else if (compare === 86400000) {
-                day = "Hôm qua";
-              }
-              else {
-                day = weekday[(new Date(section.title.date)).getDay()];
-              }
-              return (
-                <View style={styles.title_view}>
-                  <Text style={styles.text}>{day}  {moment(section.title.date).format('DD-MM-YYYY')}</Text>
-                  <Text style={[styles.text, { color: '#00CC00' }]}>+ {section.title.totalIncome} VND</Text>
-                  <Text style={[styles.text, { color: '#DF2828' }]}>- {section.title.totalOutcome} VND</Text>
-                </View>)
-            }}
-            renderItem={({ item, index }) => (
-              <RenderItem item={item} index={index} />
-            )}
-          />
-        </View>
       </>
+      {/* {tabState === true && (
+        <View
+          style={{
+            height: scale(100),
+            bottom: scale(0),
+          }}
+        />
+
+      )} */}
 
       <Modal
         visible={showModal}
@@ -246,9 +297,7 @@ export default function History({ navigation }) {
         <Pressable
           style={styles.modal_view}
           onPress={() => {
-            setShowModal(false),
-              setNewName(''),
-              setNewValue('')
+            setShowModal(false)
           }}
         />
 
@@ -311,7 +360,18 @@ export default function History({ navigation }) {
         </View>
       </Modal>
 
+      <CustomAlert
+        showModal = {showModalDelete}
+        setShowModal = {setShowModalDelete}
+        ButtonList = {[
+          {text: 'Hủy', onPress: ()=> setShowModalDelete(false)},
+          {text: 'Đồng ý',onPress: ()=> onConfirmDelete()},
+        ]}
+        title = {'Xoá '+ '"' + newName + '"'+' ?'}
+        message = {'Mục '+'"' + newName + '"'+' sẽ bị xóa khỏi sổ thu chi'}
 
+      />
+ 
     </KeyboardAvoidingView>
   );
 };
@@ -320,6 +380,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingBottom: 20,
 
   },
   title_view: {

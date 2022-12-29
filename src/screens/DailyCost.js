@@ -245,6 +245,7 @@ export default function DailyCost() {
                   style={styles.textInput_box}
                   onChangeText={setOutcomeValue}
                   value={outcomeValue}
+                  keyboardType = {'numeric'}
                 />
               </View>
             </View>
@@ -322,6 +323,7 @@ export default function DailyCost() {
                   style={styles.textInput_box}
                   onChangeText={setIncomeValue}
                   value={incomeValue}
+                  keyboardType = {'numeric'}
                 />
               </View>
             </View>

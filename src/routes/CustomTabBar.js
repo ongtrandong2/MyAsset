@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Animated} from 'react-native';
 import scale from '../constants/scale';
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal} from '../Redux/ModalNumber';
@@ -48,6 +48,9 @@ const CustomTabBar = props => {
   //console.log(routes);
 
   const [selected, setSelected] = useState('HomeScreen');
+  const animation = useRef(new Animated.Value(0)).current;
+  const tabState = useSelector(state=>state.tabState.value);
+
   const dispatch = useDispatch();
   //const isShowModal = useSelector(state=>state.modalNumber.IsShowModal)
   //console.log(isShowModal);
@@ -62,14 +65,35 @@ const CustomTabBar = props => {
   };
   const renderImage = currentIndex => {
     if (currentIndex === 0) return require('../assets/images/home2a.png');
-    else if (currentIndex === 1) return require('../assets/images/plan.png');
-    else if (currentIndex === 2)
-      return require('../assets/images/plusItem.png');
-    else if (currentIndex === 3) return require('../assets/images/chart.png');
-    else if (currentIndex === 4) return require('../assets/images/history.png');
+    else if (currentIndex === 1) return require ('../assets/images/plan.png');
+    else if (currentIndex === 2) return require ('../assets/images/plusItem.png');
+    else if (currentIndex === 3) return require ('../assets/images/chart.png');
+    else if (currentIndex === 4) return require ('../assets/images/history.png');
   };
+
+  const TabBarAnimation = () =>{
+    if(tabState){
+      Animated.timing(animation,{
+        toValue: 0,
+        duration:200,
+        useNativeDriver: true,
+      }).start();
+    }
+    else {
+      Animated.timing(animation,{
+        toValue: 120,
+        duration:200,
+        useNativeDriver: true,
+      }).start();
+    }
+  }
+
+  useEffect(()=>{
+    TabBarAnimation();
+  },[tabState])
+  
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container,{transform: [{ translateY: animation}]} ]}>
       <View style={styles.tabBarContainer}>
         {routes.map((item, index) => (
           <CustomTabBarItem
@@ -83,7 +107,7 @@ const CustomTabBar = props => {
           />
         ))}
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -98,6 +122,8 @@ const styles = StyleSheet.create({
         //height:scale(130),
         //height:'13%',
         zIndex:999,
+        //borderWidth:1,
+        
     },
     tabBarContainer: {
         flexDirection: 'row',

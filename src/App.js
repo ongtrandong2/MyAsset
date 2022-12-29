@@ -6,6 +6,8 @@ import RootNavigation from './routes/RootNavigation';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
+import Nhap from './components/CustomAlert';
+
 
 
 function App() {
@@ -15,8 +17,8 @@ function App() {
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
-      {/* <FirstInput/> */}
-  
+      {/* <History/> */}
+     
     </Provider>
   );
 }

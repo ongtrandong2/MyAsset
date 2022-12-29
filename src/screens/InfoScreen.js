@@ -62,6 +62,7 @@ export default function InfoScreen({ navigation }) {
         // if (err.code === 'E_PICKER_CANCELLED')
         // {
         //     console.log(err);
+        //     setShowModal(false);
         // }
         Alert.alert("Waring","There is no image picked!");
     })
@@ -81,7 +82,8 @@ const choosePhotoFromLibrary = () => {
     .catch(err=>{
         if (err.code === 'E_PICKER_CANCELLED')
         {
-            console.log(err);
+            //console.log(err);
+            setShowModal(false);
         }
     })
 }

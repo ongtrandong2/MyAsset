@@ -304,6 +304,7 @@ export default function PropertyCost() {
                   style={styles.textInput_box}
                   onChangeText={setSellValue}
                   value={sellValue}
+                  keyboardType = {'numeric'}
                 />
               </View>
             </View>
