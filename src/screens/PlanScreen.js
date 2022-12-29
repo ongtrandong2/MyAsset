@@ -179,7 +179,7 @@ export default function PlanScreen({ navigation }) {
     if (item.history.length === 0) {
       return (
         <View style={{ alignSelf: 'center' }}>
-          <Text style={[styles.text, {color: 'grey'}]}>Chưa có lần chỉnh sửa nào cho kế hoạch này!</Text>
+          <Text style={[styles.text, { color: 'grey' }]}>Chưa có lần chỉnh sửa nào cho kế hoạch này!</Text>
         </View>
       )
     }
@@ -199,7 +199,7 @@ export default function PlanScreen({ navigation }) {
                   {moment(item_h.timechange).format('DD/MM/YYYY')}:
                   Định mức
                   {compare > 0 ? (
-                    <Text style={[styles.text, { color: 'hsl(111,84%,36%)'}]}> tăng {temp} VND</Text>
+                    <Text style={[styles.text, { color: 'hsl(111,84%,36%)' }]}> tăng {temp} VND</Text>
                   ) : (
                     <Text style={[styles.text, { color: 'hsl(0,74%,52%)' }]}> giảm {temp} VND</Text>
                   )}
@@ -348,100 +348,103 @@ export default function PlanScreen({ navigation }) {
           onPress={() => setShowModal(false)}
         />
 
-
+        
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
-            <ScrollView>
-              <KeyboardAvoidingView style={styles.modal_bigrow}>
-                <Text
-                  style={{
-                    color: 'red',
-                    fontSize: scale(25),
-                    fontFamily: 'Inter-Bold',
-                  }}>
-                  Kế hoạch mới
-                </Text>
-                <View style={styles.modal_row}>
-                  <Text style={styles.text_modal}>1. Ngày bắt đầu : </Text>
-                  <TextInput
-                    style={styles.textInput_style}
-                    onChangeText={setDateSelect}
-                    placeholderTextColor={'black'}
-                    textColor="blue"
-                    activeUnderlineColor="black"
-                    editable={false}
-                    value={dateSelect}
-                    right={
-                      <TextInput.Icon
-                        icon={{
-                          uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
-                        }}
-                        onPress={showDatePicker}
-                      />
-                    }
-                  />
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
+
+            <KeyboardAvoidingView style={{ flex: 1 }}>
+              <ScrollView>
+                <View style={styles.modal_bigrow}>
+                  <Text
+                    style={{
+                      color: 'red',
+                      fontSize: scale(25),
+                      fontFamily: 'Inter-Bold',
+                    }}>
+                    Kế hoạch mới
+                  </Text>
+                  <View style={styles.modal_row}>
+                    <Text style={styles.text_modal}>1. Ngày bắt đầu : </Text>
+                    <TextInput
+                      style={styles.textInput_style}
+                      onChangeText={setDateSelect}
+                      placeholderTextColor={'black'}
+                      textColor="blue"
+                      activeUnderlineColor="black"
+                      editable={false}
+                      value={dateSelect}
+                      right={
+                        <TextInput.Icon
+                          icon={{
+                            uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
+                          }}
+                          onPress={showDatePicker}
+                        />
+                      }
+                    />
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible}
+                      mode="date"
+                      onConfirm={handleConfirm}
+                      onCancel={hideDatePicker}
+                    />
+                  </View>
+
+                  <View style={styles.modal_row}>
+                    <Text style={styles.text_modal}>2. Ngày kết thúc: </Text>
+                    <TextInput
+                      style={styles.textInput_style}
+                      onChangeText={setDateFinish}
+                      placeholderTextColor="black"
+                      textColor="blue"
+                      editable={false}
+                      activeUnderlineColor="black"
+                      value={dateFinish}
+                      right={
+                        <TextInput.Icon
+                          icon={{
+                            uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
+                          }}
+                          onPress={showDatePicker_Finish}
+                        />
+                      }
+                    />
+
+                    <DateTimePickerModal
+                      isVisible={isDatePickerFinishVisible}
+                      mode="date"
+                      onConfirm={handleConfirm_Finish}
+                      onCancel={hideDatePicker_Finish}
+                    />
+                  </View>
+
+                  <View style={styles.modal_row}>
+                    <Text style={styles.text_modal}>3.Định mức : </Text>
+                    <TextInput
+                      style={styles.textInput_style}
+                      onChangeText={setBudget}
+                      value={budget}
+                      placeholderTextColor="black"
+                      underlineStyle={{ borderWidth: 0 }}
+                      textColor="blue"
+                      activeUnderlineColor="black"
+                      keyboardType='numeric'
+                    />
+                  </View>
+                
+                  <CustomButton
+                    colorPress={'#FFC700'}
+                    colorUnpress={'#ffeba3'}
+                    text_style={styles.text_style}
+                    title={'LƯU'}
+                    onPressFunction={onConfirmPlan}
                   />
                 </View>
-
-                <View style={styles.modal_row}>
-                  <Text style={styles.text_modal}>2. Ngày kết thúc: </Text>
-                  <TextInput
-                    style={styles.textInput_style}
-                    onChangeText={setDateFinish}
-                    placeholderTextColor="black"
-                    textColor="blue"
-                    editable={false}
-                    activeUnderlineColor="black"
-                    value={dateFinish}
-                    right={
-                      <TextInput.Icon
-                        icon={{
-                          uri: 'https://img.icons8.com/ios/50/null/calendar--v1.png',
-                        }}
-                        onPress={showDatePicker_Finish}
-                      />
-                    }
-                  />
-
-                  <DateTimePickerModal
-                    isVisible={isDatePickerFinishVisible}
-                    mode="date"
-                    onConfirm={handleConfirm_Finish}
-                    onCancel={hideDatePicker_Finish}
-                  />
-                </View>
-
-                <View style={styles.modal_row}>
-                  <Text style={styles.text_modal}>3.Định mức : </Text>
-                  <TextInput
-                    style={styles.textInput_style}
-                    onChangeText={setBudget}
-                    value={budget}
-                    placeholderTextColor="black"
-                    underlineStyle={{ borderWidth: 0 }}
-                    textColor="blue"
-                    activeUnderlineColor="black"
-                    keyboardType='numeric'
-                  />
-                </View>
-
-                <CustomButton
-                  
-                  colorPress={'#FFC700'}
-                  colorUnpress={'#ffeba3'}
-                  text_style={styles.text_style}
-                  title={'LƯU'}
-                  onPressFunction={onConfirmPlan}
-                />
-              </KeyboardAvoidingView>
-            </ScrollView>
+              </ScrollView>
+            </KeyboardAvoidingView>
           </View>
         </View>
+
       </Modal>
     </KeyboardAvoidingView>
   );
@@ -541,7 +544,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '120%',
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderTopStartRadius: 20,
+    borderTopEndRadius:20,
     borderWidth: 1,
     paddingHorizontal: 10,
   },

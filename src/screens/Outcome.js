@@ -148,7 +148,7 @@ export default function Outcome() {
   const onConfirm = () => {
     let d1 = new Date(dateStart);
     let d2 = new Date(dateEnd);
-    if (d1.getTime() > d2.getTime()) {
+    if (d1.getTime() >= d2.getTime()) {
       Alert.alert(
         'Warning',
         'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!',
@@ -197,7 +197,7 @@ export default function Outcome() {
   }
 
   //console.log(result_ByOption);
-  result_ByOption.map(item=>{
+  result_ByOption.map(item => {
     total_ByOption += item.value;
   })
 
@@ -395,6 +395,19 @@ export default function Outcome() {
                   </View>
                 </View>
 
+                {result_ByOption.length === 0 ? (
+                  <View style={styles.big_row}>
+                    <Text
+                      style={{
+                        fontSize: scale(30),
+                        color: '#CDCACA',
+                        fontFamily: 'Inter-Medium',
+                        textAlign: 'center',
+                      }}>
+                      Chưa có dữ liệu thống kê cho thời gian này!
+                    </Text>
+                  </View>
+                ) : (
                 <View style={styles.big_row}>
                   <PieChart
                     data={result_ByOption}
@@ -419,7 +432,7 @@ export default function Outcome() {
                     paddingLeft="15"
                   //absolute //for the absolute number remove if you want percentage
                   />
-                </View>
+                </View>)}
 
                 {result_ByOption.length === 0 ? null : (
                   <ScrollView style={{ height: '30%' }}>
@@ -493,7 +506,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(20),paddingLeft: 5 }]}>NĂM</Text>
+            <Text style={[styles.text, { fontSize: scale(20), paddingLeft: 5 }]}>NĂM</Text>
           </View>
         </TouchableOpacity>
 
@@ -516,7 +529,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 3 }}>
-            <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium', paddingLeft:5 }]}>TÙY CHỌN</Text>
+            <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium', paddingLeft: 5 }]}>TÙY CHỌN</Text>
           </View>
         </TouchableOpacity>
       </View>

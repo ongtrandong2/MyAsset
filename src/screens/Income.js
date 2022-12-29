@@ -384,31 +384,44 @@ export default function Income() {
                                     </View>
                                 </View>
 
-                                <View style={styles.big_row}>
-                                    <PieChart
-                                        data={result_ByOption}
-                                        width={Dimensions.get('window').width}
-                                        height={220}
-                                        chartConfig={{
-                                            //backgroundColor: '#1cc910',
-                                            backgroundGradientFrom: '#eff3ff',
-                                            backgroundGradientTo: '#efefef',
-                                            decimalPlaces: 2,
-                                            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                            style: {
+                                {result_ByOption.length === 0 ? (
+                                    <View style={styles.big_row}>
+                                        <Text
+                                            style={{
+                                                fontSize: scale(30),
+                                                color: '#CDCACA',
+                                                fontFamily: 'Inter-Medium',
+                                                textAlign: 'center',
+                                            }}>
+                                            Chưa có dữ liệu thống kê cho thời gian này!
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.big_row}>
+                                        <PieChart
+                                            data={result_ByOption}
+                                            width={Dimensions.get('window').width}
+                                            height={220}
+                                            chartConfig={{
+                                                //backgroundColor: '#1cc910',
+                                                backgroundGradientFrom: '#eff3ff',
+                                                backgroundGradientTo: '#efefef',
+                                                decimalPlaces: 2,
+                                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                                style: {
+                                                    borderRadius: 16,
+                                                },
+                                            }}
+                                            style={{
+                                                //marginVertical: 8,
                                                 borderRadius: 16,
-                                            },
-                                        }}
-                                        style={{
-                                            //marginVertical: 8,
-                                            borderRadius: 16,
-                                        }}
-                                        accessor="value"
-                                        backgroundColor="transparent"
-                                        paddingLeft="15"
-                                    //absolute //for the absolute number remove if you want percentage
-                                    />
-                                </View>
+                                            }}
+                                            accessor="value"
+                                            backgroundColor="transparent"
+                                            paddingLeft="15"
+                                        //absolute //for the absolute number remove if you want percentage
+                                        />
+                                    </View>)}
 
                                 {result_ByOption.length === 0 ? null : (
                                     <ScrollView style={{ height: '30%' }}>
@@ -468,7 +481,7 @@ export default function Income() {
 
                 <TouchableOpacity
                     style={[styles.bottom_item, {
-                        borderLeftWidth: 2,
+                        borderHorizontalWidth: 2,
                         backgroundColor: option === 'year' ? '#ffeba3' : '#ffffff',
                     }]}
                     onPress={() => setOption('year')}
@@ -504,7 +517,7 @@ export default function Income() {
                         />
                     </View>
                     <View style={{ flex: 3 }}>
-                        <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium',paddingLeft:5 }]}>TÙY CHỌN</Text>
+                        <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium', paddingLeft: 5 }]}>TÙY CHỌN</Text>
                     </View>
                 </TouchableOpacity>
             </View>

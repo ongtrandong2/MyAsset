@@ -201,6 +201,7 @@ body: {
   backgroundColor: '#ffffff',
   flexDirection: 'column',
   //paddingBottom:20,
+  paddingBottom:10,
 },
 
 text: {

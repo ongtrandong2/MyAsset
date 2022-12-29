@@ -7,7 +7,7 @@ import moment from "moment";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { removeData, changeData } from "../Redux/IncomeOutcome";
-import { IncreaseCurrentUse } from "../Redux/PlanData";
+import PlanData, { IncreaseCurrentUse, DecreaseCurrentUse } from "../Redux/PlanData";
 
 import CustomButton from '../components/CustomButton';
 
@@ -47,6 +47,7 @@ export default function History({ navigation }) {
         isIncome: item.isIncome,
         isPossession: item.isPossession,
         time: item.time,
+        isDifferent: item.isDifferent,
       })
       result.push(newObject);
     }
@@ -61,6 +62,7 @@ export default function History({ navigation }) {
         isIncome: item.isIncome,
         isPossession: item.isPossession,
         time: item.time,
+        isDifferent: item.isDifferent,
       })
     }
   })
@@ -68,9 +70,29 @@ export default function History({ navigation }) {
   //console.log(result[0].data[2].isIncome)
   //console.log(IncomeOutcome);
   let index;
-  const onRemoveData = (keyDelete) => {
+  const onRemoveData = (keyDelete, name, value, time, isIncome) => {
     index = (IncomeOutcome.map(item => item.key)).indexOf(keyDelete);
     dispatch(removeData(index));
+    //console.log(value);
+    if (isIncome === false) {
+      let d1 = new Date(moment(time).format('YYYY-MM-DD'))
+      planData.map((item, index) => {
+        let d2 = new Date(item.dateStart);
+        let d3 = new Date(item.dateFinish);
+        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+          dispatch(DecreaseCurrentUse({
+            index: index,
+            value: Number(value),
+          }))
+        }
+      })
+    }
+    ToastAndroid.showWithGravity(
+      'Xóa 1 mục thành công!',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+    );
+
   }
 
   const onChangeData = (keyChange, name, value, time, isIncome) => {
@@ -120,45 +142,55 @@ export default function History({ navigation }) {
 
   //console.log(IncomeOutcome);
   //console.log(newIndex, newName, newValue)
-  const RenderItem = ({item,index}) => {
+  const RenderItem = ({ item, index }) => {
     //console.log(props.item)
     return (
       <View style={styles.item_view}>
         {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
         {item.isPossession ?
-          (item.isIncome ? (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
-            : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>)
+          (item.isIncome === false ? (item.isDifferent ?
+            (<Text style={styles.text}>{index + 1}. {item.name} - KHÁC</Text>)
+            : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>))
+            : (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
 
           ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
         <View style={{ flexDirection: 'row' }}>
           <View style={{ paddingRight: 20 }}>
             {item.isIncome === true ?
               (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
-              :
-              (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>)
+              : (item.isDifferent ?
+                (<Text style={[styles.text, { color: 'hsl(36,100%,52%)' }]}> {item.value} VND</Text>)
+                : (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>))
             }
           </View>
-          <Pressable
-            android_ripple={{ color: '#bbbbbb' }}
-            style={{ marginRight: 7 }}
-            onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
-          >
-            <MaterialCommunityIcons
-              name='pencil-outline'
-              size={18}
-              color={'#000000'}
-            />
-          </Pressable>
-          <Pressable
-            android_ripple={{ color: '#bbbbbb' }}
-            onPress={() => onRemoveData(item.key)}
-          >
-            <AntDesign
-              name='delete'
-              size={18}
-              color={'#000000'}
-            />
-          </Pressable>
+          {!item.isPossession ? (
+            <>
+              <Pressable
+                android_ripple={{ color: '#bbbbbb' }}
+                style={{ marginRight: 7 }}
+                onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
+              >
+                <MaterialCommunityIcons
+                  name='pencil-outline'
+                  size={18}
+                  color={'#000000'}
+                />
+              </Pressable>
+
+              <Pressable
+                android_ripple={{ color: '#bbbbbb' }}
+                onPress={() => onRemoveData(item.key, item.name, item.value, item.time, item.isIncome)}
+              >
+                <AntDesign
+                  name='delete'
+                  size={18}
+                  color={'#000000'}
+                />
+              </Pressable>
+            </>
+          ): 
+          (<View style ={{ width: 43}}/>)}
+
         </View>
       </View>
     )

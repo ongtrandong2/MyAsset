@@ -71,6 +71,7 @@ export default function DailyCost() {
           isIncome: true,
           isPossession: false,
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+          isDifferent: false,
         }),
       );
       dispatch(IncreaseTotal(Number(incomeValue)));
@@ -90,6 +91,7 @@ export default function DailyCost() {
           isIncome: false,
           isPossession: false,
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+          isDifferent: false,
         }),
       );
       dispatch(DecreaseTotal(Number(outcomeValue)));

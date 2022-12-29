@@ -57,20 +57,34 @@ export default function PropertyCost() {
           note: note,
         }),
       );
-
-      dispatch(
-        addData({
-          key: generateUUID(),
-          name: purchaseName,
-          value: purchaseValue,
-          isIncome: false,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-        }),
-      );
-
+      
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
+        dispatch(
+          addData({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: false,
+          }),
+        );
+      }
+      else if (checked === 'second') {
+        dispatch(
+          addData({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: true,
+  
+          }),
+        );
       }
       let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
       planData.map((item, index) => {
@@ -108,6 +122,7 @@ export default function PropertyCost() {
           isIncome: true,
           isPossession: true,
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+          isDifferent: false,
         }),
       );
       dispatch(IncreaseTotal(Number(sellValue)));

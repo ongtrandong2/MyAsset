@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -14,10 +14,10 @@ import scale from '../constants/scale';
 import moment from 'moment';
 import CustomModal from '../components/CustomModal';
 
-import {useSelector, useDispatch} from 'react-redux';
-import {ShowModal} from '../Redux/ModalNumber';
+import { useSelector, useDispatch } from 'react-redux';
+import { ShowModal } from '../Redux/ModalNumber';
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
   const money = useSelector(state => state.totalMoney.value);
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const planData = useSelector(state => state.planData);
@@ -27,7 +27,9 @@ export default function HomeScreen({navigation}) {
   const [number, setNumber] = useState('50%');
   //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
   const [currentDate, setCurrentDate] = useState(new Date());
-  let d1 = new Date(moment(currentDate).format('YYYY-MM'));
+  let d1 = new Date(moment(currentDate).format('YYYY-MM')); //
+
+  //useEffect
 
   let plan = planData.filter(item => {
     let d2 = new Date(moment(item.dateStart).format('YYYY-MM'));
@@ -40,7 +42,8 @@ export default function HomeScreen({navigation}) {
       new Date(...a.dateStart.split('-')) - new Date(...b.dateStart.split('-')),
   );
 
- 
+  //console.log(IncomeOutcome);
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -48,12 +51,12 @@ export default function HomeScreen({navigation}) {
           onPress={() => navigation.openDrawer('HomeScreen')}
           //fontSize={scale(20)}
           title="TỔNG QUAN"
-          style={{color: 'black', fontFamily: 'Inter-Bold'}}
+          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
 
         <View style={styles.row}>
           <Text
-            style={{color: '#BB2424', fontSize: scale(20), fontFamily: 'Inter-Bold'}}>
+            style={{ color: '#BB2424', fontSize: scale(20), fontFamily: 'Inter-Bold' }}>
             {money} VNĐ
           </Text>
         </View>
@@ -91,10 +94,10 @@ export default function HomeScreen({navigation}) {
             {plan.slice(0, 1).map((item, index) => {
               return (
                 <View key={index}>
-                  <View style={[styles.big_row, {marginTop: scale(20)}]}>
+                  <View style={[styles.big_row, { marginTop: scale(20) }]}>
                     <View style={styles.slider_view}>
-                      <View style={[styles.figure_view, {height: scale(20)}]}>
-                        <Text style={{fontSize: scale(15), color: 'black'}}>
+                      <View style={[styles.figure_view, { height: scale(20) }]}>
+                        <Text style={{ fontSize: scale(15), color: 'black' }}>
                           {moment(item.dateStart).format('DD/MM/YYYY')} -{' '}
                           {moment(item.dateFinish).format('DD/MM/YYYY')}
                         </Text>
@@ -104,7 +107,7 @@ export default function HomeScreen({navigation}) {
                           style={
                             ([StyleSheet.absoluteFill],
                             {
-                              backgroundColor: '#FF9900',
+                              backgroundColor: item.isExceed ? 'hsl(0,74%,52%)':'#FF9900',
                               width: String(item.percentage_of_use) + '%',
                               borderRadius: 5,
                             })
@@ -114,13 +117,13 @@ export default function HomeScreen({navigation}) {
 
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
-                          <Text style={[styles.text, {color: 'red'}]}>
+                          <Text style={[styles.text, { color: 'red' }]}>
                             {item.currentuse}
                           </Text>
                         </View>
 
                         <View style={styles.money_view}>
-                          <Text style={[styles.text, {color: 'red'}]}>
+                          <Text style={[styles.text, { color: 'red' }]}>
                             {item.budget} VND
                           </Text>
                         </View>
@@ -147,31 +150,33 @@ export default function HomeScreen({navigation}) {
                 .map((item, index) => {
                   return (
                     <View key={index}>
+                      {item.isDifferent ? null : (
                       <View style={styles.figure_view}>
                         <View style={styles.name_view}>
                           {item.isPossession ? (
-                            item.isIncome ? (
-                              <Text style={styles.text}>{item.name} - BÁN</Text>
-                            ) : (
-                              <Text style={styles.text}>{item.name} - MUA</Text>
-                            )
+                              item.isIncome ? (
+                                <Text style={styles.text}>{item.name} - BÁN</Text>
+                              ) : (
+                                <Text style={styles.text}>{item.name} - MUA</Text>
+                              )
                           ) : (
                             <Text style={styles.text}>{item.name}</Text>
                           )}
                         </View>
-
+                        
                         <View style={styles.money_view}>
-                          {item.isIncome === true ? (
-                            <Text style={[styles.text, {color: '#00CC00'}]}>
-                              + {item.value} VND
-                            </Text>
-                          ) : (
-                            <Text style={[styles.text, {color: '#DF2828'}]}>
+                          { item.isIncome === true ? (
+                              <Text style={[styles.text, { color: '#00CC00' }]}>
+                                + {item.value} VND
+                              </Text>
+                            ) : (
+                            <Text style={[styles.text, { color: '#DF2828' }]}>
                               - {item.value} VND
                             </Text>
-                          )}
+                            )}
                         </View>
                       </View>
+                      )}
                     </View>
                   );
                 })}
@@ -199,7 +204,7 @@ export default function HomeScreen({navigation}) {
 
                         <View style={styles.money_view}>
                           <Text
-                            style={[styles.text, {color: 'hsl(36,100%,52%)'}]}>
+                            style={[styles.text, { color: 'hsl(36,100%,52%)' }]}>
                             {item.value} VND
                           </Text>
                         </View>
@@ -266,7 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEFB6',
     padding: scale(10),
     borderRadius: scale(30),
-   
+
   },
 
   figure_view: {

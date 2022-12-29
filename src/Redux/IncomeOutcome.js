@@ -12,6 +12,7 @@ const IncomeOutcome = createSlice({
                 isIncome: action.payload.isIncome,
                 isPossession: action.payload.isPossession,
                 time: action.payload.time,
+                isDifferent: action.payload.isDifferent,
             };
             state.push(newData);
        },
