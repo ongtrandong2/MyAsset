@@ -73,26 +73,7 @@ export default function History({ navigation }) {
   let index;
   const onRemoveData = (keyDelete, name, value, time, isIncome) => {
     index = (IncomeOutcome.map(item => item.key)).indexOf(keyDelete);
-    // dispatch(removeData(index));
-    // //console.log(value);
-    // if (isIncome === false) {
-    //   let d1 = new Date(moment(time).format('YYYY-MM-DD'))
-    //   planData.map((item, index) => {
-    //     let d2 = new Date(item.dateStart);
-    //     let d3 = new Date(item.dateFinish);
-    //     if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
-    //       dispatch(DecreaseCurrentUse({
-    //         index: index,
-    //         value: Number(value),
-    //       }))
-    //     }
-    //   })
-    // }
-    // ToastAndroid.showWithGravity(
-    //   'Xóa 1 mục thành công!',
-    //   ToastAndroid.LONG,
-    //   ToastAndroid.BOTTOM,
-    // );
+    
     setNewName(name);
     setNewValue(value);
     setNewIndex(index);

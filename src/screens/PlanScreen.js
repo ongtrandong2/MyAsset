@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   StyleSheet,
@@ -29,6 +29,7 @@ import generateUUID from '../constants/generateUUID';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PushNotification from 'react-native-push-notification';
+import CustomAlert from '../components/CustomAlert';
 
 
 export default function PlanScreen({ navigation }) {
@@ -43,8 +44,12 @@ export default function PlanScreen({ navigation }) {
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
   const [newData, setNewData] = useState({});
+  const [dataDelete,setDataDelete] = useState ({});
   const [isShowItem, setIsShowItem] = useState(false);
   const [position, setPosition] = useState(-1);
+  const [showPen,setShowPen] = useState(true);
+  const [showModalDelete,setShowModalDelete] = useState(false);
+  const animation = useRef(new Animated.Value(0)).current;
 
   //console.log(planData[0].history[0]);
   //console.log(planData);
@@ -156,6 +161,20 @@ export default function PlanScreen({ navigation }) {
     setCurrentDate(new Date());
   };
 
+  const onDetelePlan = (index,item)=>{
+    //console.log(item);
+    setShowModalDelete(true);
+    setDataDelete({
+      index: index,
+      newDateStart: item.dateStart,
+      newDateFinish: item.dateFinish,
+      newPercent: item.percentage_of_use,
+      newCurrentuse: item.currentuse,
+      newBudget: item.budget,
+    })
+  }
+  //console.log(dataDelete);
+
 
 
   useEffect(() => {
@@ -214,10 +233,41 @@ export default function PlanScreen({ navigation }) {
     }
   }
 
+  const PenAnimation = () =>{
+    if(showPen){
+      Animated.timing(animation,{
+        toValue: 0,
+        duration:200,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(animation,{
+        toValue: 120,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  }
+
+  useEffect (()=>{
+    PenAnimation();
+  },[showPen])
+
+  let offsetY = 0;
+  const handleOnScroll = ({nativeEvent}) =>{
+    //console.log(nativeEvent.contentOffset)
+    const newOffset = nativeEvent.contentOffset.y;
+    offsetY < newOffset ? setShowPen(false) : setShowPen(true);
+    offsetY = newOffset;
+    
+  }
+  //console.log(showPen);
 
   return (
     <KeyboardAvoidingView style={styles.view}>
-      <ScrollView>
+      <ScrollView
+        onScroll = {handleOnScroll}
+      >
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           title="KẾ HOẠCH"
@@ -256,7 +306,9 @@ export default function PlanScreen({ navigation }) {
                           </Pressable>
                           <Pressable
                             android_ripple={{ color: '#bbbbbb' }}
-                            onPress={() => dispatch(removePlan(index))}>
+                            //onPress={() => dispatch(removePlan(index))}
+                            onPress = {()=> onDetelePlan(index, item)}
+                          >
                             <AntDesign
                               name="delete"
                               size={20}
@@ -309,8 +361,16 @@ export default function PlanScreen({ navigation }) {
           </>
         )}
       </ScrollView>
+      <View 
+          style ={{
+            height: scale(100),
+            bottom: 0,
+            backgroundColor:'#fff',
+            borderWidth:1,
+          }}
+        />
 
-      <View style={styles.floatingbutton}>
+      <Animated.View style={[styles.floatingbutton, {transform: [{translateY: animation}]}]}>
         <Pressable
           onPress={() => {
             setShowModal(true);
@@ -320,7 +380,7 @@ export default function PlanScreen({ navigation }) {
             setBudget('');
           }}
           style={({ pressed }) => [
-            { backgroundColor: pressed ? '#0099FF' : 'white' },
+            { backgroundColor: pressed ? '#FFC700' : 'white' },
             { ...styles.wrapper },
             { ...styles.shadow },
           ]}>
@@ -335,7 +395,7 @@ export default function PlanScreen({ navigation }) {
           //style = {styles.circle}
           />
         </Pressable>
-      </View>
+      </Animated.View>
 
       <Modal
         visible={showModal}
@@ -446,6 +506,24 @@ export default function PlanScreen({ navigation }) {
         </View>
 
       </Modal>
+      <CustomAlert
+        showModal = {showModalDelete}
+        setShowModal = {setShowModalDelete}
+        ButtonList = {[
+          { text: 'Hủy', onPress: ()=> setShowModalDelete(false)},
+          { text: 'Đồng ý', onPress: ()=> {
+                  dispatch(removePlan(dataDelete.index)),
+                  setShowModalDelete(false)
+                }}
+        ]}
+        title = {'Xóa kế hoạch'}
+        message = {'Xoá kế hoạch từ ngày ' + moment(dataDelete.newDateStart).format('DD/MM/YYYY') +
+                  ' đến ngày ' + moment(dataDelete.newDateFinish).format('DD/MM/YYYY') + 
+                  '\nChi tiết kế hoạch sẽ xóa: ' +
+                  '\nNgân sách: ' + dataDelete.newBudget +
+                  '\nSố tiền đã sử dụng: '+ dataDelete.newCurrentuse
+                }
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -476,6 +554,7 @@ const styles = StyleSheet.create({
     height: scale(70),
     borderRadius: scale(70),
     borderWidth: 1,
+    borderColor:'grey',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -484,7 +563,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.2,
     shadowRadius: 3.5,
-    elevation: 5,
+    elevation: 10,
   },
 
   big_row: {

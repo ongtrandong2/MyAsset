@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { firebase } from '@react-native-firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';
 import { NavigationHelpersContext } from '@react-navigation/native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default function InfoScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -47,48 +48,56 @@ export default function InfoScreen({ navigation }) {
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
-        width: 300,
-        height: 400,
-        //compressImageMaxWidth:300,
-        //compressImageMaxHeight:300,
-        cropping: true,
-        //compressImageQuality: 0.7
+      width: 300,
+      height: 400,
+      //compressImageMaxWidth:300,
+      //compressImageMaxHeight:300,
+      cropping: true,
+      //compressImageQuality: 0.7
     }).then(image => {
-        console.log(image);
-        setImage(image.path);
-        setShowModal(false);
+      console.log(image);
+      setImage(image.path);
+      setShowModal(false);
     })
-    .catch(err=>{
+      .catch(err => {
         // if (err.code === 'E_PICKER_CANCELLED')
         // {
         //     console.log(err);
         //     setShowModal(false);
         // }
-        Alert.alert("Waring","There is no image picked!");
-    })
-}
+        Alert.alert("Waring", "There is no image picked!");
+      })
+  }
 
-const choosePhotoFromLibrary = () => {
+  const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
-        width: 200,
-        height: 200,
-        borderRadius:200,
-        cropping: true,
+      width: 200,
+      height: 200,
+      borderRadius: 200,
+      cropping: true,
     }).then(image => {
-        console.log(image);
-        setImage(image.path);
-        setShowModal(false)
+      console.log(image);
+      setImage(image.path);
+      setShowModal(false)
     })
-    .catch(err=>{
-        if (err.code === 'E_PICKER_CANCELLED')
-        {
-            //console.log(err);
-            setShowModal(false);
+      .catch(err => {
+        if (err.code === 'E_PICKER_CANCELLED') {
+          //console.log(err);
+          setShowModal(false);
         }
-    })
-}
+      })
+  }
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  }
+  const onSwipeDown = () => {
+
+    setShowModal(false)
+  }
 
   return (
+
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
         <HeaderDrawer
@@ -96,7 +105,7 @@ const choosePhotoFromLibrary = () => {
           title={'THÔNG TIN CÁ NHÂN'}
           style={{
             fontSize: scale(30),
-            fontFamily:'Inter-Bold',
+            fontFamily: 'Inter-Bold',
           }}
         />
         <View style={styles.big_row}>
@@ -108,14 +117,14 @@ const choosePhotoFromLibrary = () => {
                 source={{ uri: image }}
                 resizeMode='cover'
               />
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.takephoto_container}
-                onPress = {()=>setShowModal(true)}
+                onPress={() => setShowModal(true)}
               >
                 <FontAwesome5
-                  name = "camera"
-                  size = {20}
-                  color = '#000'
+                  name="camera"
+                  size={20}
+                  color='#000'
 
                 />
               </TouchableOpacity>
@@ -204,54 +213,59 @@ const choosePhotoFromLibrary = () => {
           />
         </View>
       </ScrollView>
-      <Modal
-        visible = {showModal}
-        //onRequestClose={() => setShowModal(false)}
-        transparent
-        statusBarTranslucent
-        animationType='fade'
+      <GestureRecognizer
+        onSwipeDown={onSwipeDown}
+        config={config}
       >
-        <Pressable
-          style={ [styles.modal_view, { flex: 2}]}
-          onPress = {()=> setShowModal(false)}
-        />
-        <View style = {[styles.modal_view, { flex: 1}]}>
-            <View style = {styles.modal_box}>
-              <View style = {styles.modal_bigrow}>
-                <TouchableOpacity 
-                  style = {styles.modal_row}
-                  onPress = {takePhotoFromCamera}
+        <Modal
+          visible={showModal}
+          //onRequestClose={() => setShowModal(false)}
+          transparent
+          statusBarTranslucent
+          animationType='fade'
+        >
+          <Pressable
+            style={[styles.modal_view, { flex: 2 }]}
+            onPress={() => setShowModal(false)}
+          />
+          <View style={[styles.modal_view, { flex: 1 }]}>
+            <View style={styles.modal_box}>
+              <View style={styles.modal_bigrow}>
+                <TouchableOpacity
+                  style={styles.modal_row}
+                  onPress={takePhotoFromCamera}
                 >
 
-                  <View style = {[styles.takephoto_container, {position:'relative'}]}>
+                  <View style={[styles.takephoto_container, { position: 'relative' }]}>
                     <MaterialCommunityIcons
                       name='camera-plus'
                       size={20}
-                      color = '#000'
+                      color='#000'
                     />
                   </View>
-                  <Text style ={styles.modal_text}>Chụp ảnh</Text>
+                  <Text style={styles.modal_text}>Chụp ảnh</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
-                  style = {styles.modal_row}
-                  onPress = {choosePhotoFromLibrary}
+                <TouchableOpacity
+                  style={styles.modal_row}
+                  onPress={choosePhotoFromLibrary}
                 >
 
-                  <View style = {[styles.takephoto_container, {position:'relative'}]}>
+                  <View style={[styles.takephoto_container, { position: 'relative' }]}>
                     <Fontisto
                       name='photograph'
                       size={20}
-                      color = '#000'
+                      color='#000'
                     />
                   </View>
-                  <Text style ={styles.modal_text}>Lấy ảnh từ thư viện</Text>
+                  <Text style={styles.modal_text}>Lấy ảnh từ thư viện</Text>
                 </TouchableOpacity>
 
               </View>
             </View>
-        </View>
-      </Modal>
+          </View>
+        </Modal>
+      </GestureRecognizer>
     </KeyboardAvoidingView>
   );
 }
@@ -315,7 +329,7 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(19),
-    fontFamily:'Inter-Bold',
+    fontFamily: 'Inter-Bold',
   },
 
   user_container: {
@@ -327,15 +341,15 @@ const styles = StyleSheet.create({
   },
 
   takephoto_container: {
-    height: scale(50), 
-    width: scale(50), 
-    position: 'absolute', 
-    bottom: 0, 
-    right: 0, 
+    height: scale(50),
+    width: scale(50),
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
     //borderWidth: 0.5,
     borderRadius: scale(50),
-    alignItems:'center', 
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#e4e6eb'
   },
 
@@ -379,7 +393,7 @@ const styles = StyleSheet.create({
     fontSize: scale(25),
     color: '#000000',
     fontFamily: 'Inter-Medium',
-    paddingLeft:20,
+    paddingLeft: 20,
   },
 
 
