@@ -11,6 +11,7 @@ import PlanData, { IncreaseCurrentUse} from "../Redux/PlanData";
 import CustomButton from '../components/CustomButton';
 import { setShowBottomTab } from '../Redux/TabState';
 import CustomAlert from "../components/CustomAlert";
+import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
 
 export default function History({ navigation }) {
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
@@ -136,6 +137,11 @@ export default function History({ navigation }) {
             }))
           }
         })
+        dispatch(IncreaseTotal(Number(oldValue)))
+        dispatch(DecreaseTotal(Number(newValue)))
+      } else if (newisIncome === true) {
+        dispatch(DecreaseTotal(Number(oldValue)))
+        dispatch(IncreaseTotal(Number(newValue)))
       }
       setShowModal(false);
       ToastAndroid.showWithGravity(
@@ -321,7 +327,7 @@ export default function History({ navigation }) {
                   }}
                   //placeholder = {newValue}
                   //placeholderTextColor = {'#000000'}
-                  onChangeText={setNewValue}
+                  onChangeText={setNewValue} //
                   value={newValue}
                   keyboardType={'numeric'}
                 />

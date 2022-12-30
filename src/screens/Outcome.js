@@ -539,7 +539,7 @@ export default function Outcome() {
         visible={showModal}
         onRequestClose={() => setShowModal(false)}
         transparent
-        statusBarTranslucent
+        //statusBarTranslucent
         animationType='fade'
       >
         <Pressable
@@ -681,6 +681,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
     paddingVertical: 10,
+    height: '100%' // have no choice but put the height here to keep 3 box have the same height
   },
 
   row: {
@@ -727,8 +728,8 @@ const styles = StyleSheet.create({
   textInput_style: {
     fontSize: scale(20),
     paddingVertical: 3,
-    borderBottomWidth: 0.5,
-    width: '60%',
+    //borderBottomWidth: 0.5,
+    width: '50%',
     height: scale(25),
     backgroundColor: '#FFFFFF',
     fontFamily: 'Inter-Medium',

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         backgroundColor: '#fff',
-        borderWidth: 2,
+        borderWidth: 1,
     },
     modal_title: {
         color: 'black',
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        
     },
     button_item: {
         backgroundColor: '#ffeba3',
@@ -109,7 +110,8 @@ const styles = StyleSheet.create({
         //paddingHorizontal: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '80%'
+        width: '80%',
+        paddingVertical:10,
     },
 })
 export default CustomAlert;

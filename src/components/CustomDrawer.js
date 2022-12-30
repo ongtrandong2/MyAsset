@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     marginVertical: scale(10),
     //backgroundColor:'blue',
     //justifyContent:'center',
+    //borderWidth:1
   },
 
   signOutContainer: {

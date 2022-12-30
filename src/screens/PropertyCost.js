@@ -140,7 +140,7 @@ export default function PropertyCost() {
             onPress={() => dispatch(ShowTab(false))}>
             <Text style={styles.tab_text}>SINH HOẠT</Text>
           </TouchableOpacity>
-
+          
           <TouchableOpacity
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(true))}>

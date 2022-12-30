@@ -1,4 +1,4 @@
-import {View, StyleSheet, Pressable} from 'react-native';
+import {View, StyleSheet, Pressable, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal, ShowTab} from '../Redux/ModalNumber';

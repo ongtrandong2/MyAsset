@@ -30,6 +30,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PushNotification from 'react-native-push-notification';
 import CustomAlert from '../components/CustomAlert';
+import Nhap from './Nhap'
 
 
 export default function PlanScreen({ navigation }) {
@@ -401,7 +402,7 @@ export default function PlanScreen({ navigation }) {
         visible={showModal}
         onRequestClose={() => setShowModal(false)}
         transparent
-        statusBarTranslucent
+        //statusBarTranslucent
         animationType="fade">
         <Pressable
           style={styles.modal_view}
@@ -479,7 +480,7 @@ export default function PlanScreen({ navigation }) {
                   </View>
 
                   <View style={styles.modal_row}>
-                    <Text style={styles.text_modal}>3.Định mức : </Text>
+                    <Text style={styles.text_modal}>3. Định mức : </Text>
                     <TextInput
                       style={styles.textInput_style}
                       onChangeText={setBudget}
@@ -502,6 +503,7 @@ export default function PlanScreen({ navigation }) {
                 </View>
               </ScrollView>
             </KeyboardAvoidingView>
+           
           </View>
         </View>
 
@@ -649,9 +651,9 @@ const styles = StyleSheet.create({
     //padding: scale(2),
     //paddingLeft: 0,
     fontSize: scale(18),
-    borderBottomWidth: 0.5,
+    //borderBottomWidth: 0.5,
     //borderBottomColor: 'black',
-    width: '60%',
+    width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
   },
