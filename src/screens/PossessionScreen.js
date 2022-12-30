@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#FFEBA3',
     width: '90%',
-    height: scale(50),
+    //height: scale(50),
     flexDirection: 'row',
     margin: scale(5),
     justifyContent: 'center',

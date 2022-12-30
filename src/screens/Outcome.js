@@ -668,6 +668,7 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     //paddingBottom:10,
+    
 
   },
   bottom_item: {

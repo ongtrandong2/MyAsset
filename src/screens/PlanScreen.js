@@ -366,7 +366,7 @@ export default function PlanScreen({ navigation }) {
             height: scale(100),
             bottom: 0,
             backgroundColor:'#fff',
-            borderWidth:1,
+            //borderWidth:1,
           }}
         />
 

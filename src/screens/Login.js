@@ -226,23 +226,25 @@ title_view: {
 },
 
   label: {
-    borderWidth: 4,
+    borderWidth: 3,
     borderRadius: 20,
     borderColor: '#FFC700',
-    height: scale(50),
-    width: '80%',
+    //height: scale(50),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
   },
 
   label_view: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    height: scale(30),
+    //height: scale(30),
     marginRight: scale(100),
     backgroundColor: '#ffffff',
+    
   },
 
   icon1_view: {

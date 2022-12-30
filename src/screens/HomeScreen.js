@@ -107,7 +107,7 @@ export default function HomeScreen({ navigation }) {
                           style={
                             ([StyleSheet.absoluteFill],
                             {
-                              backgroundColor: item.isExceed ? 'hsl(0,74%,52%)':'#FF9900',
+                              backgroundColor: item.isExceed ? 'hsl(0,74%,52%)' : '#FF9900',
                               width: String(item.percentage_of_use) + '%',
                               borderRadius: 5,
                             })
@@ -151,31 +151,31 @@ export default function HomeScreen({ navigation }) {
                   return (
                     <View key={index}>
                       {item.isDifferent ? null : (
-                      <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          {item.isPossession ? (
+                        <View style={styles.figure_view}>
+                          <View style={styles.name_view}>
+                            {item.isPossession ? (
                               item.isIncome ? (
                                 <Text style={styles.text}>{item.name} - BÁN</Text>
                               ) : (
                                 <Text style={styles.text}>{item.name} - MUA</Text>
                               )
-                          ) : (
-                            <Text style={styles.text}>{item.name}</Text>
-                          )}
-                        </View>
-                        
-                        <View style={styles.money_view}>
-                          { item.isIncome === true ? (
+                            ) : (
+                              <Text style={styles.text}>{item.name}</Text>
+                            )}
+                          </View>
+
+                          <View style={styles.money_view}>
+                            {item.isIncome === true ? (
                               <Text style={[styles.text, { color: '#00CC00' }]}>
                                 + {item.value} VND
                               </Text>
                             ) : (
-                            <Text style={[styles.text, { color: '#DF2828' }]}>
-                              - {item.value} VND
-                            </Text>
+                              <Text style={[styles.text, { color: '#DF2828' }]}>
+                                - {item.value} VND
+                              </Text>
                             )}
+                          </View>
                         </View>
-                      </View>
                       )}
                     </View>
                   );
@@ -220,6 +220,15 @@ export default function HomeScreen({ navigation }) {
         </View> */}
       </ScrollView>
 
+      <View
+        style={{
+          height: scale(100),
+          bottom: 0,
+          backgroundColor: '#fff',
+          
+        }}
+      />
+
       <Modal
         visible={isShowModal}
         onRequestClose={() => dispatch(ShowModal(false))}
@@ -228,6 +237,7 @@ export default function HomeScreen({ navigation }) {
         animationType="fade">
         <CustomModal />
       </Modal>
+
     </KeyboardAvoidingView>
   );
 }
