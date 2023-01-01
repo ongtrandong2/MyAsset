@@ -195,269 +195,270 @@ export default function Income() {
 
     return (
         <KeyboardAvoidingView style={styles.view}>
-            <View>
-                {option === 'month' ? (
-                    <>
-                        <View style={styles.big_row}>
-                            <FlatList
-                                keyExtractor={(item) => item.month.toString()}
-                                horizontal
-                                data={MONTH}
-                                showsHorizontalScrollIndicator={false}
-                                renderItem={({ item }) => {
-                                    return (
-                                        <View style={styles.month_container}>
-                                            <TouchableOpacity
-                                                style={[styles.month_item, {
-                                                    backgroundColor: itemSelected === item.month ? 'hsl(47,100%,78%)' : '#ffffff'
-                                                }]}
-                                                onPress={() => setItemSelected(item.month)}
-                                            >
-                                                <Text style={styles.text}>{item.month}/{d}</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    )
-                                }}
-                            />
+            <ScrollView>
+                <View>
+                    {option === 'month' ? (
+                        <>
+                            <View style={styles.big_row}>
+                                <FlatList
+                                    keyExtractor={(item) => item.month.toString()}
+                                    horizontal
+                                    data={MONTH}
+                                    showsHorizontalScrollIndicator={false}
+                                    renderItem={({ item }) => {
+                                        return (
+                                            <View style={styles.month_container}>
+                                                <TouchableOpacity
+                                                    style={[styles.month_item, {
+                                                        backgroundColor: itemSelected === item.month ? 'hsl(47,100%,78%)' : '#ffffff'
+                                                    }]}
+                                                    onPress={() => setItemSelected(item.month)}
+                                                >
+                                                    <Text style={styles.text}>{item.month}/{d}</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    }}
+                                />
 
-                        </View>
-                        <View style={styles.big_row}>
-                            <PieChart
-                                data={result}
-                                width={Dimensions.get('window').width}
-                                height={220}
-                                chartConfig={{
-                                    //backgroundColor: '#1cc910',
-                                    backgroundGradientFrom: '#eff3ff',
-                                    backgroundGradientTo: '#efefef',
-                                    decimalPlaces: 2,
-                                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                    style: {
+                            </View>
+                            <View style={styles.big_row}>
+                                <PieChart
+                                    data={result}
+                                    width={Dimensions.get('window').width}
+                                    height={220}
+                                    chartConfig={{
+                                        //backgroundColor: '#1cc910',
+                                        backgroundGradientFrom: '#eff3ff',
+                                        backgroundGradientTo: '#efefef',
+                                        decimalPlaces: 2,
+                                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                        style: {
+                                            borderRadius: 16,
+                                        },
+                                    }}
+                                    style={{
+                                        //marginVertical: 8,
                                         borderRadius: 16,
-                                    },
-                                }}
-                                style={{
-                                    //marginVertical: 8,
-                                    borderRadius: 16,
 
-                                }}
-                                accessor="value"
-                                backgroundColor="transparent"
-                                paddingLeft="15"
-                            //absolute //for the absolute number remove if you want percentage
+                                    }}
+                                    accessor="value"
+                                    backgroundColor="transparent"
+                                    paddingLeft="15"
+                                //absolute //for the absolute number remove if you want percentage
 
-                            />
-                        </View>
-                        {result.length === 0 ? null : (
-                            <ScrollView style={{ height: '30%' }}>
-                                <View style={styles.big_row}>
-                                    <Text style={styles.text}>TỔNG: {total} VND</Text>
-                                    <Text style={styles.text}>Chi tiết</Text>
-                                    {result.map((item, index) => {
-                                        return (
-                                            <View style={styles.row} key={index}>
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <View style={{
-                                                        height: 20,
-                                                        width: 20,
-                                                        backgroundColor: item.color,
-                                                        marginRight: 5,
-                                                    }}
-                                                    />
-                                                    <Text style={styles.text}>{item.name}</Text>
-                                                </View>
-                                                <Text style={styles.text}>{item.value} VND</Text>
-                                            </View>
-                                        )
-                                    })}
-                                </View>
-                            </ScrollView>
-
-
-                        )}
-
-                    </>
-                ) : option === 'year' ? (
-                    <>
-                        <View style={styles.big_row}>
-                            <FlatList
-                                keyExtractor={(item) => item.toString()}
-                                horizontal
-                                data={YEAR}
-                                showsHorizontalScrollIndicator={false}
-                                renderItem={({ item }) => {
-                                    return (
-                                        <View style={styles.month_container}>
-                                            <TouchableOpacity
-                                                style={[styles.month_item, {
-                                                    backgroundColor: yearSelected === item ? 'hsl(47,100%,78%)' : '#ffffff'
-                                                }]}
-                                                onPress={() => setYearSelected(item)}
-                                            >
-                                                <Text style={styles.text}>{item}</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    )
-                                }}
-
-                            />
-                        </View>
-                        <View style={styles.big_row}>
-                            <LineChart
-                                data={{
-                                    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                                    datasets: [
-                                        {
-                                            data: result_ByYear.map(item => item.value),
-
-                                        }
-                                    ]
-                                }}
-                                width={Dimensions.get("window").width} // from react-native
-                                height={scale(220)}
-                                //height={220}
-                                //yAxisLabel="$"
-                                //yAxisSuffix="VND"
-                                withShadow={false}
-                                //withVerticalLines = {false}
-                                yAxisInterval={1} // optional, defaults to 1
-                                chartConfig={{
-                                    backgroundColor: "#ffffff",
-                                    backgroundGradientFromOpacity: 0,
-                                    backgroundGradientToOpacity: 0,
-                                    backgroundGradientFrom: "#ffffff",
-                                    backgroundGradientTo: "#ffffff",
-                                    fillShadowGradientFrom: '#ffffff',
-                                    fillShadowGradientFromOpacity: 0,
-                                    fillShadowGradientFromOffset: 0,
-                                    fillShadowGradientTo: '#ffffff',
-
-                                    strokeWidth: 3,
-                                    decimalPlaces: 0, // optional, defaults to 2dp
-                                    color: (opacity = 0) => `rgb(91, 155, 213)`,
-
-                                    labelColor: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
-                                    style: {
-                                        borderRadius: 16
-                                    },
-                                    propsForDots: {
-                                        r: "3",
-                                        strokeWidth: "1",
-                                        //stroke: "#000000"
-                                        stroke: "rgb(91, 155, 213)"
-                                    }
-                                }}
-
-                                style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-
-                                }}
-                            />
-                        </View>
-
-                        {result_ByYear.length === 0 ? null : (
-                            <ScrollView style={{ height: '30%' }}>
-                                <View style={styles.big_row}>
-                                    <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
-                                    {result_ByYear.map((item, index) => {
-                                        return (
-                                            <View style={styles.row} key={index}>
-                                                <Text style={styles.text}>Tháng {item.month}</Text>
-                                                <Text style={styles.text}>{item.value} VND</Text>
-                                            </View>
-                                        )
-                                    })}
-                                </View>
-                            </ScrollView>
-                        )}
-                    </>
-                ) : (
-                    <>
-                        {acceptDateStart === undefined ? null : (
-                            <>
-                                <View style={styles.big_row}>
-                                    <View style={styles.month_container}>
-                                        <View style={[styles.month_item, { backgroundColor: 'hsl(47,100%,78%)' }]}>
-                                            <Text style={styles.text}>{moment(acceptDateStart).format('DD/MM/YYYY')} - {moment(acceptDateEnd).format('DD/MM/YYYY')} </Text>
-                                        </View>
-                                    </View>
-                                </View>
-
-                                {result_ByOption.length === 0 ? (
+                                />
+                            </View>
+                            {result.length === 0 ? null : (
+                                <ScrollView>
                                     <View style={styles.big_row}>
-                                        <Text
-                                            style={{
-                                                fontSize: scale(30),
-                                                color: '#CDCACA',
-                                                fontFamily: 'Inter-Medium',
-                                                textAlign: 'center',
-                                            }}>
-                                            Chưa có dữ liệu thống kê cho thời gian này!
-                                        </Text>
-                                    </View>
-                                ) : (
-                                    <View style={styles.big_row}>
-                                        <PieChart
-                                            data={result_ByOption}
-                                            width={Dimensions.get('window').width}
-                                            height={220}
-                                            chartConfig={{
-                                                //backgroundColor: '#1cc910',
-                                                backgroundGradientFrom: '#eff3ff',
-                                                backgroundGradientTo: '#efefef',
-                                                decimalPlaces: 2,
-                                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                                style: {
-                                                    borderRadius: 16,
-                                                },
-                                            }}
-                                            style={{
-                                                //marginVertical: 8,
-                                                borderRadius: 16,
-                                            }}
-                                            accessor="value"
-                                            backgroundColor="transparent"
-                                            paddingLeft="15"
-                                        //absolute //for the absolute number remove if you want percentage
-                                        />
-                                    </View>)}
-
-                                {result_ByOption.length === 0 ? null : (
-                                    <ScrollView style={{ height: '30%' }}>
-                                        <View style={styles.big_row}>
-                                            <Text style={styles.text}>TỔNG: {total_ByOption} VND</Text>
-                                            <Text style={styles.text}>Chi tiết</Text>
-                                            {result_ByOption.map((item, index) => {
-                                                return (
-                                                    <View style={styles.row} key={index}>
-                                                        <View style={{ flexDirection: 'row' }}>
-                                                            <View
-                                                                style={{
-                                                                    height: 20,
-                                                                    width: 20,
-                                                                    backgroundColor: item.color,
-                                                                    marginRight: 5,
-                                                                }}
-                                                            />
-                                                            <Text style={styles.text}>{item.name}</Text>
-                                                        </View>
-                                                        <Text style={styles.text}>{item.value} VND</Text>
+                                        <Text style={styles.text}>TỔNG: {total} VND</Text>
+                                        <Text style={styles.text}>Chi tiết</Text>
+                                        {result.map((item, index) => {
+                                            return (
+                                                <View style={styles.row} key={index}>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <View style={{
+                                                            height: 20,
+                                                            width: 20,
+                                                            backgroundColor: item.color,
+                                                            marginRight: 5,
+                                                        }}
+                                                        />
+                                                        <Text style={styles.text}>{item.name}</Text>
                                                     </View>
-                                                );
-                                            })}
+                                                    <Text style={styles.text}>{item.value} VND</Text>
+                                                </View>
+                                            )
+                                        })}
+                                    </View>
+                                </ScrollView>
+
+
+                            )}
+
+                        </>
+                    ) : option === 'year' ? (
+                        <>
+                            <View style={styles.big_row}>
+                                <FlatList
+                                    keyExtractor={(item) => item.toString()}
+                                    horizontal
+                                    data={YEAR}
+                                    showsHorizontalScrollIndicator={false}
+                                    renderItem={({ item }) => {
+                                        return (
+                                            <View style={styles.month_container}>
+                                                <TouchableOpacity
+                                                    style={[styles.month_item, {
+                                                        backgroundColor: yearSelected === item ? 'hsl(47,100%,78%)' : '#ffffff'
+                                                    }]}
+                                                    onPress={() => setYearSelected(item)}
+                                                >
+                                                    <Text style={styles.text}>{item}</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    }}
+
+                                />
+                            </View>
+                            <View style={styles.big_row}>
+                                <LineChart
+                                    data={{
+                                        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                                        datasets: [
+                                            {
+                                                data: result_ByYear.map(item => item.value),
+
+                                            }
+                                        ]
+                                    }}
+                                    width={Dimensions.get("window").width} // from react-native
+                                    height={scale(220)}
+                                    //height={220}
+                                    //yAxisLabel="$"
+                                    //yAxisSuffix="VND"
+                                    withShadow={false}
+                                    //withVerticalLines = {false}
+                                    yAxisInterval={1} // optional, defaults to 1
+                                    chartConfig={{
+                                        backgroundColor: "#ffffff",
+                                        backgroundGradientFromOpacity: 0,
+                                        backgroundGradientToOpacity: 0,
+                                        backgroundGradientFrom: "#ffffff",
+                                        backgroundGradientTo: "#ffffff",
+                                        fillShadowGradientFrom: '#ffffff',
+                                        fillShadowGradientFromOpacity: 0,
+                                        fillShadowGradientFromOffset: 0,
+                                        fillShadowGradientTo: '#ffffff',
+
+                                        strokeWidth: 3,
+                                        decimalPlaces: 0, // optional, defaults to 2dp
+                                        color: (opacity = 0) => `rgb(91, 155, 213)`,
+
+                                        labelColor: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
+                                        style: {
+                                            borderRadius: 16
+                                        },
+                                        propsForDots: {
+                                            r: "3",
+                                            strokeWidth: "1",
+                                            //stroke: "#000000"
+                                            stroke: "rgb(91, 155, 213)"
+                                        }
+                                    }}
+
+                                    style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+
+                                    }}
+                                />
+                            </View>
+
+                            {result_ByYear.length === 0 ? null : (
+                                <ScrollView>
+                                    <View style={styles.big_row}>
+                                        <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
+                                        {result_ByYear.map((item, index) => {
+                                            return (
+                                                <View style={styles.row} key={index}>
+                                                    <Text style={styles.text}>Tháng {item.month}</Text>
+                                                    <Text style={styles.text}>{item.value} VND</Text>
+                                                </View>
+                                            )
+                                        })}
+                                    </View>
+                                </ScrollView>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            {acceptDateStart === undefined ? null : (
+                                <>
+                                    <View style={styles.big_row}>
+                                        <View style={styles.month_container}>
+                                            <View style={[styles.month_item, { backgroundColor: 'hsl(47,100%,78%)' }]}>
+                                                <Text style={styles.text}>{moment(acceptDateStart).format('DD/MM/YYYY')} - {moment(acceptDateEnd).format('DD/MM/YYYY')} </Text>
+                                            </View>
                                         </View>
-                                    </ScrollView>
-                                )}
-                            </>
-                        )}
+                                    </View>
 
-                    </>
+                                    {result_ByOption.length === 0 ? (
+                                        <View style={styles.big_row}>
+                                            <Text
+                                                style={{
+                                                    fontSize: scale(30),
+                                                    color: '#CDCACA',
+                                                    fontFamily: 'Inter-Medium',
+                                                    textAlign: 'center',
+                                                }}>
+                                                Chưa có dữ liệu thống kê cho thời gian này!
+                                            </Text>
+                                        </View>
+                                    ) : (
+                                        <View style={styles.big_row}>
+                                            <PieChart
+                                                data={result_ByOption}
+                                                width={Dimensions.get('window').width}
+                                                height={220}
+                                                chartConfig={{
+                                                    //backgroundColor: '#1cc910',
+                                                    backgroundGradientFrom: '#eff3ff',
+                                                    backgroundGradientTo: '#efefef',
+                                                    decimalPlaces: 2,
+                                                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                                    style: {
+                                                        borderRadius: 16,
+                                                    },
+                                                }}
+                                                style={{
+                                                    //marginVertical: 8,
+                                                    borderRadius: 16,
+                                                }}
+                                                accessor="value"
+                                                backgroundColor="transparent"
+                                                paddingLeft="15"
+                                            //absolute //for the absolute number remove if you want percentage
+                                            />
+                                        </View>)}
 
-                )}
+                                    {result_ByOption.length === 0 ? null : (
+                                        <ScrollView>
+                                            <View style={styles.big_row}>
+                                                <Text style={styles.text}>TỔNG: {total_ByOption} VND</Text>
+                                                <Text style={styles.text}>Chi tiết</Text>
+                                                {result_ByOption.map((item, index) => {
+                                                    return (
+                                                        <View style={styles.row} key={index}>
+                                                            <View style={{ flexDirection: 'row' }}>
+                                                                <View
+                                                                    style={{
+                                                                        height: 20,
+                                                                        width: 20,
+                                                                        backgroundColor: item.color,
+                                                                        marginRight: 5,
+                                                                    }}
+                                                                />
+                                                                <Text style={styles.text}>{item.name}</Text>
+                                                            </View>
+                                                            <Text style={styles.text}>{item.value} VND</Text>
+                                                        </View>
+                                                    );
+                                                })}
+                                            </View>
+                                        </ScrollView>
+                                    )}
+                                </>
+                            )}
 
-            </View>
+                        </>
 
+                    )}
+
+                </View>
+            </ScrollView>
             <View style={styles.bottom_tab}>
                 <TouchableOpacity
                     style={[styles.bottom_item, {
@@ -521,6 +522,13 @@ export default function Income() {
                     </View>
                 </TouchableOpacity>
             </View>
+            <View
+                style = {{
+                    height: scale(100),
+                    bottom: 0,
+                    backgroundColor: '#fff',
+                }}
+            />
 
             <Modal
                 visible={showModal}
@@ -648,11 +656,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-Regular',
     },
     bottom_tab: {
-        bottom: scale(100),
+        bottom: scale(0),
         alignItems: 'center',
         flexDirection: 'row',
         width: '100%',
-        position: 'absolute',
+        //position: 'absolute',
         //paddingBottom:10,
 
     },
@@ -719,7 +727,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         fontFamily: 'Inter-Medium',
         borderBottomColor: '#000',
-
     },
 
 

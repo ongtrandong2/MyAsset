@@ -6,10 +6,7 @@ import RootNavigation from './routes/RootNavigation';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
-import Nhap from './screens/Nhap';
-import InfoScreen from './screens/InfoScreen';
-
-
+import Notification from './screens/Notification';
 
 function App() {
   return (
@@ -18,7 +15,7 @@ function App() {
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
-      {/* <InfoScreen/>  */}
+      {/* <Notification/> */}
     </Provider>
   );
 }

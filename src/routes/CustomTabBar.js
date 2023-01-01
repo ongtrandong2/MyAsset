@@ -22,9 +22,9 @@ const CustomTabBarItem = (props) => {
         );
     }
     else if (props.Index === 2)
-    {
+    { {/* flex: 0.5 */}
         return (
-            <View style = {[styles.itemContainer,{flex:0.5}]}>
+            <View style = {[styles.itemContainer]}>
                 <TouchableOpacity
                     style={styles.plusButtonContainer}
                     onPress = {props.onPress}

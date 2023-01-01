@@ -95,16 +95,14 @@ export default function InfoScreen({ navigation }) {
 
     setShowModal(false)
   }
-
   return (
-
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           title={'THÔNG TIN CÁ NHÂN'}
           style={{
-            fontSize: scale(30),
+            fontSize: scale(22),
             fontFamily: 'Inter-Bold',
           }}
         />
@@ -326,7 +324,7 @@ const styles = StyleSheet.create({
 
 
   press_text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#0000CC',
     fontFamily: 'Inter-Medium',
     textDecorationLine: 'underline',

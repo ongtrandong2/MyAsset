@@ -20,7 +20,7 @@ export default function ChangeInfo({ navigation }) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(25)}
+          fontSize={scale(22)}
           title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
           style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />

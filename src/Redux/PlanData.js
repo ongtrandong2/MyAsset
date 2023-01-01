@@ -14,6 +14,7 @@ const PlanData = createSlice ({
                 percentage_of_use: action.payload.percentage_of_use,
                 isExceed: action.payload.isExceed,
                 history:[],
+                isShowHistory: false,
 
             };
             state.push(newPlan);
@@ -50,6 +51,9 @@ const PlanData = createSlice ({
             });
 
         },
+        setIsShowHistory: (state,action) =>{
+          state[action.payload].isShowHistory = !state[action.payload].isShowHistory;
+        }
 
     },
     updateDataPlan: state => {
@@ -81,5 +85,5 @@ const PlanData = createSlice ({
   },
 );
 
-export const {addPlan, IncreaseCurrentUse,removePlan, updatePlan} = PlanData.actions;
+export const {addPlan, IncreaseCurrentUse,removePlan, updatePlan,setIsShowHistory} = PlanData.actions;
 export default PlanData.reducer;

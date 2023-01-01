@@ -98,6 +98,9 @@ export default function History({ navigation }) {
           }))
         }
       })
+      dispatch(IncreaseTotal(Number(newValue)))
+    } else if (newisIncome === true) {
+      dispatch(DecreaseTotal(Number(newValue)))
     }
     setShowModalDelete(false);
   }

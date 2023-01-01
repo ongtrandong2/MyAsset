@@ -99,7 +99,7 @@ export default function ChangePassword({navigation}) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(23)}
+          fontSize={scale(22)}
           title="ĐỔI MẬT KHẨU"
           style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />

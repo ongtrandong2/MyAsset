@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '80%',
-        paddingVertical:10,
+        paddingVertical:5,
     },
 })
 export default CustomAlert;

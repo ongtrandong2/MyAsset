@@ -13,6 +13,7 @@ const TabNavigation = () =>{
     return(
         <Tab.Navigator 
             tabBar={ props => <CustomTabBar {...props} />}
+            initialRouteName = "HomeScreen"
         >
             <Tab.Screen name = "HomeScreen" component = {HomeScreen} initialParams = {{label:'Tổng quan'}}/>
             <Tab.Screen name = "PlanScreen" component = {PlanScreen} initialParams = {{label:'Kế hoạch'}}/>

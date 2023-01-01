@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: 'black',
-    fontSize: scale(25),
+    fontSize: scale(22),
     fontFamily: 'Wallpoet-Regular',
   },
 

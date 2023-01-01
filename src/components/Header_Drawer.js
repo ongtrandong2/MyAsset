@@ -28,14 +28,14 @@ const HeaderDrawer = (props) => {
         </View>
 
         <View style={styles.option_view}>
-          {/* <View style={styles.box}>
+          {/* <View style={[styles.box,{marginRight: 10}]}>
             <Pressable
-              //onPress={props.onPress}
+              onPress={props.onPressNotification}
               android_ripple={{ color: '#bbbbbb' }}
             >
               <Ionicons
                 name='notifications-outline'
-                size={30}
+                size={24}
                 color='black'
               />
             </Pressable>
@@ -47,7 +47,7 @@ const HeaderDrawer = (props) => {
             >
               <Feather
                 name='menu'
-                size={30}
+                size={24}
                 color='black'
               />
             </Pressable>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     //borderWidth: 1,
-    marginRight: 10,
+    //marginRight: 10,
   },
 
   icon_money: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     //fontFamily: 'Itim-Regular',
     fontFamily: 'Inter-Bold',
     //fontFamily:'Lato-Bold',
-    fontSize: scale(30)
+    fontSize: scale(22)
     
   },
 

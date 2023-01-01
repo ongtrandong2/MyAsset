@@ -24,15 +24,13 @@ import {
   IncreaseCurrentUse,
   removePlan,
   updatePlan,
+  setIsShowHistory,
 } from '../Redux/PlanData';
 import generateUUID from '../constants/generateUUID';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PushNotification from 'react-native-push-notification';
 import CustomAlert from '../components/CustomAlert';
-import Nhap from './Nhap'
-
-
 export default function PlanScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -46,8 +44,6 @@ export default function PlanScreen({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [newData, setNewData] = useState({});
   const [dataDelete,setDataDelete] = useState ({});
-  const [isShowItem, setIsShowItem] = useState(false);
-  const [position, setPosition] = useState(-1);
   const [showPen,setShowPen] = useState(true);
   const [showModalDelete,setShowModalDelete] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
@@ -321,8 +317,7 @@ export default function PlanScreen({ navigation }) {
                       <TouchableOpacity
                         style={styles.progressBar}
                         onPress={() => {
-                          setPosition(item.key);
-                          setIsShowItem(!isShowItem);
+                          dispatch(setIsShowHistory(index));
                         }}
                       >
                         <Animated.View
@@ -334,7 +329,7 @@ export default function PlanScreen({ navigation }) {
                                   ? 'hsl(0,74%,52%)'
                                   : 'hsl(111,84%,36%)',
                               width: String(item.percentage_of_use) + '%',
-                              borderRadius: 5,
+                              borderRadius: 100,
                             })
                           }
                         />
@@ -350,7 +345,7 @@ export default function PlanScreen({ navigation }) {
                         ) : null}
                       </View>
 
-                      {position === item.key && isShowItem === true && (
+                      {item.isShowHistory === true && (
                         <RenderItem item={item} index={index} />
                       )}
 

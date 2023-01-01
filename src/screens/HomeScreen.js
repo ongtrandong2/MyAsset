@@ -71,7 +71,7 @@ export default function HomeScreen({ navigation }) {
           <Text
             style={{
               color: '#000000',
-              fontSize: scale(20),
+              fontSize: scale(18),
               fontFamily: 'Inter-Bold',
             }}>
             KẾ HOẠCH
@@ -82,7 +82,7 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.big_row}>
             <Text
               style={{
-                fontSize: scale(21),
+                fontSize: scale(20),
                 color: '#CDCACA',
                 fontFamily: 'Inter-Regular',
               }}>
@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         ) : (
           <>
-            {plan.slice(0, 1).map((item, index) => {
+            {plan.slice(0,1).map((item, index) => {
               return (
                 <View key={index}>
                   <View style={[styles.big_row, { marginTop: scale(20) }]}>
@@ -137,7 +137,7 @@ export default function HomeScreen({ navigation }) {
         )}
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(20) }]}>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(18) }]}>
             THU CHI GẦN ĐÂY
           </Text>
         </View>
@@ -145,8 +145,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {IncomeOutcome.slice(0, 10)
-                .reverse()
+              {IncomeOutcome
                 .map((item, index) => {
                   return (
                     <View key={index}>
@@ -179,21 +178,19 @@ export default function HomeScreen({ navigation }) {
                       )}
                     </View>
                   );
-                })}
+                }).reverse().slice(0,10)}
             </ScrollView>
           </View>
         </View>
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(20) }]}>TÀI SẢN</Text>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(18), marginTop: 5 }]}>TÀI SẢN</Text>
         </View>
 
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
               {possessionData
-                .slice(0, 10)
-                .reverse()
                 .map((item, index) => {
                   return (
                     <View key={index}>
@@ -211,7 +208,7 @@ export default function HomeScreen({ navigation }) {
                       </View>
                     </View>
                   );
-                })}
+                }).reverse().slice(0,10)}
             </ScrollView>
           </View>
         </View>
@@ -219,7 +216,6 @@ export default function HomeScreen({ navigation }) {
         
         </View> */}
       </ScrollView>
-
       <View
         style={{
           height: scale(100),
