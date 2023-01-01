@@ -129,15 +129,19 @@ export default function InfoScreen({ navigation }) {
                 />
               </TouchableOpacity>
             </View>
-            <Text
-              style={{
-                fontSize: 30,
-                fontFamily: 'Inter-Bold',
-                color: 'black',
-                paddingLeft: 20,
-              }}>
-              {name}
-            </Text>
+            <View style={{ width: '70%'}}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontFamily: 'Inter-Bold',
+                  color: 'black',
+                  paddingLeft: 20,
+                }}
+                numberOfLines={2}
+              >
+                {name}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -148,7 +152,7 @@ export default function InfoScreen({ navigation }) {
                 name="user"
                 size={24}
                 color="black"
-                style={{ paddingBottom: 3, paddingRight: 3 }}
+                style={{ paddingRight: 3 }}
               />
 
               <Text style={styles.text}>Tên </Text>
@@ -163,7 +167,7 @@ export default function InfoScreen({ navigation }) {
                 name="mail"
                 size={24}
                 color="black"
-                style={{ paddingBottom: 3, paddingRight: 3 }}
+                style={{ paddingRight: 3 }}
               />
               <Text style={styles.text}>Email: </Text>
             </View>
@@ -280,6 +284,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 10,
+
   },
 
   row: {
@@ -295,7 +300,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '90%',
+    paddingHorizontal:20,
   },
   circle: {
     height: scale(100),
@@ -309,7 +314,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
@@ -390,7 +395,7 @@ const styles = StyleSheet.create({
   },
 
   modal_text: {
-    fontSize: scale(25),
+    fontSize: scale(22),
     color: '#000000',
     fontFamily: 'Inter-Medium',
     paddingLeft: 20,

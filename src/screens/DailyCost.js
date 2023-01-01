@@ -139,23 +139,29 @@ export default function DailyCost() {
         <View style={styles.tab_view}>
           <TouchableOpacity
             style={styles.tab_item}
-            onPress={() => dispatch(ShowTab(false))}>
+            onPress={() => dispatch(ShowTab(false))}
+          >
+            <Text style={styles.tab_text}>SINH HOẠT</Text>
             <View
               style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderBottomColor: '#FFC700',
-                borderBottomWidth: 5,
                 width: '70%',
-              }}>
-              <Text style={styles.tab_text}>SINH HOẠT</Text>
-            </View>
+                height: 3,
+                backgroundColor: '#FFC700'
+              }}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(true))}>
             <Text style={styles.tab_text}>TÀI SẢN</Text>
+            <View
+              style={{
+                width: '70%',
+                height: 3,
+                backgroundColor: '#fff'
+              }}
+            />
           </TouchableOpacity>
         </View>
 
@@ -188,7 +194,7 @@ export default function DailyCost() {
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={styles.sub_row}>
+              <View style={[styles.sub_row, {marginTop: 10}]}>
                 <Text style={styles.text}>1.Khoản chi:</Text>
 
                 {flag === true ? (
@@ -245,7 +251,7 @@ export default function DailyCost() {
                   style={styles.textInput_box}
                   onChangeText={setOutcomeValue}
                   value={outcomeValue}
-                  keyboardType = {'numeric'}
+                  keyboardType={'numeric'}
                 />
               </View>
             </View>
@@ -265,7 +271,7 @@ export default function DailyCost() {
         ) : (
           <>
             <View style={styles.row}>
-              <View style={styles.sub_row}>
+              <View style={[styles.sub_row, {marginTop: 10}]}>
                 <Text style={styles.text}>1.Khoản thu :</Text>
 
                 {flag1 === true ? (
@@ -323,7 +329,7 @@ export default function DailyCost() {
                   style={styles.textInput_box}
                   onChangeText={setIncomeValue}
                   value={incomeValue}
-                  keyboardType = {'numeric'}
+                  keyboardType={'numeric'}
                 />
               </View>
             </View>
@@ -369,12 +375,14 @@ const styles = StyleSheet.create({
   tab_item: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: scale(50),
-    width: '50%',
+    //height: scale(50),
+    flex: 1,
     backgroundColor: '#ffffff',
+    //borderWidth: 1,
+    paddingVertical: 5,
   },
   tab_text: {
-    fontSize: scale(25),
+    fontSize: scale(22),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
@@ -382,13 +390,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%',
-    height: scale(50),
+    //height: scale(50),
     //backgroundColor: '#FFEFB6',
-    marginTop: scale(10),
+    marginTop: scale(5),
     borderTopColor: 'hsl(36,100%,52%)',
     borderBottomColor: 'hsl(36,100%,52%)',
     borderTopWidth: 2,
     borderBottomWidth: 2,
+    paddingVertical: 5,
   },
   row: {
     alignItems: 'center',
@@ -404,11 +413,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     //marginTop:10,
-    height: scale(50),
-    //marginHorizontal: 45,
-    //backgroundColor:'pink',
-    width: '90%',
-    //padding: 10,
+    //height: scale(50),
+    width: '95%',
+    paddingVertical: 5,
     alignItems: 'flex-end',
   },
 

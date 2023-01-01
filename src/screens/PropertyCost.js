@@ -57,7 +57,7 @@ export default function PropertyCost() {
           note: note,
         }),
       );
-      
+
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
         dispatch(
@@ -82,7 +82,7 @@ export default function PropertyCost() {
             isPossession: true,
             time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
             isDifferent: true,
-  
+
           }),
         );
       }
@@ -109,7 +109,7 @@ export default function PropertyCost() {
   const onSaveSell = () => {
     if (sellName !== '' && sellValue !== '') {
       let index = possessionData.map(index => index.key).indexOf(keyDelete);
-    
+
       //console.log(index);
       dispatch(removePossession(index));
       //setNumber1(number1+1);
@@ -139,21 +139,26 @@ export default function PropertyCost() {
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(false))}>
             <Text style={styles.tab_text}>SINH HOẠT</Text>
+            <View
+              style={{
+                width: '70%',
+                height: 3,
+                backgroundColor: '#fff'
+              }}
+            />
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(true))}>
+            <Text style={styles.tab_text}>TÀI SẢN</Text>
             <View
               style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderBottomColor: '#FFC700',
-                borderBottomWidth: 5,
                 width: '70%',
-              }}>
-              <Text style={styles.tab_text}>TÀI SẢN</Text>
-            </View>
+                height: 3,
+                backgroundColor: '#FFC700'
+              }}
+            />
           </TouchableOpacity>
         </View>
 
@@ -166,7 +171,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontFamily:'Inter-Bold' }]}>MUA</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>MUA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -179,14 +184,14 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontFamily:'Inter-Bold'}]}>BÁN</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>BÁN</Text>
           </TouchableOpacity>
         </View>
 
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row, { paddingTop: 10}]}>
+              <View style={[styles.sub_row, { marginTop: 10}]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <TextInput
@@ -234,8 +239,8 @@ export default function PropertyCost() {
                 <TextInput
                   style={styles.textInput_box}
                   onChangeText={(value) => setPurchaseValue(value)}
-                  value={purchaseValue} 
-                  keyboardType = 'numeric'  
+                  value={purchaseValue}
+                  keyboardType='numeric'
                 />
               </View>
             </View>
@@ -268,7 +273,7 @@ export default function PropertyCost() {
         ) : (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row,{ paddingTop: 10}]}>
+              <View style={[styles.sub_row, { marginTop: 10 }]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <Dropdown
@@ -297,14 +302,14 @@ export default function PropertyCost() {
               </View>
             </View>
 
-            <View style={[styles.row,{paddingTop:10}]}>
+            <View style={[styles.row, { paddingTop: 10 }]}>
               <View style={styles.sub_row}>
                 <Text style={styles.text}>2.Số tiền: </Text>
                 <TextInput
                   style={styles.textInput_box}
                   onChangeText={setSellValue}
                   value={sellValue}
-                  keyboardType = {'numeric'}
+                  keyboardType={'numeric'}
                 />
               </View>
             </View>
@@ -349,12 +354,12 @@ const styles = StyleSheet.create({
   tab_item: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: scale(50),
-    width: '50%',
+    flex: 1,
     backgroundColor: '#ffffff',
+    paddingVertical: 5,
   },
   tab_text: {
-    fontSize: scale(25),
+    fontSize: scale(22),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
@@ -362,12 +367,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%',
-    height: scale(50),
-    marginTop: scale(10),
+    marginTop: scale(5),
     borderTopColor: 'hsl(36,100%,52%)',
     borderBottomColor: 'hsl(36,100%,52%)',
     borderTopWidth: 2,
     borderBottomWidth: 2,
+    paddingVertical: 5,
   },
   row: {
     alignItems: 'center',
@@ -380,13 +385,9 @@ const styles = StyleSheet.create({
   sub_row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    //marginTop:10,
-    height: scale(50),
-    //marginHorizontal: 45,
-    //backgroundColor:'pink',
-    width: '90%',
-    //padding: 10,
+    width: '95%',
     alignItems: 'flex-start',
+    paddingVertical: 5,
   },
 
   textInput_box: {

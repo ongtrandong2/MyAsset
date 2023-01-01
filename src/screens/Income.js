@@ -526,7 +526,7 @@ export default function Income() {
                 visible={showModal}
                 onRequestClose={() => setShowModal(false)}
                 transparent
-                //statusBarTranslucent
+                statusBarTranslucent
                 animationType='fade'
             >
                 <Pressable

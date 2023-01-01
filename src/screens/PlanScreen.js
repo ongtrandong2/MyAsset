@@ -486,7 +486,7 @@ export default function PlanScreen({ navigation }) {
                       onChangeText={setBudget}
                       value={budget}
                       placeholderTextColor="black"
-                      underlineStyle={{ borderWidth: 0 }}
+                      //underlineStyle={{ borderWidth: 0 }}
                       textColor="blue"
                       activeUnderlineColor="black"
                       keyboardType='numeric'
@@ -652,7 +652,7 @@ const styles = StyleSheet.create({
     //paddingLeft: 0,
     fontSize: scale(18),
     //borderBottomWidth: 0.5,
-    //borderBottomColor: 'black',
+    borderBottomColor: 'black',
     width: '50%',
     backgroundColor: '#ffffff',
     height: scale(30),
@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
   text_modal: {
     fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Inter-Medium',
+    //fontFamily: 'Inter-Medium',
   },
 
   text_style: {

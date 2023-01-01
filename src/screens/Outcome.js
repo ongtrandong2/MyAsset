@@ -539,7 +539,7 @@ export default function Outcome() {
         visible={showModal}
         onRequestClose={() => setShowModal(false)}
         transparent
-        //statusBarTranslucent
+        statusBarTranslucent
         animationType='fade'
       >
         <Pressable
