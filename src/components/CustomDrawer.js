@@ -1,8 +1,11 @@
-import react from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-
+import SignOut from '../auth/SignOut';
+import useDispatch from 'react-redux';
+import deleteIO from '../Redux/IncomeOutcome';
+import {deletePlan} from '../Redux/PlanData';
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity
@@ -52,11 +55,16 @@ const CustomDrawer = props => {
           component={'HomeScreen'}
         />
       </DrawerContentScrollView>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.signOutContainer}
-        onPress={() => props.navigation.navigate('Login')}>
+        onPress={() => {
+          onSignOutPress().then(() => {
+            props.navigation.navigate('Login');
+          });
+        }}>
         <Text style={[styles.text, {marginLeft: 0}]}>Đăng xuất</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <SignOut navigation={props.navigation} />
     </View>
   );
 };

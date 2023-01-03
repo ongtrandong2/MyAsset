@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import scale from '../constants/scale';
-import Entypo from 'react-native-vector-icons/Entypo';
 import moment from 'moment';
 import randomColor from '../constants/randomColor';
 import {PieChart, LineChart} from 'react-native-chart-kit';
@@ -33,9 +32,7 @@ export default function Outcome() {
 
   let Outcome = IncomeOutcome.filter(item => {
     return (
-      item.isIncome === false &&
-      item.isPossession === false &&
-      moment(item.time).format('MM') === itemSelected
+      item.isIncome === false && moment(item.time).format('MM') === itemSelected
     );
   });
 
@@ -87,7 +84,6 @@ export default function Outcome() {
   let Outcome_ByYear = IncomeOutcome.filter(item => {
     return (
       item.isIncome === false &&
-      item.isPossession === false &&
       moment(item.time).format('YYYY') === yearSelected.toString()
     );
   });
@@ -421,7 +417,3 @@ const styles = StyleSheet.create({
     width: '90%',
   },
 });
-
-
-
-

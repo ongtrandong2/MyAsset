@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const HeaderDrawer = props => {
   return (
     <View style={styles.view}>
@@ -20,6 +20,18 @@ const HeaderDrawer = props => {
         </View>
 
         <View style={styles.option_view}>
+          {/* <View style={styles.box}>
+            <Pressable
+              //onPress={props.onPress}
+              android_ripple={{ color: '#bbbbbb' }}
+            >
+              <Ionicons
+                name='notifications-outline'
+                size={30}
+                color='black'
+              />
+            </Pressable>
+          </View> */}
           <View style={styles.box}>
             <Pressable
               onPress={props.onPress}
@@ -71,13 +83,15 @@ const styles = StyleSheet.create({
     flex: 4,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    
+    paddingRight: 20,
   },
 
   box: {
-    width: '30%',
+    //width: '30%',
     justifyContent: 'center',
     alignItems: 'center',
+    //borderWidth: 1,
+    marginRight: 10,
   },
 
   icon_money: {

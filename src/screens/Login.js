@@ -1,28 +1,32 @@
 import React from 'react';
 import {useState} from 'react';
 
-import {StyleSheet, Text, View, Image, Alert, Pressable, KeyboardAvoidingView, ToastAndroid} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  Pressable,
+  KeyboardAvoidingView,
+  ToastAndroid,
+} from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-<<<<<<< HEAD
-import { TextInput } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
-import { firebase } from '@react-native-firebase/auth';
-=======
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/firestore';
->>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
+import {firebase} from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
+import {useSelector, useDispatch} from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Onboarding from './Onboarding';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
-
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
@@ -34,15 +38,18 @@ export default function Login({navigation}) {
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-
     } else {
-      await firebase
+      firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
+          console.log('Login!');
           if (firebase.auth().currentUser.emailVerified) {
-            navigation.navigate('Drawer');
+            // navigation.navigate('Drawer');
+            console.log('Login success!');
+            navigation.navigate('Onboarding');
           } else {
+            console.log('Loginfail!');
             //Alert.alert('Warning!', 'Vui lòng xác nhận email!');
             ToastAndroid.showWithGravity(
               'Vui lòng xác nhận email!',
@@ -61,231 +68,209 @@ export default function Login({navigation}) {
         });
     }
   };
-  return (    
-  <KeyboardAvoidingView style={styles.body} >
-    <ScrollView>
-      <View style={styles.title_view}>
-        <View style={styles.icon1_view}>
+  return (
+    <KeyboardAvoidingView style={styles.body}>
+      <ScrollView>
+        <View style={styles.title_view}>
+          <View style={styles.icon1_view}>
+            <Image
+              style={styles.icon_money}
+              source={require('../assets/images/icon_money.png')}
+              resizeMode="stretch"
+            />
+          </View>
+          <View style={styles.label_view}>
+            <View style={styles.label}>
+              <Text
+                style={{
+                  fontFamily: 'Wallpoet-Regular',
+                  color: 'black',
+                  fontSize: scale(20),
+                }}>
+                MY ASSET
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.body_view}>
           <Image
-            style={styles.icon_money}
-            source={require('../assets/images/icon_money.png')}
+            style={styles.image}
+            source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
             resizeMode="stretch"
           />
         </View>
-        <View style={styles.label_view}>
-          <View style={styles.label}>
-            <Text style={{ fontFamily: 'Wallpoet-Regular', color: 'black', fontSize: scale(20) }}>MY ASSET</Text>
+
+        <View style={styles.body_view}>
+          <TextInput
+            style={styles.TextInput_style}
+            placeholder="Email"
+            placeholderTextColor={'grey'}
+            onChangeText={value => setEmail(value)}
+            value={email}
+            left={
+              <TextInput.Icon
+                icon={() => <Fontisto name="email" size={24} color="black" />}
+              />
+            }
+          />
+        </View>
+
+        <View style={styles.body_view}>
+          <TextInput
+            style={styles.TextInput_style}
+            placeholder="Mật khẩu"
+            placeholderTextColor={'grey'}
+            secureTextEntry={passwordVisible}
+            onChangeText={value => setPassword(value)}
+            value={password}
+            left={
+              <TextInput.Icon
+                icon={() => (
+                  <Ionicons name="md-key-outline" size={24} color="black" />
+                )}
+              />
+            }
+            right={
+              <TextInput.Icon
+                icon={
+                  passwordVisible
+                    ? () => <Feather name="eye-off" size={24} color="black" />
+                    : () => <Feather name="eye" size={24} color="black" />
+                }
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              />
+            }
+          />
+        </View>
+
+        <View style={[styles.body_view, {paddingTop: scale(10)}]}>
+          <View style={styles.forgetpass}>
+            <Pressable>
+              <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
+                Quên mật khẩu
+              </Text>
+            </Pressable>
           </View>
         </View>
-<<<<<<< HEAD
-      </View>
-=======
-      </ScrollView>
->>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
-      <View style={styles.body_view}>
-        <Image
-          style={styles.image}
-          source={require('../assets/images/tai-chinh-gia-dinh.jpeg')}
-          resizeMode="stretch"
-        />
-      </View>
-
-      <View style={styles.body_view}>
-        <TextInput
-          style={styles.TextInput_style}
-          placeholder="Email"
-          placeholderTextColor={'grey'}
-          onChangeText={value => setEmail(value)}
-          value={email}
-          left={
-            <TextInput.Icon icon={()=>(<Fontisto name="email" size={24} color = 'black'/>)} />
-          }
-        />
-      </View>
-
-      <View style={styles.body_view}>
-        <TextInput
-          style={styles.TextInput_style}
-          placeholder="Mật khẩu"
-          placeholderTextColor={'grey'}
-          secureTextEntry={passwordVisible}
-          onChangeText={value => setPassword(value)}
-          value={password}
-          left={
-            <TextInput.Icon icon={()=>(<Ionicons name="md-key-outline" size={24} color = 'black'/>)} />
-          }
-          right={
-            <TextInput.Icon
-              icon={
-                passwordVisible
-                  ? ()=>(<Feather name='eye-off' size={24} color="black"/>)
-                  : ()=>(<Feather name='eye' size={24} color="black"/>)
-              }
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            />
-          }
-        />
-      </View>
-
-      <View style={[styles.body_view,{paddingTop:scale(10)}]}>
-        <View style={styles.forgetpass}>
-          <Pressable>
-            <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
-              Quên mật khẩu
-            </Text>
-          </Pressable>
+        <View style={styles.body_view}>
+          <CustomButton
+            style={{width: '40%', height: scale(40)}}
+            title={'Đăng nhập'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
+            text_style={styles.text_style}
+            onPressFunction={() => {
+              LoginUser(email, password);
+            }}
+          />
         </View>
-      </View>
 
-      <View style={styles.body_view}>
-        <CustomButton
-          style={{width: '40%', height: scale(40)}}
-          title={'Đăng nhập'}
-          colorPress = {'#FFC700'}
-          colorUnpress = {'#ffdc61'}
-          text_style={styles.text_style}
-          onPressFunction={() => {
-            LoginUser(email, password);
-          }}
-        />
-      </View>
-
-      <View style={[styles.body_view,{padding:10}]}>
+        <View style={[styles.body_view, {padding: 10}]}>
           <CustomButton
             style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
-            colorPress = {'#FFC700'}
-            colorUnpress = {'#ffdc61'}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
             onPressFunction={onRegister}
           />
-      </View>
+        </View>
 
-      {/* <View style={styles.body_view}> */}
         <LoginGoogle navigation={navigation} />
-<<<<<<< HEAD
-      {/* </View> */}
-    </ScrollView>
-  </KeyboardAvoidingView>
-);
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
 }
-=======
-        {/* </View> */}
-      </KeyboardAvoidingView>
-)}
->>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
 const styles = StyleSheet.create({
-body: {
-  flex: 1,
-  backgroundColor: '#ffffff',
-  flexDirection: 'column',
-  //paddingBottom:20,
-},
+  body: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    flexDirection: 'column',
+    //paddingBottom:20,
+  },
 
-text: {
-  color: 'black',
-  fontSize: scale(15),
-  textAlign: 'center',
-  fontWeight: 'bold',
-},
+  text: {
+    color: 'black',
+    fontSize: scale(15),
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
 
-image: {
-  width: '80%',
-  height: 300,
-  //marginTop: 5,
-  alignItems: 'center',
-},
+  image: {
+    width: '80%',
+    height: 300,
+    //marginTop: 5,
+    alignItems: 'center',
+  },
 
-title_view: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  paddingHorizontal: scale(20),
-  backgroundColor: '#ffffff',
-},
+  title_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: scale(20),
+    backgroundColor: '#ffffff',
+  },
 
-label: {
-  borderWidth: 4,
-  borderRadius: 20,
-  borderColor: '#FFC700',
-  height: scale(50),
-  width: '80%',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor:'#ffffff',
-},
+  label: {
+    borderWidth: 4,
+    borderRadius: 20,
+    borderColor: '#FFC700',
+    height: scale(50),
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+  },
 
-<<<<<<< HEAD
-label_view: {
-  flex: 2,
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: scale(30),
-  //marginRight: 20,
-  backgroundColor:'#ffffff',
-},
-=======
   label_view: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
     height: scale(30),
-    marginRight: scale(100),
+    //marginRight: 20,
     backgroundColor: '#ffffff',
   },
->>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
 
-icon1_view: {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '#fffffff'
+  icon1_view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fffffff',
+  },
 
-},
+  icon_money: {
+    width: scale(70),
+    height: scale(70),
+  },
 
-<<<<<<< HEAD
-icon_money: {
-  width: scale(70),
-  height:scale(70),
-=======
-body_view: {
-  backgroundColor: '#ffffff',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  //margin: 1,
-  padding: scale(3),
->>>>>>> 1d36d94abd1da2cc2370d2c18c1c0d4f724d2115
-},
+  body_view: {
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    //margin: 1,
+    padding: scale(3),
+  },
 
-body_view: {
-  backgroundColor: '#ffffff',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  //margin: 1,
-  padding: scale(3),
-},
+  TextInput_style: {
+    borderBottomColor: 'black',
+    width: '80%',
+    //height:scale(60),
+    backgroundColor: '#ffffff',
+    fontSize: scale(20),
+  },
 
-TextInput_style: {
-  borderBottomColor: 'black',
-  width: '80%',
-  //height:scale(60),
-  backgroundColor: '#ffffff',
-  fontSize:scale(20),
-},
-
-forgetpass: {
-  //borderBottomWidth: 1,
-  borderBottomColor: 'black',
-  width: '50%',
-  backgroundColor: '#ffffff',
-},
-text_style:{
-  color: 'black',
-  fontSize: scale(18),
-  fontWeight: 'bold',
-},
+  forgetpass: {
+    //borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    width: '50%',
+    backgroundColor: '#ffffff',
+  },
+  text_style: {
+    color: 'black',
+    fontSize: scale(18),
+    fontWeight: 'bold',
+  },
 });
-    

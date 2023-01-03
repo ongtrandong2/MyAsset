@@ -8,12 +8,12 @@ const TotalMoney = createSlice({
     },
     IncreaseTotal: (state, action) => {
       state.value += action.payload;
-    }, 
+    },
     DecreaseTotal: (state, action) => {
       state.value -= action.payload;
     },
   },
 });
 
-export const { UpdateMoney,IncreaseTotal ,DecreaseTotal } = TotalMoney.actions; // JS object
-export default TotalMoney.reducer; // Update state in a copy page 
+export const {UpdateMoney, IncreaseTotal, DecreaseTotal} = TotalMoney.actions; // JS object
+export default TotalMoney.reducer; // Update state in a copy page

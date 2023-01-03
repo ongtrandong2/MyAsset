@@ -5,9 +5,11 @@ import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInputScreen';
 import HomeScreen from '../screens/HomeScreen';
 import DrawerNavigation from './DrawerNavigation';
+
 import Tabs from './TabNavigation';
 
 import {createStackNavigator} from '@react-navigation/stack';
+import Onboarding from '../screens/Onboarding';
 
 const Stack = createStackNavigator();
 const RootNavigation = () => {
@@ -19,6 +21,7 @@ const RootNavigation = () => {
       <Stack.Screen name="FirstInput" component={FirstInput} />
       {/* <Stack.Screen name="HomeScreen" component={Tabs} /> */}
       <Stack.Screen name="Drawer" component={DrawerNavigation} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
     </Stack.Navigator>
   );
 };
