@@ -259,14 +259,14 @@ title_view: {
     height: scale(70),
   },
 
-body_view: {
+  body_view: {
   backgroundColor: '#ffffff',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   //margin: 1,
   padding: scale(3),
-},
+  },
 
   TextInput_style: {
     borderBottomColor: 'black',
