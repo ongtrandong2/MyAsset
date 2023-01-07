@@ -6,6 +6,7 @@ import PlanData from './PlanData';
 import IncomeOutcome from './IncomeOutcome';
 import Year from './Year';
 import TabState from './TabState';
+import UserImage from './UserImage';
 export default configureStore({
   reducer: {
     totalMoney: TotalMoney,
@@ -15,6 +16,7 @@ export default configureStore({
     modalNumber: ModalNumber,
     year: Year,
     tabState: TabState,
+    userImage: UserImage, 
   },
 });
 //Update state depend on action in UI

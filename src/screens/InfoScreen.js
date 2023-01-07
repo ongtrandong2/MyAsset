@@ -19,17 +19,22 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
+import { useSelector,useDispatch } from 'react-redux';
+import { setUserImage } from '../Redux/UserImage'; 
 import { useState } from 'react';
 import { firebase } from '@react-native-firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';
-import { NavigationHelpersContext } from '@react-navigation/native';
+//import { NavigationHelpersContext } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default function InfoScreen({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [image, setImage] = useState('https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png');
+  //const [image, setImage] = useState('https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png');
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const userImage = useSelector(state=>state.userImage.value);
+  //console.log(userImage);
   useEffect(() => {
     firebase
       .firestore()
@@ -55,9 +60,11 @@ export default function InfoScreen({ navigation }) {
       cropping: true,
       //compressImageQuality: 0.7
     }).then(image => {
-      console.log(image);
-      setImage(image.path);
+      //console.log(image);
+      //setImage(image.path);
       setShowModal(false);
+      dispatch(setUserImage(image.path));
+      
     })
       .catch(err => {
         // if (err.code === 'E_PICKER_CANCELLED')
@@ -65,7 +72,8 @@ export default function InfoScreen({ navigation }) {
         //     console.log(err);
         //     setShowModal(false);
         // }
-        Alert.alert("Waring", "There is no image picked!");
+        //Alert.alert("Waring", "There is no image picked!");
+        setShowModal(false);
       })
   }
 
@@ -76,9 +84,12 @@ export default function InfoScreen({ navigation }) {
       borderRadius: 200,
       cropping: true,
     }).then(image => {
-      console.log(image);
-      setImage(image.path);
+      //console.log(image);
+      //setImage(image.path);
       setShowModal(false)
+      dispatch(setUserImage(image.path));
+      //dispatch(setImage('aa'));
+      
     })
       .catch(err => {
         if (err.code === 'E_PICKER_CANCELLED') {
@@ -112,7 +123,7 @@ export default function InfoScreen({ navigation }) {
             <View style={styles.user_container}>
               <Image
                 style={{ height: scale(150), width: scale(150), borderRadius: scale(100), borderWidth: 1, borderColor: '#000' }}
-                source={{ uri: image }}
+                source={{ uri: userImage }}
                 resizeMode='cover'
               />
               <TouchableOpacity
@@ -130,7 +141,7 @@ export default function InfoScreen({ navigation }) {
             <View style={{ width: '70%'}}>
               <Text
                 style={{
-                  fontSize: 30,
+                  fontSize: 25,
                   fontFamily: 'Inter-Bold',
                   color: 'black',
                   paddingLeft: 20,
@@ -229,6 +240,7 @@ export default function InfoScreen({ navigation }) {
           <Pressable
             style={[styles.modal_view, { flex: 2 }]}
             onPress={() => setShowModal(false)}
+            //onPress={() => dispatch(setImage('https://images.pexels.com/photos/580151/pexels-photo-580151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'))}
           />
           <View style={[styles.modal_view, { flex: 1 }]}>
             <View style={styles.modal_box}>
@@ -298,7 +310,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal:20,
+    paddingHorizontal:40,
   },
   circle: {
     height: scale(100),
@@ -312,7 +324,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(18),
+    fontSize: scale(16),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
@@ -324,14 +336,14 @@ const styles = StyleSheet.create({
 
 
   press_text: {
-    fontSize: scale(18),
+    fontSize: scale(16),
     color: '#0000CC',
     fontFamily: 'Inter-Medium',
     textDecorationLine: 'underline',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(19),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
 
@@ -393,7 +405,7 @@ const styles = StyleSheet.create({
   },
 
   modal_text: {
-    fontSize: scale(22),
+    fontSize: scale(20),
     color: '#000000',
     fontFamily: 'Inter-Medium',
     paddingLeft: 20,

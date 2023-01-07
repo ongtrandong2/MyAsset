@@ -5,7 +5,6 @@ import Success from '../screens/Success';
 import FirstInput from '../screens/FirstInputScreen';
 import HomeScreen from '../screens/HomeScreen';
 import DrawerNavigation from './DrawerNavigation';
-import Notification from '../screens/Notification';
 
 import Tabs from './TabNavigation';
 

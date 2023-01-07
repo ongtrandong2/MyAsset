@@ -174,7 +174,7 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>CHI TIÊU</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>CHI TIÊU</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -187,7 +187,7 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>THU NHẬP</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>THU NHẬP</Text>
           </TouchableOpacity>
         </View>
 
@@ -206,7 +206,7 @@ export default function DailyCost() {
                           borderBottomWidth: 0,
                           width: '90%',
                           padding: 0,
-                          fontSize: scale(18),
+                          fontSize: scale(16),
                         },
                       ]}
                       placeholder="Nhập Khoản chi khác"
@@ -227,6 +227,7 @@ export default function DailyCost() {
                   </View>
                 ) :
                   <Dropdown
+
                     style={styles.dropdown}
                     placeholderStyle={{ fontSize: scale(18), color: 'black' }}
                     selectedTextStyle={styles.selectedTextStyle}
@@ -283,7 +284,7 @@ export default function DailyCost() {
                           borderBottomWidth: 0,
                           width: '90%',
                           padding: 0,
-                          fontSize: scale(18),
+                          fontSize: scale(16),
                         },
                       ]}
                       placeholder="Nhập Khoản thu khác"
@@ -357,12 +358,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#000000',
+    fontWeight: '500',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(20),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
   tab_view: {
@@ -381,9 +383,10 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   tab_text: {
-    fontSize: scale(22),
+    fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Inter-Medium',
+    letterSpacing: 1,
+    fontFamily: 'Inter-Bold',
   },
   title_view: {
     alignItems: 'center',
@@ -426,7 +429,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
     padding: scale(2),
-    fontSize: scale(20),
+    fontSize: scale(18),
   },
   /// Drop down Style
 

@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
        
     },
     text: {
-        fontSize: scale(13),
+        fontSize: scale(12),
         //fontFamily:'Lato-Bold',
         fontFamily:'Inter-Medium',
         color:'black',

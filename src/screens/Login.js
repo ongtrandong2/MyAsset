@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   StyleSheet,
@@ -12,9 +12,9 @@ import {
   ToastAndroid,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import {TextInput} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/firestore';
+import { TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { firebase } from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
@@ -22,7 +22,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PushNotification from 'react-native-push-notification';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -65,11 +65,11 @@ export default function Login({navigation}) {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     createChannels();
-  },[])
+  }, [])
 
-  const createChannels = () =>{
+  const createChannels = () => {
     PushNotification.createChannel({
       channelId: "plan",
       channelName: "plan-channel",
@@ -80,21 +80,22 @@ export default function Login({navigation}) {
     <KeyboardAvoidingView style={styles.body}>
       <ScrollView>
         <View style={styles.title_view}>
-          <View style={styles.icon1_view}>
-            <Image
-              style={styles.icon_money}
-              source={require('../assets/images/icon_money.png')}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={styles.label_view}>
+          <Image
+            source={require('../assets/images/icon_money.png')}
+            style={{
+              height: 50,
+              width: 50,
+              resizeMode: 'contain'
+            }}
+          />
+          <View style={{ marginLeft: 10 }}>
             <View style={styles.label}>
-              <Text
-                style={{
-                  fontFamily: 'Wallpoet-Regular',
-                  color: 'black',
-                  fontSize: scale(20),
-                }}>
+              <Text style={{
+                color: '#000',
+                fontSize: scale(18),
+                fontFamily: 'Wallpoet-Regular',
+                letterSpacing: 1,
+              }}>
                 MY ASSET
               </Text>
             </View>
@@ -153,16 +154,16 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {paddingTop: scale(10)}]}>
+        <View style={[styles.body_view, { paddingTop: scale(10) }]}>
           <View style={styles.forgetpass}>
             <Pressable>
-              <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
+              <Text style={[{ textAlign: 'center', opacity: 0.5 }, styles.text]}>
                 Quên mật khẩu?
               </Text>
             </Pressable>
           </View>
         </View>
-   
+
 
         <View style={styles.body_view}>
           <CustomButton
@@ -177,7 +178,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {padding: 10}]}>
+        <View style={[styles.body_view, { padding: 10 }]}>
           <CustomButton
             //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
@@ -187,85 +188,60 @@ export default function Login({navigation}) {
             onPressFunction={onRegister}
           />
         </View>
-   
-      <LoginGoogle navigation={navigation} />
-    
-    </ScrollView>
-  </KeyboardAvoidingView>
-);
+
+        <LoginGoogle navigation={navigation} />
+
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
 }
 
 const styles = StyleSheet.create({
-body: {
-  flex: 1,
-  backgroundColor: '#ffffff',
-  flexDirection: 'column',
-  //paddingBottom:20,
-  paddingBottom:10,
-},
+  body: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    flexDirection: 'column',
+    //paddingBottom:20,
+    paddingBottom: 10,
+  },
 
-text: {
-  color: 'black',
-  fontSize: scale(16),
-  textAlign: 'center',
-  fontFamily: 'Inter-Bold',
-},
+  text: {
+    color: 'black',
+    fontSize: scale(16),
+    textAlign: 'center',
+    fontFamily: 'Inter-Bold',
+  },
 
-image: {
-  width: '80%',
-  height: 300,
-  //marginTop: 5,
-  alignItems: 'center',
-},
+  image: {
+    width: '80%',
+    height: 300,
+    alignItems: 'center',
+  },
 
-title_view: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  paddingHorizontal: scale(20),
-  backgroundColor: '#ffffff',
-},
+  title_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: scale(20),
+  },
 
   label: {
-    borderWidth: 3,
-    borderRadius: 20,
-    borderColor: '#FFC700',
-    //height: scale(50),
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#FFC700',
+    borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 20,
   },
 
-  label_view: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    //height: scale(30),
-    marginRight: scale(100),
-    backgroundColor: '#ffffff',
-    
-  },
-
-  icon1_view: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fffffff',
-  },
-
-  icon_money: {
-    width: scale(70),
-    height: scale(70),
-  },
-
+ 
   body_view: {
-  backgroundColor: '#ffffff',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  //margin: 1,
-  padding: scale(3),
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    //margin: 1,
+    padding: scale(3),
   },
 
   TextInput_style: {
@@ -284,8 +260,7 @@ title_view: {
   },
   text_style: {
     color: 'black',
-    fontSize: scale(19),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
 });
-    

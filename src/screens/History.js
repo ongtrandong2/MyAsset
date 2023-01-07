@@ -43,7 +43,7 @@ export default function History({ navigation }) {
       }
       newObject.title.date = moment(item.time).format('YYYY-MM-DD');
       newObject.title.totalIncome = item.isIncome ? Number(item.value) : 0;
-      newObject.title.totalOutcome = item.isIncome ? 0 : Number(item.value);
+      newObject.title.totalOutcome = item.isIncome === false && item.isDifferent === false ?  Number(item.value) : 0;
       newObject.data.push({
         key: item.key,
         name: item.name,
@@ -58,7 +58,7 @@ export default function History({ navigation }) {
     else if ((result.map(itemr => itemr.title.date)).indexOf(moment(item.time).format('YYYY-MM-DD')) > -1) {
       let newIndex = (result.map(itemr => itemr.title.date)).indexOf(moment(item.time).format('YYYY-MM-DD'))
       result[newIndex].title.totalIncome += item.isIncome ? Number(item.value) : 0;
-      result[newIndex].title.totalOutcome += item.isIncome ? 0 : Number(item.value);
+      result[newIndex].title.totalOutcome += item.isIncome === false && item.isDifferent === false ?  Number(item.value) : 0;
       result[newIndex].data.push({
         key: item.key,
         name: item.name,
@@ -281,7 +281,7 @@ export default function History({ navigation }) {
         visible={showModal}
         onRequestClose={() => setShowModal(false)}
         transparent
-        statusBarTranslucent
+        //statusBarTranslucent
         animationType='fade'
       >
         <Pressable
@@ -300,7 +300,7 @@ export default function History({ navigation }) {
                   style={{
                     width: '60%',
                     borderBottomWidth: 1,
-                    fontSize: scale(20),
+                    fontSize: scale(16),
                     height: scale(30),
                     padding: 0,
                     paddingHorizontal: 4,
@@ -319,7 +319,7 @@ export default function History({ navigation }) {
                   style={{
                     width: '60%',
                     borderBottomWidth: 1,
-                    fontSize: scale(18),
+                    fontSize: scale(16),
                     height: scale(30),
                     padding: 2,
                     paddingHorizontal: 4,
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   text: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
@@ -430,20 +430,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    width: '90%',
+    width: '95%',
     paddingVertical: 10,
     //borderWidth: 1,
   },
 
   modal_text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#000000',
     fontFamily: 'Inter-Medium',
   },
 
   text_style: {
     color: 'black',
-    fontSize: scale(18),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
 

@@ -71,6 +71,19 @@ export default function PropertyCost() {
             isDifferent: false,
           }),
         );
+        let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
+        planData.map((item, index) => {
+          let d2 = new Date(item.dateStart);
+          let d3 = new Date(item.dateFinish);
+          if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+            dispatch(
+              IncreaseCurrentUse({
+                index: index,
+                value: Number(purchaseValue),
+              }),
+            );
+          }
+        });
       }
       else if (checked === 'second') {
         dispatch(
@@ -86,19 +99,7 @@ export default function PropertyCost() {
           }),
         );
       }
-      let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
-      planData.map((item, index) => {
-        let d2 = new Date(item.dateStart);
-        let d3 = new Date(item.dateFinish);
-        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
-          dispatch(
-            IncreaseCurrentUse({
-              index: index,
-              value: Number(purchaseValue),
-            }),
-          );
-        }
-      });
+
       setPurchaseName('');
       setPurchaseValue('');
       setNote('');
@@ -171,7 +172,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>MUA</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>MUA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -184,14 +185,14 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Bold' }]}>BÁN</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>BÁN</Text>
           </TouchableOpacity>
         </View>
 
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row, { marginTop: 10}]}>
+              <View style={[styles.sub_row, { marginTop: 10 }]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <TextInput
@@ -278,7 +279,7 @@ export default function PropertyCost() {
 
                 <Dropdown
                   style={styles.dropdown}
-                  placeholderStyle={{ fontSize: scale(20), color: 'black' }}
+                  placeholderStyle={{ fontSize: scale(18), color: 'black' }}
                   selectedTextStyle={styles.selectedTextStyle}
                   //inputSearchStyle={styles.inputSearchStyle}
                   data={possessionData}
@@ -337,12 +338,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#000000',
+    fontWeight: '500',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(20),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
   tab_view: {
@@ -359,9 +361,10 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   tab_text: {
-    fontSize: scale(22),
+    fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Inter-Medium',
+    fontFamily: 'Inter-Bold',
+    letterSpacing: 1,
   },
   title_view: {
     alignItems: 'center',
@@ -398,7 +401,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
     padding: scale(2),
-    fontSize: scale(20),
+    fontSize: scale(18),
   },
   /// Drop down Style
 

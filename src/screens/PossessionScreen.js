@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(20),
+    fontSize: scale(16),
     color: '#000000',
     fontFamily: 'Inter-Medium'
   },

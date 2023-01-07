@@ -40,7 +40,7 @@ const CustomAlert = (props) => {
                                     style={[styles.button_item, { ...item.button_item_styles }]}
                                     onPress={item.onPress}
                                 >
-                                    <Text style={{ fontSize: scale(20), fontFamily: 'Inter-Regular', color: '#000' }}>{item.text}</Text>
+                                    <Text style={{ fontSize: scale(18), color: '#000',fontWeight: '500' }}>{item.text}</Text>
                                 </TouchableOpacity>
                             </View>
                         ))}
@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
     },
     modal_title: {
         color: 'black',
-        fontSize: scale(25),
+        fontSize: scale(20),
         fontFamily: 'Inter-Bold',
         textAlign: 'center',
         paddingTop: scale(20)
     },
     modal_message: {
         color: '#000',
-        fontSize: scale(20),
+        fontSize: scale(18),
         paddingVertical: 20,
         fontFamily: 'Inter-Medium',
         textAlign: 'center'

@@ -56,13 +56,13 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.row}>
           <Text
-            style={{ color: '#BB2424', fontSize: scale(20), fontFamily: 'Inter-Bold' }}>
+            style={{ color: '#BB2424', fontSize: scale(18), fontFamily: 'Inter-Bold' }}>
             {money} VNĐ
           </Text>
         </View>
 
         <View style={styles.row}>
-          <Text style={{ color: '#BB2424', fontSize: scale(15), fontFamily: 'Inter-Medium' }}>
+          <Text style={{ color: '#BB2424', fontSize: scale(13), fontFamily: 'Inter-Medium' }}>
             Tổng số dư
           </Text>
         </View>
@@ -71,7 +71,7 @@ export default function HomeScreen({ navigation }) {
           <Text
             style={{
               color: '#000000',
-              fontSize: scale(18),
+              fontSize: scale(15),
               fontFamily: 'Inter-Bold',
             }}>
             KẾ HOẠCH
@@ -82,7 +82,7 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.big_row}>
             <Text
               style={{
-                fontSize: scale(20),
+                fontSize: scale(18),
                 color: '#CDCACA',
                 fontFamily: 'Inter-Regular',
               }}>
@@ -91,13 +91,13 @@ export default function HomeScreen({ navigation }) {
           </View>
         ) : (
           <>
-            {plan.slice(0,1).map((item, index) => {
+            {plan.slice(0, 1).map((item, index) => {
               return (
                 <View key={index}>
-                  <View style={[styles.big_row, { marginTop: scale(20) }]}>
+                  <View style={[styles.big_row, { marginTop: scale(10) }]}>
                     <View style={styles.slider_view}>
-                      <View style={[styles.figure_view, { height: scale(20) }]}>
-                        <Text style={{ fontSize: scale(15), color: 'black' }}>
+                      <View style={styles.figure_view}>
+                        <Text style={{ fontSize: scale(13), color: 'black' }}>
                           {moment(item.dateStart).format('DD/MM/YYYY')} -{' '}
                           {moment(item.dateFinish).format('DD/MM/YYYY')}
                         </Text>
@@ -115,18 +115,13 @@ export default function HomeScreen({ navigation }) {
                         />
                       </View>
 
-                      <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
+                      <View style={styles.figure_view}>                       
                           <Text style={[styles.text, { color: 'red' }]}>
                             {item.currentuse}
                           </Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text style={[styles.text, { color: 'red' }]}>
+                         <Text style={[styles.text, { color: 'red' }]}>
                             {item.budget} VND
-                          </Text>
-                        </View>
+                          </Text>       
                       </View>
                     </View>
                   </View>
@@ -137,7 +132,7 @@ export default function HomeScreen({ navigation }) {
         )}
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(18) }]}>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(15) }]}>
             THU CHI GẦN ĐÂY
           </Text>
         </View>
@@ -151,40 +146,40 @@ export default function HomeScreen({ navigation }) {
                     <View key={index}>
                       {item.isDifferent ? null : (
                         <View style={styles.figure_view}>
-                          <View style={styles.name_view}>
-                            {item.isPossession ? (
-                              item.isIncome ? (
-                                <Text style={styles.text}>{item.name} - BÁN</Text>
-                              ) : (
-                                <Text style={styles.text}>{item.name} - MUA</Text>
-                              )
-                            ) : (
-                              <Text style={styles.text}>{item.name}</Text>
-                            )}
-                          </View>
 
-                          <View style={styles.money_view}>
-                            {item.isIncome === true ? (
-                              <Text style={[styles.text, { color: '#00CC00' }]}>
-                                + {item.value} VND
-                              </Text>
+                          {item.isPossession ? (
+                            item.isIncome ? (
+                              <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name} - BÁN</Text>
                             ) : (
-                              <Text style={[styles.text, { color: '#DF2828' }]}>
-                                - {item.value} VND
-                              </Text>
-                            )}
-                          </View>
+                              <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name} - MUA</Text>
+                            )
+                          ) : (
+                            <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name}</Text>
+                          )}
+
+
+
+                          {item.isIncome === true ? (
+                            <Text style={[styles.text, { color: '#00CC00', fontFamily: 'Inter-Medium' }]}>
+                              + {item.value} VND
+                            </Text>
+                          ) : (
+                            <Text style={[styles.text, { color: '#DF2828', fontFamily: 'Inter-Medium' }]}>
+                              - {item.value} VND
+                            </Text>
+                          )}
+
                         </View>
                       )}
                     </View>
                   );
-                }).reverse().slice(0,10)}
+                }).reverse().slice(0, 10)}
             </ScrollView>
           </View>
         </View>
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(18), marginTop: 5 }]}>TÀI SẢN</Text>
+          <Text style={[styles.text, { fontFamily: 'Inter-Bold', fontSize: scale(15), marginTop: 5 }]}>TÀI SẢN</Text>
         </View>
 
         <View style={styles.big_row}>
@@ -195,20 +190,15 @@ export default function HomeScreen({ navigation }) {
                   return (
                     <View key={index}>
                       <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          <Text style={styles.text}> {item.name}</Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text
-                            style={[styles.text, { color: 'hsl(36,100%,52%)' }]}>
-                            {item.value} VND
-                          </Text>
-                        </View>
+                        <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}> {item.name}</Text>
+                        <Text
+                          style={[styles.text, { color: 'hsl(36,100%,52%)',fontFamily: 'Inter-Medium' }]}>
+                          {item.value} VND
+                        </Text>
                       </View>
                     </View>
                   );
-                }).reverse().slice(0,10)}
+                }).reverse().slice(0, 10)}
             </ScrollView>
           </View>
         </View>
@@ -221,7 +211,7 @@ export default function HomeScreen({ navigation }) {
           height: scale(100),
           bottom: 0,
           backgroundColor: '#fff',
-          
+
         }}
       />
 
@@ -246,7 +236,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(15),
+    fontSize: scale(13),
     color: '#000000',
     fontFamily: 'Inter-Bold',
   },
@@ -268,7 +258,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //backgroundColor:'pink',
     width: '90%',
-    height: scale(50),
   },
 
   box_view: {
@@ -282,23 +271,10 @@ const styles = StyleSheet.create({
 
   figure_view: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
+    justifyContent: 'space-between',
     width: '100%',
-    height: scale(30),
-    marginBottom: scale(5),
-  },
-
-  name_view: {
-    flex: 1,
-    //paddingHorizontal: scale(5),
-    //backgroundColor:'pink',
-  },
-
-  money_view: {
-    flex: 1,
-    paddingHorizontal: scale(5),
-    //backgroundColor:'blue',
-    alignItems: 'flex-end',
+    paddingVertical: 2,
+    paddingHorizontal: 1,
   },
 
   progressBar: {
@@ -308,5 +284,5 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     flexDirection: 'row',
   },
-  /// Modal
+
 });

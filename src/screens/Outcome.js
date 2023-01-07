@@ -62,7 +62,7 @@ export default function Outcome() {
         value: Number(item.value),
         color: randomColor(),
         legendFontColor: 'black',
-        legendFontSize: 15,
+        legendFontSize: 13,
         legendFontFamily: 'Inter-Regular',
       }
       result.push(newData);
@@ -184,7 +184,7 @@ export default function Outcome() {
           value: Number(item.value),
           color: randomColor(),
           legendFontColor: 'black',
-          legendFontSize: 15,
+          legendFontSize: 13,
           legendFontFamily: 'Inter-Regular',
         }
         result_ByOption.push(newData);
@@ -268,7 +268,7 @@ export default function Outcome() {
                     <Text style={styles.text}>Chi tiết</Text>
                     {result.map((item, index) => {
                       return (
-                        <View style={styles.row} key={index}>
+                        <View style={[styles.row,{marginVertical:3}]} key={index}>
                           <View style={{ flexDirection: 'row' }}>
                             <View
                               style={{
@@ -374,7 +374,7 @@ export default function Outcome() {
                     <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
                     {result_ByYear.map((item, index) => {
                       return (
-                        <View style={styles.row} key={index}>
+                        <View style={[styles.row,{marginVertical:3}]} key={index}>
                           <Text style={styles.text}>Tháng {item.month}</Text>
                           <Text style={styles.text}>{item.value} VND</Text>
                         </View>
@@ -442,7 +442,7 @@ export default function Outcome() {
                         <Text style={styles.text}>Chi tiết</Text>
                         {result_ByOption.map((item, index) => {
                           return (
-                            <View style={styles.row} key={index}>
+                            <View style={[styles.row,{marginVertical:3}]} key={index}>
                               <View style={{ flexDirection: 'row' }}>
                                 <View
                                   style={{
@@ -486,7 +486,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(20) }]}>THÁNG</Text>
+            <Text style={[styles.text, { fontSize: scale(16) }]}>THÁNG</Text>
           </View>
         </TouchableOpacity>
 
@@ -507,7 +507,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(20), paddingLeft: 5 }]}>NĂM</Text>
+            <Text style={[styles.text, { fontSize: scale(16), paddingLeft: 5 }]}>NĂM</Text>
           </View>
         </TouchableOpacity>
 
@@ -530,7 +530,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 3 }}>
-            <Text style={[styles.text, { fontSize: scale(18), fontFamily: 'Inter-Medium', paddingLeft: 5 }]}>TÙY CHỌN</Text>
+            <Text style={[styles.text, { fontSize: scale(14), fontFamily: 'Inter-Medium', paddingLeft: 5 }]}>TÙY CHỌN</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -559,14 +559,14 @@ export default function Outcome() {
             <View style={styles.big_row}>
               <Text style={{
                 color: '#000',
-                fontSize: scale(20),
+                fontSize: scale(18),
                 fontFamily: 'Inter-Bold',
                 paddingTop: 10
               }}>
                 Tùy chọn thời gian thống kê
               </Text>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>Ngày bắt đầu: </Text>
+                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>Ngày bắt đầu:  </Text>
                 <TextInput
                   style={styles.textInput_style}
                   editable={false}
@@ -664,7 +664,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    fontSize: scale(18),
+    fontSize: scale(16),
     color: '#000000',
     //fontFamily: 'Itim-Regular',
     fontFamily: 'Inter-Regular',
@@ -732,7 +732,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   textInput_style: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     paddingVertical: 3,
     //borderBottomWidth: 0.5,
     width: '60%',

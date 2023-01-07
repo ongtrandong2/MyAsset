@@ -20,7 +20,7 @@ export default function ChangeInfo({ navigation }) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(22)}
+          fontSize={scale(18)}
           title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
           style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: 'black',
     fontFamily: 'Inter-Medium',
   },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
 });

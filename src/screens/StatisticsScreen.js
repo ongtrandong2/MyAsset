@@ -79,10 +79,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: scale(24),
+    fontSize: scale(20),
     color: '#000000',
-    //fontFamily: 'Itim-Regular',
-    //fontFamily: 'Lato-Regular',
     fontFamily: 'Inter-Medium',
   },
 
@@ -95,35 +93,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
 
-  month_container: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    //borderWidth:1,
-  },
-
-  month_item: {
-    backgroundColor: 'hsl(47,100%,78%)',
-    borderColor: '#ffc700',
-    borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderWidth: 2,
-  },
-
-  month_container: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    //borderWidth:1,
-  },
-
-  month_item:{
-    backgroundColor:'hsl(47,100%,78%)',
-    borderColor: '#ffc700',
-    borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal:20,
-    borderWidth: 2,
-
-  },
-
+  
 });

@@ -8,56 +8,51 @@ import {
 
 } from 'react-native';
 import scale from '../constants/scale';
-import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo'
 const HeaderDrawer = (props) => {
-
   return (
     <View style={styles.view}>
-      <View style={styles.header_view}>
-        <View style={styles.iconmoney_view}>
+      <View style={styles.row}>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
           <Image
-            style={styles.icon_money}
             source={require('../assets/images/icon_money.png')}
-            resizeMode="stretch"
+            style={{
+              height: scale(50),
+              width: scale(50),
+              resizeMode: 'contain',
+            }}
           />
-        </View>
-        <View>
-          <Text style={styles.text}>MY</Text>
-          <Text style={styles.text}>ASSET</Text>
-        </View>
-
-        <View style={styles.option_view}>
-          {/* <View style={[styles.box,{marginRight: 10}]}>
-            <Pressable
-              onPress={props.onPressNotification}
-              android_ripple={{ color: '#bbbbbb' }}
-            >
-              <Ionicons
-                name='notifications-outline'
-                size={24}
-                color='black'
-              />
-            </Pressable>
-          </View> */}
-          <View style={styles.box}>
-            <Pressable
-              onPress={props.onPress}
-              android_ripple={{ color: '#bbbbbb' }}
-            >
-              <Feather
-                name='menu'
-                size={24}
-                color='black'
-              />
-            </Pressable>
+          <View style={{ marginLeft: 5 }}>
+            <Text style={styles.text}>MY</Text>
+            <Text style={styles.text}>ASSET</Text>
           </View>
-
-
         </View>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              height: 30,
+              width: 30,
+              borderRadius: 50,
+              backgroundColor: pressed ? 'hsl(0,0%,90%)' : '#fff',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }
+          ]}
+          onPress={props.onPress}
+        >
+          <Entypo
+            name='menu'
+            size={24}
+            color='black'
+          />
+
+        </Pressable>
       </View>
 
-      <View style={styles.header_view}>
+      <View style={styles.title_view}>
         <Text style={[{ fontSize: props.fontSize }, styles.title, { ...props.style }]}>
           {props.title}
         </Text>
@@ -69,58 +64,31 @@ const HeaderDrawer = (props) => {
 const styles = StyleSheet.create({
   view: {
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    //paddingHorizontal:10,
   },
 
-  header_view: {
+  title_view: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    //paddingHorizontal:scale(10),
   },
 
   text: {
     color: 'black',
-    fontSize: scale(20),
+    fontSize: scale(18),
     fontFamily: 'Wallpoet-Regular',
-  },
-
-  iconmoney_view: {
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingRight: 5,
-  },
-
-  option_view: {
-    flex: 4,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingRight: 20,
-  },
-
-  box: {
-    //width: '30%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    //borderWidth: 1,
-    //marginRight: 10,
-  },
-
-  icon_money: {
-    width: scale(50),
-    height: scale(50),
   },
 
   title: {
     color: '#000000',
-    //fontFamily:'Lato-Regular',
-    //fontFamily: 'Itim-Regular',
     fontFamily: 'Inter-Bold',
-    //fontFamily:'Lato-Bold',
-    fontSize: scale(22)
-    
+    fontSize: scale(20)
+  },
+
+  row: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
 });

@@ -96,7 +96,7 @@ export default function FirstInput({ navigation }) {
         </View>
 
         <View style={styles.row}>
-          <Text style={[styles.text_style, { fontSize: scale(22) }]}>Tài sản</Text>
+          <Text style={[styles.text_style, { fontSize: scale(20) }]}>Tài sản</Text>
         </View>
 
         <View style={styles.big_row}>
