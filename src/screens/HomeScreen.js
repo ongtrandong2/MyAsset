@@ -149,22 +149,22 @@ export default function HomeScreen({ navigation }) {
 
                           {item.isPossession ? (
                             item.isIncome ? (
-                              <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name} - BÁN</Text>
+                              <Text style={[styles.text,{fontWeight: '500'}]}>{item.name} - BÁN</Text>
                             ) : (
-                              <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name} - MUA</Text>
+                              <Text style={[styles.text,{fontWeight: '500'}]}>{item.name} - MUA</Text>
                             )
                           ) : (
-                            <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}>{item.name}</Text>
+                            <Text style={[styles.text,{fontWeight: '500'}]}>{item.name}</Text>
                           )}
 
 
 
                           {item.isIncome === true ? (
-                            <Text style={[styles.text, { color: '#00CC00', fontFamily: 'Inter-Medium' }]}>
+                            <Text style={[styles.text, { color: '#00CC00', fontWeight: '500' }]}>
                               + {item.value} VND
                             </Text>
                           ) : (
-                            <Text style={[styles.text, { color: '#DF2828', fontFamily: 'Inter-Medium' }]}>
+                            <Text style={[styles.text, { color: '#DF2828', fontWeight: '500' }]}>
                               - {item.value} VND
                             </Text>
                           )}
@@ -190,9 +190,9 @@ export default function HomeScreen({ navigation }) {
                   return (
                     <View key={index}>
                       <View style={styles.figure_view}>
-                        <Text style={[styles.text,{fontFamily: 'Inter-Medium'}]}> {item.name}</Text>
+                        <Text style={[styles.text,{fontWeight: '500'}]}> {item.name}</Text>
                         <Text
-                          style={[styles.text, { color: 'hsl(36,100%,52%)',fontFamily: 'Inter-Medium' }]}>
+                          style={[styles.text, { color: 'hsl(36,100%,52%)',fontWeight: '500' }]}>
                           {item.value} VND
                         </Text>
                       </View>
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(13),
+    fontSize: scale(14),
     color: '#000000',
     fontFamily: 'Inter-Bold',
   },

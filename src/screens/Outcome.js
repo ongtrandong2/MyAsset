@@ -685,9 +685,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderColor: 'hsl(36,100%,52%)',
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    //paddingHorizontal: 10,
     paddingVertical: 10,
-    height: '100%' // have no choice but put the height here to keep 3 box have the same height
+    height: '100%' // have no choice but put the height here to keep 3 boxes have the same height
   },
 
   row: {
