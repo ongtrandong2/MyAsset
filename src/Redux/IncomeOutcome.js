@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {firebase} from '@react-native-firebase/firestore';
-import {useState, useEffect} from 'react';
+
 import {Keyboard} from 'react-native';
 // console.log(firebase.auth().currentUser.uid);
 // const dataIORef = firebase
@@ -17,6 +17,20 @@ const IncomeOutcome = createSlice({
   name: 'IncomeOutcome',
   initialState: [],
   reducers: {
+    // pullData: (state, action) => {
+    //   const newData = {
+    //     key: action.payload.key,
+    //     name: action.payload.name,
+    //     value: action.payload.value,
+    //     isIncome: action.payload.isIncome,
+    //     isPossession: action.payload.isPossession,
+    //     time: action.payload.time,
+    //   };
+    //   if (state.includes(newData) === false) {
+    //     state.push(newData);
+    //   }
+    //   console.log(3000);
+    // },
     addData: (state, action) => {
       const newData = {
         key: action.payload.key,
@@ -26,8 +40,12 @@ const IncomeOutcome = createSlice({
         isPossession: action.payload.isPossession,
         time: action.payload.time,
       };
-      state.push(newData);
-      console.log(state, '\n');
+      if (state.includes(newData) === false) {
+        state.push(newData);
+      } else {
+      }
+      console.log('them vao state');
+      console.log(state);
     },
     addDataFirebase: (state, action) => {
       const newData = {
@@ -38,6 +56,7 @@ const IncomeOutcome = createSlice({
         isPossession: action.payload.isPossession,
         time: action.payload.time,
       };
+      console.log('them vao firebase');
       firebase
         .firestore()
         .collection('Accounts')
@@ -86,6 +105,7 @@ const IncomeOutcome = createSlice({
     },
     deleteIO: (state, action) => {
       state.splice(0, state.length);
+      console.log('xoa');
     },
   },
 });

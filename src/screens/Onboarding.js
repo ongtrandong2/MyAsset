@@ -4,7 +4,8 @@ import {firebase} from '@react-native-firebase/firestore';
 import {useSelector, useDispatch} from 'react-redux';
 import {addData, deleteIO, removeData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
-
+import CustomButton from '../components/CustomButton';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 function Onboarding({navigation}) {
   const dataIORef = firebase
     .firestore()
@@ -20,9 +21,59 @@ function Onboarding({navigation}) {
   setTimeout(() => {
     navigation.navigate('Drawer');
   }, 1000);
-  // useEffect(() => {
-  //   dataIORef.orderBy('time', 'desc').onSnapshot(querySnapshot => {
+  useEffect(() => {
+    dataIORef
+      .orderBy('time', 'desc')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const {name, value, isIncome, isPossession, time} = doc.data();
+          dispatch(
+            addData({
+              key: doc.id,
+              name,
+              value,
+              isIncome,
+              isPossession,
+              time,
+            }),
+          );
+        });
+      });
+    dataPlanRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        const {
+          dateStart,
+          dateFinish,
+          budget,
+          currentuse,
+          percentage_of_use,
+          isExceed,
+        } = doc.data();
+        dispatch(
+          addPlan({
+            key: doc.id,
+            dateStart,
+            dateFinish,
+            budget,
+            currentuse,
+            percentage_of_use,
+            isExceed,
+          }),
+        );
+      });
+    });
+    console.log('useEffect');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // function getData() {
+  //   console.log('getdata');
+  //   dataIORef.get().then(querySnapshot => {
+  //     console.log('chay snapshot');
+  //     dispatch(deleteIO());
   //     querySnapshot.forEach(doc => {
+  //       console.log('chay tung pt');
   //       const {name, value, isIncome, isPossession, time} = doc.data();
   //       dispatch(
   //         addData({
@@ -36,6 +87,7 @@ function Onboarding({navigation}) {
   //       );
   //     });
   //   });
+  //   console.log('getData');
   //   dataPlanRef.onSnapshot(querySnapshot => {
   //     querySnapshot.forEach(doc => {
   //       const {
@@ -59,56 +111,11 @@ function Onboarding({navigation}) {
   //       );
   //     });
   //   });
-  //   console.log('useEffect');
-  // }, []);
-  function getData() {
-    dataIORef.orderBy('time', 'desc').onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const {name, value, isIncome, isPossession, time} = doc.data();
-        dispatch(
-          addData({
-            key: doc.id,
-            name,
-            value,
-            isIncome,
-            isPossession,
-            time,
-          }),
-        );
-      });
-    });
-    console.log('getData');
-    dataPlanRef.onSnapshot(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const {
-          dateStart,
-          dateFinish,
-          budget,
-          currentuse,
-          percentage_of_use,
-          isExceed,
-        } = doc.data();
-        dispatch(
-          addPlan({
-            key: doc.id,
-            dateStart,
-            dateFinish,
-            budget,
-            currentuse,
-            percentage_of_use,
-            isExceed,
-          }),
-        );
-      });
-    });
-  }
+  // }
   return (
-    //   getData(),
-    //   (
     <View>
       <Text>Onboarding</Text>
     </View>
-    //   )
   );
 }
 export default Onboarding;

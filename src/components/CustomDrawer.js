@@ -4,8 +4,6 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
 import SignOut from '../auth/SignOut';
 import useDispatch from 'react-redux';
-import deleteIO from '../Redux/IncomeOutcome';
-import {deletePlan} from '../Redux/PlanData';
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity

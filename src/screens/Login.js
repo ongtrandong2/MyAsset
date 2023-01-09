@@ -14,16 +14,16 @@ import {
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/auth';
+import {firebase} from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
 import {useSelector, useDispatch} from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Onboarding from './Onboarding';
 
 export default function Login({navigation}) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -183,7 +183,6 @@ export default function Login({navigation}) {
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   body: {
     flex: 1,
