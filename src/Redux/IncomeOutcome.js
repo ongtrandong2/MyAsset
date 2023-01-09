@@ -44,8 +44,6 @@ const IncomeOutcome = createSlice({
         state.push(newData);
       } else {
       }
-      console.log('them vao state');
-      console.log(state);
     },
     addDataFirebase: (state, action) => {
       const newData = {
@@ -56,7 +54,6 @@ const IncomeOutcome = createSlice({
         isPossession: action.payload.isPossession,
         time: action.payload.time,
       };
-      console.log('them vao firebase');
       firebase
         .firestore()
         .collection('Accounts')

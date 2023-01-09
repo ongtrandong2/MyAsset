@@ -92,7 +92,7 @@ export default function DailyCost() {
         isPossession: false,
         time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
       };
-      dispatch(addData(dataOC))
+      dispatch(addData(dataOC));
       dispatch(addDataFirebase(dataOC));
       // dispatch(deleteIO());
       dispatch(DecreaseTotal(Number(outcomeValue)));

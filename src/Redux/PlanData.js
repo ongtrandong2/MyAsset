@@ -17,17 +17,6 @@ const PlanData = createSlice({
         isExceed: action.payload.isExceed,
       };
       state.push(newPlan);
-    },
-    addPlanFirebase: (state, action) => {
-      const newPlan = {
-        key: action.payload.key,
-        dateStart: action.payload.dateStart,
-        dateFinish: action.payload.dateFinish,
-        budget: action.payload.budget,
-        currentuse: action.payload.currentuse,
-        percentage_of_use: action.payload.percentage_of_use,
-        isExceed: action.payload.isExceed,
-      };
       firebase
         .firestore()
         .collection('Accounts')
@@ -38,6 +27,7 @@ const PlanData = createSlice({
         .then(() => {
           Keyboard.dismiss();
         });
+      console.log(state);
     },
     IncreaseCurrentUse: (state, action) => {
       state[action.payload.index].currentuse += action.payload.value;
@@ -51,6 +41,23 @@ const PlanData = createSlice({
       } else {
         state[action.payload.index].isExceed = false;
       }
+      const key = state[action.payload.index].key;
+      const newPlan = {
+        currentuse: state[action.payload.index].currentuse,
+        percentage_of_use: state[action.payload.index].percentage_of_use,
+        isExceed: state[action.payload.index].isExceed,
+      };
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('PlanData')
+        .doc(key)
+        .set(newPlan, {merge: true})
+        .then(() => {
+          Keyboard.dismiss();
+        });
+      console.log(state);
     },
 
     removePlan: (state, action) => {
@@ -58,16 +65,15 @@ const PlanData = createSlice({
     },
 
     updatePlan: (state, action) => {
-      state[action.payload.index] = {
-        key: state[action.payload.index].key,
-        dateStart: action.payload.dateStart,
-        dateFinish: action.payload.dateFinish,
-        budget: action.payload.budget,
-        currentuse: action.payload.currentuse,
-        percentage_of_use: action.payload.percentage_of_use,
-        isExceed: action.payload.isExceed,
-      };
+      (state[action.payload.index].dateStart = action.payload.dateStart),
+        (state[action.payload.index].dateFinish = action.payload.dateFinish),
+        (state[action.payload.index].budget = action.payload.budget),
+        (state[action.payload.index].currentuse = action.payload.currentuse),
+        (state[action.payload.index].percentage_of_use =
+          action.payload.percentage_of_use),
+        (state[action.payload.index].isExceed = action.payload.isExceed);
     },
+
     deletePlan: (state, action) => {
       state.splice(0, state.length);
     },
