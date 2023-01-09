@@ -16,7 +16,7 @@ export default configureStore({
     modalNumber: ModalNumber,
     year: Year,
     tabState: TabState,
-    userImage: UserImage, 
+    userImage: UserImage,
   },
 });
 //Update state depend on action in UI

@@ -208,7 +208,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     paddingTop: 20,
-    alignItems: 'flex-start',
     //borderWidth:1,
     paddingBottom: 10,
     paddingHorizontal: 10,
@@ -245,10 +244,5 @@ const styles = StyleSheet.create({
   bin_view: {
     alignItems: 'center',
     marginTop: 5,
-  },
-  text_style: {
-    color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
   },
 });
