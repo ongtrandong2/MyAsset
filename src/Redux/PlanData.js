@@ -31,6 +31,7 @@ const PlanData = createSlice ({
             {
                 state[action.payload.index].isExceed = false;
             }
+            state[action.payload.index].key = action.payload.key;
         },
        
         removePlan: (state, action)=>{
@@ -56,31 +57,7 @@ const PlanData = createSlice ({
         }
 
     },
-    updateDataPlan: state => {
-      state.map(item => {
-        const newPlan = {
-          key: item.key,
-          dateStart: item.dateStart,
-          dateFinish: item.dateFinish,
-          budget: item.budget,
-          currentuse: item.currentuse,
-          percentage_of_use: item.percentage_of_use,
-          isExceed: item.isExceed,
-        };
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('PlanData')
-          .doc(item.key)
-          .set(newPlan);
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .set({data: true}, {merge: true});
-      });
-    },
+    
     
   },
 );

@@ -60,6 +60,7 @@ export default function DailyCost() {
   const [currentDate, setCurrentDate] = useState(new Date()); //
   const [isTab1, setIsTab1] = useState(true);
 
+  console.log(planData);
   const onSaveIncome = () => {
     if (incomeName !== '' && incomeValue !== '') {
       setCurrentDate(new Date());
@@ -104,6 +105,7 @@ export default function DailyCost() {
             IncreaseCurrentUse({
               index: index,
               value: Number(outcomeValue),
+              key: item.key,
             }),
           );
         }

@@ -20,30 +20,7 @@ const PossessionData = createSlice({
     setShowNote:(state,action)=>{
       state[action.payload].showNote = !state[action.payload].showNote;
     },
-    updateData: state => {
-      state.map(item => {
-        const newData = {
-          key: item.key,
-          name: item.name,
-          value: item.value,
-          isIncome: item.isIncome,
-          isPossession: item.isPossession,
-          time: item.time,
-        };
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('PossessionData')
-          .doc(item.key)
-          .set(newData);
-      });
-      firebase
-        .firestore()
-        .collection('Accounts')
-        .doc(firebase.auth().currentUser.uid)
-        .set({data: true}, {merge: true});
-    },
+    
   },
 });
 

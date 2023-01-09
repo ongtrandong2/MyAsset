@@ -23,30 +23,7 @@ const IncomeOutcome = createSlice({
           state[action.payload.index].value = action.payload.value;
        },
     },
-    updateData: state => {
-      state.map(item => {
-        const newData = {
-          key: item.key,
-          name: item.name,
-          value: item.value,
-          isIncome: item.isIncome,
-          isPossession: item.isPossession,
-          time: item.time,
-        };
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('InOutdata')
-          .doc(item.key)
-          .set(newData);
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .set({data: true}, {merge: true});
-      });
-    },
+    
   },
 );
 
