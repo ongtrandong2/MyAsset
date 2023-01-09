@@ -173,7 +173,7 @@ export default function HomeScreen({ navigation }) {
                       )}
                     </View>
                   );
-                }).reverse().slice(0, 10)}
+                }).reverse().slice(0,5)}
             </ScrollView>
           </View>
         </View>
@@ -198,7 +198,7 @@ export default function HomeScreen({ navigation }) {
                       </View>
                     </View>
                   );
-                }).reverse().slice(0, 10)}
+                }).reverse().slice(0,5)}
             </ScrollView>
           </View>
         </View>
