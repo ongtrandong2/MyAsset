@@ -6,6 +6,7 @@ import RootNavigation from './routes/RootNavigation';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
+import Nhap from './screens/Nhap';
 
 
 function App() {
@@ -13,9 +14,9 @@ function App() {
     <Provider store={Store}>
       <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <NavigationContainer>
-        <RootNavigation />
+        {/* <RootNavigation /> */}
+        <Nhap/>
       </NavigationContainer>
-     
     </Provider>
   );
 }

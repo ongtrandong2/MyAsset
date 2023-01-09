@@ -10,6 +10,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import { TextInput } from 'react-native-paper';
@@ -156,11 +157,13 @@ export default function Login({ navigation }) {
 
         <View style={[styles.body_view, { paddingTop: scale(10) }]}>
           <View style={styles.forgetpass}>
-            <Pressable>
+            <TouchableOpacity
+              onPress = {()=>{}}
+            >
               <Text style={[{ textAlign: 'center', opacity: 0.5 }, styles.text]}>
                 Quên mật khẩu?
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
 

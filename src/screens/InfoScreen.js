@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
+  Dimensions,
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import CustomButton from '../components/CustomButton';
@@ -19,13 +20,16 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import { useSelector,useDispatch } from 'react-redux';
-import { setUserImage } from '../Redux/UserImage'; 
+import Animated, { LightSpeedInLeft, RollInLeft } from 'react-native-reanimated';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserImage } from '../Redux/UserImage';
 import { useState } from 'react';
 import { firebase } from '@react-native-firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';
 //import { NavigationHelpersContext } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
+
+const {width, height} = Dimensions.get('screen');
 
 export default function InfoScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -33,7 +37,7 @@ export default function InfoScreen({ navigation }) {
   //const [image, setImage] = useState('https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png');
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const userImage = useSelector(state=>state.userImage.value);
+  const userImage = useSelector(state => state.userImage.value);
   //console.log(userImage);
   useEffect(() => {
     firebase
@@ -64,7 +68,7 @@ export default function InfoScreen({ navigation }) {
       //setImage(image.path);
       setShowModal(false);
       dispatch(setUserImage(image.path));
-      
+
     })
       .catch(err => {
         // if (err.code === 'E_PICKER_CANCELLED')
@@ -89,7 +93,7 @@ export default function InfoScreen({ navigation }) {
       setShowModal(false)
       dispatch(setUserImage(image.path));
       //dispatch(setImage('aa'));
-      
+
     })
       .catch(err => {
         if (err.code === 'E_PICKER_CANCELLED') {
@@ -138,7 +142,7 @@ export default function InfoScreen({ navigation }) {
                 />
               </TouchableOpacity>
             </View>
-            <View style={{ width: '70%'}}>
+            <View style={{ width: '70%' }}>
               <Text
                 style={{
                   fontSize: 25,
@@ -240,42 +244,49 @@ export default function InfoScreen({ navigation }) {
           <Pressable
             style={[styles.modal_view, { flex: 2 }]}
             onPress={() => setShowModal(false)}
-            //onPress={() => dispatch(setImage('https://images.pexels.com/photos/580151/pexels-photo-580151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'))}
+
           />
           <View style={[styles.modal_view, { flex: 1 }]}>
             <View style={styles.modal_box}>
               <View style={styles.modal_bigrow}>
                 <TouchableOpacity
-                  style={styles.modal_row}
                   onPress={takePhotoFromCamera}
+                  style={{ paddingVertical: 10 }}
                 >
-
-                  <View style={[styles.takephoto_container, { position: 'relative' }]}>
-                    <MaterialCommunityIcons
-                      name='camera-plus'
-                      size={20}
-                      color='#000'
-                    />
-                  </View>
-                  <Text style={styles.modal_text}>Chụp ảnh</Text>
+                  <Animated.View
+                    entering={LightSpeedInLeft}
+                    style={styles.modal_row}
+                  >
+                    <View style={[styles.takephoto_container, { position: 'relative' }]}>
+                      <MaterialCommunityIcons
+                        name='camera-plus'
+                        size={20}
+                        color='#000'
+                      />
+                    </View>
+                    <Text style={styles.modal_text}>Chụp ảnh</Text>
+                  </Animated.View>
                 </TouchableOpacity>
-
                 <TouchableOpacity
-                  style={styles.modal_row}
                   onPress={choosePhotoFromLibrary}
+                  style={{ paddingVertical: 10 }}
                 >
-
-                  <View style={[styles.takephoto_container, { position: 'relative' }]}>
-                    <Fontisto
-                      name='photograph'
-                      size={20}
-                      color='#000'
-                    />
-                  </View>
-                  <Text style={styles.modal_text}>Lấy ảnh từ thư viện</Text>
+                  <Animated.View
+                    entering={LightSpeedInLeft}
+                    style={styles.modal_row}
+                  >
+                    <View style={[styles.takephoto_container, { position: 'relative' }]}>
+                      <Fontisto
+                        name='photograph'
+                        size={20}
+                        color='#000'
+                      />
+                    </View>
+                    <Text style={styles.modal_text}>Lấy ảnh từ thư viện</Text>
+                  </Animated.View>
                 </TouchableOpacity>
-
               </View>
+              
             </View>
           </View>
         </Modal>
@@ -310,7 +321,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal:40,
+    paddingHorizontal: 40,
   },
   circle: {
     height: scale(100),
@@ -387,21 +398,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   modal_bigrow: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    paddingTop: 30,
-
+    paddingHorizontal: 10,
+    paddingVertical: 20,
 
   },
   modal_row: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
-    //alignItems: 'flex-end',
     alignItems: 'center',
-    width: '90%',
-    paddingVertical: 10,
-    //borderWidth: 1,
   },
 
   modal_text: {

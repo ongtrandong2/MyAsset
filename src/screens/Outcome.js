@@ -11,8 +11,9 @@ import {
   Modal,
   Pressable,
   Alert,
+  Animated,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import scale from '../constants/scale';
 import moment from 'moment';
 import randomColor from "../constants/randomColor";
@@ -21,7 +22,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { UpdateYear } from "../Redux/Year";
 import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+const { width, height } = Dimensions.get('screen');
 
 export default function Outcome() {
   const [option, setOption] = useState('month');
@@ -201,41 +203,89 @@ export default function Outcome() {
     total_ByOption += item.value;
   })
 
+  //const [scrollX,setScrollX] = useState()
+  let scrollX;
+  //console.log(scrollX)
+  const opacityAnimation = useRef(new Animated.Value(1)).current;
+  const scaleAnimation = useRef(new Animated.Value(70)).current;
+
+  const HideButton = () =>{
+    Animated.sequence([
+      Animated.timing(opacityAnimation,{
+        toValue: 0.7,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(scaleAnimation,{
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      })
+    ]).start();
+  }
+
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
         <View>
           {option === 'month' ? (
             <>
-              <View style={styles.big_row}>
-                <FlatList
-                  keyExtractor={item => item.month.toString()}
-                  horizontal
-                  data={MONTH}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({ item }) => {
-                    return (
-                      <View style={styles.month_container}>
-                        <TouchableOpacity
-                          style={[
-                            styles.month_item,
-                            {
-                              backgroundColor:
-                                itemSelected === item.month
-                                  ? 'hsl(47,100%,78%)'
-                                  : '#ffffff',
-                            },
-                          ]}
-                          onPress={() => setItemSelected(item.month)}>
-                          <Text style={styles.text}>
-                            {item.month}/{d}
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  }}
-                />
-              </View>
+              <Animated.View style={{
+                position: 'absolute',
+                right: 10,
+                top: 0,
+                zIndex: 999999,
+                opacity: opacityAnimation,
+                // transform :[{
+                //   scale: scaleAnimation,
+                // }]
+                width: scaleAnimation,
+                height: scaleAnimation,
+                borderRadius: 70,
+                backgroundColor: 'hsl(0,0%,90%)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <TouchableOpacity
+                  onPress={() => { scrollX.scrollToEnd({ animated: true }); HideButton() }}
+                >
+                  <AntDesign
+                    name = 'doubleright'
+                    size = {20}
+                    color = {'#000'}
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+              <FlatList
+                keyExtractor={item => item.month.toString()}
+                horizontal
+                //ref={re=>setScrollX(re)}
+                ref={re => scrollX = re}
+                data={MONTH}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={styles.month_container}>
+                      <TouchableOpacity
+                        style={[
+                          styles.month_item,
+                          {
+                            backgroundColor:
+                              itemSelected === item.month
+                                ? 'hsl(47,100%,78%)'
+                                : '#ffffff',
+                          },
+                        ]}
+                        onPress={() => setItemSelected(item.month)}>
+                        <Text style={styles.text}>
+                          {item.month}/{d}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+              />
+
               <View style={styles.big_row}>
                 <PieChart
                   data={result}
@@ -268,7 +318,7 @@ export default function Outcome() {
                     <Text style={styles.text}>Chi tiết</Text>
                     {result.map((item, index) => {
                       return (
-                        <View style={[styles.row,{marginVertical:3}]} key={index}>
+                        <View style={[styles.row, { marginVertical: 3 }]} key={index}>
                           <View style={{ flexDirection: 'row' }}>
                             <View
                               style={{
@@ -374,7 +424,7 @@ export default function Outcome() {
                     <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
                     {result_ByYear.map((item, index) => {
                       return (
-                        <View style={[styles.row,{marginVertical:3}]} key={index}>
+                        <View style={[styles.row, { marginVertical: 3 }]} key={index}>
                           <Text style={styles.text}>Tháng {item.month}</Text>
                           <Text style={styles.text}>{item.value} VND</Text>
                         </View>
@@ -442,7 +492,7 @@ export default function Outcome() {
                         <Text style={styles.text}>Chi tiết</Text>
                         {result_ByOption.map((item, index) => {
                           return (
-                            <View style={[styles.row,{marginVertical:3}]} key={index}>
+                            <View style={[styles.row, { marginVertical: 3 }]} key={index}>
                               <View style={{ flexDirection: 'row' }}>
                                 <View
                                   style={{
@@ -486,7 +536,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(16) }]}>THÁNG</Text>
+            <Text style={[styles.text, { fontSize: scale(16),fontFamily: 'Inter-Bold' }]}>THÁNG</Text>
           </View>
         </TouchableOpacity>
 
@@ -507,7 +557,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(16), paddingLeft: 5 }]}>NĂM</Text>
+            <Text style={[styles.text, { fontSize: scale(16),fontFamily: 'Inter-Bold', paddingLeft: 5 }]}>NĂM</Text>
           </View>
         </TouchableOpacity>
 
@@ -530,7 +580,7 @@ export default function Outcome() {
             />
           </View>
           <View style={{ flex: 3 }}>
-            <Text style={[styles.text, { fontSize: scale(14), fontFamily: 'Inter-Medium', paddingLeft: 5 }]}>TÙY CHỌN</Text>
+            <Text style={[styles.text, { fontSize: scale(14), fontFamily: 'Inter-Bold', paddingLeft: 5 }]}>TÙY CHỌN</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -592,7 +642,7 @@ export default function Outcome() {
                 />
               </View>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>Ngày kết thúc: </Text>
+                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>Ngày kết thúc: </Text>
                 <TextInput
                   style={styles.textInput_style}
                   editable={false}
@@ -632,7 +682,6 @@ export default function Outcome() {
               </Pressable>
             </View>
           </View>
-
         </View>
       </Modal>
     </KeyboardAvoidingView>
