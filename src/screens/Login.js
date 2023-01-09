@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import {
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
 import {TextInput} from 'react-native-paper';
@@ -21,9 +22,9 @@ import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PushNotification from 'react-native-push-notification';
 
 export default function Login({navigation}) {
-  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -61,31 +62,44 @@ export default function Login({navigation}) {
         .catch(error => {
           //Alert.alert('Warning!', error.message);
           ToastAndroid.showWithGravity(
-            'Tài khoản không tồn tại! Vui lòng đăng kí tài khoản mới!',
+            'Tài khoản hoặc mật khẩu chưa đúng!',
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
         });
     }
   };
+
+  useEffect(() => {
+    createChannels();
+  }, []);
+
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: 'plan',
+      channelName: 'plan-channel',
+    });
+  };
   return (
     <KeyboardAvoidingView style={styles.body}>
       <ScrollView>
         <View style={styles.title_view}>
-          <View style={styles.icon1_view}>
-            <Image
-              style={styles.icon_money}
-              source={require('../assets/images/icon_money.png')}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={styles.label_view}>
+          <Image
+            source={require('../assets/images/icon_money.png')}
+            style={{
+              height: 50,
+              width: 50,
+              resizeMode: 'contain',
+            }}
+          />
+          <View style={{marginLeft: 10}}>
             <View style={styles.label}>
               <Text
                 style={{
+                  color: '#000',
+                  fontSize: scale(18),
                   fontFamily: 'Wallpoet-Regular',
-                  color: 'black',
-                  fontSize: scale(20),
+                  letterSpacing: 1,
                 }}>
                 MY ASSET
               </Text>
@@ -146,17 +160,17 @@ export default function Login({navigation}) {
 
         <View style={[styles.body_view, {paddingTop: scale(10)}]}>
           <View style={styles.forgetpass}>
-            <Pressable>
+            <TouchableOpacity onPress={() => {}}>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
-                Quên mật khẩu
+                Quên mật khẩu?
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.body_view}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            //style={{width: '40%', height: scale(40)}}
             title={'Đăng nhập'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
@@ -169,7 +183,7 @@ export default function Login({navigation}) {
 
         <View style={[styles.body_view, {padding: 10}]}>
           <CustomButton
-            style={{width: '60%', height: scale(40)}}
+            //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
@@ -189,19 +203,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     flexDirection: 'column',
     //paddingBottom:20,
+    paddingBottom: 10,
   },
 
   text: {
     color: 'black',
-    fontSize: scale(15),
+    fontSize: scale(16),
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
   image: {
     width: '80%',
     height: 300,
-    //marginTop: 5,
     alignItems: 'center',
   },
 
@@ -209,39 +223,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: scale(20),
-    backgroundColor: '#ffffff',
   },
 
   label: {
-    borderWidth: 4,
-    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
     borderColor: '#FFC700',
-    height: scale(50),
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-  },
-
-  label_view: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: scale(30),
-    //marginRight: 20,
-    backgroundColor: '#ffffff',
-  },
-
-  icon1_view: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fffffff',
-  },
-
-  icon_money: {
-    width: scale(70),
-    height: scale(70),
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
   },
 
   body_view: {
@@ -269,7 +260,7 @@ const styles = StyleSheet.create({
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(16),
+    fontFamily: 'Inter-Bold',
   },
 });

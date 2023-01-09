@@ -77,12 +77,13 @@ export default function RegisterScreen({navigation}) {
       <ScrollView>
         <Header
           onPressFunctionBack={onPressHandler}
-          title={'Đăng kí tài khoản mới'}
           fontSize={scale(25)}
+          title={'Đăng kí tài khoản mới'}
+          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            1. Tên người dùng
+            1. Tên người dùng: 
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -95,7 +96,7 @@ export default function RegisterScreen({navigation}) {
         </View>
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            2. Email
+            2. Email:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -109,7 +110,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            3. Mật khẩu
+            3. Mật khẩu:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -124,7 +125,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            4. Xác nhận mật khẩu
+            4. Xác nhận mật khẩu:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -139,7 +140,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.row_button}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            //style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
@@ -204,6 +205,6 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontWeight: 'bold',
+    fontFamily:'Inter-Bold',
   },
 });

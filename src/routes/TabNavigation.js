@@ -10,7 +10,9 @@ import CustomTabBar from '../routes/CustomTabBar';
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={props => <CustomTabBar {...props} />}
+      initialRouteName="HomeScreen">
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -34,7 +36,7 @@ const TabNavigation = () => {
       <Tab.Screen
         name="History"
         component={History}
-        initialParams={{label: 'Lịch sử'}}
+        initialParams={{label: 'Sổ thu chi'}}
       />
     </Tab.Navigator>
   );

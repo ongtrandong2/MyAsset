@@ -15,7 +15,6 @@ function App() {
       <NavigationContainer>
         <RootNavigation />
       </NavigationContainer>
-      {/* <History/> */}
     </Provider>
   );
 }

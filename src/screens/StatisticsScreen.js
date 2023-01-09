@@ -26,9 +26,7 @@ export default function StatisticsScreen({navigation}) {
     <KeyboardAvoidingView style={styles.view}>
       <HeaderDrawer
         onPress={() => navigation.openDrawer('HomeScreen')}
-        fontSize={scale(25)}
         title="THỐNG KÊ"
-        style={{color: 'black', fontWeight: 'bold'}}
       />
 
       <View style={styles.row}>
@@ -81,9 +79,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: scale(24),
+    fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
 
   tab_selected: {
@@ -93,20 +91,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: '#FFC700',
     backgroundColor: '#FFFFFF',
-  },
-
-  month_container: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    //borderWidth:1,
-  },
-
-  month_item: {
-    backgroundColor: 'hsl(47,100%,78%)',
-    borderColor: '#ffc700',
-    borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderWidth: 2,
   },
 });

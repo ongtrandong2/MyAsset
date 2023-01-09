@@ -99,11 +99,11 @@ export default function ChangePassword({navigation}) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(20)}
+          fontSize={scale(18)}
           title="ĐỔI MẬT KHẨU"
-          style={{color: 'black', fontWeight: 'bold'}}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
-        <View style={[styles.row, {paddingTop: scale(30)}]}>
+        <View style={[styles.row, {paddingTop: scale(35)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Mật khẩu cũ</Text>
           </View>
@@ -153,7 +153,7 @@ export default function ChangePassword({navigation}) {
           }}>
           <CustomButton
             title={'Lưu thay đổi'}
-            style={{height: scale(40), width: scale(220)}}
+            //style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: 'black',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
   row: {
     flexDirection: 'row',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(16),
+    fontFamily: 'Inter-Bold',
   },
 });

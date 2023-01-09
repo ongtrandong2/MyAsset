@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 15,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
   title_view: {

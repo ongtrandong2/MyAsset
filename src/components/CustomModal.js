@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
+import {View, StyleSheet, Pressable, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal, ShowTab} from '../Redux/ModalNumber';
@@ -18,7 +18,7 @@ const CustomModal = () => {
       />
       <View style={styles.modal_view}>
         <View style={styles.modal_box}>
-          {isShowTab === false ? <DailyCost /> : <PropertyCost />}
+          { isShowTab === false ? <DailyCost /> : <PropertyCost />}
         </View>
       </View>
     </>
@@ -35,11 +35,8 @@ const styles = StyleSheet.create({
   modal_box: {
     width: '100%',
     height: '130%',
-
     backgroundColor: '#ffffff',
-    //borderRadius: 20,
     borderWidth: 1,
-    //paddingHorizontal: 10,
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     paddingTop: 20,

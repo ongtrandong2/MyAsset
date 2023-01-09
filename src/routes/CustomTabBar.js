@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Animated,
+} from 'react-native';
 import scale from '../constants/scale';
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal} from '../Redux/ModalNumber';
@@ -23,8 +30,11 @@ const CustomTabBarItem = props => {
       </TouchableOpacity>
     );
   } else if (props.Index === 2) {
+    {
+      /* flex: 0.5 */
+    }
     return (
-      <View style={[styles.itemContainer, {flex: 0.5}]}>
+      <View style={[styles.itemContainer]}>
         <TouchableOpacity
           style={styles.plusButtonContainer}
           onPress={props.onPress}>
@@ -45,6 +55,9 @@ const CustomTabBar = props => {
   //console.log(routes);
 
   const [selected, setSelected] = useState('HomeScreen');
+  const animation = useRef(new Animated.Value(0)).current;
+  const tabState = useSelector(state => state.tabState.value);
+
   const dispatch = useDispatch();
   //const isShowModal = useSelector(state=>state.modalNumber.IsShowModal)
   //console.log(isShowModal);
@@ -65,8 +78,30 @@ const CustomTabBar = props => {
     else if (currentIndex === 3) return require('../assets/images/chart.png');
     else if (currentIndex === 4) return require('../assets/images/history.png');
   };
+
+  const TabBarAnimation = () => {
+    if (tabState) {
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(animation, {
+        toValue: 120,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  useEffect(() => {
+    TabBarAnimation();
+  }, [tabState]);
+
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[styles.container, {transform: [{translateY: animation}]}]}>
       <View style={styles.tabBarContainer}>
         {routes.map((item, index) => (
           <CustomTabBarItem
@@ -80,7 +115,7 @@ const CustomTabBar = props => {
           />
         ))}
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -93,8 +128,9 @@ const styles = StyleSheet.create({
     //paddingBottom:15,
     width: '100%',
     //height:scale(130),
-    height: '13%',
+    //height:'13%',
     zIndex: 999,
+    //borderWidth:1,
   },
   tabBarContainer: {
     flexDirection: 'row',
@@ -110,16 +146,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   plusButtonContainer: {
-    top: scale(-30),
-    bottom: 25,
+    //top: scale(-30),
+    bottom: 5,
     //alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
+    //position: 'absolute',
   },
   text: {
-    fontSize: scale(16),
+    fontSize: scale(13),
     //fontFamily:'Lato-Bold',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Inter-Medium',
     color: 'black',
   },
 });

@@ -13,17 +13,11 @@ import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import moment from 'moment';
 import CustomModal from '../components/CustomModal';
-import {firebase} from '@react-native-firebase/firestore';
+
 import {useSelector, useDispatch} from 'react-redux';
 import {ShowModal} from '../Redux/ModalNumber';
 
 export default function HomeScreen({navigation}) {
-  // const dataIORef = firebase
-  //   .firestore()
-  //   .collection('Accounts')
-  //   .doc(firebase.auth().currentUser.uid)
-  //   .collection('InOutData');
-  // const [DataIO, setDataIO] = useState([]);
   const money = useSelector(state => state.totalMoney.value);
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const planData = useSelector(state => state.planData);
@@ -33,25 +27,9 @@ export default function HomeScreen({navigation}) {
   const [number, setNumber] = useState('50%');
   //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
   const [currentDate, setCurrentDate] = useState(new Date());
-  // useEffect(() => {
-  //   dataIORef.orderBy('time', 'desc').onSnapshot(querySnapshot => {
-  //     // const DataIO = [];
-  //     querySnapshot.forEach(doc => {
-  //       const {name, value, isIncome, isPossession, time} = doc.data();
-  //       dispatch(
-  //         addData({
-  //           key: doc.id,
-  //           name,
-  //           value,
-  //           isIncome,
-  //           isPossession,
-  //           time,
-  //         }),
-  //       );
-  //     });
-  //   });
-  // }, [dataIORef, dispatch]);
-  let d1 = new Date(moment(currentDate).format('YYYY-MM'));
+  let d1 = new Date(moment(currentDate).format('YYYY-MM')); //
+
+  //useEffect
 
   let plan = planData.filter(item => {
     let d2 = new Date(moment(item.dateStart).format('YYYY-MM'));
@@ -69,20 +47,29 @@ export default function HomeScreen({navigation}) {
       <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
-          fontSize={scale(20)}
+          //fontSize={scale(20)}
           title="TỔNG QUAN"
-          style={{color: 'black', fontWeight: 'bold'}}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
 
         <View style={styles.row}>
           <Text
-            style={{color: '#BB2424', fontSize: scale(20), fontWeight: 'bold'}}>
+            style={{
+              color: '#BB2424',
+              fontSize: scale(18),
+              fontFamily: 'Inter-Bold',
+            }}>
             {money} VNĐ
           </Text>
         </View>
 
         <View style={styles.row}>
-          <Text style={{color: '#BB2424', fontSize: scale(15)}}>
+          <Text
+            style={{
+              color: '#BB2424',
+              fontSize: scale(13),
+              fontFamily: 'Inter-Medium',
+            }}>
             Tổng số dư
           </Text>
         </View>
@@ -91,8 +78,8 @@ export default function HomeScreen({navigation}) {
           <Text
             style={{
               color: '#000000',
-              fontSize: scale(18),
-              fontFamily: 'Itim-Regular',
+              fontSize: scale(15),
+              fontFamily: 'Inter-Bold',
             }}>
             KẾ HOẠCH
           </Text>
@@ -102,9 +89,9 @@ export default function HomeScreen({navigation}) {
           <View style={styles.big_row}>
             <Text
               style={{
-                fontSize: scale(20),
+                fontSize: scale(18),
                 color: '#CDCACA',
-                fontFamily: 'Itim-Regular',
+                fontFamily: 'Inter-Regular',
               }}>
               Chưa có kế hoạch cho tháng này!
             </Text>
@@ -114,10 +101,10 @@ export default function HomeScreen({navigation}) {
             {plan.slice(0, 1).map((item, index) => {
               return (
                 <View key={index}>
-                  <View style={[styles.big_row, {marginTop: scale(20)}]}>
+                  <View style={[styles.big_row, {marginTop: scale(10)}]}>
                     <View style={styles.slider_view}>
-                      <View style={[styles.figure_view, {height: scale(20)}]}>
-                        <Text style={{fontSize: scale(15), color: 'black'}}>
+                      <View style={styles.figure_view}>
+                        <Text style={{fontSize: scale(13), color: 'black'}}>
                           {moment(item.dateStart).format('DD/MM/YYYY')} -{' '}
                           {moment(item.dateFinish).format('DD/MM/YYYY')}
                         </Text>
@@ -127,7 +114,9 @@ export default function HomeScreen({navigation}) {
                           style={
                             ([StyleSheet.absoluteFill],
                             {
-                              backgroundColor: '#FF9900',
+                              backgroundColor: item.isExceed
+                                ? 'hsl(0,74%,52%)'
+                                : '#FF9900',
                               width: String(item.percentage_of_use) + '%',
                               borderRadius: 5,
                             })
@@ -136,17 +125,12 @@ export default function HomeScreen({navigation}) {
                       </View>
 
                       <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          <Text style={[styles.text, {color: 'red'}]}>
-                            {item.currentuse}
-                          </Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text style={[styles.text, {color: 'red'}]}>
-                            {item.budget} VND
-                          </Text>
-                        </View>
+                        <Text style={[styles.text, {color: 'red'}]}>
+                          {item.currentuse}
+                        </Text>
+                        <Text style={[styles.text, {color: 'red'}]}>
+                          {item.budget} VND
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -157,7 +141,11 @@ export default function HomeScreen({navigation}) {
         )}
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, {fontWeight: 'bold'}]}>
+          <Text
+            style={[
+              styles.text,
+              {fontFamily: 'Inter-Bold', fontSize: scale(15)},
+            ]}>
             THU CHI GẦN ĐÂY
           </Text>
         </View>
@@ -165,72 +153,90 @@ export default function HomeScreen({navigation}) {
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
-              {IncomeOutcome.slice(0, 10)
-                .reverse()
-                .map((item, index) => {
-                  return (
-                    <View key={index}>
+              {IncomeOutcome.map((item, index) => {
+                return (
+                  <View key={index}>
+                    {item.isDifferent ? null : (
                       <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          {item.isPossession ? (
-                            item.isIncome ? (
-                              <Text style={styles.text}>{item.name} - BÁN</Text>
-                            ) : (
-                              <Text style={styles.text}>{item.name} - MUA</Text>
-                            )
+                        {item.isPossession ? (
+                          item.isIncome ? (
+                            <Text style={[styles.text, {fontWeight: '500'}]}>
+                              {item.name} - BÁN
+                            </Text>
                           ) : (
-                            <Text style={styles.text}>{item.name}</Text>
-                          )}
-                        </View>
+                            <Text style={[styles.text, {fontWeight: '500'}]}>
+                              {item.name} - MUA
+                            </Text>
+                          )
+                        ) : (
+                          <Text style={[styles.text, {fontWeight: '500'}]}>
+                            {item.name}
+                          </Text>
+                        )}
 
-                        <View style={styles.money_view}>
-                          {item.isIncome === true ? (
-                            <Text style={[styles.text, {color: '#00CC00'}]}>
-                              + {item.value} VND
-                            </Text>
-                          ) : (
-                            <Text style={[styles.text, {color: '#DF2828'}]}>
-                              - {item.value} VND
-                            </Text>
-                          )}
-                        </View>
+                        {item.isIncome === true ? (
+                          <Text
+                            style={[
+                              styles.text,
+                              {color: '#00CC00', fontWeight: '500'},
+                            ]}>
+                            + {item.value} VND
+                          </Text>
+                        ) : (
+                          <Text
+                            style={[
+                              styles.text,
+                              {color: '#DF2828', fontWeight: '500'},
+                            ]}>
+                            - {item.value} VND
+                          </Text>
+                        )}
                       </View>
-                    </View>
-                  );
-                })}
+                    )}
+                  </View>
+                );
+              })
+                .reverse()
+                .slice(0, 5)}
             </ScrollView>
           </View>
         </View>
 
         <View style={styles.big_row}>
-          <Text style={[styles.text, {fontWeight: 'bold'}]}>TÀI SẢN</Text>
+          <Text
+            style={[
+              styles.text,
+              {fontFamily: 'Inter-Bold', fontSize: scale(15), marginTop: 5},
+            ]}>
+            TÀI SẢN
+          </Text>
         </View>
 
         <View style={styles.big_row}>
           <View style={styles.box_view}>
             <ScrollView>
               {possessionData
-                .slice(0, 10)
-                .reverse()
                 .map((item, index) => {
                   return (
                     <View key={index}>
                       <View style={styles.figure_view}>
-                        <View style={styles.name_view}>
-                          <Text style={styles.text}> {item.name}</Text>
-                        </View>
-
-                        <View style={styles.money_view}>
-                          <Text
-                            style={[styles.text, {color: 'hsl(36,100%,52%)'}]}>
-                            {' '}
-                            {item.value} VND
-                          </Text>
-                        </View>
+                        <Text style={[styles.text, {fontWeight: '500'}]}>
+                          {' '}
+                          {item.name}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.text,
+                            {color: 'hsl(36,100%,52%)', fontWeight: '500'},
+                          ]}>
+                          {item.value} VND
+                        </Text>
                       </View>
                     </View>
                   );
-                })}
+                })
+                .reverse()
+                .slice(0, 5)}
             </ScrollView>
           </View>
         </View>
@@ -238,6 +244,13 @@ export default function HomeScreen({navigation}) {
         
         </View> */}
       </ScrollView>
+      <View
+        style={{
+          height: scale(100),
+          bottom: 0,
+          backgroundColor: '#fff',
+        }}
+      />
 
       <Modal
         visible={isShowModal}
@@ -259,9 +272,9 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: scale(15),
+    fontSize: scale(14),
     color: '#000000',
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
   },
 
   row: {
@@ -281,7 +294,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     //backgroundColor:'pink',
     width: '90%',
-    height: scale(50),
   },
 
   box_view: {
@@ -294,23 +306,10 @@ const styles = StyleSheet.create({
 
   figure_view: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
+    justifyContent: 'space-between',
     width: '100%',
-    height: scale(30),
-    marginBottom: scale(5),
-  },
-
-  name_view: {
-    flex: 1,
-    //paddingHorizontal: scale(5),
-    //backgroundColor:'pink',
-  },
-
-  money_view: {
-    flex: 1,
-    paddingHorizontal: scale(5),
-    //backgroundColor:'blue',
-    alignItems: 'flex-end',
+    paddingVertical: 2,
+    paddingHorizontal: 1,
   },
 
   progressBar: {
@@ -320,5 +319,4 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     flexDirection: 'row',
   },
-  /// Modal
 });

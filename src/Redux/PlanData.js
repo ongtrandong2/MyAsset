@@ -15,6 +15,8 @@ const PlanData = createSlice({
         currentuse: action.payload.currentuse,
         percentage_of_use: action.payload.percentage_of_use,
         isExceed: action.payload.isExceed,
+        history: [],
+        isShowHistory: false,
       };
       state.push(newPlan);
       firebase
@@ -71,15 +73,25 @@ const PlanData = createSlice({
         (state[action.payload.index].currentuse = action.payload.currentuse),
         (state[action.payload.index].percentage_of_use =
           action.payload.percentage_of_use),
-        (state[action.payload.index].isExceed = action.payload.isExceed);
+        (state[action.payload.index].isExceed = action.payload.isExceed),
+        state[action.payload.index].history.push({
+          oldBudget: action.payload.oldBudget,
+          newBudget: action.payload.budget,
+          timechange: action.payload.time_change,
+        });
     },
-
-    deletePlan: (state, action) => {
-      state.splice(0, state.length);
+    setIsShowHistory: (state, action) => {
+      state[action.payload].isShowHistory =
+        !state[action.payload].isShowHistory;
     },
   },
 });
 
-export const {addPlan, IncreaseCurrentUse, removePlan, updatePlan} =
-  PlanData.actions;
+export const {
+  addPlan,
+  IncreaseCurrentUse,
+  removePlan,
+  updatePlan,
+  setIsShowHistory,
+} = PlanData.actions;
 export default PlanData.reducer;

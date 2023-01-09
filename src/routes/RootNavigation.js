@@ -14,7 +14,7 @@ import Onboarding from '../screens/Onboarding';
 const Stack = createStackNavigator();
 const RootNavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{header: () => null}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
       <Stack.Screen name="Success" component={Success} />

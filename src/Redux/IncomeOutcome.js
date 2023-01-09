@@ -17,20 +17,6 @@ const IncomeOutcome = createSlice({
   name: 'IncomeOutcome',
   initialState: [],
   reducers: {
-    // pullData: (state, action) => {
-    //   const newData = {
-    //     key: action.payload.key,
-    //     name: action.payload.name,
-    //     value: action.payload.value,
-    //     isIncome: action.payload.isIncome,
-    //     isPossession: action.payload.isPossession,
-    //     time: action.payload.time,
-    //   };
-    //   if (state.includes(newData) === false) {
-    //     state.push(newData);
-    //   }
-    //   console.log(3000);
-    // },
     addData: (state, action) => {
       const newData = {
         key: action.payload.key,
@@ -39,6 +25,7 @@ const IncomeOutcome = createSlice({
         isIncome: action.payload.isIncome,
         isPossession: action.payload.isPossession,
         time: action.payload.time,
+        isDifferent: action.payload.isDifferent,
       };
       if (state.includes(newData) === false) {
         state.push(newData);
@@ -53,6 +40,7 @@ const IncomeOutcome = createSlice({
         isIncome: action.payload.isIncome,
         isPossession: action.payload.isPossession,
         time: action.payload.time,
+        isDifferent: action.payload.isDifferent,
       };
       firebase
         .firestore()
