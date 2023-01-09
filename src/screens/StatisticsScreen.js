@@ -24,10 +24,10 @@ export default function StatisticsScreen({navigation}) {
   const dispatch = useDispatch();
   return (
     <KeyboardAvoidingView style={styles.view}>
-        <HeaderDrawer
-          onPress={() => navigation.openDrawer('HomeScreen')}
-          title="THỐNG KÊ"
-        />
+      <HeaderDrawer
+        onPress={() => navigation.openDrawer('HomeScreen')}
+        title="THỐNG KÊ"
+      />
 
       <View style={styles.row}>
         <TouchableOpacity
@@ -92,6 +92,4 @@ const styles = StyleSheet.create({
     borderBottomColor: '#FFC700',
     backgroundColor: '#FFFFFF',
   },
-
-  
 });

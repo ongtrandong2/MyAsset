@@ -13,17 +13,17 @@ import {
   Alert,
   Animated,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import scale from '../constants/scale';
 import moment from 'moment';
-import randomColor from "../constants/randomColor";
-import { PieChart, LineChart } from 'react-native-chart-kit';
-import { useSelector, useDispatch } from "react-redux";
-import { UpdateYear } from "../Redux/Year";
-import { TextInput } from 'react-native-paper';
+import randomColor from '../constants/randomColor';
+import {PieChart, LineChart} from 'react-native-chart-kit';
+import {useSelector, useDispatch} from 'react-redux';
+import {UpdateYear} from '../Redux/Year';
+import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 
 export default function Outcome() {
   const [option, setOption] = useState('month');
@@ -48,17 +48,17 @@ export default function Outcome() {
   const YEAR = useSelector(state => state.year);
   const dispatch = useDispatch();
 
-  let Outcome = IncomeOutcome.filter((item) => {
+  let Outcome = IncomeOutcome.filter(item => {
     return (
       item.isIncome === false && moment(item.time).format('MM') === itemSelected
-    )
-  })
+    );
+  });
 
   //console.log(Outcome)
   ///
   let result = [];
-  Outcome.map((item) => {
-    if ((result.map(itemr => itemr.name)).indexOf(item.name) === -1) {
+  Outcome.map(item => {
+    if (result.map(itemr => itemr.name).indexOf(item.name) === -1) {
       const newData = {
         name: item.name,
         value: Number(item.value),
@@ -66,86 +66,86 @@ export default function Outcome() {
         legendFontColor: 'black',
         legendFontSize: 13,
         legendFontFamily: 'Inter-Regular',
-      }
+      };
       result.push(newData);
-    }
-    else if ((result.map(itemr => itemr.name)).indexOf(item.name) > -1) {
-      let newIndex = (result.map(itemr => itemr.name).indexOf(item.name))
+    } else if (result.map(itemr => itemr.name).indexOf(item.name) > -1) {
+      let newIndex = result.map(itemr => itemr.name).indexOf(item.name);
       result[newIndex].value += Number(item.value);
     }
-  })
+  });
 
-  result.map((item) => {
+  result.map(item => {
     total += item.value;
-  })
+  });
 
   //console.log(result);
   //console.log(total);
   const MONTH = [
-    { month: '01' },
-    { month: '02' },
-    { month: '03' },
-    { month: '04' },
-    { month: '05' },
-    { month: '06' },
-    { month: '07' },
-    { month: '08' },
-    { month: '09' },
-    { month: '10' },
-    { month: '11' },
-    { month: '12' },
-  ]
-
+    {month: '01'},
+    {month: '02'},
+    {month: '03'},
+    {month: '04'},
+    {month: '05'},
+    {month: '06'},
+    {month: '07'},
+    {month: '08'},
+    {month: '09'},
+    {month: '10'},
+    {month: '11'},
+    {month: '12'},
+  ];
 
   if (YEAR.indexOf(d) === -1) {
-    dispatch(UpdateYear((d)));
+    dispatch(UpdateYear(d));
   }
 
-  let Outcome_ByYear = IncomeOutcome.filter((item) => {
+  let Outcome_ByYear = IncomeOutcome.filter(item => {
     return (
-      item.isIncome === false && moment(item.time).format("YYYY") === yearSelected.toString()
-    )
-  })
+      item.isIncome === false &&
+      moment(item.time).format('YYYY') === yearSelected.toString()
+    );
+  });
 
   //console.log(Outcome_ByYear);
 
   const result_ByYear = [
-    { month: '01', value: 0 },
-    { month: '02', value: 0 },
-    { month: '03', value: 0 },
-    { month: '04', value: 0 },
-    { month: '05', value: 0 },
-    { month: '06', value: 0 },
-    { month: '07', value: 0 },
-    { month: '08', value: 0 },
-    { month: '09', value: 0 },
-    { month: '10', value: 0 },
-    { month: '11', value: 0 },
-    { month: '12', value: 0 },
-  ]
+    {month: '01', value: 0},
+    {month: '02', value: 0},
+    {month: '03', value: 0},
+    {month: '04', value: 0},
+    {month: '05', value: 0},
+    {month: '06', value: 0},
+    {month: '07', value: 0},
+    {month: '08', value: 0},
+    {month: '09', value: 0},
+    {month: '10', value: 0},
+    {month: '11', value: 0},
+    {month: '12', value: 0},
+  ];
 
-  Outcome_ByYear.map((item) => {
-    let newIndex = (result_ByYear.map(itemr => itemr.month)).indexOf(moment(item.time).format('MM'))
+  Outcome_ByYear.map(item => {
+    let newIndex = result_ByYear
+      .map(itemr => itemr.month)
+      .indexOf(moment(item.time).format('MM'));
     result_ByYear[newIndex].value += Number(item.value);
-  })
+  });
 
-  result_ByYear.map((item) => {
+  result_ByYear.map(item => {
     total_ByYear += item.value;
-  })
+  });
 
   //console.log(result_ByYear);
   //console.log(result_ByYear.map(item => item.value))
 
-
-  const handleConfirm = (date) => {
+  const handleConfirm = date => {
     setDateStart(moment(date).format('YYYY-MM-DD'));
     setShowCalendar(false);
-  }
+  };
 
-  const handleConfirm_Finish = (date) => {
+  const handleConfirm_Finish = date => {
     setDateEnd(moment(date).format('YYYY-MM-DD'));
     setShowCalendarFinish(false);
-  }
+  };
 
   const onConfirm = () => {
     let d1 = new Date(dateStart);
@@ -155,31 +155,30 @@ export default function Outcome() {
         'Warning',
         'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!',
       );
-    }
-    else {
+    } else {
       setAcceptDateStart(d1);
       setAcceptDateEnd(d2);
       setDateStart('');
       setDateEnd('');
       setShowModal(false);
-
     }
-
-  }
+  };
   //console.log(acceptDateStart);
   //console.log(result_ByOption);
 
   let result_ByOption = [];
   if (acceptDateStart !== undefined && acceptDateEnd !== undefined) {
     //console.log(acceptDateStart.getTime() );
-    let Outcome_ByOption = IncomeOutcome.filter((item) => {
+    let Outcome_ByOption = IncomeOutcome.filter(item => {
       let d = new Date(moment(item.time).format('YYYY-MM-DD'));
       return (
-        item.isIncome === false && d.getTime() >= acceptDateStart.getTime() && d.getTime() <= acceptDateEnd.getTime()
-      )
-    })
+        item.isIncome === false &&
+        d.getTime() >= acceptDateStart.getTime() &&
+        d.getTime() <= acceptDateEnd.getTime()
+      );
+    });
     //console.log(Outcome_ByOption);
-    Outcome_ByOption.map((item) => {
+    Outcome_ByOption.map(item => {
       if (result_ByOption.map(itemr => itemr.name).indexOf(item.name) === -1) {
         const newData = {
           name: item.name,
@@ -188,20 +187,23 @@ export default function Outcome() {
           legendFontColor: 'black',
           legendFontSize: 13,
           legendFontFamily: 'Inter-Regular',
-        }
+        };
         result_ByOption.push(newData);
-      }
-      else if (result_ByOption.map(itemr => itemr.name).indexOf(item.name) > -1) {
-        let newIndex = (result_ByOption.map(itemr => itemr.name).indexOf(item.name))
+      } else if (
+        result_ByOption.map(itemr => itemr.name).indexOf(item.name) > -1
+      ) {
+        let newIndex = result_ByOption
+          .map(itemr => itemr.name)
+          .indexOf(item.name);
         result_ByOption[newIndex].value += Number(item.value);
       }
-    })
+    });
   }
 
   //console.log(result_ByOption);
   result_ByOption.map(item => {
     total_ByOption += item.value;
-  })
+  });
 
   //const [scrollX,setScrollX] = useState()
   let scrollX;
@@ -209,20 +211,20 @@ export default function Outcome() {
   const opacityAnimation = useRef(new Animated.Value(1)).current;
   const scaleAnimation = useRef(new Animated.Value(70)).current;
 
-  const HideButton = () =>{
+  const HideButton = () => {
     Animated.sequence([
-      Animated.timing(opacityAnimation,{
+      Animated.timing(opacityAnimation, {
         toValue: 0.7,
         duration: 300,
         useNativeDriver: false,
       }),
-      Animated.timing(scaleAnimation,{
+      Animated.timing(scaleAnimation, {
         toValue: 0,
         duration: 300,
         useNativeDriver: false,
-      })
+      }),
     ]).start();
-  }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.view}>
@@ -230,40 +232,39 @@ export default function Outcome() {
         <View>
           {option === 'month' ? (
             <>
-              <Animated.View style={{
-                position: 'absolute',
-                right: 10,
-                top: 0,
-                zIndex: 999999,
-                opacity: opacityAnimation,
-                // transform :[{
-                //   scale: scaleAnimation,
-                // }]
-                width: scaleAnimation,
-                height: scaleAnimation,
-                borderRadius: 70,
-                backgroundColor: 'hsl(0,0%,90%)',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  right: 10,
+                  top: 0,
+                  zIndex: 999999,
+                  opacity: opacityAnimation,
+                  // transform :[{
+                  //   scale: scaleAnimation,
+                  // }]
+                  width: scaleAnimation,
+                  height: scaleAnimation,
+                  borderRadius: 70,
+                  backgroundColor: 'hsl(0,0%,90%)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                 <TouchableOpacity
-                  onPress={() => { scrollX.scrollToEnd({ animated: true }); HideButton() }}
-                >
-                  <AntDesign
-                    name = 'doubleright'
-                    size = {20}
-                    color = {'#000'}
-                  />
+                  onPress={() => {
+                    scrollX.scrollToEnd({animated: true});
+                    HideButton();
+                  }}>
+                  <AntDesign name="doubleright" size={20} color={'#000'} />
                 </TouchableOpacity>
               </Animated.View>
               <FlatList
                 keyExtractor={item => item.month.toString()}
                 horizontal
                 //ref={re=>setScrollX(re)}
-                ref={re => scrollX = re}
+                ref={re => (scrollX = re)}
                 data={MONTH}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => {
+                renderItem={({item}) => {
                   return (
                     <View style={styles.month_container}>
                       <TouchableOpacity
@@ -308,7 +309,7 @@ export default function Outcome() {
                   accessor="value"
                   backgroundColor="transparent"
                   paddingLeft="15"
-                //absolute //for the absolute number remove if you want percentage
+                  //absolute //for the absolute number remove if you want percentage
                 />
               </View>
               {result.length === 0 ? null : (
@@ -318,8 +319,10 @@ export default function Outcome() {
                     <Text style={styles.text}>Chi tiết</Text>
                     {result.map((item, index) => {
                       return (
-                        <View style={[styles.row, { marginVertical: 3 }]} key={index}>
-                          <View style={{ flexDirection: 'row' }}>
+                        <View
+                          style={[styles.row, {marginVertical: 3}]}
+                          key={index}>
+                          <View style={{flexDirection: 'row'}}>
                             <View
                               style={{
                                 height: 20,
@@ -346,7 +349,7 @@ export default function Outcome() {
                   horizontal
                   data={YEAR}
                   showsHorizontalScrollIndicator={false}
-                  renderItem={({ item }) => {
+                  renderItem={({item}) => {
                     return (
                       <View style={styles.month_container}>
                         <TouchableOpacity
@@ -370,7 +373,20 @@ export default function Outcome() {
               <View style={styles.big_row}>
                 <LineChart
                   data={{
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',],
+                    labels: [
+                      '1',
+                      '2',
+                      '3',
+                      '4',
+                      '5',
+                      '6',
+                      '7',
+                      '8',
+                      '9',
+                      '10',
+                      '11',
+                      '12',
+                    ],
                     datasets: [
                       {
                         data: result_ByYear.map(item => item.value),
@@ -424,7 +440,9 @@ export default function Outcome() {
                     <Text style={styles.text}>TỔNG: {total_ByYear} VND</Text>
                     {result_ByYear.map((item, index) => {
                       return (
-                        <View style={[styles.row, { marginVertical: 3 }]} key={index}>
+                        <View
+                          style={[styles.row, {marginVertical: 3}]}
+                          key={index}>
                           <Text style={styles.text}>Tháng {item.month}</Text>
                           <Text style={styles.text}>{item.value} VND</Text>
                         </View>
@@ -440,8 +458,15 @@ export default function Outcome() {
                 <>
                   <View style={styles.big_row}>
                     <View style={styles.month_container}>
-                      <View style={[styles.month_item, { backgroundColor: 'hsl(47,100%,78%)' }]}>
-                        <Text style={styles.text}>{moment(acceptDateStart).format('DD/MM/YYYY')} - {moment(acceptDateEnd).format('DD/MM/YYYY')} </Text>
+                      <View
+                        style={[
+                          styles.month_item,
+                          {backgroundColor: 'hsl(47,100%,78%)'},
+                        ]}>
+                        <Text style={styles.text}>
+                          {moment(acceptDateStart).format('DD/MM/YYYY')} -{' '}
+                          {moment(acceptDateEnd).format('DD/MM/YYYY')}{' '}
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -481,19 +506,24 @@ export default function Outcome() {
                         accessor="value"
                         backgroundColor="transparent"
                         paddingLeft="15"
-                      //absolute //for the absolute number remove if you want percentage
+                        //absolute //for the absolute number remove if you want percentage
                       />
-                    </View>)}
+                    </View>
+                  )}
 
                   {result_ByOption.length === 0 ? null : (
                     <ScrollView>
                       <View style={styles.big_row}>
-                        <Text style={styles.text}>TỔNG: {total_ByOption} VND</Text>
+                        <Text style={styles.text}>
+                          TỔNG: {total_ByOption} VND
+                        </Text>
                         <Text style={styles.text}>Chi tiết</Text>
                         {result_ByOption.map((item, index) => {
                           return (
-                            <View style={[styles.row, { marginVertical: 3 }]} key={index}>
-                              <View style={{ flexDirection: 'row' }}>
+                            <View
+                              style={[styles.row, {marginVertical: 3}]}
+                              key={index}>
+                              <View style={{flexDirection: 'row'}}>
                                 <View
                                   style={{
                                     height: 20,
@@ -513,7 +543,6 @@ export default function Outcome() {
                   )}
                 </>
               )}
-
             </>
           )}
         </View>
@@ -528,15 +557,21 @@ export default function Outcome() {
             },
           ]}
           onPress={() => setOption('month')}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{flex: 1, alignItems: 'center'}}>
             <Image
               source={require('../assets/images/piechart.png')}
-              style={{ height: 30, width: 30 }}
+              style={{height: 30, width: 30}}
               resizeMode="stretch"
             />
           </View>
-          <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(16),fontFamily: 'Inter-Bold' }]}>THÁNG</Text>
+          <View style={{flex: 2}}>
+            <Text
+              style={[
+                styles.text,
+                {fontSize: scale(16), fontFamily: 'Inter-Bold'},
+              ]}>
+              THÁNG
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -549,15 +584,21 @@ export default function Outcome() {
             },
           ]}
           onPress={() => setOption('year')}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{flex: 1, alignItems: 'center'}}>
             <Image
               source={require('../assets/images/linechart.png')}
-              style={{ height: 30, width: 30 }}
+              style={{height: 30, width: 30}}
               resizeMode="stretch"
             />
           </View>
-          <View style={{ flex: 2 }}>
-            <Text style={[styles.text, { fontSize: scale(16),fontFamily: 'Inter-Bold', paddingLeft: 5 }]}>NĂM</Text>
+          <View style={{flex: 2}}>
+            <Text
+              style={[
+                styles.text,
+                {fontSize: scale(16), fontFamily: 'Inter-Bold', paddingLeft: 5},
+              ]}>
+              NĂM
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -570,17 +611,24 @@ export default function Outcome() {
               paddingLeft: 5,
             },
           ]}
-          onPress={() => { setOption('optional'), setShowModal(true) }}
-        >
-          <View style={{ flex: 1, alignItems: 'center' }}>
+          onPress={() => {
+            setOption('optional'), setShowModal(true);
+          }}>
+          <View style={{flex: 1, alignItems: 'center'}}>
             <Image
               source={require('../assets/images/optional.png')}
-              style={{ height: 30, width: 30 }}
+              style={{height: 30, width: 30}}
               resizeMode="stretch"
             />
           </View>
-          <View style={{ flex: 3 }}>
-            <Text style={[styles.text, { fontSize: scale(14), fontFamily: 'Inter-Bold', paddingLeft: 5 }]}>TÙY CHỌN</Text>
+          <View style={{flex: 3}}>
+            <Text
+              style={[
+                styles.text,
+                {fontSize: scale(14), fontFamily: 'Inter-Bold', paddingLeft: 5},
+              ]}>
+              TÙY CHỌN
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -597,26 +645,28 @@ export default function Outcome() {
         onRequestClose={() => setShowModal(false)}
         transparent
         statusBarTranslucent
-        animationType='fade'
-      >
+        animationType="fade">
         <Pressable
-          style={[styles.modal_view, { flex: 2 }]}
+          style={[styles.modal_view, {flex: 2}]}
           onPress={() => setShowModal(false)}
         />
 
-        <View style={[styles.modal_view, { flex: 1 }]}>
+        <View style={[styles.modal_view, {flex: 1}]}>
           <View style={styles.modal_box}>
             <View style={styles.big_row}>
-              <Text style={{
-                color: '#000',
-                fontSize: scale(18),
-                fontFamily: 'Inter-Bold',
-                paddingTop: 10
-              }}>
+              <Text
+                style={{
+                  color: '#000',
+                  fontSize: scale(18),
+                  fontFamily: 'Inter-Bold',
+                  paddingTop: 10,
+                }}>
                 Tùy chọn thời gian thống kê
               </Text>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>Ngày bắt đầu:  </Text>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                  Ngày bắt đầu:{' '}
+                </Text>
                 <TextInput
                   style={styles.textInput_style}
                   editable={false}
@@ -642,7 +692,9 @@ export default function Outcome() {
                 />
               </View>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>Ngày kết thúc: </Text>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                  Ngày kết thúc:{' '}
+                </Text>
                 <TextInput
                   style={styles.textInput_style}
                   editable={false}
@@ -651,7 +703,7 @@ export default function Outcome() {
                   activeUnderlineColor="black"
                   value={dateEnd}
                   onChageText={setDateEnd}
-                  underlineStyle={{ borderWidth: 0 }}
+                  underlineStyle={{borderWidth: 0}}
                   right={
                     <TextInput.Icon
                       icon={{
@@ -672,13 +724,20 @@ export default function Outcome() {
 
             <View style={styles.modal_bigrow}>
               <Pressable
-                style={({ pressed }) => [
-                  { backgroundColor: pressed ? '#FFC700' : '#ffeba3' },
-                  { paddingVertical: 5, borderWidth: 2, borderRadius: 20, borderColor: 'orange', paddingHorizontal: 20 }
+                style={({pressed}) => [
+                  {backgroundColor: pressed ? '#FFC700' : '#ffeba3'},
+                  {
+                    paddingVertical: 5,
+                    borderWidth: 2,
+                    borderRadius: 20,
+                    borderColor: 'orange',
+                    paddingHorizontal: 20,
+                  },
                 ]}
-                onPress={onConfirm}
-              >
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>LƯU</Text>
+                onPress={onConfirm}>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                  LƯU
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -702,7 +761,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 10,
     //borderWidth:1,
-
   },
   month_item: {
     //backgroundColor: 'hsl(47,100%,78%)',
@@ -736,7 +794,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     //paddingHorizontal: 10,
     paddingVertical: 10,
-    height: '100%' // have no choice but put the height here to keep 3 boxes have the same height
+    height: '100%', // have no choice but put the height here to keep 3 boxes have the same height
   },
 
   row: {
@@ -745,13 +803,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '90%',
   },
-  //Modal 
+  //Modal
   modal_view: {
     //flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#00000099',
-
   },
   modal_box: {
     width: '100%',
@@ -768,9 +825,7 @@ const styles = StyleSheet.create({
     //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
-
   },
-
 
   modal_row: {
     width: '90%',
@@ -789,10 +844,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     fontFamily: 'Inter-Medium',
     borderBottomColor: '#000',
-
   },
 });
-
-
-
-

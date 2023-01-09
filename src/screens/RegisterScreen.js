@@ -6,7 +6,7 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-import {firebase} from '@react-native-firebase/auth';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function RegisterScreen({navigation}) {
   const onPressHandler = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -20,18 +20,18 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import Animated, { LightSpeedInLeft, RollInLeft } from 'react-native-reanimated';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserImage } from '../Redux/UserImage';
-import { useState } from 'react';
-import { firebase } from '@react-native-firebase/firestore';
-import { doc, getDoc } from 'firebase/firestore';
+import Animated, {LightSpeedInLeft, RollInLeft} from 'react-native-reanimated';
+import {useSelector, useDispatch} from 'react-redux';
+import {setUserImage} from '../Redux/UserImage';
+import {useState} from 'react';
+import {firebase} from '@react-native-firebase/firestore';
+import {doc, getDoc} from 'firebase/firestore';
 //import { NavigationHelpersContext } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
 const {width, height} = Dimensions.get('screen');
 
-export default function InfoScreen({ navigation }) {
+export default function InfoScreen({navigation}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   //const [image, setImage] = useState('https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png');
@@ -63,13 +63,13 @@ export default function InfoScreen({ navigation }) {
       //compressImageMaxHeight:300,
       cropping: true,
       //compressImageQuality: 0.7
-    }).then(image => {
-      //console.log(image);
-      //setImage(image.path);
-      setShowModal(false);
-      dispatch(setUserImage(image.path));
-
     })
+      .then(image => {
+        //console.log(image);
+        //setImage(image.path);
+        setShowModal(false);
+        dispatch(setUserImage(image.path));
+      })
       .catch(err => {
         // if (err.code === 'E_PICKER_CANCELLED')
         // {
@@ -78,8 +78,8 @@ export default function InfoScreen({ navigation }) {
         // }
         //Alert.alert("Waring", "There is no image picked!");
         setShowModal(false);
-      })
-  }
+      });
+  };
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -87,29 +87,28 @@ export default function InfoScreen({ navigation }) {
       height: 200,
       borderRadius: 200,
       cropping: true,
-    }).then(image => {
-      //console.log(image);
-      //setImage(image.path);
-      setShowModal(false)
-      dispatch(setUserImage(image.path));
-      //dispatch(setImage('aa'));
-
     })
+      .then(image => {
+        //console.log(image);
+        //setImage(image.path);
+        setShowModal(false);
+        dispatch(setUserImage(image.path));
+        //dispatch(setImage('aa'));
+      })
       .catch(err => {
         if (err.code === 'E_PICKER_CANCELLED') {
           //console.log(err);
           setShowModal(false);
         }
-      })
-  }
+      });
+  };
   const config = {
     velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80
-  }
+    directionalOffsetThreshold: 80,
+  };
   const onSwipeDown = () => {
-
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -123,26 +122,25 @@ export default function InfoScreen({ navigation }) {
         />
         <View style={styles.big_row}>
           <View style={styles.title}>
-
             <View style={styles.user_container}>
               <Image
-                style={{ height: scale(150), width: scale(150), borderRadius: scale(100), borderWidth: 1, borderColor: '#000' }}
-                source={{ uri: userImage }}
-                resizeMode='cover'
+                style={{
+                  height: scale(150),
+                  width: scale(150),
+                  borderRadius: scale(100),
+                  borderWidth: 1,
+                  borderColor: '#000',
+                }}
+                source={{uri: userImage}}
+                resizeMode="cover"
               />
               <TouchableOpacity
                 style={styles.takephoto_container}
-                onPress={() => setShowModal(true)}
-              >
-                <FontAwesome5
-                  name="camera"
-                  size={20}
-                  color='#000'
-
-                />
+                onPress={() => setShowModal(true)}>
+                <FontAwesome5 name="camera" size={20} color="#000" />
               </TouchableOpacity>
             </View>
-            <View style={{ width: '70%' }}>
+            <View style={{width: '70%'}}>
               <Text
                 style={{
                   fontSize: 25,
@@ -150,28 +148,29 @@ export default function InfoScreen({ navigation }) {
                   color: 'black',
                   paddingLeft: 20,
                 }}
-                numberOfLines={2}
-              >
+                numberOfLines={2}>
                 {name}
               </Text>
             </View>
           </View>
         </View>
 
-        <View style={[styles.big_row, { paddingTop: 30 }]}>
+        <View style={[styles.big_row, {paddingTop: 30}]}>
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Feather
                 name="user"
                 size={24}
                 color="black"
-                style={{ paddingRight: 3 }}
+                style={{paddingRight: 3}}
               />
 
               <Text style={styles.text}>Tên </Text>
             </View>
 
-            <Text style={styles.text} numberOfLines={2}>{name}</Text>
+            <Text style={styles.text} numberOfLines={2}>
+              {name}
+            </Text>
           </View>
 
           <View style={styles.row}>
@@ -180,12 +179,14 @@ export default function InfoScreen({ navigation }) {
                 name="mail"
                 size={24}
                 color="black"
-                style={{ paddingRight: 3 }}
+                style={{paddingRight: 3}}
               />
               <Text style={styles.text}>Email: </Text>
             </View>
 
-            <Text style={styles.text} numberOfLines={2}>{email}</Text>
+            <Text style={styles.text} numberOfLines={2}>
+              {email}
+            </Text>
           </View>
 
           <View style={styles.row}>
@@ -203,21 +204,20 @@ export default function InfoScreen({ navigation }) {
               <Text style={styles.text}>Mật khẩu: </Text>
             </View>
 
-
             <Pressable
               onPress={() => {
                 navigation.navigate('ChangePassword');
               }}
-              android_ripple={{ color: '#CCFFFF' }}
-              style={({ pressed }) => [{ backgroundColor: pressed ? '#CCFFFF' : 'white' }]}
-            >
+              android_ripple={{color: '#CCFFFF'}}
+              style={({pressed}) => [
+                {backgroundColor: pressed ? '#CCFFFF' : 'white'},
+              ]}>
               <Text style={styles.press_text}>Đổi mật khẩu</Text>
             </Pressable>
-
           </View>
         </View>
 
-        <View style={[styles.big_row, { paddingTop: 30 }]}>
+        <View style={[styles.big_row, {paddingTop: 30}]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
@@ -230,38 +230,35 @@ export default function InfoScreen({ navigation }) {
           />
         </View>
       </ScrollView>
-      <GestureRecognizer
-        onSwipeDown={onSwipeDown}
-        config={config}
-      >
+      <GestureRecognizer onSwipeDown={onSwipeDown} config={config}>
         <Modal
           visible={showModal}
           //onRequestClose={() => setShowModal(false)}
           transparent
           statusBarTranslucent
-          animationType='fade'
-        >
+          animationType="fade">
           <Pressable
-            style={[styles.modal_view, { flex: 2 }]}
+            style={[styles.modal_view, {flex: 2}]}
             onPress={() => setShowModal(false)}
-
           />
-          <View style={[styles.modal_view, { flex: 1 }]}>
+          <View style={[styles.modal_view, {flex: 1}]}>
             <View style={styles.modal_box}>
               <View style={styles.modal_bigrow}>
                 <TouchableOpacity
                   onPress={takePhotoFromCamera}
-                  style={{ paddingVertical: 10 }}
-                >
+                  style={{paddingVertical: 10}}>
                   <Animated.View
                     entering={LightSpeedInLeft}
-                    style={styles.modal_row}
-                  >
-                    <View style={[styles.takephoto_container, { position: 'relative' }]}>
+                    style={styles.modal_row}>
+                    <View
+                      style={[
+                        styles.takephoto_container,
+                        {position: 'relative'},
+                      ]}>
                       <MaterialCommunityIcons
-                        name='camera-plus'
+                        name="camera-plus"
                         size={20}
-                        color='#000'
+                        color="#000"
                       />
                     </View>
                     <Text style={styles.modal_text}>Chụp ảnh</Text>
@@ -269,24 +266,21 @@ export default function InfoScreen({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={choosePhotoFromLibrary}
-                  style={{ paddingVertical: 10 }}
-                >
+                  style={{paddingVertical: 10}}>
                   <Animated.View
                     entering={LightSpeedInLeft}
-                    style={styles.modal_row}
-                  >
-                    <View style={[styles.takephoto_container, { position: 'relative' }]}>
-                      <Fontisto
-                        name='photograph'
-                        size={20}
-                        color='#000'
-                      />
+                    style={styles.modal_row}>
+                    <View
+                      style={[
+                        styles.takephoto_container,
+                        {position: 'relative'},
+                      ]}>
+                      <Fontisto name="photograph" size={20} color="#000" />
                     </View>
                     <Text style={styles.modal_text}>Lấy ảnh từ thư viện</Text>
                   </Animated.View>
                 </TouchableOpacity>
               </View>
-              
             </View>
           </View>
         </Modal>
@@ -305,7 +299,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 10,
-
   },
 
   row: {
@@ -331,7 +324,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#000'
+    borderColor: '#000',
   },
 
   text: {
@@ -344,7 +337,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
-
 
   press_text: {
     fontSize: scale(16),
@@ -376,17 +368,15 @@ const styles = StyleSheet.create({
     borderRadius: scale(50),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#e4e6eb'
+    backgroundColor: '#e4e6eb',
   },
 
-  //Modal of change data 
+  //Modal of change data
   modal_view: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#00000099',
-
-
   },
   modal_box: {
     width: '100%',
@@ -400,7 +390,6 @@ const styles = StyleSheet.create({
   modal_bigrow: {
     paddingHorizontal: 10,
     paddingVertical: 20,
-
   },
   modal_row: {
     flexDirection: 'row',
@@ -413,6 +402,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     paddingLeft: 20,
   },
-
-
-})
+});

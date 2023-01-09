@@ -1,23 +1,42 @@
-import { View, Text, StyleSheet, KeyboardAvoidingView, ScrollView, SectionList, Pressable, Modal, TextInput, ToastAndroid } from "react-native";
-import React, { useState } from "react";
-import HeaderDrawer from "../components/Header_Drawer";
-import scale from "../constants/scale";
-import { useSelector, useDispatch } from 'react-redux';
-import moment from "moment";
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+  SectionList,
+  Pressable,
+  Modal,
+  TextInput,
+  ToastAndroid,
+} from 'react-native';
+import React, {useState} from 'react';
+import HeaderDrawer from '../components/Header_Drawer';
+import scale from '../constants/scale';
+import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { removeData, changeData } from "../Redux/IncomeOutcome";
-import PlanData, { IncreaseCurrentUse} from "../Redux/PlanData";
+import {removeData, changeData} from '../Redux/IncomeOutcome';
+import PlanData, {IncreaseCurrentUse} from '../Redux/PlanData';
 import CustomButton from '../components/CustomButton';
-import { setShowBottomTab } from '../Redux/TabState';
-import CustomAlert from "../components/CustomAlert";
-import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
+import {setShowBottomTab} from '../Redux/TabState';
+import CustomAlert from '../components/CustomAlert';
+import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 
-export default function History({ navigation }) {
+export default function History({navigation}) {
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
-  const weekday = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+  const weekday = [
+    'Chủ nhật',
+    'Thứ hai',
+    'Thứ ba',
+    'Thứ tư',
+    'Thứ năm',
+    'Thứ sáu',
+    'Thứ bảy',
+  ];
   //const currentDate = new Date();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
@@ -27,124 +46,150 @@ export default function History({ navigation }) {
   const [newTime, setNewTime] = useState('');
   const [oldValue, setOldValue] = useState('');
   const [newisIncome, setNewisIncome] = useState(true);
-  const [showModalDelete,setShowModalDelete] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const tabState = useSelector(state => state.tabState.value);
   var result = [];
 
-  IncomeOutcome.slice(0).reverse().map((item, index) => {
-    if ((result.map(itemr => itemr.title.date)).indexOf(moment(item.time).format('YYYY-MM-DD')) === -1) {
-      const newObject = {
-        title: {
-          date: '',
-          totalIncome: 0,
-          totalOutcome: 0,
-        },
-        data: []
+  IncomeOutcome.slice(0)
+    .reverse()
+    .map((item, index) => {
+      if (
+        result
+          .map(itemr => itemr.title.date)
+          .indexOf(moment(item.time).format('YYYY-MM-DD')) === -1
+      ) {
+        const newObject = {
+          title: {
+            date: '',
+            totalIncome: 0,
+            totalOutcome: 0,
+          },
+          data: [],
+        };
+        newObject.title.date = moment(item.time).format('YYYY-MM-DD');
+        newObject.title.totalIncome = item.isIncome ? Number(item.value) : 0;
+        newObject.title.totalOutcome =
+          item.isIncome === false && item.isDifferent === false
+            ? Number(item.value)
+            : 0;
+        newObject.data.push({
+          key: item.key,
+          name: item.name,
+          value: item.value,
+          isIncome: item.isIncome,
+          isPossession: item.isPossession,
+          time: item.time,
+          isDifferent: item.isDifferent,
+        });
+        result.push(newObject);
+      } else if (
+        result
+          .map(itemr => itemr.title.date)
+          .indexOf(moment(item.time).format('YYYY-MM-DD')) > -1
+      ) {
+        let newIndex = result
+          .map(itemr => itemr.title.date)
+          .indexOf(moment(item.time).format('YYYY-MM-DD'));
+        result[newIndex].title.totalIncome += item.isIncome
+          ? Number(item.value)
+          : 0;
+        result[newIndex].title.totalOutcome +=
+          item.isIncome === false && item.isDifferent === false
+            ? Number(item.value)
+            : 0;
+        result[newIndex].data.push({
+          key: item.key,
+          name: item.name,
+          value: item.value,
+          isIncome: item.isIncome,
+          isPossession: item.isPossession,
+          time: item.time,
+          isDifferent: item.isDifferent,
+        });
       }
-      newObject.title.date = moment(item.time).format('YYYY-MM-DD');
-      newObject.title.totalIncome = item.isIncome ? Number(item.value) : 0;
-      newObject.title.totalOutcome = item.isIncome === false && item.isDifferent === false ?  Number(item.value) : 0;
-      newObject.data.push({
-        key: item.key,
-        name: item.name,
-        value: item.value,
-        isIncome: item.isIncome,
-        isPossession: item.isPossession,
-        time: item.time,
-        isDifferent: item.isDifferent,
-      })
-      result.push(newObject);
-    }
-    else if ((result.map(itemr => itemr.title.date)).indexOf(moment(item.time).format('YYYY-MM-DD')) > -1) {
-      let newIndex = (result.map(itemr => itemr.title.date)).indexOf(moment(item.time).format('YYYY-MM-DD'))
-      result[newIndex].title.totalIncome += item.isIncome ? Number(item.value) : 0;
-      result[newIndex].title.totalOutcome += item.isIncome === false && item.isDifferent === false ?  Number(item.value) : 0;
-      result[newIndex].data.push({
-        key: item.key,
-        name: item.name,
-        value: item.value,
-        isIncome: item.isIncome,
-        isPossession: item.isPossession,
-        time: item.time,
-        isDifferent: item.isDifferent,
-      })
-    }
-  })
-  
+    });
+
   let index;
   const onRemoveData = (keyDelete, name, value, time, isIncome) => {
-    index = (IncomeOutcome.map(item => item.key)).indexOf(keyDelete);
-    
+    index = IncomeOutcome.map(item => item.key).indexOf(keyDelete);
+
     setNewName(name);
     setNewValue(value);
     setNewIndex(index);
     setNewTime(time);
     setNewisIncome(isIncome);
     setShowModalDelete(true);
-  }
+  };
   //console.log(newName,newValue,newIndex,newTime,newisIncome);
 
   const onConfirmDelete = () => {
     dispatch(removeData(newIndex));
-    if(newisIncome === false) {
-      let d1 = new Date(moment(newTime).format('YYYY-MM-DD'))
-      planData.map((item,index)=>{
+    if (newisIncome === false) {
+      let d1 = new Date(moment(newTime).format('YYYY-MM-DD'));
+      planData.map((item, index) => {
         let d2 = new Date(item.dateStart);
         let d3 = new Date(item.dateFinish);
-        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()){
-          dispatch(IncreaseCurrentUse({
-            index: index,
-            value: -Number(newValue)
-          }))
+        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+          dispatch(
+            IncreaseCurrentUse({
+              index: index,
+              value: -Number(newValue),
+            }),
+          );
         }
-      })
-      dispatch(IncreaseTotal(Number(newValue)))
+      });
+      dispatch(IncreaseTotal(Number(newValue)));
     } else if (newisIncome === true) {
-      dispatch(DecreaseTotal(Number(newValue)))
+      dispatch(DecreaseTotal(Number(newValue)));
     }
     setShowModalDelete(false);
-  }
+  };
 
   const onChangeData = (keyChange, name, value, time, isIncome) => {
     setShowModal(true);
     setNewName(name);
     setNewValue(value);
-    index = (IncomeOutcome.map(item => item.key)).indexOf(keyChange);
+    index = IncomeOutcome.map(item => item.key).indexOf(keyChange);
     setNewIndex(index);
     setNewTime(time);
     setOldValue(value);
     setNewisIncome(isIncome);
-
-  }
+  };
   //console.log(newTime);
   //console.log(newisIncome);
   const onConfirmChange = () => {
-    if (newValue !== "") {
-      dispatch(changeData({
-        index: newIndex,
-        value: newValue,
-      }))
+    if (newValue !== '') {
+      dispatch(
+        changeData({
+          index: newIndex,
+          value: newValue,
+        }),
+      );
       if (newisIncome === false) {
-        let d1 = new Date(moment(newTime).format("YYYY-MM-DD"));
+        let d1 = new Date(moment(newTime).format('YYYY-MM-DD'));
         planData.map((item, index) => {
           let d2 = new Date(item.dateStart);
           let d3 = new Date(item.dateFinish);
           if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
-            dispatch(IncreaseCurrentUse({
-              index: index,
-              value: -Number(oldValue),
-            }))
-            dispatch(IncreaseCurrentUse({
-              index: index,
-              value: Number(newValue),
-            }))
+            dispatch(
+              IncreaseCurrentUse({
+                index: index,
+                value: -Number(oldValue),
+              }),
+            );
+            dispatch(
+              IncreaseCurrentUse({
+                index: index,
+                value: Number(newValue),
+              }),
+            );
           }
-        })
-        dispatch(IncreaseTotal(Number(oldValue)))
-        dispatch(DecreaseTotal(Number(newValue)))
+        });
+        dispatch(IncreaseTotal(Number(oldValue)));
+        dispatch(DecreaseTotal(Number(newValue)));
       } else if (newisIncome === true) {
-        dispatch(DecreaseTotal(Number(oldValue)))
-        dispatch(IncreaseTotal(Number(newValue)))
+        dispatch(DecreaseTotal(Number(oldValue)));
+        dispatch(IncreaseTotal(Number(newValue)));
       }
       setShowModal(false);
       ToastAndroid.showWithGravity(
@@ -153,115 +198,157 @@ export default function History({ navigation }) {
         ToastAndroid.BOTTOM,
       );
     }
-  }
+  };
 
   //console.log(IncomeOutcome);
   //console.log(newIndex, newName, newValue)
-  const RenderItem = ({ item, index }) => {
+  const RenderItem = ({item, index}) => {
     //console.log(props.item)
     return (
       <View style={styles.item_view}>
         {/* <Text style={styles.text}>{index + 1}. {item.name}</Text> */}
-        {item.isPossession ?
-          (item.isIncome === false ? (item.isDifferent ?
-            (<Text style={styles.text}>{index + 1}. {item.name} - KHÁC</Text>)
-            : (<Text style={styles.text}>{index + 1}. {item.name} - MUA</Text>))
-            : (<Text style={styles.text}>{index + 1}. {item.name} - BÁN</Text>)
-
-          ) : (<Text style={styles.text}>{index + 1}. {item.name}</Text>)}
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ paddingRight: 20 }}>
-            {item.isIncome === true ?
-              (<Text style={[styles.text, { color: '#00CC00' }]}>+ {item.value} VND</Text>)
-              : (item.isDifferent ?
-                (<Text style={[styles.text, { color: 'hsl(36,100%,52%)' }]}> {item.value} VND</Text>)
-                : (<Text style={[styles.text, { color: '#DF2828' }]}>- {item.value} VND</Text>))
-            }
+        {item.isPossession ? (
+          item.isIncome === false ? (
+            item.isDifferent ? (
+              <Text style={styles.text}>
+                {index + 1}. {item.name} - KHÁC
+              </Text>
+            ) : (
+              <Text style={styles.text}>
+                {index + 1}. {item.name} - MUA
+              </Text>
+            )
+          ) : (
+            <Text style={styles.text}>
+              {index + 1}. {item.name} - BÁN
+            </Text>
+          )
+        ) : (
+          <Text style={styles.text}>
+            {index + 1}. {item.name}
+          </Text>
+        )}
+        <View style={{flexDirection: 'row'}}>
+          <View style={{paddingRight: 20}}>
+            {item.isIncome === true ? (
+              <Text style={[styles.text, {color: '#00CC00'}]}>
+                + {item.value} VND
+              </Text>
+            ) : item.isDifferent ? (
+              <Text style={[styles.text, {color: 'hsl(36,100%,52%)'}]}>
+                {' '}
+                {item.value} VND
+              </Text>
+            ) : (
+              <Text style={[styles.text, {color: '#DF2828'}]}>
+                - {item.value} VND
+              </Text>
+            )}
           </View>
           {!item.isPossession ? (
             <>
               <Pressable
-                android_ripple={{ color: '#bbbbbb' }}
-                style={{ marginRight: 7 }}
-                onPress={() => onChangeData(item.key, item.name, item.value, item.time, item.isIncome)}
-              >
+                android_ripple={{color: '#bbbbbb'}}
+                style={{marginRight: 7}}
+                onPress={() =>
+                  onChangeData(
+                    item.key,
+                    item.name,
+                    item.value,
+                    item.time,
+                    item.isIncome,
+                  )
+                }>
                 <MaterialCommunityIcons
-                  name='pencil-outline'
+                  name="pencil-outline"
                   size={18}
                   color={'#000000'}
                 />
               </Pressable>
 
               <Pressable
-                android_ripple={{ color: '#bbbbbb' }}
-                onPress={() => onRemoveData(item.key, item.name, item.value, item.time, item.isIncome)}
-              >
-                <AntDesign
-                  name='delete'
-                  size={18}
-                  color={'#000000'}
-                />
+                android_ripple={{color: '#bbbbbb'}}
+                onPress={() =>
+                  onRemoveData(
+                    item.key,
+                    item.name,
+                    item.value,
+                    item.time,
+                    item.isIncome,
+                  )
+                }>
+                <AntDesign name="delete" size={18} color={'#000000'} />
               </Pressable>
             </>
-          ) :
-            (<View style={{ width: 43 }} />)}
+          ) : (
+            <View style={{width: 43}} />
+          )}
         </View>
       </View>
-    )
-
-  }
+    );
+  };
 
   let offsetY = 0;
-  const handleOnScroll = ({ nativeEvent }) => {
+  const handleOnScroll = ({nativeEvent}) => {
     //console.log(nativeEvent.contentOffset)
     const newOffset = nativeEvent.contentOffset.y;
-    if (newOffset <= 0) dispatch(setShowBottomTab(true))
-    offsetY < newOffset ? dispatch(setShowBottomTab(false)) : dispatch(setShowBottomTab(true));
+    if (newOffset <= 0) dispatch(setShowBottomTab(true));
+    offsetY < newOffset
+      ? dispatch(setShowBottomTab(false))
+      : dispatch(setShowBottomTab(true));
     //console.log('Y',offsetY);
     offsetY = newOffset;
 
     //console.log('New',newOffset)
-  }
+  };
   //console.log(tabState);
-
 
   return (
     <KeyboardAvoidingView style={styles.view}>
       <>
         <SectionList
-          ListHeaderComponent={() =>
+          ListHeaderComponent={() => (
             <HeaderDrawer
               onPress={() => navigation.openDrawer('HomeScreen')}
               title="SỔ THU CHI"
-
-              style={{ paddingBottom: 10 }}
-            />}
+              style={{paddingBottom: 10}}
+            />
+          )}
           stickyHeaderIndices={[0]}
           keyExtractor={(item, index) => index.toString()}
           sections={result}
-          renderSectionHeader={({ section }) => {
+          renderSectionHeader={({section}) => {
             //const d = new Date(section.title.date);
             //setCurrentDate(new Date())
             let day;
-            let compare = (new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() - (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime();
+            let compare =
+              new Date(moment(currentDate).format('DD-MM-YYYY')).getTime() -
+              new Date(
+                moment(section.title.date).format('DD-MM-YYYY'),
+              ).getTime();
             //if ((new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() === (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime()) {
             if (compare === 0) {
-              day = "Hôm nay";
-            }
-            else if (compare === 86400000) {
-              day = "Hôm qua";
-            }
-            else {
-              day = weekday[(new Date(section.title.date)).getDay()];
+              day = 'Hôm nay';
+            } else if (compare === 86400000) {
+              day = 'Hôm qua';
+            } else {
+              day = weekday[new Date(section.title.date).getDay()];
             }
             return (
               <View style={styles.title_view}>
-                <Text style={styles.text}>{day}  {moment(section.title.date).format('DD-MM-YYYY')}</Text>
-                <Text style={[styles.text, { color: '#00CC00' }]}>+ {section.title.totalIncome} VND</Text>
-                <Text style={[styles.text, { color: '#DF2828' }]}>- {section.title.totalOutcome} VND</Text>
-              </View>)
+                <Text style={styles.text}>
+                  {day} {moment(section.title.date).format('DD-MM-YYYY')}
+                </Text>
+                <Text style={[styles.text, {color: '#00CC00'}]}>
+                  + {section.title.totalIncome} VND
+                </Text>
+                <Text style={[styles.text, {color: '#DF2828'}]}>
+                  - {section.title.totalOutcome} VND
+                </Text>
+              </View>
+            );
           }}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <RenderItem item={item} index={index} />
           )}
           onScroll={handleOnScroll}
@@ -282,12 +369,11 @@ export default function History({ navigation }) {
         onRequestClose={() => setShowModal(false)}
         transparent
         //statusBarTranslucent
-        animationType='fade'
-      >
+        animationType="fade">
         <Pressable
           style={styles.modal_view}
           onPress={() => {
-            setShowModal(false)
+            setShowModal(false);
           }}
         />
 
@@ -305,7 +391,7 @@ export default function History({ navigation }) {
                     padding: 0,
                     paddingHorizontal: 4,
                     textAlign: 'center',
-                    fontFamily: 'Inter-Bold'
+                    fontFamily: 'Inter-Bold',
                   }}
                   editable={false}
                   placeholder={newName}
@@ -325,8 +411,7 @@ export default function History({ navigation }) {
                     paddingHorizontal: 4,
                     textAlign: 'center',
 
-                    fontFamily: 'Inter-Bold'
-
+                    fontFamily: 'Inter-Bold',
                   }}
                   //placeholder = {newValue}
                   //placeholderTextColor = {'#000000'}
@@ -345,33 +430,29 @@ export default function History({ navigation }) {
                 onPressFunction={onConfirmChange}
               />
             </View>
-
           </View>
         </View>
       </Modal>
 
       <CustomAlert
-        showModal = {showModalDelete}
-        setShowModal = {setShowModalDelete}
-        ButtonList = {[
-          {text: 'Hủy', onPress: ()=> setShowModalDelete(false)},
-          {text: 'Đồng ý',onPress: ()=> onConfirmDelete()},
+        showModal={showModalDelete}
+        setShowModal={setShowModalDelete}
+        ButtonList={[
+          {text: 'Hủy', onPress: () => setShowModalDelete(false)},
+          {text: 'Đồng ý', onPress: () => onConfirmDelete()},
         ]}
-        title = {'Xoá '+ '"' + newName + '"'+' ?'}
-        message = {'Mục '+'"' + newName + '"'+' sẽ bị xóa khỏi sổ thu chi'}
-
+        title={'Xoá ' + '"' + newName + '"' + ' ?'}
+        message={'Mục ' + '"' + newName + '"' + ' sẽ bị xóa khỏi sổ thu chi'}
       />
- 
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
     paddingBottom: 20,
-
   },
   title_view: {
     flexDirection: 'row',
@@ -400,14 +481,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
   },
 
-  //Modal of change data 
+  //Modal of change data
   modal_view: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#00000099',
-
-
   },
   modal_box: {
     width: '100%',
@@ -423,8 +502,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     paddingTop: 30,
-
-
   },
   modal_row: {
     flexDirection: 'row',
@@ -446,6 +523,4 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
-
-})
-
+});

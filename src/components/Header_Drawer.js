@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Pressable,
-
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
-import Entypo from 'react-native-vector-icons/Entypo'
-const HeaderDrawer = (props) => {
+import Entypo from 'react-native-vector-icons/Entypo';
+const HeaderDrawer = props => {
   return (
     <View style={styles.view}>
       <View style={styles.row}>
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
           <Image
             source={require('../assets/images/icon_money.png')}
             style={{
@@ -25,13 +19,13 @@ const HeaderDrawer = (props) => {
               resizeMode: 'contain',
             }}
           />
-          <View style={{ marginLeft: 5 }}>
+          <View style={{marginLeft: 5}}>
             <Text style={styles.text}>MY</Text>
             <Text style={styles.text}>ASSET</Text>
           </View>
         </View>
         <Pressable
-          style={({ pressed }) => [
+          style={({pressed}) => [
             {
               height: 30,
               width: 30,
@@ -39,21 +33,16 @@ const HeaderDrawer = (props) => {
               backgroundColor: pressed ? 'hsl(0,0%,90%)' : '#fff',
               alignItems: 'center',
               justifyContent: 'center',
-            }
+            },
           ]}
-          onPress={props.onPress}
-        >
-          <Entypo
-            name='menu'
-            size={24}
-            color='black'
-          />
-
+          onPress={props.onPress}>
+          <Entypo name="menu" size={24} color="black" />
         </Pressable>
       </View>
 
       <View style={styles.title_view}>
-        <Text style={[{ fontSize: props.fontSize }, styles.title, { ...props.style }]}>
+        <Text
+          style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
           {props.title}
         </Text>
       </View>
@@ -81,7 +70,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#000000',
     fontFamily: 'Inter-Bold',
-    fontSize: scale(20)
+    fontSize: scale(20),
   },
 
   row: {
@@ -90,7 +79,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-
 });
 
 export default HeaderDrawer;

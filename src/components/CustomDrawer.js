@@ -1,24 +1,24 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-import { useSelector } from 'react-redux';
-
+import SignOut from '../auth/SignOut';
+import {useDispatch, useSelector} from 'react-redux';
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity
       style={props.style}
       onPress={() => props.navigation.navigate(props.component)}
-    //activeOpacity={0.5}
-    //underlayColor='#dddddd'
+      //activeOpacity={0.5}
+      //underlayColor='#dddddd'
     >
       <Image
         source={props.icon}
-        //resizeMode={'contain'} 
+        //resizeMode={'contain'}
         style={{
           height: 20,
           width: 20,
-          resizeMode: 'contain'
+          resizeMode: 'contain',
         }}
       />
       <Text style={styles.text}>{props.label}</Text>
@@ -31,15 +31,18 @@ const CustomDrawer = props => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        
-          <Image
-            //source={require('../assets/images/avatar2.png')}
-            source={{ uri: userImage }}
-            style={{ height: scale(100), width: scale(100), borderRadius: scale(100), borderWidth: 1, borderColor: '#000'}}
-            resizeMode="contain"
-          />
-        
-
+        <Image
+          //source={require('../assets/images/avatar2.png')}
+          source={{uri: userImage}}
+          style={{
+            height: scale(100),
+            width: scale(100),
+            borderRadius: scale(100),
+            borderWidth: 1,
+            borderColor: '#000',
+          }}
+          resizeMode="contain"
+        />
       </View>
       <View
         style={{
@@ -50,7 +53,7 @@ const CustomDrawer = props => {
           marginHorizontal: 10,
         }}></View>
       <DrawerContentScrollView
-        contentContainerStyle={{ backgroundColor: '#ffffff' }}>
+        contentContainerStyle={{backgroundColor: '#ffffff'}}>
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Thông tin cá nhân'}
@@ -66,11 +69,16 @@ const CustomDrawer = props => {
           component={'HomeScreen'}
         />
       </DrawerContentScrollView>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.signOutContainer}
-        onPress={() => props.navigation.navigate('Login')}>
-        <Text style={[styles.text, { marginLeft: 0 }]}>Đăng xuất</Text>
-      </TouchableOpacity>
+        onPress={() => {
+          onSignOutPress().then(() => {
+            props.navigation.navigate('Login');
+          });
+        }}>
+        <Text style={[styles.text, {marginLeft: 0}]}>Đăng xuất</Text>
+      </TouchableOpacity> */}
+      <SignOut navigation={props.navigation} />
     </View>
   );
 };

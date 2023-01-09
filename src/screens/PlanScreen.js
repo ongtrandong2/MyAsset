@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,10 +16,10 @@ import {
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import CustomButton from '../components/CustomButton';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   addPlan,
   IncreaseCurrentUse,
@@ -33,11 +33,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PushNotification from 'react-native-push-notification';
 import CustomAlert from '../components/CustomAlert';
 import Income from './Income';
-export default function PlanScreen({ navigation }) {
+export default function PlanScreen({navigation}) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
-  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] = useState(false);
+  const [isDatePickerFinishVisible, setDatePickerFinishVisibility] =
+    useState(false);
   const [dateFinish, setDateFinish] = useState('');
   const [budget, setBudget] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -145,12 +146,11 @@ export default function PlanScreen({ navigation }) {
           //             value: Number(item.value),
           //           })
           //         )
-          //       }	  
+          //       }
           //   })
           // })
 
           setFlag(false);
-
         }
         setDateSelect('');
         setDateFinish('');
@@ -170,12 +170,13 @@ export default function PlanScreen({ navigation }) {
   // }
 
   //console.log(IncomeOutcome)
-  const onChangePlan = ({ index, item }) => {
+  const onChangePlan = ({index, item}) => {
     setFlag(true);
     setDateSelect(item.dateStart);
     setDateFinish(item.dateFinish);
+    setBudget(item.budget);
     //onConfirmPlan(index,item.currentuse, item.percentage_of_use, item.isExceed);
-    onConfirmPlan({ index, item });
+    onConfirmPlan({index, item});
     setBudget(item.budget);
 
     //console.log(item.isExceed);
@@ -190,7 +191,6 @@ export default function PlanScreen({ navigation }) {
     });
     setCurrentDate(new Date());
     setShowModalUpdate(true);
-
   };
   const onConfirmChange = () => {
     dispatch(
@@ -218,7 +218,7 @@ export default function PlanScreen({ navigation }) {
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
-  }
+  };
 
   const onDetelePlan = (index, item) => {
     //console.log(item);
@@ -230,67 +230,77 @@ export default function PlanScreen({ navigation }) {
       newPercent: item.percentage_of_use,
       newCurrentuse: item.currentuse,
       newBudget: item.budget,
-    })
-  }
+    });
+  };
   //console.log(dataDelete);
-
-
 
   useEffect(() => {
     planData.map((item, index) => {
       if (item.isExceed === true) {
         let exceedMoney = item.currentuse - item.budget;
         PushNotification.localNotification({
-          channelId: "plan",
-          title: "Thông báo",
-          message: "Kế hoạch từ ngày " + moment(item.dateStart).format('DD/MM/YYYY')
-            + " đến ngày " + moment(item.dateFinish).format('DD/MM/YYYY')
-            + " vượt định mức " + exceedMoney + " VND"
-
+          channelId: 'plan',
+          title: 'Thông báo',
+          message:
+            'Kế hoạch từ ngày ' +
+            moment(item.dateStart).format('DD/MM/YYYY') +
+            ' đến ngày ' +
+            moment(item.dateFinish).format('DD/MM/YYYY') +
+            ' vượt định mức ' +
+            exceedMoney +
+            ' VND',
         });
       }
-    })
-  }, [planData])
+    });
+  }, [planData]);
 
   //console.log(planData);
-  const RenderItem = ({ item, index }) => {
+  const RenderItem = ({item, index}) => {
     if (item.history.length === 0) {
       return (
-        <View style={{ alignSelf: 'center' }}>
-          <Text style={[styles.text, { color: 'grey' }]}>Chưa có lần chỉnh sửa nào cho kế hoạch này!</Text>
+        <View style={{alignSelf: 'center'}}>
+          <Text style={[styles.text, {color: 'grey'}]}>
+            Chưa có lần chỉnh sửa nào cho kế hoạch này!
+          </Text>
         </View>
-      )
-    }
-    else {
+      );
+    } else {
       return (
-        <View style={{ alignSelf: 'flex-start' }}>
+        <View style={{alignSelf: 'flex-start'}}>
           {item.history.map((item_h, index_h) => {
-            let compare = (item_h.newBudget - item_h.oldBudget);
+            let compare = item_h.newBudget - item_h.oldBudget;
             let temp = 0;
             if (compare > 0) {
               temp = compare;
-            }
-            else temp = -compare;
+            } else temp = -compare;
             return (
-              <View key={(index_h).toString()}>
-                <Text style={[styles.text,]}>
-                  {moment(item_h.timechange).format('DD/MM/YYYY')}:
-                  Định mức
+              <View key={index_h.toString()}>
+                <Text style={[styles.text]}>
+                  {moment(item_h.timechange).format('DD/MM/YYYY')}: Định mức
                   {compare > 0 ? (
-                    <Text style={[styles.text, { color: 'hsl(111,84%,36%)' }]}> tăng {temp} VND</Text>
+                    <Text style={[styles.text, {color: 'hsl(111,84%,36%)'}]}>
+                      {' '}
+                      tăng {temp} VND
+                    </Text>
                   ) : (
-                    <Text style={[styles.text, { color: 'hsl(0,74%,52%)' }]}> giảm {temp} VND</Text>
+                    <Text style={[styles.text, {color: 'hsl(0,74%,52%)'}]}>
+                      {' '}
+                      giảm {temp} VND
+                    </Text>
                   )}
                 </Text>
 
-                <Text style={styles.text}>{'\t\t\t\t\t\t\t\t\t\t'} {item_h.oldBudget} VND ⟶ {item_h.newBudget} VND</Text>
+                <Text style={styles.text}>
+                  {'\t\t\t\t\t\t\t\t\t\t'} {item_h.oldBudget} VND ⟶{' '}
+                  {item_h.newBudget} VND
+                </Text>
               </View>
-            )
+            );
           })}
         </View>
-      )
+      );
     }
-  }
+  };
 
   const PenAnimation = () => {
     if (showPen) {
@@ -306,34 +316,31 @@ export default function PlanScreen({ navigation }) {
         useNativeDriver: true,
       }).start();
     }
-  }
+  };
 
   useEffect(() => {
     PenAnimation();
-  }, [showPen])
+  }, [showPen]);
 
   let offsetY = 0;
-  const handleOnScroll = ({ nativeEvent }) => {
+  const handleOnScroll = ({nativeEvent}) => {
     //console.log(nativeEvent.contentOffset)
     const newOffset = nativeEvent.contentOffset.y;
     offsetY < newOffset ? setShowPen(false) : setShowPen(true);
     offsetY = newOffset;
-
-  }
+  };
   //console.log(showPen);
 
   return (
     <KeyboardAvoidingView style={styles.view}>
-      <ScrollView
-        onScroll={handleOnScroll}
-      >
+      <ScrollView onScroll={handleOnScroll}>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           title="KẾ HOẠCH"
         />
 
         {planData.length === 0 ? (
-          <View style={[styles.big_row, { alignItems: 'center' }]}>
+          <View style={[styles.big_row, {alignItems: 'center'}]}>
             <Text
               style={{
                 fontSize: scale(40),
@@ -350,13 +357,16 @@ export default function PlanScreen({ navigation }) {
                 <View key={index}>
                   <View style={styles.big_row}>
                     <View style={styles.slider_view}>
-                      <View style={[styles.figure_view, { paddingBottom: 3 }]}>
-                        <Text style={styles.text}>{moment(item.dateStart).format('DD/MM/YYYY')}  -  {moment(item.dateFinish).format('DD/MM/YYYY')}</Text>
+                      <View style={[styles.figure_view, {paddingBottom: 3}]}>
+                        <Text style={styles.text}>
+                          {moment(item.dateStart).format('DD/MM/YYYY')} -{' '}
+                          {moment(item.dateFinish).format('DD/MM/YYYY')}
+                        </Text>
                         <View style={styles.updatebox}>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
-                            style={{ marginRight: 7 }}
-                            onPress={() => onChangePlan({ index, item })}>
+                            android_ripple={{color: '#bbbbbb'}}
+                            style={{marginRight: 7}}
+                            onPress={() => onChangePlan({index, item})}>
                             <MaterialCommunityIcons
                               name="pencil-outline"
                               size={20}
@@ -364,10 +374,9 @@ export default function PlanScreen({ navigation }) {
                             />
                           </Pressable>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
+                            android_ripple={{color: '#bbbbbb'}}
                             //onPress={() => dispatch(removePlan(index))}
-                            onPress={() => onDetelePlan(index, item)}
-                          >
+                            onPress={() => onDetelePlan(index, item)}>
                             <AntDesign
                               name="delete"
                               size={20}
@@ -380,8 +389,7 @@ export default function PlanScreen({ navigation }) {
                         style={styles.progressBar}
                         onPress={() => {
                           dispatch(setIsShowHistory(index));
-                        }}
-                      >
+                        }}>
                         <Animated.View
                           style={
                             ([StyleSheet.absoluteFill],
@@ -397,20 +405,37 @@ export default function PlanScreen({ navigation }) {
                         />
                       </TouchableOpacity>
                       <View style={styles.figure_view}>
-                        <Text style={[styles.text, { color: item.isExceed ? 'hsl(0,74%,52%)' : 'hsl(111,84%,36%)' }]}>{item.currentuse}</Text>
-                        <Text style={[styles.text, { color: 'rgb(255,153,0)' }]}>{item.budget} VND</Text>
+                        <Text
+                          style={[
+                            styles.text,
+                            {
+                              color: item.isExceed
+                                ? 'hsl(0,74%,52%)'
+                                : 'hsl(111,84%,36%)',
+                            },
+                          ]}>
+                          {item.currentuse}
+                        </Text>
+                        <Text style={[styles.text, {color: 'rgb(255,153,0)'}]}>
+                          {item.budget} VND
+                        </Text>
                       </View>
 
-                      <View style={{ alignItems: 'center' }}>
+                      <View style={{alignItems: 'center'}}>
                         {item.isExceed ? (
-                          <Text style={[styles.text, { color: 'hsl(0,74%,52%)', fontSize: scale(16) }]}>Vượt định mức: {item.currentuse - item.budget}</Text>
+                          <Text
+                            style={[
+                              styles.text,
+                              {color: 'hsl(0,74%,52%)', fontSize: scale(16)},
+                            ]}>
+                            Vượt định mức: {item.currentuse - item.budget}
+                          </Text>
                         ) : null}
                       </View>
 
                       {item.isShowHistory === true && (
                         <RenderItem item={item} index={index} />
                       )}
-
                     </View>
                   </View>
                 </View>
@@ -428,7 +453,8 @@ export default function PlanScreen({ navigation }) {
         }}
       />
 
-      <Animated.View style={[styles.floatingbutton, { transform: [{ translateY: animation }] }]}>
+      <Animated.View
+        style={[styles.floatingbutton, {transform: [{translateY: animation}]}]}>
         <Pressable
           onPress={() => {
             setShowModal(true);
@@ -437,10 +463,10 @@ export default function PlanScreen({ navigation }) {
             setDateFinish('');
             setBudget('');
           }}
-          style={({ pressed }) => [
-            { backgroundColor: pressed ? '#FFC700' : 'white' },
-            { ...styles.wrapper },
-            { ...styles.shadow },
+          style={({pressed}) => [
+            {backgroundColor: pressed ? '#FFC700' : 'white'},
+            {...styles.wrapper},
+            {...styles.shadow},
           ]}>
           <Image
             source={require('../assets/images/pen.png')}
@@ -450,7 +476,7 @@ export default function PlanScreen({ navigation }) {
               width: scale(30),
               borderRadius: scale(30),
             }}
-          //style = {styles.circle}
+            //style = {styles.circle}
           />
         </Pressable>
       </Animated.View>
@@ -466,11 +492,9 @@ export default function PlanScreen({ navigation }) {
           onPress={() => setShowModal(false)}
         />
 
-
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
-
-            <KeyboardAvoidingView style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{flex: 1}}>
               <ScrollView>
                 <View style={styles.modal_bigrow}>
                   <Text
@@ -546,7 +570,7 @@ export default function PlanScreen({ navigation }) {
                       //underlineStyle={{ borderWidth: 0 }}
                       textColor="blue"
                       activeUnderlineColor="black"
-                      keyboardType='numeric'
+                      keyboardType="numeric"
                     />
                   </View>
 
@@ -560,46 +584,46 @@ export default function PlanScreen({ navigation }) {
                 </View>
               </ScrollView>
             </KeyboardAvoidingView>
-
           </View>
         </View>
-
       </Modal>
       <CustomAlert
         showModal={showModalDelete}
         setShowModal={setShowModalDelete}
         ButtonList={[
-          { text: 'Hủy', onPress: () => setShowModalDelete(false) },
+          {text: 'Hủy', onPress: () => setShowModalDelete(false)},
           {
-            text: 'Đồng ý', onPress: () => {
-              dispatch(removePlan(dataDelete.index)),
-                setShowModalDelete(false)
-            }
-          }
+            text: 'Đồng ý',
+            onPress: () => {
+              dispatch(removePlan(dataDelete.index)), setShowModalDelete(false);
+            },
+          },
         ]}
         title={'Xóa kế hoạch'}
-        message={'Xoá kế hoạch từ ngày ' + moment(dataDelete.newDateStart).format('DD/MM/YYYY') +
-          ' đến ngày ' + moment(dataDelete.newDateFinish).format('DD/MM/YYYY') +
+        message={
+          'Xoá kế hoạch từ ngày ' +
+          moment(dataDelete.newDateStart).format('DD/MM/YYYY') +
+          ' đến ngày ' +
+          moment(dataDelete.newDateFinish).format('DD/MM/YYYY') +
           '\nChi tiết kế hoạch sẽ xóa: ' +
-          '\nNgân sách: ' + dataDelete.newBudget +
-          '\nSố tiền đã sử dụng: ' + dataDelete.newCurrentuse
+          '\nNgân sách: ' +
+          dataDelete.newBudget +
+          '\nSố tiền đã sử dụng: ' +
+          dataDelete.newCurrentuse
         }
       />
       <Modal
         visible={showModalUpdate}
         onRequestClose={() => setShowModalUpdate(false)}
-        transparent
-      >
+        transparent>
         <Pressable
           style={styles.modal_view}
           onPress={() => setShowModalUpdate(false)}
         />
 
-
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
-
-            <KeyboardAvoidingView style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{flex: 1}}>
               <ScrollView>
                 <View style={styles.modal_bigrow}>
                   <Text
@@ -616,7 +640,6 @@ export default function PlanScreen({ navigation }) {
                       style={styles.textInput_style}
                       //onChangeText={setDateSelect}
                       placeholderTextColor={'black'}
-
                       activeUnderlineColor="black"
                       editable={false}
                       placeholder={newData.dateStart}
@@ -645,7 +668,7 @@ export default function PlanScreen({ navigation }) {
                       //underlineStyle={{ borderWidth: 0 }}
                       textColor="blue"
                       activeUnderlineColor="black"
-                      keyboardType='numeric'
+                      keyboardType="numeric"
                     />
                   </View>
 
@@ -659,12 +682,9 @@ export default function PlanScreen({ navigation }) {
                 </View>
               </ScrollView>
             </KeyboardAvoidingView>
-
           </View>
         </View>
-
       </Modal>
-
     </KeyboardAvoidingView>
   );
 }
@@ -688,7 +708,6 @@ const styles = StyleSheet.create({
     bottom: scale(150),
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   wrapper: {
     width: scale(70),
@@ -698,6 +717,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: 'black',
   },
 
   shadow: {
@@ -717,7 +737,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     paddingHorizontal: scale(20),
-
   },
 
   slider_view: {
@@ -733,14 +752,11 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-end',
     //alignItems: 'center',
-
-
   },
 
   updatebox: {
     flexDirection: 'row',
   },
-
 
   progressBar: {
     height: scale(10),
@@ -756,7 +772,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#00000099',
-
   },
   modal_box: {
     width: '100%',
@@ -772,7 +787,6 @@ const styles = StyleSheet.create({
     //flexDirection: 'column',
     paddingVertical: 20,
     justifyContent: 'center',
-
   },
 
   modal_row: {
@@ -784,7 +798,6 @@ const styles = StyleSheet.create({
     //borderWidth:1
   },
   textInput_style: {
-
     fontSize: scale(16),
     borderBottomColor: 'black',
     width: '50%',

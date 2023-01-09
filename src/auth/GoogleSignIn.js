@@ -3,6 +3,7 @@ import auth from '@react-native-firebase/auth';
 import React from 'react';
 import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
+import {firebase} from '@react-native-firebase/firestore';
 
 GoogleSignin.configure({
   webClientId:
@@ -25,16 +26,30 @@ const LoginGoogle = props => {
   //console.log(props);
   return (
     <View style={styles.container}>
-      
       <Pressable
-        style={({pressed}) => [ styles.row,{backgroundColor: pressed ? '#0099FF' : 'white'}]}
+        style={({pressed}) => [
+          styles.row,
+          {backgroundColor: pressed ? '#0099FF' : 'white'},
+        ]}
         onPress={() => {
           console.log('signed in');
           onGoogleButtonPress().then(() => {
             props.navigation.navigate('Success');
           });
         }}
-      >
+      />
+      <Pressable
+        //style = {styles.row}
+        style={({pressed}) => [
+          styles.row,
+          {backgroundColor: pressed ? '#0099FF' : 'white'},
+        ]}
+        onPress={() => {
+          console.log('signed in');
+          onGoogleButtonPress().then(() => {
+            props.navigation.navigate('Success');
+          });
+        }}>
         <Image
           style={{height: 40, width: 40}}
           source={{
@@ -42,36 +57,33 @@ const LoginGoogle = props => {
           }}
           resizeMode="stretch"
         />
-        <Text style = {[styles.text, {paddingLeft: 10}]}>Continue with Google</Text>
+        <Text style={[styles.text, {paddingLeft: 10}]}>
+          Continue with Google
+        </Text>
       </Pressable>
     </View>
   );
 };
 
 export default LoginGoogle;
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
-    justifyContent:'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: 'blue',
-    alignItems:'center'
+    alignItems: 'center',
   },
-  text:{
-    color:'#0000CC',
-    fontSize:scale(20),
-    fontWeight:'bold',
+  text: {
+    color: '#0000CC',
+    fontSize: scale(20),
+    fontWeight: 'bold',
   },
-
-  
-
-  
 });

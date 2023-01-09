@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {
   StyleSheet,
@@ -9,22 +9,21 @@ import {
   Image,
   Alert,
   KeyboardAvoidingView,
-
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { UpdateMoney } from '../Redux/TotalMoney';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import {useSelector, useDispatch} from 'react-redux';
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {addPossession, removePossession} from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-export default function FirstInput({ navigation }) {
+export default function FirstInput({navigation}) {
   //const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
@@ -33,7 +32,6 @@ export default function FirstInput({ navigation }) {
   const [textName, setTextName] = useState('');
   const [textValue, setTextValue] = useState('');
   const [note, setNote] = useState('');
-
 
   //console.log(possessionData);
 
@@ -46,7 +44,6 @@ export default function FirstInput({ navigation }) {
           name: textName,
           value: textValue,
           note: note,
-
         }),
       );
     }
@@ -78,15 +75,17 @@ export default function FirstInput({ navigation }) {
         />
 
         <View style={styles.row}>
-          <Text style={[styles.text_style, { fontSize: scale(22) }]}>Số tiền</Text>
+          <Text style={[styles.text_style, {fontSize: scale(22)}]}>
+            Số tiền
+          </Text>
         </View>
 
         <View style={styles.big_row}>
           <View style={styles.input_box}>
             <TextInput
-              style={[styles.text_input, { borderBottomWidth: 0.5 }]}
+              style={[styles.text_input, {borderBottomWidth: 0.5}]}
               //underlineColor='black'
-              activeUnderlineColor='#A9A9A9'
+              activeUnderlineColor="#A9A9A9"
               placeholder="0"
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}
@@ -96,14 +95,18 @@ export default function FirstInput({ navigation }) {
         </View>
 
         <View style={styles.row}>
-          <Text style={[styles.text_style, { fontSize: scale(20) }]}>Tài sản</Text>
+          <Text style={[styles.text_style, {fontSize: scale(20)}]}>
+            Tài sản
+          </Text>
         </View>
 
         <View style={styles.big_row}>
           {possessionData.map((item, index) => (
             <View style={styles.input_box} key={index}>
               <View style={styles.figure_container}>
-                <Text style={[styles.text_style, { color: 'red' }]}>{item.name}</Text>
+                <Text style={[styles.text_style, {color: 'red'}]}>
+                  {item.name}
+                </Text>
               </View>
               <View style={styles.figure_container}>
                 <Text style={styles.text_style}>{item.value}</Text>
@@ -114,18 +117,12 @@ export default function FirstInput({ navigation }) {
               <Pressable
                 style={styles.bin_view}
                 onPress={() => dispatch(removePossession(index))}
-                android_ripple={{ color: '#bbbbbb' }}
-              >
-                <EvilIcons
-                  name='trash'
-                  size={24}
-                  color={'#000'}
-                />
+                android_ripple={{color: '#bbbbbb'}}>
+                <EvilIcons name="trash" size={24} color={'#000'} />
               </Pressable>
             </View>
           ))}
         </View>
-
 
         <View style={styles.big_row}>
           <View style={styles.input_box}>
@@ -156,11 +153,10 @@ export default function FirstInput({ navigation }) {
               onChangeText={setNote}
               value={note}
             />
-
           </View>
         </View>
 
-        <View style={[styles.big_row, { paddingTop: 10 }]}>
+        <View style={[styles.big_row, {paddingTop: 10}]}>
           <CustomButton
             colorPress={'#FFC700'}
             colorUnpress={'#ffeba3'}
@@ -170,7 +166,7 @@ export default function FirstInput({ navigation }) {
           />
         </View>
 
-        <View style={[styles.big_row, { paddingTop: 10 }]}>
+        <View style={[styles.big_row, {paddingTop: 10}]}>
           <CustomButton
             //style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
@@ -212,7 +208,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     paddingTop: 20,
-    alignItems: 'flex-start',
     //borderWidth:1,
     paddingBottom: 10,
     paddingHorizontal: 10,

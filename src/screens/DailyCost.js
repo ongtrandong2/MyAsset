@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,36 +13,37 @@ import {
 } from 'react-native';
 
 import CustomButton from '../components/CustomButton';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useSelector, useDispatch } from 'react-redux';
-import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
+import {Dropdown} from 'react-native-element-dropdown';
+import {useSelector, useDispatch} from 'react-redux';
+import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
-import { addData } from '../Redux/IncomeOutcome';
-import { IncreaseCurrentUse } from '../Redux/PlanData';
-import { ShowTab } from '../Redux/ModalNumber';
+import {addData, addDataFirebase, deleteIO} from '../Redux/IncomeOutcome';
+import {IncreaseCurrentUse} from '../Redux/PlanData';
+import {ShowTab} from '../Redux/ModalNumber';
 import moment from 'moment';
 
 const data_in = [
-  { key: '1', value: 'Tiền Lương' },
-  { key: '2', value: 'Cho thuê' },
-  { key: '3', value: 'Bán hàng' },
-  { key: '4', value: 'Tiền thưởng' },
-  { key: '5', value: 'Cổ phiếu' },
-  { key: '6', value: 'Phiếu giảm giá' },
-  { key: '7', value: 'Vietlott' },
-  { key: '8', value: 'Khác' },
+  {key: '1', value: 'Tiền Lương'},
+  {key: '2', value: 'Cho thuê'},
+  {key: '3', value: 'Bán hàng'},
+  {key: '4', value: 'Tiền thưởng'},
+  {key: '5', value: 'Cổ phiếu'},
+  {key: '6', value: 'Phiếu giảm giá'},
+  {key: '7', value: 'Vietlott'},
+  {key: '8', value: 'Tiền lì xì'},
+  {key: '9', value: 'Khác'},
 ];
 
 const data_out = [
-  { key: '1', value: 'Ăn uống' },
-  { key: '2', value: 'Quần áo' },
-  { key: '3', value: 'Mua Sắm' },
-  { key: '4', value: 'Giao thông' },
-  { key: '5', value: 'Nhà ở' },
-  { key: '6', value: 'Du lịch' },
-  { key: '7', value: 'Giáo dục' },
-  { key: '8', value: 'Khác' },
+  {key: '1', value: 'Ăn uống'},
+  {key: '2', value: 'Quần áo'},
+  {key: '3', value: 'Mua Sắm'},
+  {key: '4', value: 'Giao thông'},
+  {key: '5', value: 'Nhà ở'},
+  {key: '6', value: 'Du lịch'},
+  {key: '7', value: 'Giáo dục'},
+  {key: '8', value: 'Khác'},
 ];
 export default function DailyCost() {
   const [isFocus, setIsFocus] = useState(false);
@@ -64,17 +65,18 @@ export default function DailyCost() {
   const onSaveIncome = () => {
     if (incomeName !== '' && incomeValue !== '') {
       setCurrentDate(new Date());
-      dispatch(
-        addData({
-          key: generateUUID(),
-          name: incomeName,
-          value: incomeValue,
-          isIncome: true,
-          isPossession: false,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-          isDifferent: false,
-        }),
-      );
+      const dataIC = {
+        key: generateUUID(),
+        name: incomeName,
+        value: incomeValue,
+        isIncome: true,
+        isPossession: false,
+        time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+        isDifferent: false,
+      };
+      dispatch(addData(dataIC));
+      dispatch(addDataFirebase(dataIC));
+      // dispatch(deleteIO());
       dispatch(IncreaseTotal(Number(incomeValue)));
       setIncomeName('');
       setIncomeValue('');
@@ -84,17 +86,18 @@ export default function DailyCost() {
   const onSaveOutcome = () => {
     if (outcomeName !== '' && outcomeValue !== '') {
       setCurrentDate(new Date());
-      dispatch(
-        addData({
-          key: generateUUID(),
-          name: outcomeName,
-          value: outcomeValue,
-          isIncome: false,
-          isPossession: false,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-          isDifferent: false,
-        }),
-      );
+      const dataOC = {
+        key: generateUUID(),
+        name: outcomeName,
+        value: outcomeValue,
+        isIncome: false,
+        isPossession: false,
+        time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+        isDifferent: false,
+      };
+      dispatch(addData(dataOC));
+      dispatch(addDataFirebase(dataOC));
+      // dispatch(deleteIO());
       dispatch(DecreaseTotal(Number(outcomeValue)));
       let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
       planData.map((item, index) => {
@@ -141,14 +144,13 @@ export default function DailyCost() {
         <View style={styles.tab_view}>
           <TouchableOpacity
             style={styles.tab_item}
-            onPress={() => dispatch(ShowTab(false))}
-          >
+            onPress={() => dispatch(ShowTab(false))}>
             <Text style={styles.tab_text}>SINH HOẠT</Text>
             <View
               style={{
                 width: '70%',
                 height: 3,
-                backgroundColor: '#FFC700'
+                backgroundColor: '#FFC700',
               }}
             />
           </TouchableOpacity>
@@ -161,7 +163,7 @@ export default function DailyCost() {
               style={{
                 width: '70%',
                 height: 3,
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
               }}
             />
           </TouchableOpacity>
@@ -176,7 +178,9 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>CHI TIÊU</Text>
+            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+              CHI TIÊU
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -189,7 +193,9 @@ export default function DailyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>THU NHẬP</Text>
+            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+              THU NHẬP
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -217,9 +223,9 @@ export default function DailyCost() {
                     />
                     <Pressable
                       onPress={() => setFlag(false)}
-                      android_ripple={{ color: 'grey' }}>
+                      android_ripple={{color: 'grey'}}>
                       <Image
-                        style={{ height: scale(20), width: scale(20) }}
+                        style={{height: scale(20), width: scale(20)}}
                         source={{
                           uri: 'https://img.icons8.com/pastel-glyph/64/null/expand-arrow.png',
                         }}
@@ -227,11 +233,10 @@ export default function DailyCost() {
                       />
                     </Pressable>
                   </View>
-                ) :
+                ) : (
                   <Dropdown
-
                     style={styles.dropdown}
-                    placeholderStyle={{ fontSize: scale(18), color: 'black' }}
+                    placeholderStyle={{fontSize: scale(18), color: 'black'}}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={data_out}
@@ -242,8 +247,9 @@ export default function DailyCost() {
                     value={outcomeName}
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
-                    onChange={(item) => CheckOut(item)}
-                  />}
+                    onChange={item => CheckOut(item)}
+                  />
+                )}
               </View>
             </View>
 
@@ -259,7 +265,7 @@ export default function DailyCost() {
               </View>
             </View>
 
-            <View style={[styles.row, { paddingTop: scale(10) }]}>
+            <View style={[styles.row, {paddingTop: scale(10)}]}>
               <CustomButton
                 //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
@@ -270,7 +276,6 @@ export default function DailyCost() {
               />
             </View>
           </>
-
         ) : (
           <>
             <View style={styles.row}>
@@ -295,9 +300,9 @@ export default function DailyCost() {
                     />
                     <Pressable
                       onPress={() => setFlag1(false)}
-                      android_ripple={{ color: 'grey' }}>
+                      android_ripple={{color: 'grey'}}>
                       <Image
-                        style={{ height: scale(20), width: scale(20) }}
+                        style={{height: scale(20), width: scale(20)}}
                         source={{
                           uri: 'https://img.icons8.com/pastel-glyph/64/null/expand-arrow.png',
                         }}
@@ -308,7 +313,7 @@ export default function DailyCost() {
                 ) : (
                   <Dropdown
                     style={styles.dropdown}
-                    placeholderStyle={{ fontSize: scale(18), color: 'black' }}
+                    placeholderStyle={{fontSize: scale(18), color: 'black'}}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={data_in}
@@ -337,7 +342,7 @@ export default function DailyCost() {
               </View>
             </View>
 
-            <View style={[styles.row, { paddingTop: scale(10) }]}>
+            <View style={[styles.row, {paddingTop: scale(10)}]}>
               <CustomButton
                 //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}

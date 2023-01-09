@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import firebase from '@react-native-firebase/firestore';
 const PossessionData = createSlice({
   name: 'PossessionData',
   initialState: [],
@@ -17,12 +16,12 @@ const PossessionData = createSlice({
     removePossession: (state, action) => {
       state.splice(action.payload, 1);
     },
-    setShowNote:(state,action)=>{
+    setShowNote: (state, action) => {
       state[action.payload].showNote = !state[action.payload].showNote;
     },
-    
   },
 });
 
-export const { addPossession, removePossession,setShowNote } = PossessionData.actions;
+export const {addPossession, removePossession, setShowNote} =
+  PossessionData.actions;
 export default PossessionData.reducer;
