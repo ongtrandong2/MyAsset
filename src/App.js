@@ -14,8 +14,8 @@ function App() {
     <Provider store={Store}>
       <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <NavigationContainer>
-        {/* <RootNavigation /> */}
-        <Nhap/>
+        <RootNavigation />
+        {/* <Nhap/> */}
       </NavigationContainer>
     </Provider>
   );
