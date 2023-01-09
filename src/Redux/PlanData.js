@@ -31,7 +31,6 @@ const PlanData = createSlice ({
             {
                 state[action.payload.index].isExceed = false;
             }
-            state[action.payload.index].key = action.payload.key;
         },
        
         removePlan: (state, action)=>{
