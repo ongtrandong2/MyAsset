@@ -69,8 +69,7 @@ const styles = StyleSheet.create({
         width: '80%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: scale(350),
-        width: '80%',
+        marginTop: scale(300),
         alignSelf: 'center',
     },
     modal_box: {
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         backgroundColor: '#fff',
-        borderWidth: 1,
+        //borderWidth: 1,
+        elevation: 5,
     },
     modal_title: {
         color: 'black',

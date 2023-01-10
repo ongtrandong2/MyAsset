@@ -29,7 +29,7 @@ export default function ChangePassword({navigation}) {
         if (snapshot.exists) {
           setCurrentPassword(snapshot.data().password);
         } else {
-          console.log('No such document!');
+          //console.log('No such document!');
         }
       });
   });
@@ -80,10 +80,10 @@ export default function ChangePassword({navigation}) {
           Alert.alert('Thành công!', 'Đổi mật khẩu thành công!');
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .then(() => {
           firebase

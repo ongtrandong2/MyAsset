@@ -12,14 +12,14 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import scale from '../constants/scale';
 import moment from 'moment';
 import randomColor from '../constants/randomColor';
-import {PieChart, LineChart} from 'react-native-chart-kit';
-import {useSelector, useDispatch} from 'react-redux';
-import {UpdateYear} from '../Redux/Year';
-import {TextInput} from 'react-native-paper';
+import { PieChart, LineChart } from 'react-native-chart-kit';
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateYear } from '../Redux/Year';
+import { TextInput } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default function Income() {
@@ -73,18 +73,18 @@ export default function Income() {
   });
 
   const MONTH = [
-    {month: '01'},
-    {month: '02'},
-    {month: '03'},
-    {month: '04'},
-    {month: '05'},
-    {month: '06'},
-    {month: '07'},
-    {month: '08'},
-    {month: '09'},
-    {month: '10'},
-    {month: '11'},
-    {month: '12'},
+    { month: '01' },
+    { month: '02' },
+    { month: '03' },
+    { month: '04' },
+    { month: '05' },
+    { month: '06' },
+    { month: '07' },
+    { month: '08' },
+    { month: '09' },
+    { month: '10' },
+    { month: '11' },
+    { month: '12' },
   ];
 
   if (YEAR.indexOf(d) === -1) {
@@ -101,18 +101,18 @@ export default function Income() {
   //console.log(Outcome_ByYear);
 
   const result_ByYear = [
-    {month: '01', value: 0},
-    {month: '02', value: 0},
-    {month: '03', value: 0},
-    {month: '04', value: 0},
-    {month: '05', value: 0},
-    {month: '06', value: 0},
-    {month: '07', value: 0},
-    {month: '08', value: 0},
-    {month: '09', value: 0},
-    {month: '10', value: 0},
-    {month: '11', value: 0},
-    {month: '12', value: 0},
+    { month: '01', value: 0 },
+    { month: '02', value: 0 },
+    { month: '03', value: 0 },
+    { month: '04', value: 0 },
+    { month: '05', value: 0 },
+    { month: '06', value: 0 },
+    { month: '07', value: 0 },
+    { month: '08', value: 0 },
+    { month: '09', value: 0 },
+    { month: '10', value: 0 },
+    { month: '11', value: 0 },
+    { month: '12', value: 0 },
   ];
 
   Income_ByYear.map(item => {
@@ -175,7 +175,7 @@ export default function Income() {
           color: randomColor(),
           legendFontColor: 'black',
           legendFontSize: 13,
-          legendFontFamily: 'Inter-Regular',
+          //legendFontFamily: 'Inter-Regular',
         };
         result_ByOption.push(newData);
       } else if (
@@ -206,7 +206,7 @@ export default function Income() {
                   horizontal
                   data={MONTH}
                   showsHorizontalScrollIndicator={false}
-                  renderItem={({item}) => {
+                  renderItem={({ item }) => {
                     return (
                       <View style={styles.month_container}>
                         <TouchableOpacity
@@ -251,7 +251,7 @@ export default function Income() {
                   accessor="value"
                   backgroundColor="transparent"
                   paddingLeft="15"
-                  //absolute //for the absolute number remove if you want percentage
+                //absolute //for the absolute number remove if you want percentage
                 />
               </View>
               {result.length === 0 ? null : (
@@ -262,9 +262,9 @@ export default function Income() {
                     {result.map((item, index) => {
                       return (
                         <View
-                          style={[styles.row, {marginVertical: 3}]}
+                          style={[styles.row, { marginVertical: 3 }]}
                           key={index}>
-                          <View style={{flexDirection: 'row'}}>
+                          <View style={{ flexDirection: 'row' }}>
                             <View
                               style={{
                                 height: 20,
@@ -291,7 +291,7 @@ export default function Income() {
                   horizontal
                   data={YEAR}
                   showsHorizontalScrollIndicator={false}
-                  renderItem={({item}) => {
+                  renderItem={({ item }) => {
                     return (
                       <View style={styles.month_container}>
                         <TouchableOpacity
@@ -401,7 +401,7 @@ export default function Income() {
                       <View
                         style={[
                           styles.month_item,
-                          {backgroundColor: 'hsl(47,100%,78%)'},
+                          { backgroundColor: 'hsl(47,100%,78%)' },
                         ]}>
                         <Text style={styles.text}>
                           {moment(acceptDateStart).format('DD/MM/YYYY')} -{' '}
@@ -446,7 +446,7 @@ export default function Income() {
                         accessor="value"
                         backgroundColor="transparent"
                         paddingLeft="15"
-                        //absolute //for the absolute number remove if you want percentage
+                      //absolute //for the absolute number remove if you want percentage
                       />
                     </View>
                   )}
@@ -461,9 +461,9 @@ export default function Income() {
                         {result_ByOption.map((item, index) => {
                           return (
                             <View
-                              style={[styles.row, {marginVertical: 5}]}
+                              style={[styles.row, { marginVertical: 5 }]}
                               key={index}>
-                              <View style={{flexDirection: 'row'}}>
+                              <View style={{ flexDirection: 'row' }}>
                                 <View
                                   style={{
                                     height: 20,
@@ -497,16 +497,18 @@ export default function Income() {
             },
           ]}
           onPress={() => setOption('month')}>
-          <View style={{flex: 1, alignItems: 'center'}}>
-            <Image
-              source={require('../assets/images/piechart.png')}
-              style={{height: 30, width: 30}}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={{flex: 2}}>
-            <Text style={[styles.text, {fontSize: scale(16)}]}>THÁNG</Text>
-          </View>
+
+          <Image
+            source={require('../assets/images/piechart.png')}
+            style={{ height: 30, width: 30 }}
+            resizeMode="stretch"
+          />
+          <Text style={{
+              color: '#000',
+              paddingLeft: 5,
+              fontWeight: '600', 
+            }}>THÁNG</Text>
+
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -518,18 +520,19 @@ export default function Income() {
             },
           ]}
           onPress={() => setOption('year')}>
-          <View style={{flex: 1, alignItems: 'center'}}>
-            <Image
-              source={require('../assets/images/linechart.png')}
-              style={{height: 30, width: 30}}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={{flex: 2}}>
-            <Text style={[styles.text, {fontSize: scale(16), paddingLeft: 5}]}>
-              NĂM
-            </Text>
-          </View>
+
+          <Image
+            source={require('../assets/images/linechart.png')}
+            style={{ height: 30, width: 30 }}
+            resizeMode="stretch"
+          />
+          <Text style={{
+              color: '#000',
+              paddingLeft: 5,
+              fontWeight: '600', 
+            }}>
+            NĂM
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -543,26 +546,21 @@ export default function Income() {
           onPress={() => {
             setOption('optional'), setShowModal(true);
           }}>
-          <View style={{flex: 1, alignItems: 'center'}}>
+          
             <Image
               source={require('../assets/images/optional.png')}
-              style={{height: 30, width: 30}}
+              style={{ height: 30, width: 30 }}
               resizeMode="stretch"
             />
-          </View>
-          <View style={{flex: 3}}>
+          
             <Text
-              style={[
-                styles.text,
-                {
-                  fontSize: scale(14),
-                  fontFamily: 'Inter-Medium',
-                  paddingLeft: 5,
-                },
-              ]}>
+              style={{
+                color: '#000',
+                paddingLeft: 5,
+                fontWeight: '600', 
+              }}>
               TÙY CHỌN
             </Text>
-          </View>
         </TouchableOpacity>
       </View>
       <View
@@ -580,11 +578,11 @@ export default function Income() {
         statusBarTranslucent
         animationType="fade">
         <Pressable
-          style={[styles.modal_view, {flex: 2}]}
+          style={[styles.modal_view, { flex: 2 }]}
           onPress={() => setShowModal(false)}
         />
 
-        <View style={[styles.modal_view, {flex: 1}]}>
+        <View style={[styles.modal_view, { flex: 1 }]}>
           <View style={styles.modal_box}>
             <View style={styles.big_row}>
               <Text
@@ -597,7 +595,7 @@ export default function Income() {
                 Tùy chọn thời gian thống kê
               </Text>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
                   Ngày bắt đầu:{' '}
                 </Text>
                 <TextInput
@@ -625,7 +623,7 @@ export default function Income() {
                 />
               </View>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
                   Ngày kết thúc:{' '}
                 </Text>
                 <TextInput
@@ -636,7 +634,7 @@ export default function Income() {
                   activeUnderlineColor="black"
                   value={dateEnd}
                   onChageText={setDateEnd}
-                  underlineStyle={{borderWidth: 0}}
+                  underlineStyle={{ borderWidth: 0 }}
                   right={
                     <TextInput.Icon
                       icon={{
@@ -657,8 +655,8 @@ export default function Income() {
 
             <View style={styles.modal_bigrow}>
               <Pressable
-                style={({pressed}) => [
-                  {backgroundColor: pressed ? '#FFC700' : '#ffeba3'},
+                style={({ pressed }) => [
+                  { backgroundColor: pressed ? '#FFC700' : '#ffeba3' },
                   {
                     paddingVertical: 5,
                     borderWidth: 2,
@@ -668,7 +666,7 @@ export default function Income() {
                   },
                 ]}
                 onPress={onConfirm}>
-                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
+                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
                   LƯU
                 </Text>
               </Pressable>
@@ -718,12 +716,11 @@ const styles = StyleSheet.create({
   bottom_item: {
     flex: 1,
     alignItems: 'center',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     borderBottomWidth: 2,
     borderTopWidth: 2,
     borderColor: 'hsl(36,100%,52%)',
     flexDirection: 'row',
-    paddingHorizontal: 10,
     paddingVertical: 10,
     height: '100%',
   },

@@ -60,28 +60,28 @@ export default function PropertyCost() {
         }),
       );
 
-      dispatch(
-        addData({
-          key: generateUUID(),
-          name: purchaseName,
-          value: purchaseValue,
-          isIncome: false,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-          isDifferent: false,
-        }),
-      );
-      dispatch(
-        addDataFirebase({
-          key: generateUUID(),
-          name: purchaseName,
-          value: purchaseValue,
-          isIncome: false,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-          isDifferent: false,
-        }),
-      );
+      // dispatch(
+      //   addData({
+      //     key: generateUUID(),
+      //     name: purchaseName,
+      //     value: purchaseValue,
+      //     isIncome: false,
+      //     isPossession: true,
+      //     time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+      //     isDifferent: false,
+      //   }),
+      // );
+      // dispatch(
+      //   addDataFirebase({
+      //     key: generateUUID(),
+      //     name: purchaseName,
+      //     value: purchaseValue,
+      //     isIncome: false,
+      //     isPossession: true,
+      //     time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+      //     isDifferent: false,
+      //   }),
+      // );
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
         dispatch(

@@ -27,7 +27,7 @@ function Onboarding({navigation}) {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          const {name, value, isIncome, isPossession, time} = doc.data();
+          const {name, value, isIncome, isPossession, time,isDifferent} = doc.data();
           dispatch(
             addData({
               key: doc.id,
@@ -36,6 +36,7 @@ function Onboarding({navigation}) {
               isIncome,
               isPossession,
               time,
+              isDifferent,
             }),
           );
         });
