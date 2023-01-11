@@ -21,9 +21,9 @@ const Header = props => {
             resizeMode="stretch"
           />
         </View>
-        <View style = {{ flexDirection:'column' }}>
-          <Text style = {styles.text}>MY</Text>
-          <Text style = {styles.text}>ASSET</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.text}>MY</Text>
+          <Text style={styles.text}>ASSET</Text>
         </View>
         <View style={styles.option_view}>
           {/* <View style={styles.box}>
@@ -43,13 +43,7 @@ const Header = props => {
             <Pressable
               onPress={props.onPressFunctionBack}
               android_ripple={{color: '#bbbbbb'}}>
-             
-              <AntDesign
-                  name = {'back'}
-                  size = {24}
-                  color = {'black'}
-
-              />
+              <AntDesign name={'back'} size={24} color={'black'} />
             </Pressable>
           </View>
 
@@ -101,7 +95,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: 'black',
-    fontSize: scale(25),
+    fontSize: scale(22),
     fontFamily: 'Wallpoet-Regular',
   },
 

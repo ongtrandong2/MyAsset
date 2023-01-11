@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {
   StyleSheet,
@@ -11,28 +11,28 @@ import {
   ToastAndroid,
   KeyboardAvoidingView,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { UpdateMoney } from '../Redux/TotalMoney';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import {useSelector, useDispatch} from 'react-redux';
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {addPossession, removePossession} from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-export default function FirstInput({ navigation }) {
+export default function FirstInput({navigation}) {
   //const money = useSelector(state => state.totalMoney.value);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
 
   const [textMoney, setTextMoney] = useState(0);
-
   const [textName, setTextName] = useState('');
   const [textValue, setTextValue] = useState('');
-  //const [number, setNumber] = useState(0);
+  const [note, setNote] = useState('');
 
   //console.log(possessionData);
 
@@ -44,12 +44,13 @@ export default function FirstInput({ navigation }) {
           key: generateUUID(),
           name: textName,
           value: textValue,
-          note: null,
+          note: note,
         }),
       );
     }
     setTextName('');
     setTextValue('');
+    setNote('');
   };
 
   const onComplete = () => {
@@ -78,115 +79,104 @@ export default function FirstInput({ navigation }) {
           title={'Vui lòng nhập tài sản của bạn!'}
           style={styles.title}
         />
-        <View style={styles.text_view}>
-          <Text style={styles.text}>Số tiền</Text>
-        </View>
 
         <View style={styles.row}>
-          <View style={[{ height: scale(50), width: '90%' }, styles.money_box]}>
+          <Text style={[styles.text_style, {fontSize: scale(22)}]}>
+            Số tiền
+          </Text>
+        </View>
+
+        <View style={styles.big_row}>
+          <View style={styles.input_box}>
             <TextInput
-              style={styles.textInput_style}
+              style={[styles.text_input, {borderBottomWidth: 0.5}]}
+              //underlineColor='black'
+              activeUnderlineColor="#A9A9A9"
               placeholder="0"
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}
               value={textMoney}
-              keyboardType={'numeric'}
             />
           </View>
         </View>
 
-        <View style={styles.second_row}>
-          <View style={styles.secondtext_view}>
-            <Text style={styles.text}>Hiện vật </Text>
-          </View>
+        <View style={styles.row}>
+          <Text style={[styles.text_style, {fontSize: scale(20)}]}>
+            Tài sản
+          </Text>
+        </View>
+        <View style={styles.big_row}>
+          {possessionData.map((item, index) => (
+            <View style={styles.input_box} key={index}>
+              <View style={styles.figure_container}>
+                <Text style={[styles.text_style, {color: 'red'}]}>
+                  {item.name}
+                </Text>
+              </View>
+              <View style={styles.figure_container}>
+                <Text style={styles.text_style}>{item.value}</Text>
+              </View>
+              <View style={styles.figure_container}>
+                <Text style={styles.text_style}>{item.note}</Text>
+              </View>
+              <Pressable
+                style={styles.bin_view}
+                onPress={() => dispatch(removePossession(index))}
+                android_ripple={{color: '#bbbbbb'}}>
+                <EvilIcons name="trash" size={24} color={'#000'} />
+              </Pressable>
+            </View>
+          ))}
         </View>
 
-        {possessionData.map((item, index) => {
-          return (
-            <View style={styles.column} key={index}>
-              <View
-                style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
-                <View
-                  style={[
-                    styles.textInput_item,
-                    {
-                      borderBottomWidth: 1,
-                      alignItems: 'center',
-                      borderBottomColor: 'grey',
-                    },
-                  ]}>
-                  <Text
-                    style={[styles.text, { color: 'red', fontSize: scale(20) }]}>
-                    {item.name}
-                  </Text>
-                </View>
-
-                <View
-                  style={[
-                    styles.textInput_item,
-                    {
-                      borderBottomWidth: 1,
-                      alignItems: 'center',
-                      borderBottomColor: 'grey',
-                    },
-                  ]}>
-                  <Text style={styles.text}>{item.value}</Text>
-                </View>
-                <View style={styles.bin_view}>
-                  <Pressable
-                    onPress={() => dispatch(removePossession(index))}
-                    android_ripple={{ color: '#bbbbbb' }}>
-                    <Image
-                      source={require('../assets/images/bin_icon.png')}
-                      resizeMode="stretch"
-                    />
-                  </Pressable>
-                </View>
-              </View>
-            </View>
-          );
-        })}
-        <View style={styles.column}>
-          <View style={[{ height: scale(200), width: '90%' }, styles.money_box]}>
+        <View style={styles.big_row}>
+          <View style={styles.input_box}>
             <TextInput
-              style={styles.textInput_item}
+              style={styles.text_input}
+              //underlineColor='grey'
+              //activeUnderlineColor='#A9A9A9'
               placeholder="Tên"
               placeholderTextColor={'grey'}
               onChangeText={setTextName}
               value={textName}
             />
             <TextInput
-              style={styles.textInput_item}
+              style={styles.text_input}
+              //underlineColor='grey'
+              //activeUnderlineColor='#A9A9A9'
               placeholder="Trị giá"
               placeholderTextColor={'grey'}
               onChangeText={setTextValue}
               value={textValue}
-              keyboardType={'numeric'}
+            />
+            <TextInput
+              style={styles.text_input}
+              //underlineColor='grey'
+              //activeUnderlineColor='#A9A9A9'
+              placeholder="Ghi chú"
+              placeholderTextColor={'grey'}
+              onChangeText={setNote}
+              value={note}
             />
           </View>
-
-          <View style={styles.icon_plus}>
-            <Pressable
-              onPress={() => check()}
-              android_ripple={{ color: '#bbbbbb' }}>
-              <AntDesign
-                name='pluscircleo'
-                size={30}
-                color={'#000000'}
-                style={{
-                  paddingVertical: 10,
-                }}
-
-              />
-            </Pressable>
-          </View>
         </View>
-        <View style={[styles.row, { paddingBottom: scale(10) }]}>
+
+        <View style={[styles.big_row, {paddingTop: 10}]}>
           <CustomButton
-            style={{ width: '40%', height: scale(40) }}
+            colorPress={'#FFC700'}
+            colorUnpress={'#ffeba3'}
+            text_style={styles.text_style}
+            title={'Lưu'}
+            onPressFunction={check}
+          />
+        </View>
+
+        <View style={[styles.big_row, {paddingTop: 10}]}>
+          <CustomButton
+            //style={{ width: '40%', height: scale(40) }}
             title={'Hoàn tất'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#ffeba3'}
             text_style={styles.text_style}
             onPressFunction={onComplete}
           />
@@ -199,104 +189,65 @@ export default function FirstInput({ navigation }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    paddingTop: scale(20),
+    backgroundColor: '#fff',
+    paddingBottom: scale(10),
   },
-
-  // body: {
-  //     flex: 1,
-  //     alignItems: 'center',
-  //     flexDirection: 'column',
-  // },
-  row: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: scale(30),
+  text_style: {
+    color: '#000',
+    fontSize: scale(20),
+    fontFamily: 'Inter-Medium',
   },
-  column: {
-    justifyContent: 'center',
-    flexDirection: 'column',
-    margin: scale(5),
-    marginHorizontal: scale(30),
-    alignItems: 'center',
-  },
-
   title: {
     fontSize: scale(30),
     color: '#FFC700',
     textAlign: 'center',
     fontFamily: 'Inter-Bold',
   },
-
-  text_view: {
-    alignItems: 'flex-start',
-    marginHorizontal: scale(45),
-    marginTop: scale(20),
-  },
-
-  text: {
-    fontSize: scale(20),
-    color: '#000000',
-  },
-
-  textInput_style: {
-    height: scale(30),
-    width: '80%',
-    borderBottomColor: 'black',
-    //borderBottomWidth:1,
-    backgroundColor: '#ffffff',
-    fontSize: scale(20),
-    textAlign: 'left',
-  },
-
-  textInput_item: {
-    height: scale(30),
-    width: '80%',
-    borderBottomColor: 'black',
-    backgroundColor: '#ffffff',
-    fontSize: scale(20),
-    textAlign: 'left',
-    marginVertical: scale(20),
-  },
-
-  money_box: {
-    borderWidth: 2,
-    borderColor: '#FFC700',
-    borderRadius: 10,
-    marginTop: scale(10),
-    padding: scale(10),
+  big_row: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
-    //backgroundColor:'pink'
+    //marginVertical: 20
   },
-
-  second_row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: scale(20),
-    paddingHorizontal: scale(45),
-  },
-
-  secondtext_view: {
-    flex: 3,
-    justifyContent: 'center',
+  row: {
     alignItems: 'flex-start',
+    width: '90%',
+    alignSelf: 'center',
+    paddingTop: 20,
+    //borderWidth:1,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
-
-  icon_plus: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingTop: scale(5),
+  input_box: {
+    width: '80%',
+    borderRadius: 20,
+    borderColor: '#FFC700',
+    backgroundColor: '#fffdf7',
+    borderWidth: 2,
+    padding: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  text_input: {
+    fontSize: scale(20),
+    width: '90%',
+    //borderBottomWidth: 0.5,
+    //borderBottomColor: '#A9A9A9',
+    padding: 2,
+    backgroundColor: '#fffdf7',
+    height: scale(30),
+    marginVertical: 10,
+  },
+  figure_container: {
+    width: '90%',
+    backgroundColor: '#fffdf7',
+    paddingVertical: 3,
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+    alignItems: 'center',
+    marginVertical: 10,
   },
   bin_view: {
     alignItems: 'center',
-    marginTop: scale(5),
-  },
-  text_style: {
-    color: 'black',
-    fontSize: scale(18),
-    fontFamily: 'Inter-Medium',
+    marginTop: 5,
   },
 });
