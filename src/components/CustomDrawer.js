@@ -2,8 +2,10 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
+//import AntDesign from'react-native-vector-icons/AntDesign'
 import SignOut from '../auth/SignOut';
 import {useDispatch, useSelector} from 'react-redux';
+
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity
@@ -67,6 +69,13 @@ const CustomDrawer = props => {
           icon={require('../assets/images/Home.png')}
           navigation={props.navigation}
           component={'HomeScreen'}
+        />
+        <CustomDrawerItem
+          style={styles.itemContainer}
+          label={'Hướng dẫn sử dụng'}
+          icon={require('../assets/images/userguide.png')}
+          navigation={props.navigation}
+          component={'UserGuide'}
         />
       </DrawerContentScrollView>
       {/* <TouchableOpacity
