@@ -173,7 +173,7 @@ export default function Login({navigation}) {
             //style={{width: '40%', height: scale(40)}}
             title={'Đăng nhập'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={() => {
               LoginUser(email, password);
@@ -186,7 +186,7 @@ export default function Login({navigation}) {
             //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={onRegister}
           />

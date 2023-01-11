@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  ToastAndroid,
   Alert,
   Dimensions,
 } from 'react-native';
@@ -76,10 +77,15 @@ export default function InfoScreen({navigation}) {
         //     console.log(err);
         //     setShowModal(false);
         // }
-        //Alert.alert("Waring", "There is no image picked!");
-        setShowModal(false);
-      });
-  };
+        
+      ToastAndroid.showWithGravity(
+        'There is no image picked!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+    })
+}
+
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -165,7 +171,7 @@ export default function InfoScreen({navigation}) {
                 style={{paddingRight: 3}}
               />
 
-              <Text style={styles.text}>Tên </Text>
+              <Text style={styles.text}>Tên: </Text>
             </View>
 
             <Text style={styles.text} numberOfLines={2}>
@@ -222,7 +228,7 @@ export default function InfoScreen({navigation}) {
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={() => {
               navigation.navigate('ChangeInfo');

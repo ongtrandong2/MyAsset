@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {View, StyleSheet, Text, TextInput, Keyboard, Alert} from 'react-native';
+import { View, StyleSheet, Text, TextInput, Keyboard, Alert, ToastAndroid, } from 'react-native';
 import {Directions, ScrollView} from 'react-native-gesture-handler';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Header from '../components/Header';
@@ -24,13 +24,23 @@ export default function RegisterScreen({navigation}) {
       confirm.length === 0 ||
       email.length === 0
     ) {
-      Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+      //Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else if (
       password.length != 0 &&
       confirm.length != 0 &&
       password != confirm
     ) {
-      Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
+      //Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
+      ToastAndroid.showWithGravity(
+        'Xác nhận mật khẩu không khớp!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else {
       firebase
         .auth()
@@ -43,8 +53,11 @@ export default function RegisterScreen({navigation}) {
               url: 'https://myasset-5493e.firebaseapp.com',
             })
             .then(() => {
-              Alert.alert(
-                'Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',
+              //Alert.alert('Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',);
+              ToastAndroid.showWithGravity(
+                'Đã gửi email xác nhận!\nVui lòng kiểm tra email \nvà thư rác để có link xác nhận!',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
               );
             })
             .catch(error => {
@@ -143,7 +156,7 @@ export default function RegisterScreen({navigation}) {
             //style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={CheckData}
           />

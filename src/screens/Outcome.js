@@ -55,10 +55,11 @@ export default function Outcome() {
   });
 
   //console.log(Outcome)
-  ///
+
   let result = [];
   Outcome.map(item => {
     if (result.map(itemr => itemr.name).indexOf(item.name) === -1) {
+
       const newData = {
         name: item.name,
         value: Number(item.value),
