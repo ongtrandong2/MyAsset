@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -11,20 +11,20 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import { firebase } from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/firestore';
 
 import CustomButton from '../components/CustomButton';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useSelector, useDispatch } from 'react-redux';
-import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
-import { addPossession, removePossession } from '../Redux/PossessionData';
+import {Dropdown} from 'react-native-element-dropdown';
+import {useSelector, useDispatch} from 'react-redux';
+import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
+import {addPossession, removePossession} from '../Redux/PossessionData';
 
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 
-import IncomeOutcome, { addData } from '../Redux/IncomeOutcome';
-import { IncreaseCurrentUse } from '../Redux/PlanData';
-import { ShowTab } from '../Redux/ModalNumber';
+import {addData, addDataFirebase} from '../Redux/IncomeOutcome';
+import {IncreaseCurrentUse} from '../Redux/PlanData';
+import {ShowTab} from '../Redux/ModalNumber';
 import moment from 'moment';
 import CheckboxComponent from '../components/CheckboxComponent';
 
@@ -40,12 +40,14 @@ export default function PropertyCost() {
   const [checked, setChecked] = useState('first');
   const [currentDate, setCurrentDate] = useState(new Date()); //
   const [isTab1, setIsTab1] = useState(true);
-  const [keyDelete, setKeyDelete] = useState(0);
+  const [keyDelete, setKeyDelete] = useState();
 
   const possessionData = useSelector(state => state.possessionData);
   const planData = useSelector(state => state.planData);
   const dispatch = useDispatch();
 
+  //console.log(keyDelete);
+  //console.log(possessionData);
   const onSavePurchase = () => {
     if (purchaseName !== '' && purchaseValue !== '') {
       setCurrentDate(new Date());
@@ -58,33 +60,90 @@ export default function PropertyCost() {
         }),
       );
 
-      dispatch(
-        addData({
-          key: generateUUID(),
-          name: purchaseName,
-          value: purchaseValue,
-          isIncome: false,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-        }),
-      );
-
+      // dispatch(
+      //   addData({
+      //     key: generateUUID(),
+      //     name: purchaseName,
+      //     value: purchaseValue,
+      //     isIncome: false,
+      //     isPossession: true,
+      //     time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+      //     isDifferent: false,
+      //   }),
+      // );
+      // dispatch(
+      //   addDataFirebase({
+      //     key: generateUUID(),
+      //     name: purchaseName,
+      //     value: purchaseValue,
+      //     isIncome: false,
+      //     isPossession: true,
+      //     time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+      //     isDifferent: false,
+      //   }),
+      // );
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
+        dispatch(
+          addData({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: false,
+          }),
+        );
+        dispatch(
+          addDataFirebase({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: false,
+          }),
+        );
+        let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
+        planData.map((item, index) => {
+          let d2 = new Date(item.dateStart);
+          let d3 = new Date(item.dateFinish);
+          if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
+            dispatch(
+              IncreaseCurrentUse({
+                index: index,
+                value: Number(purchaseValue),
+              }),
+            );
+          }
+        });
+      } else if (checked === 'second') {
+        dispatch(
+          addData({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: true,
+          }),
+        );
+        dispatch(
+          addDataFirebase({
+            key: generateUUID(),
+            name: purchaseName,
+            value: purchaseValue,
+            isIncome: false,
+            isPossession: true,
+            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+            isDifferent: true,
+          }),
+        );
       }
-      let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));
-      planData.map((item, index) => {
-        let d2 = new Date(item.dateStart);
-        let d3 = new Date(item.dateFinish);
-        if (d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime()) {
-          dispatch(
-            IncreaseCurrentUse({
-              index: index,
-              value: Number(purchaseValue),
-            }),
-          );
-        }
-      });
+
       setPurchaseName('');
       setPurchaseValue('');
       setNote('');
@@ -95,13 +154,23 @@ export default function PropertyCost() {
   const onSaveSell = () => {
     if (sellName !== '' && sellValue !== '') {
       let index = possessionData.map(index => index.key).indexOf(keyDelete);
-    
       //console.log(index);
       dispatch(removePossession(index));
       //setNumber1(number1+1);
       setCurrentDate(new Date());
       dispatch(
         addData({
+          key: generateUUID(),
+          name: sellName,
+          value: sellValue,
+          isIncome: true,
+          isPossession: true,
+          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+          isDifferent: false,
+        }),
+      );
+      dispatch(
+        addDataFirebase({
           key: generateUUID(),
           name: sellName,
           value: sellValue,
@@ -124,21 +193,26 @@ export default function PropertyCost() {
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(false))}>
             <Text style={styles.tab_text}>SINH HOẠT</Text>
+            <View
+              style={{
+                width: '70%',
+                height: 3,
+                backgroundColor: '#fff',
+              }}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.tab_item}
             onPress={() => dispatch(ShowTab(true))}>
+            <Text style={styles.tab_text}>TÀI SẢN</Text>
             <View
               style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderBottomColor: '#FFC700',
-                borderBottomWidth: 5,
                 width: '70%',
-              }}>
-              <Text style={styles.tab_text}>TÀI SẢN</Text>
-            </View>
+                height: 3,
+                backgroundColor: '#FFC700',
+              }}
+            />
           </TouchableOpacity>
         </View>
 
@@ -151,7 +225,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, { fontFamily:'Inter-Bold' }]}>MUA</Text>
+            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>MUA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -164,14 +238,14 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, { fontFamily:'Inter-Bold'}]}>BÁN</Text>
+            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>BÁN</Text>
           </TouchableOpacity>
         </View>
 
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row, { paddingTop: 10}]}>
+              <View style={[styles.sub_row, {marginTop: 10}]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <TextInput
@@ -206,21 +280,28 @@ export default function PropertyCost() {
                 </View>
               </View>
             </View>
+
             <View style={styles.row}>
               <View style={styles.sub_row}>
-                <View
-                  style={{ width: '10%' }}
-                />
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <View style={{ width: 5, height: 5, borderRadius: 5, backgroundColor: 'black', marginRight: 5 }} />
+                <View style={{width: '10%'}} />
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: 5,
+                      backgroundColor: 'black',
+                      marginRight: 5,
+                    }}
+                  />
                   <Text style={styles.text}>Số tiền:</Text>
                 </View>
 
                 <TextInput
                   style={styles.textInput_box}
-                  onChangeText={(value) => setPurchaseValue(value)}
-                  value={purchaseValue} 
-                  keyboardType = 'numeric'  
+                  onChangeText={value => setPurchaseValue(value)}
+                  value={purchaseValue}
+                  keyboardType="numeric"
                 />
               </View>
             </View>
@@ -238,12 +319,12 @@ export default function PropertyCost() {
             <View
               style={[
                 styles.row,
-                { paddingTop: scale(10), paddingBottom: scale(100) },
+                {paddingTop: scale(10), paddingBottom: scale(100)},
               ]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
-                colorUnpress={'#ffdc61'}
+                colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
                 title={'LƯU'}
                 onPressFunction={() => onSavePurchase()}
@@ -253,12 +334,12 @@ export default function PropertyCost() {
         ) : (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row,{ paddingTop: 10}]}>
+              <View style={[styles.sub_row, {marginTop: 10}]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <Dropdown
                   style={styles.dropdown}
-                  placeholderStyle={{ fontSize: scale(20), color: 'black' }}
+                  placeholderStyle={{fontSize: scale(18), color: 'black'}}
                   selectedTextStyle={styles.selectedTextStyle}
                   //inputSearchStyle={styles.inputSearchStyle}
                   data={possessionData}
@@ -277,27 +358,28 @@ export default function PropertyCost() {
                     setIsFocus(false);
                   }}
 
-                //onChange={(item)=>Check(item)}
+                  //onChange={(item)=>Check(item)}
                 />
               </View>
             </View>
 
-            <View style={styles.row}>
+            <View style={[styles.row, {paddingTop: 10}]}>
               <View style={styles.sub_row}>
                 <Text style={styles.text}>2.Số tiền: </Text>
                 <TextInput
                   style={styles.textInput_box}
                   onChangeText={setSellValue}
                   value={sellValue}
+                  keyboardType={'numeric'}
                 />
               </View>
             </View>
 
-            <View style={[styles.row, { paddingTop: scale(10) }]}>
+            <View style={[styles.row, {paddingTop: scale(10)}]}>
               <CustomButton
-                style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
+                //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}
-                colorUnpress={'#ffdc61'}
+                colorUnpress={'#ffeba3'}
                 text_style={styles.text_style}
                 title={'LƯU'}
                 onPressFunction={() => onSaveSell()}
@@ -305,8 +387,8 @@ export default function PropertyCost() {
             </View>
           </>
         )}
-      </ScrollView >
-    </KeyboardAvoidingView >
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -316,12 +398,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: '#000000',
+    fontWeight: '500',
   },
   text_style: {
     color: 'black',
-    fontSize: scale(20),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
   tab_view: {
@@ -333,25 +416,26 @@ const styles = StyleSheet.create({
   tab_item: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: scale(50),
-    width: '50%',
+    flex: 1,
     backgroundColor: '#ffffff',
+    paddingVertical: 5,
   },
   tab_text: {
-    fontSize: scale(25),
+    fontSize: scale(20),
     color: '#000000',
-    fontFamily: 'Inter-Medium',
+    fontFamily: 'Inter-Bold',
+    letterSpacing: 1,
   },
   title_view: {
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%',
-    height: scale(50),
-    marginTop: scale(10),
+    marginTop: scale(5),
     borderTopColor: 'hsl(36,100%,52%)',
     borderBottomColor: 'hsl(36,100%,52%)',
     borderTopWidth: 2,
     borderBottomWidth: 2,
+    paddingVertical: 5,
   },
   row: {
     alignItems: 'center',
@@ -364,13 +448,9 @@ const styles = StyleSheet.create({
   sub_row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    //marginTop:10,
-    height: scale(50),
-    //marginHorizontal: 45,
-    //backgroundColor:'pink',
-    width: '90%',
-    //padding: 10,
+    width: '95%',
     alignItems: 'flex-start',
+    paddingVertical: 5,
   },
 
   textInput_box: {
@@ -381,7 +461,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
     padding: scale(2),
-    fontSize: scale(20),
+    fontSize: scale(18),
   },
   /// Drop down Style
 

@@ -20,7 +20,7 @@ export default function ChangeInfo({ navigation }) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(25)}
+          fontSize={scale(18)}
           title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
           style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
@@ -69,10 +69,11 @@ export default function ChangeInfo({ navigation }) {
         <View style={{ paddingTop: scale(30), alignItems: 'center' }}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
-            style={{ height: scale(40), width: '60%' }} 
+            //style={{ height: scale(40), width: '60%' }} 
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
+            //onPressFunction = {}
           />
         </View>
       </ScrollView>
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: 'black',
     fontFamily: 'Inter-Medium',
   },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
+    fontSize: scale(16),
     fontFamily: 'Inter-Bold',
   },
 });

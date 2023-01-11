@@ -1,86 +1,151 @@
-import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {ScaleFromCenterAndroid} from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets';
+import React, {useState, useRef} from 'react';
 import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+  Animated,
+} from 'react-native';
+import {interpolate} from 'react-native-reanimated';
 
-export default function App() {
+const {width} = Dimensions.get('screen');
+
+// const Data_Image = [
+//   {
+//     key: 1,
+//     source: require('../assets/images/homescreen.png')
+//   },
+//   {
+//     key: 2,
+//     source: require('../assets/images/homescreen.png')
+//   },
+//   {
+//     key: 3,
+//     source: require('../assets/images/homescreen.png')
+//   },
+//   {
+//     key: 4,
+//     source: require('../assets/images/homescreen.png')
+//   },
+// ]
+const Data_Image = [
+  {
+    key: 1,
+    source:
+      'https://timo.vn/wp-content/uploads/cach-ghi-so-chi-tieu-trong-gia-dinh.jpg',
+  },
+  {
+    key: 2,
+    source:
+      'https://img.freepik.com/premium-vector/cute-money-bag-with-dollar-coin-cartoon_138676-1488.jpg',
+  },
+  {
+    key: 3,
+    source:
+      'https://img.freepik.com/premium-vector/cute-wallet-money-cartoon-vector-icon-illustration-business-finance-icon-concept-isolated-premium-vector-flat-cartoon-style_138676-1446.jpg?w=2000',
+  },
+  {
+    key: 4,
+    source:
+      'https://static.vecteezy.com/system/resources/previews/003/226/897/original/cute-and-happy-wallet-with-money-cartoon-illustration-vector.jpg',
+  },
+];
+
+const Nhap = () => {
+  const scrollX = useRef(new Animated.Value(0)).current;
+  let position = Animated.divide(scrollX, width);
   return (
     <View style={styles.view}>
-      <Text>Bezier Line Chart Hello</Text>
-      <LineChart
-        ////
-        data={{
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-          datasets: [
-            {
-              data: [1, 3, 7, 2, 8, 5, 4],
-              //color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-              strokeWidth: 2, // do dam duong di
-            },
-          ],
-          //legend: ["Rainy Days"] //Chu thich
-        }}
-        //width={Dimensions.get("window").width} // from react-native
-
-        //
-        width={350}
-        height={220}
-        yAxisLabel="$" // Pre-fix
-        yAxisSuffix="k" //  Suf-fix
-        yAxisInterval={1} // optional, defaults to 1
-        //
-        chartConfig={{
-          //backgroundColor: "#e26a00",
-          backgroundGradientFrom: 'pink',
-          backgroundGradientTo: 'pink',
-          // backgroundGradientFrom: "#fb8c00",
-          // backgroundGradientTo: "#ffa726",
-          //fillShadowGradientFrom:'black',
-          //fillShadowGradientTo:'black',
-          //useShadowColorFromDataset:false,
-          decimalPlaces: 0, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 2, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 2, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: '6', //ban kinh
-            strokeWidth: '2',
-            stroke: '#ffa726',
-            //stroke: "#000000" // duong vien
-          },
-        }}
-        //bezier //curve
+      <View
         style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+          marginTop: 10,
+        }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {x: scrollX}}}],
+            {useNativeDriver: false},
+          )}>
+          {Data_Image.map((item, index) => {
+            let scale = position.interpolate({
+              inputRange: [index - 1, index, index + 1],
+              outputRange: [1, 1.5, 1],
+              extrapolate: 'clamp',
+            });
+
+            return (
+              <View style={styles.container} key={index}>
+                <Animated.Image
+                  source={{uri: item.source}}
+                  style={{
+                    height: 300,
+                    width: width * 0.6,
+                    borderRadius: 20,
+                    resizeMode: 'stretch',
+                    transform: [{scale: scale}],
+                    borderWidth: 1,
+                    //borderColor: 'hsl(0,0%,60%)'
+                  }}
+                />
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          bottom: 30,
+          position: 'absolute',
+          alignSelf: 'center',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          {Data_Image.map((item, index) => {
+            let opacity = position.interpolate({
+              inputRange: [index - 1, index, index + 1],
+              outputRange: [0.2, 1, 0.2],
+              extrapolate: 'clamp',
+            });
+            return (
+              <Animated.View
+                key={index}
+                style={{
+                  height: 10,
+                  width: 10,
+                  borderRadius: 10,
+                  backgroundColor: 'hsl(36,100%,50%))',
+                  marginHorizontal: 5,
+                  opacity: opacity,
+                }}
+              />
+            );
+          })}
+        </View>
+      </View>
     </View>
   );
-}
-
+};
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    width,
+    height: 450,
     alignItems: 'center',
     justifyContent: 'center',
+    //padding: 20,
+    //borderWidth: 1,
+    //paddingVertical: 20
   },
 });
-// const chartConfig = {
-//   backgroundGradientFrom: "#1E2923",
-//   backgroundGradientFromOpacity: 0,
-//   backgroundGradientTo: "#08130D",
-//   backgroundGradientToOpacity: 0.5,
-//   color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-//   strokeWidth: 2, // optional, default 3
-//   barPercentage: 0.5,
-//   useShadowColorFromDataset: false // optional
-// };
+export default Nhap;
