@@ -9,6 +9,7 @@ import {
   ScrollView,
   Modal,
   Animated,
+  ToastAndroid,
   Alert,
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
@@ -42,7 +43,6 @@ export default function PlanScreen({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [newData, setNewData] = useState({});
   
-
   //console.log(planData);
   //console.log(percentage);
 
@@ -71,7 +71,7 @@ export default function PlanScreen({ navigation }) {
   const handleConfirm_Finish = date => {
     //console.warn("A date has been picked: ", date);
     setDateFinish(moment(date).format('YYYY-MM-DD'));
-    hideDatePicker_Finish(); //
+    hideDatePicker_Finish();
   };
 
   const onConfirmPlan = () => {
@@ -81,14 +81,18 @@ export default function PlanScreen({ navigation }) {
       let d2 = new Date(dateFinish);
 
       if (d1.getTime() > d2.getTime()) {
-        Alert.alert(
-          'Warning',
-          'Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!',
+        //Alert.alert('Warning','Ngày bắt đầu lớn hơn ngày kết thúc! Vui lòng nhập lại dữ liệu!',);
+        ToastAndroid.showWithGravity(
+          'Ngày bắt đầu lớn hơn ngày kết thúc!\n\t\t\t\t\tVui lòng nhập lại dữ liệu!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
         );
       } else if (d.getTime() > d1.getTime()) {
-        Alert.alert(
-          'Warning',
-          'Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!',
+        //Alert.alert('Warning','Ngày bắt đầu bé hơn ngày hiện tại! Vui lòng nhập lại dữ liệu!',);
+        ToastAndroid.showWithGravity(
+          'Ngày bắt đầu bé hơn ngày hiện tại!\n\t\t\t\t\t\tVui lòng nhập lại dữ liệu!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
         );
       } else {
         if (flag === false) {
@@ -148,7 +152,7 @@ export default function PlanScreen({ navigation }) {
       newIsexceed: item.isExceed,
     });
   };
-
+  
   useEffect (()=>{
     planData.map((item, index)=>{
       if(item.isExceed === true)
@@ -381,7 +385,7 @@ export default function PlanScreen({ navigation }) {
                     borderColor: 'orange',
                   }}
                   colorPress={'#FFC700'}
-                  colorUnpress={'#ffeba3'}
+                  colorUnpress={'#FFC700'}
                   text_style={styles.text_style}
                   title={'LƯU'}
                   onPressFunction={onConfirmPlan}

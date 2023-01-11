@@ -246,7 +246,6 @@ const styles = StyleSheet.create({
     //marginLeft:20,
     paddingLeft: scale(20),
   },
-
   big_row: {
     marginTop: scale(5),
     flexDirection: 'row',

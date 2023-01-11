@@ -37,7 +37,6 @@ export default function Outcome() {
   })
 
   //console.log(Outcome)
-  ///
   var result = [];
   Outcome.map((item) => {
     if ((result.map(itemr => itemr.name)).indexOf(item.name) === -1) {

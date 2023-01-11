@@ -8,6 +8,7 @@ import {
   Pressable,
   Image,
   Alert,
+  ToastAndroid,
   KeyboardAvoidingView,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -56,8 +57,13 @@ export default function FirstInput({ navigation }) {
       dispatch(UpdateMoney(Number(textMoney)));
       navigation.navigate('Drawer');
     } else {
-      Alert.alert('Warning! Vui lòng nhập dữ liệu');
-    }
+     // Alert.alert('Warning! Vui lòng nhập dữ liệu');
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+}
   };
 
   const onPressHandler_Back = () => {
@@ -94,8 +100,6 @@ export default function FirstInput({ navigation }) {
             <Text style={styles.text}>Hiện vật </Text>
           </View>
         </View>
-
-        {/* Create an array of item list */}
 
         {possessionData.map((item, index) => {
           return (
@@ -286,7 +290,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingTop: scale(5),
   },
-
   bin_view: {
     alignItems: 'center',
     marginTop: scale(5),
