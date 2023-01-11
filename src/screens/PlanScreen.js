@@ -12,7 +12,6 @@ import {
   ToastAndroid,
   Alert,
   TouchableOpacity,
-  ToastAndroid,
 } from 'react-native';
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
@@ -343,7 +342,6 @@ export default function PlanScreen({navigation}) {
           onPress={() => navigation.openDrawer('HomeScreen')}
           title="KẾ HOẠCH"
         />
-
         {planData.length === 0 ? (
           <View style={[styles.big_row, {alignItems: 'center'}]}>
             <Text

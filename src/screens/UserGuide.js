@@ -16,15 +16,15 @@ import scale from '../constants/scale';
 export default function UserGuide({ navigation }) {
   return (
     <KeyboardAvoidingView style={styles.view}>
+      <ScrollView>
         <HeaderDrawer
           onPress={() => navigation.openDrawer('HomeScreen')}
           title={'HƯỚNG DẪN SỬ DỤNG'}
           style={{
-            fontSize: scale(30),
+            fontSize: scale(22),
             fontFamily:'Inter-Bold',
           }}
         />
-        <ScrollView>
           <Text style = {styles.title}>I. Thêm chi tiêu/ thu nhập sinh hoạt {"\n"} </Text>
           <Text style = {styles.content}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

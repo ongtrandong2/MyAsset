@@ -2,9 +2,12 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-//import AntDesign from'react-native-vector-icons/AntDesign'
+import AntDesign from'react-native-vector-icons/AntDesign'
 import SignOut from '../auth/SignOut';
 import {useDispatch, useSelector} from 'react-redux';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
+
 
 const CustomDrawerItem = props => {
   return (
@@ -14,7 +17,7 @@ const CustomDrawerItem = props => {
       //activeOpacity={0.5}
       //underlayColor='#dddddd'
     >
-      <Image
+      {/* <Image
         source={props.icon}
         //resizeMode={'contain'}
         style={{
@@ -22,6 +25,12 @@ const CustomDrawerItem = props => {
           width: 20,
           resizeMode: 'contain',
         }}
+      /> */}
+      <props.icon_type
+        name = {props.icon_name}
+        size = {20}
+        color = '#000'
+        
       />
       <Text style={styles.text}>{props.label}</Text>
     </TouchableOpacity>
@@ -41,7 +50,7 @@ const CustomDrawer = props => {
             width: scale(100),
             borderRadius: scale(100),
             borderWidth: 1,
-            borderColor: '#000',
+            borderColor: 'hsl(0,0%,80%)',
           }}
           resizeMode="contain"
         />
@@ -59,21 +68,27 @@ const CustomDrawer = props => {
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Thông tin cá nhân'}
-          icon={require('../assets/images/user2.png')}
+          //icon={require('../assets/images/user2.png')}
+          icon_type={Feather}
+          icon_name = {'user'}
           navigation={props.navigation}
           component={'InfoScreen'}
         />
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Tổng quan'}
-          icon={require('../assets/images/Home.png')}
+          //icon={require('../assets/images/Home.png')}
+          icon_type = {AntDesign}
+          icon_name = {'home'}
           navigation={props.navigation}
           component={'HomeScreen'}
         />
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Hướng dẫn sử dụng'}
-          icon={require('../assets/images/userguide.png')}
+          //icon={require('../assets/images/guide.png')}
+          icon_type ={AntDesign}
+          icon_name ={'book'}
           navigation={props.navigation}
           component={'UserGuide'}
         />
@@ -120,10 +135,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '80%',
-    height: scale(50),
     alignSelf: 'center',
     borderBottomColor: '#000000',
-    marginVertical: scale(10),
+    //marginVertical: scale(10),
+    paddingVertical:15,
+    //borderWidth: 1,
   },
 
   signOutContainer: {
