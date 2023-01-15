@@ -6,6 +6,9 @@ import {addData, deleteIO, removeData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
 import CustomButton from '../components/CustomButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { StyleSheet} from 'react-native';
+import LottieView from 'lottie-react-native';
+
 function Onboarding({navigation}) {
   const dataIORef = firebase
     .firestore()
@@ -20,7 +23,7 @@ function Onboarding({navigation}) {
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
-  }, 1000);
+  }, 3000);
   useEffect(() => {
     dataIORef
       .orderBy('time', 'asc')
@@ -118,9 +121,33 @@ function Onboarding({navigation}) {
   //   });
   // }
   return (
-    <View>
-      <Text>Onboarding</Text>
+    <View style={styles.animationContainer}>
+      <LottieView
+        autoPlay
+        loop
+        style={{
+          width: 280,
+          height: 280,
+          backgroundColor: '#fff',
+        }}
+        source={require('../assets/images/129858-dancing-wallet-coins.json')}
+      />
+      <Text style ={{
+        fontSize: 20,
+      }}>
+        Loading...
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  animationContainer: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  
+});
 export default Onboarding;
