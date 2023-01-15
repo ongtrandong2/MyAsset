@@ -8,15 +8,15 @@ const TotalMoney = createSlice({
     },
     IncreaseTotal: (state, action) => {
       state.value += action.payload;
-    }, 
+    },
     DecreaseTotal: (state, action) => {
       state.value -= action.payload;
     },
   },
 });
 
-export const { UpdateMoney,IncreaseTotal ,DecreaseTotal } = TotalMoney.actions; // JS object, contain information 
-export default TotalMoney.reducer; // Update state in a copy page 
+export const {UpdateMoney, IncreaseTotal, DecreaseTotal} = TotalMoney.actions; // JS object, contain information
+export default TotalMoney.reducer; // Update state in a copy page
 // actions : contain type field, and tell the store what kind of action to perform
-// reducers : contain function, take the current state and action and return the new state and tell the store how to do 
-// Store : hold the all the state of app 
+// reducers : contain function, take the current state and action and return the new state and tell the store how to do
+// Store : hold the all the state of app

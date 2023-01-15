@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import firebase from '@react-native-firebase/firestore';
 const PossessionData = createSlice({
   name: 'PossessionData',
   initialState: [],
@@ -10,38 +9,19 @@ const PossessionData = createSlice({
         name: action.payload.name,
         value: action.payload.value,
         note: action.payload.note,
+        showNote: false,
       };
       state.push(newPossession);
     },
     removePossession: (state, action) => {
       state.splice(action.payload, 1);
     },
-    updateData: state => {
-      state.map(item => {
-        const newData = {
-          key: item.key,
-          name: item.name,
-          value: item.value,
-          isIncome: item.isIncome,
-          isPossession: item.isPossession,
-          time: item.time,
-        };
-        firebase
-          .firestore()
-          .collection('Accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('PossessionData')
-          .doc(item.key)
-          .set(newData);
-      });
-      firebase
-        .firestore()
-        .collection('Accounts')
-        .doc(firebase.auth().currentUser.uid)
-        .set({data: true}, {merge: true});
+    setShowNote: (state, action) => {
+      state[action.payload].showNote = !state[action.payload].showNote;
     },
   },
 });
 
-export const { addPossession, removePossession } = PossessionData.actions;
+export const {addPossession, removePossession, setShowNote} =
+  PossessionData.actions;
 export default PossessionData.reducer;

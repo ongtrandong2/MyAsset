@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import {View, StyleSheet, Text, TextInput, Keyboard, Alert} from 'react-native';
+import { View, StyleSheet, Text, TextInput, Keyboard, Alert, ToastAndroid, } from 'react-native';
 import {Directions, ScrollView} from 'react-native-gesture-handler';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-import {firebase} from '@react-native-firebase/auth';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function RegisterScreen({navigation}) {
   const onPressHandler = () => {
@@ -24,13 +24,23 @@ export default function RegisterScreen({navigation}) {
       confirm.length === 0 ||
       email.length === 0
     ) {
-      Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+      //Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else if (
       password.length != 0 &&
       confirm.length != 0 &&
       password != confirm
     ) {
-      Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
+      //Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
+      ToastAndroid.showWithGravity(
+        'Xác nhận mật khẩu không khớp!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else {
       firebase
         .auth()
@@ -43,8 +53,11 @@ export default function RegisterScreen({navigation}) {
               url: 'https://myasset-5493e.firebaseapp.com',
             })
             .then(() => {
-              Alert.alert(
-                'Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',
+              //Alert.alert('Đã gửi email xác nhận!\nVui lòng kiểm tra email và thư rác\nđể có link xác nhận!',);
+              ToastAndroid.showWithGravity(
+                'Đã gửi email xác nhận!\nVui lòng kiểm tra email \nvà thư rác để có link xác nhận!',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
               );
             })
             .catch(error => {
@@ -77,12 +90,13 @@ export default function RegisterScreen({navigation}) {
       <ScrollView>
         <Header
           onPressFunctionBack={onPressHandler}
-          title={'Đăng kí tài khoản mới'}
           fontSize={scale(25)}
+          title={'Đăng kí tài khoản mới'}
+          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            1. Tên người dùng
+            1. Tên người dùng: 
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -95,7 +109,7 @@ export default function RegisterScreen({navigation}) {
         </View>
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            2. Email
+            2. Email:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -109,7 +123,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            3. Mật khẩu
+            3. Mật khẩu:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -124,7 +138,7 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            4. Xác nhận mật khẩu
+            4. Xác nhận mật khẩu:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -139,10 +153,10 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.row_button}>
           <CustomButton
-            style={{width: '40%', height: scale(40)}}
+            //style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={CheckData}
           />
@@ -204,6 +218,6 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontWeight: 'bold',
+    fontFamily:'Inter-Bold',
   },
 });

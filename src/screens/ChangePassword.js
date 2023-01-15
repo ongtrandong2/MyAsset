@@ -29,7 +29,7 @@ export default function ChangePassword({navigation}) {
         if (snapshot.exists) {
           setCurrentPassword(snapshot.data().password);
         } else {
-          console.log('No such document!');
+          //console.log('No such document!');
         }
       });
   });
@@ -80,10 +80,10 @@ export default function ChangePassword({navigation}) {
           Alert.alert('Thành công!', 'Đổi mật khẩu thành công!');
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .then(() => {
           firebase
@@ -99,11 +99,11 @@ export default function ChangePassword({navigation}) {
       <ScrollView>
         <Header
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
-          fontSize={scale(20)}
+          fontSize={scale(18)}
           title="ĐỔI MẬT KHẨU"
-          style={{color: 'black', fontWeight: 'bold'}}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
-        <View style={[styles.row, {paddingTop: scale(30)}]}>
+        <View style={[styles.row, {paddingTop: scale(35)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Mật khẩu cũ</Text>
           </View>
@@ -153,9 +153,9 @@ export default function ChangePassword({navigation}) {
           }}>
           <CustomButton
             title={'Lưu thay đổi'}
-            style={{height: scale(40), width: scale(220)}}
+            //style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={() => {
               onChangePassword(oldPassword, newPassword, confirmPassword);
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     color: 'black',
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Medium',
   },
   row: {
     flexDirection: 'row',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   text_style: {
     color: 'black',
-    fontSize: scale(18),
-    fontWeight: 'bold',
+    fontSize: scale(16),
+    fontFamily: 'Inter-Bold',
   },
 });

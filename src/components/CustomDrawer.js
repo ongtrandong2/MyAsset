@@ -1,7 +1,13 @@
-import react from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
+import AntDesign from'react-native-vector-icons/AntDesign'
+import SignOut from '../auth/SignOut';
+import {useDispatch, useSelector} from 'react-redux';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
+
 
 const CustomDrawerItem = props => {
   return (
@@ -11,26 +17,48 @@ const CustomDrawerItem = props => {
       //activeOpacity={0.5}
       //underlayColor='#dddddd'
     >
-      <Image source={props.icon} resizeMode={'stretch'} />
+      {/* <Image
+        source={props.icon}
+        //resizeMode={'contain'}
+        style={{
+          height: 20,
+          width: 20,
+          resizeMode: 'contain',
+        }}
+      /> */}
+      <props.icon_type
+        name = {props.icon_name}
+        size = {20}
+        color = '#000'
+        
+      />
       <Text style={styles.text}>{props.label}</Text>
     </TouchableOpacity>
   );
 };
 
 const CustomDrawer = props => {
+  const userImage = useSelector(state => state.userImage.value);
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
         <Image
-          source={require('../assets/images/avatar2.png')}
-          style={{height: scale(100), width: scale(100)}}
-          resizeMode="stretch"
+          //source={require('../assets/images/avatar2.png')}
+          source={{uri: userImage}}
+          style={{
+            height: scale(100),
+            width: scale(100),
+            borderRadius: scale(100),
+            borderWidth: 1,
+            borderColor: 'hsl(0,0%,80%)',
+          }}
+          resizeMode="contain"
         />
       </View>
       <View
         style={{
           borderBottomWidth: 1,
-          borderBottomColor: 'black',
+          borderBottomColor: 'hsl(0,0%,70%)',
           alignItem: 'center',
           justifyContent: 'center',
           marginHorizontal: 10,
@@ -40,31 +68,49 @@ const CustomDrawer = props => {
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Thông tin cá nhân'}
-          icon={require('../assets/images/user2.png')}
+          //icon={require('../assets/images/user2.png')}
+          icon_type={Feather}
+          icon_name = {'user'}
           navigation={props.navigation}
           component={'InfoScreen'}
         />
         <CustomDrawerItem
           style={styles.itemContainer}
           label={'Tổng quan'}
-          icon={require('../assets/images/Home.png')}
+          //icon={require('../assets/images/Home.png')}
+          icon_type = {AntDesign}
+          icon_name = {'home'}
           navigation={props.navigation}
           component={'HomeScreen'}
         />
+        <CustomDrawerItem
+          style={styles.itemContainer}
+          label={'Hướng dẫn sử dụng'}
+          //icon={require('../assets/images/guide.png')}
+          icon_type ={AntDesign}
+          icon_name ={'book'}
+          navigation={props.navigation}
+          component={'UserGuide'}
+        />
       </DrawerContentScrollView>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.signOutContainer}
-        onPress={() => props.navigation.navigate('Login')}>
+        onPress={() => {
+          onSignOutPress().then(() => {
+            props.navigation.navigate('Login');
+          });
+        }}>
         <Text style={[styles.text, {marginLeft: 0}]}>Đăng xuất</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <SignOut navigation={props.navigation} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   text: {
-    fontSize: scale(20),
+    fontSize: scale(18),
     marginLeft: scale(20),
-    fontFamily: 'Itim-Regular',
+    fontFamily: 'Inter-Bold',
     color: '#000000',
     marginBottom: scale(-5),
   },
@@ -89,25 +135,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '80%',
-    height: scale(50),
     alignSelf: 'center',
-    //borderBottomWidth:1,
     borderBottomColor: '#000000',
-    marginVertical: scale(10),
-    //backgroundColor:'blue',
-    //justifyContent:'center',
+    //marginVertical: scale(10),
+    paddingVertical:15,
+    //borderWidth: 1,
   },
 
   signOutContainer: {
-    height: scale(50),
+    //height: scale(50),
     width: '60%',
     bottom: scale(50),
     //paddingRight:30,
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#000000',
+    borderBottomColor: 'hsl(0,0%,70%)',
     alignSelf: 'center',
     alignItems: 'center',
+    paddingVertical: 10,
   },
 });
 export default CustomDrawer;
