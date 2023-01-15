@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     paddingTop: 20,
+    borderColor: 'hsl(0,0%,90%)',
+    elevation: 10,
   },
 });
 export default CustomModal;

@@ -25,7 +25,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 export default function Income() {
   const [option, setOption] = useState('month');
   const [itemSelected, setItemSelected] = useState('01');
-  const [yearSelected, setYearSelected] = useState(2022);
+  const [yearSelected, setYearSelected] = useState(2023);
   const [showModal, setShowModal] = useState(false);
   const [isShowCalendar, setShowCalendar] = useState(false);
   const [isShowCalendarFinish, setShowCalendarFinish] = useState(false);

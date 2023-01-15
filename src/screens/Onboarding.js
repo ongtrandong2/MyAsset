@@ -23,7 +23,7 @@ function Onboarding({navigation}) {
   }, 1000);
   useEffect(() => {
     dataIORef
-      .orderBy('time', 'desc')
+      .orderBy('time', 'asc')
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -50,6 +50,8 @@ function Onboarding({navigation}) {
           currentuse,
           percentage_of_use,
           isExceed,
+          history,
+          isShowHistory,
         } = doc.data();
         dispatch(
           addPlan({
@@ -60,11 +62,13 @@ function Onboarding({navigation}) {
             currentuse,
             percentage_of_use,
             isExceed,
+            history,
+            isShowHistory,
           }),
         );
       });
     });
-    console.log('useEffect');
+    //console.log('useEffect');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

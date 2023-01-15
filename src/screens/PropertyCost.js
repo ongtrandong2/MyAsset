@@ -177,6 +177,7 @@ export default function PropertyCost() {
           isIncome: true,
           isPossession: true,
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+          isDifferent: false,
         }),
       );
       dispatch(IncreaseTotal(Number(sellValue)));

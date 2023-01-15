@@ -63,7 +63,7 @@ const IncomeOutcome = createSlice({
         .doc(action.payload.key)
         .delete()
         .then(() => {
-          alert('Xóa thành cong');
+          alert('Xóa thành công');
         })
         .catch(error => {
           alert('Xóa thất bại');
