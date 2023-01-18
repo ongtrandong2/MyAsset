@@ -90,7 +90,7 @@ const IncomeOutcome = createSlice({
     },
     deleteIO: (state, action) => {
       state.splice(0, state.length);
-      console.log('xoa');
+      //console.log('xoa');
     },
   },
 });

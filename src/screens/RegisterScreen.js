@@ -72,7 +72,8 @@ export default function RegisterScreen({navigation}) {
                   name: name,
                   password: password,
                   email: email,
-                  verified: true,
+                  //verified: true,
+                  haveData: false,
                 });
             });
         })

@@ -28,6 +28,22 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const [isHaveData, setIsHaveData] = useState(false);
+  useEffect(()=>{
+    firebase
+      .firestore()
+      .collection('Accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(snapshot => {
+        if(snapshot.exists){
+          setIsHaveData(snapshot.data().haveData);
+        } else {
+          //console.log('No such document!');
+        }
+      });
+  });
+  //console.log(isHaveData);
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
@@ -48,7 +64,18 @@ export default function Login({navigation}) {
           if (firebase.auth().currentUser.emailVerified) {
             // navigation.navigate('Drawer');
             console.log('Login success!');
-            navigation.navigate('Onboarding');
+            //navigation.navigate('Onboarding');
+            if(isHaveData === true){
+              navigation.navigate('Onboarding');
+            } else {
+              firebase
+                .firestore()
+                .collection('Accounts')
+                .doc(firebase.auth().currentUser.uid)
+                .set({haveData: true},{merge: true});
+              navigation.navigate('FirstInput');
+              
+            }
           } else {
             console.log('Loginfail!');
             //Alert.alert('Warning!', 'Vui lòng xác nhận email!');

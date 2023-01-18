@@ -23,7 +23,7 @@ function Onboarding({navigation}) {
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
-  }, 3000);
+  }, 2000);
   useEffect(() => {
     dataIORef
       .orderBy('time', 'asc')
