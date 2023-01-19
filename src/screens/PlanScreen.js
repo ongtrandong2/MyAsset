@@ -59,7 +59,7 @@ export default function PlanScreen({ navigation }) {
 
   })
 
-  console.log(numberOfExceed);
+  //console.log(numberOfExceed);
   //console.log(planData[0].history[0]);
   //console.log(planData);
 

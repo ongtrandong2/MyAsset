@@ -63,7 +63,7 @@ export default function InfoScreen({navigation}) {
       //compressImageMaxWidth:300,
       //compressImageMaxHeight:300,
       cropping: true,
-      //compressImageQuality: 0.7
+      //compressImageQuality: 0.7,
     })
       .then(image => {
         //console.log(image);

@@ -299,7 +299,7 @@ export default function UserGuide({ navigation }) {
           <Text style = {styles.content}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style ={{fontFamily: 'Inter', fontSize: 15, color: 'black'}}>
-              1.	Chọn muc <Text style={{fontFamily: 'Inter-Bold'}}>Sổ thu chi</Text>         
+              1.	Chọn mục <Text style={{fontFamily: 'Inter-Bold'}}>Sổ thu chi</Text>         
               </Text>
               <Image 
                 source={require('../assets/images/history.png')}

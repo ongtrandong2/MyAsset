@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   StyleSheet,
@@ -13,37 +13,38 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import {TextInput} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/firestore';
+import { TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { firebase } from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PushNotification from 'react-native-push-notification';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [isHaveData, setIsHaveData] = useState(false);
-  useEffect(()=>{
-    firebase
-      .firestore()
-      .collection('Accounts')
-      .doc(firebase.auth().currentUser.uid)
-      .get()
-      .then(snapshot => {
-        if(snapshot.exists){
-          setIsHaveData(snapshot.data().haveData);
-        } else {
-          //console.log('No such document!');
-        }
-      });
-  });
-  //console.log(isHaveData);
+  // useEffect(()=>{
+  //   if(firebase.auth().currentUser !== null ){
+  //   firebase
+  //     .firestore()
+  //     .collection('Accounts')
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .get()
+  //     .then(snapshot => {
+  //       if(snapshot.exists){
+  //         setIsHaveData(snapshot.data().haveData);
+  //       } else {
+  //         //console.log('No such document!');
+  //       }
+  //     });}
+  // });
+  // console.log(isHaveData);
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
@@ -60,24 +61,51 @@ export default function Login({navigation}) {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-          console.log('Login!');
+          //console.log('Login!');
           if (firebase.auth().currentUser.emailVerified) {
             // navigation.navigate('Drawer');
-            console.log('Login success!');
+            //console.log('Login success!');
             //navigation.navigate('Onboarding');
-            if(isHaveData === true){
-              navigation.navigate('Onboarding');
-            } else {
-              firebase
-                .firestore()
-                .collection('Accounts')
-                .doc(firebase.auth().currentUser.uid)
-                .set({haveData: true},{merge: true});
-              navigation.navigate('FirstInput');
-              
-            }
+            firebase
+              .firestore()
+              .collection('Accounts')
+              .doc(firebase.auth().currentUser.uid)
+              .get()
+              .then(snapshot => {
+                if (snapshot.exists) {
+                  //setIsHaveData(snapshot.data().haveData);
+                  const check = snapshot.data().haveData;
+                  if (check === true) {
+                    navigation.navigate('Onboarding');
+                  } else {
+                    firebase
+                      .firestore()
+                      .collection('Accounts')
+                      .doc(firebase.auth().currentUser.uid)
+                      .set({ haveData: true }, { merge: true });
+                    navigation.navigate('FirstInput');
+                  }
+
+                } else {
+                  console.log('No such document!');
+                }
+              }).catch(error=>{
+                console.log(error);
+              });
+
+            // if (isHaveData === true) {
+            //   navigation.navigate('Onboarding');
+            // } else {
+            //   firebase
+            //     .firestore()
+            //     .collection('Accounts')
+            //     .doc(firebase.auth().currentUser.uid)
+            //     .set({ haveData: true }, { merge: true });
+            //   navigation.navigate('FirstInput');
+
+            // }
           } else {
-            console.log('Loginfail!');
+            //console.log('Loginfail!');
             //Alert.alert('Warning!', 'Vui lòng xác nhận email!');
             ToastAndroid.showWithGravity(
               'Vui lòng xác nhận email!',
@@ -119,7 +147,7 @@ export default function Login({navigation}) {
               resizeMode: 'contain',
             }}
           />
-          <View style={{marginLeft: 10}}>
+          <View style={{ marginLeft: 10 }}>
             <View style={styles.label}>
               <Text
                 style={{
@@ -185,10 +213,10 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {paddingTop: scale(10)}]}>
+        <View style={[styles.body_view, { paddingTop: scale(10) }]}>
           <View style={styles.forgetpass}>
-            <TouchableOpacity onPress={() => {}}>
-              <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
+            <TouchableOpacity onPress={() => { }}>
+              <Text style={[{ textAlign: 'center', opacity: 0.5 }, styles.text]}>
                 Quên mật khẩu?
               </Text>
             </TouchableOpacity>
@@ -208,7 +236,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {padding: 10}]}>
+        <View style={[styles.body_view, { padding: 10 }]}>
           <CustomButton
             //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}

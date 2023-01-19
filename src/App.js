@@ -6,7 +6,7 @@ import RootNavigation from './routes/RootNavigation';
 import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
-import FirstInput from './screens/FirstInputScreen';
+import DailyCost from './screens/DailyCost';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <NavigationContainer>
         <RootNavigation />
-        {/* <FirstInput/> */}
+        {/* <DailyCost/> */}
       </NavigationContainer>
     </Provider>
   );
