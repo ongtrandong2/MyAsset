@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {firebase} from '@react-native-firebase/firestore';
-import {useSelector, useDispatch} from 'react-redux';
-import {addData, deleteIO, removeData} from '../Redux/IncomeOutcome';
+import {useDispatch} from 'react-redux';
+import {addData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
-import CustomButton from '../components/CustomButton';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {setUserImage} from '../Redux/UserImage';
+import {UpdateYear} from '../Redux/Year';
 function Onboarding({navigation}) {
   const dataIORef = firebase
     .firestore()
@@ -17,17 +18,57 @@ function Onboarding({navigation}) {
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
     .collection('PlanData');
+  const moneyRef = firebase
+    .firestore()
+    .collection('Accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('TotalMoney')
+    .doc('TotalMoney');
+  const avtRef = firebase
+    .firestore()
+    .collection('Accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('UserImage')
+    .doc('UserImage');
+  const yearRef = firebase
+    .firestore()
+    .collection('Accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('Year');
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
   }, 1000);
   useEffect(() => {
+    yearRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        const {year} = doc.data();
+        dispatch(
+          UpdateYear({
+            yearKey: doc.id,
+            year,
+          }),
+        );
+      });
+    });
+    avtRef.get().then(snapshot => {
+      if (snapshot.exists) {
+        dispatch(setUserImage(snapshot.data().avt));
+      } else {
+        console.log('No such document!');
+      }
+    });
+    moneyRef.get().then(querySnapshot => {
+      const money = querySnapshot.data().money;
+      dispatch(UpdateMoney(money));
+    });
     dataIORef
-      .orderBy('time', 'desc')
+      .orderBy('time', 'asc')
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          const {name, value, isIncome, isPossession, time} = doc.data();
+          const {name, value, isIncome, isPossession, time, isDifferent} =
+            doc.data();
           dispatch(
             addData({
               key: doc.id,
@@ -36,6 +77,7 @@ function Onboarding({navigation}) {
               isIncome,
               isPossession,
               time,
+              isDifferent,
             }),
           );
         });
@@ -49,6 +91,8 @@ function Onboarding({navigation}) {
           currentuse,
           percentage_of_use,
           isExceed,
+          history,
+          isShowHistory,
         } = doc.data();
         dispatch(
           addPlan({
@@ -59,6 +103,8 @@ function Onboarding({navigation}) {
             currentuse,
             percentage_of_use,
             isExceed,
+            history,
+            isShowHistory,
           }),
         );
       });

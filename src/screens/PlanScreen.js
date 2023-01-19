@@ -717,7 +717,6 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'black',
   },
 
   shadow: {
