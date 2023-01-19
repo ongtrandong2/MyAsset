@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,10 +17,10 @@ import {
 import HeaderDrawer from '../components/Header_Drawer';
 import scale from '../constants/scale';
 import CustomButton from '../components/CustomButton';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   addPlan,
   IncreaseCurrentUse,
@@ -33,7 +34,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PushNotification from 'react-native-push-notification';
 import CustomAlert from '../components/CustomAlert';
 import Income from './Income';
-export default function PlanScreen({ navigation }) {
+export default function PlanScreen({navigation}) {
   const [showModal, setShowModal] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateSelect, setDateSelect] = useState('');
@@ -54,10 +55,8 @@ export default function PlanScreen({ navigation }) {
   //const [numberOfExceed, setNumberOfExceed] =useState(0);
   let numberOfExceed = 0;
   planData.map((item, index) => {
-    if (item.isExceed === true)
-      numberOfExceed++;
-
-  })
+    if (item.isExceed === true) numberOfExceed++;
+  });
 
   //console.log(numberOfExceed);
   //console.log(planData[0].history[0]);
@@ -130,7 +129,7 @@ export default function PlanScreen({ navigation }) {
     }
   };
 
-  const onChangePlan = ({ index, item }) => {
+  const onChangePlan = ({index, item}) => {
     setDateSelect(item.dateStart);
     setDateFinish(item.dateFinish);
     setBudget(item.budget);
@@ -210,18 +209,18 @@ export default function PlanScreen({ navigation }) {
   }, [numberOfExceed]);
 
   //console.log(planData);
-  const RenderItem = ({ item, index }) => {
+  const RenderItem = ({item, index}) => {
     if (item.history.length === 0) {
       return (
-        <View style={{ alignSelf: 'center' }}>
-          <Text style={[styles.text, { color: 'grey' }]}>
+        <View style={{alignSelf: 'center'}}>
+          <Text style={[styles.text, {color: 'grey'}]}>
             Chưa có lần chỉnh sửa nào cho kế hoạch này!
           </Text>
         </View>
       );
     } else {
       return (
-        <View style={{ alignSelf: 'flex-start' }}>
+        <View style={{alignSelf: 'flex-start'}}>
           {item.history.map((item_h, index_h) => {
             let compare = item_h.newBudget - item_h.oldBudget;
             let temp = 0;
@@ -233,12 +232,12 @@ export default function PlanScreen({ navigation }) {
                 <Text style={[styles.text]}>
                   {moment(item_h.timechange).format('DD/MM/YYYY')}: Định mức
                   {compare > 0 ? (
-                    <Text style={[styles.text, { color: 'hsl(111,84%,36%)' }]}>
+                    <Text style={[styles.text, {color: 'hsl(111,84%,36%)'}]}>
                       {' '}
                       tăng {temp} VND
                     </Text>
                   ) : (
-                    <Text style={[styles.text, { color: 'hsl(0,74%,52%)' }]}>
+                    <Text style={[styles.text, {color: 'hsl(0,74%,52%)'}]}>
                       {' '}
                       giảm {temp} VND
                     </Text>
@@ -278,7 +277,7 @@ export default function PlanScreen({ navigation }) {
   }, [showPen]);
 
   let offsetY = 0;
-  const handleOnScroll = ({ nativeEvent }) => {
+  const handleOnScroll = ({nativeEvent}) => {
     //console.log(nativeEvent.contentOffset)
     const newOffset = nativeEvent.contentOffset.y;
     offsetY < newOffset ? setShowPen(false) : setShowPen(true);
@@ -294,7 +293,7 @@ export default function PlanScreen({ navigation }) {
           title="KẾ HOẠCH"
         />
         {planData.length === 0 ? (
-          <View style={[styles.big_row, { alignItems: 'center' }]}>
+          <View style={[styles.big_row, {alignItems: 'center'}]}>
             <Text
               style={{
                 fontSize: scale(40),
@@ -311,16 +310,16 @@ export default function PlanScreen({ navigation }) {
                 <View key={index}>
                   <View style={styles.big_row}>
                     <View style={styles.slider_view}>
-                      <View style={[styles.figure_view, { paddingBottom: 3 }]}>
+                      <View style={[styles.figure_view, {paddingBottom: 3}]}>
                         <Text style={styles.text}>
                           {moment(item.dateStart).format('DD/MM/YYYY')} -{' '}
                           {moment(item.dateFinish).format('DD/MM/YYYY')}
                         </Text>
                         <View style={styles.updatebox}>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
-                            style={{ marginRight: 7 }}
-                            onPress={() => onChangePlan({ index, item })}>
+                            android_ripple={{color: '#bbbbbb'}}
+                            style={{marginRight: 7}}
+                            onPress={() => onChangePlan({index, item})}>
                             <MaterialCommunityIcons
                               name="pencil-outline"
                               size={20}
@@ -328,7 +327,7 @@ export default function PlanScreen({ navigation }) {
                             />
                           </Pressable>
                           <Pressable
-                            android_ripple={{ color: '#bbbbbb' }}
+                            android_ripple={{color: '#bbbbbb'}}
                             //onPress={() => dispatch(removePlan(index))}
                             onPress={() => onDetelePlan(index, item)}>
                             <AntDesign
@@ -370,17 +369,17 @@ export default function PlanScreen({ navigation }) {
                           ]}>
                           {item.currentuse}
                         </Text>
-                        <Text style={[styles.text, { color: 'rgb(255,153,0)' }]}>
+                        <Text style={[styles.text, {color: 'rgb(255,153,0)'}]}>
                           {item.budget} VND
                         </Text>
                       </View>
 
-                      <View style={{ alignItems: 'center' }}>
+                      <View style={{alignItems: 'center'}}>
                         {item.isExceed ? (
                           <Text
                             style={[
                               styles.text,
-                              { color: 'hsl(0,74%,52%)', fontSize: scale(16) },
+                              {color: 'hsl(0,74%,52%)', fontSize: scale(16)},
                             ]}>
                             Vượt định mức: {item.currentuse - item.budget}
                           </Text>
@@ -408,7 +407,7 @@ export default function PlanScreen({ navigation }) {
       />
 
       <Animated.View
-        style={[styles.floatingbutton, { transform: [{ translateY: animation }] }]}>
+        style={[styles.floatingbutton, {transform: [{translateY: animation}]}]}>
         <Pressable
           onPress={() => {
             setShowModal(true);
@@ -416,10 +415,10 @@ export default function PlanScreen({ navigation }) {
             setDateFinish('');
             setBudget('');
           }}
-          style={({ pressed }) => [
-            { backgroundColor: pressed ? '#FFC700' : 'white' },
-            { ...styles.wrapper },
-            { ...styles.shadow },
+          style={({pressed}) => [
+            {backgroundColor: pressed ? '#FFC700' : 'white'},
+            {...styles.wrapper},
+            {...styles.shadow},
           ]}>
           <Image
             source={require('../assets/images/pen.png')}
@@ -429,7 +428,7 @@ export default function PlanScreen({ navigation }) {
               width: scale(30),
               borderRadius: scale(30),
             }}
-          //style = {styles.circle}
+            //style = {styles.circle}
           />
         </Pressable>
       </Animated.View>
@@ -447,7 +446,7 @@ export default function PlanScreen({ navigation }) {
 
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
-            <KeyboardAvoidingView style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{flex: 1}}>
               <ScrollView>
                 <View style={styles.modal_bigrow}>
                   <Text
@@ -544,7 +543,7 @@ export default function PlanScreen({ navigation }) {
         showModal={showModalDelete}
         setShowModal={setShowModalDelete}
         ButtonList={[
-          { text: 'Hủy', onPress: () => setShowModalDelete(false) },
+          {text: 'Hủy', onPress: () => setShowModalDelete(false)},
           {
             text: 'Đồng ý',
             onPress: () => {
@@ -576,7 +575,7 @@ export default function PlanScreen({ navigation }) {
 
         <View style={styles.modal_view}>
           <View style={styles.modal_box}>
-            <KeyboardAvoidingView style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{flex: 1}}>
               <ScrollView>
                 <View style={styles.modal_bigrow}>
                   <Text
@@ -667,7 +666,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'hsl(0,0%,80%)',
-
   },
 
   shadow: {

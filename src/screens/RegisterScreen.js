@@ -81,7 +81,6 @@ export default function RegisterScreen({navigation}) {
                   name: name,
                   password: password,
                   email: email,
-                  avt: 'https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png',
                   haveData: false,
                 });
               firebase

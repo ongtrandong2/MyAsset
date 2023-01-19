@@ -13,17 +13,18 @@ import {
   Alert,
   Animated,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import scale from '../constants/scale';
 import moment from 'moment';
 import randomColor from '../constants/randomColor';
-import { PieChart, LineChart } from 'react-native-chart-kit';
-import { useSelector, useDispatch } from 'react-redux';
-import { UpdateYear } from '../Redux/Year';
-import { TextInput } from 'react-native-paper';
+import {PieChart, LineChart} from 'react-native-chart-kit';
+import {useSelector, useDispatch} from 'react-redux';
+import {UpdateYear} from '../Redux/Year';
+import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-const { width, height } = Dimensions.get('screen');
+import generateUUID from '../constants/generateUUID';
+const {width, height} = Dimensions.get('screen');
 
 export default function Outcome() {
   const [option, setOption] = useState('month');
@@ -59,7 +60,6 @@ export default function Outcome() {
   let result = [];
   Outcome.map(item => {
     if (result.map(itemr => itemr.name).indexOf(item.name) === -1) {
-
       const newData = {
         name: item.name,
         value: Number(item.value),
@@ -82,22 +82,27 @@ export default function Outcome() {
   //console.log(result);
   //console.log(total);
   const MONTH = [
-    { month: '01' },
-    { month: '02' },
-    { month: '03' },
-    { month: '04' },
-    { month: '05' },
-    { month: '06' },
-    { month: '07' },
-    { month: '08' },
-    { month: '09' },
-    { month: '10' },
-    { month: '11' },
-    { month: '12' },
+    {month: '01'},
+    {month: '02'},
+    {month: '03'},
+    {month: '04'},
+    {month: '05'},
+    {month: '06'},
+    {month: '07'},
+    {month: '08'},
+    {month: '09'},
+    {month: '10'},
+    {month: '11'},
+    {month: '12'},
   ];
 
   if (YEAR.indexOf(d) === -1) {
-    dispatch(UpdateYear(d));
+    dispatch(
+      UpdateYear({
+        key: generateUUID(),
+        year: d,
+      }),
+    );
   }
 
   let Outcome_ByYear = IncomeOutcome.filter(item => {
@@ -110,18 +115,18 @@ export default function Outcome() {
   //console.log(Outcome_ByYear);
 
   const result_ByYear = [
-    { month: '01', value: 0 },
-    { month: '02', value: 0 },
-    { month: '03', value: 0 },
-    { month: '04', value: 0 },
-    { month: '05', value: 0 },
-    { month: '06', value: 0 },
-    { month: '07', value: 0 },
-    { month: '08', value: 0 },
-    { month: '09', value: 0 },
-    { month: '10', value: 0 },
-    { month: '11', value: 0 },
-    { month: '12', value: 0 },
+    {month: '01', value: 0},
+    {month: '02', value: 0},
+    {month: '03', value: 0},
+    {month: '04', value: 0},
+    {month: '05', value: 0},
+    {month: '06', value: 0},
+    {month: '07', value: 0},
+    {month: '08', value: 0},
+    {month: '09', value: 0},
+    {month: '10', value: 0},
+    {month: '11', value: 0},
+    {month: '12', value: 0},
   ];
 
   Outcome_ByYear.map(item => {
@@ -253,7 +258,7 @@ export default function Outcome() {
                 }}>
                 <TouchableOpacity
                   onPress={() => {
-                    scrollX.scrollToOffset({offset: distance, animated: true });
+                    scrollX.scrollToOffset({offset: distance, animated: true});
                     //distance += distance;
                     HideButton();
                   }}>
@@ -267,7 +272,7 @@ export default function Outcome() {
                 ref={re => (scrollX = re)}
                 data={MONTH}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => {
+                renderItem={({item}) => {
                   return (
                     <View style={styles.month_container}>
                       <TouchableOpacity
@@ -312,7 +317,7 @@ export default function Outcome() {
                   accessor="value"
                   backgroundColor="transparent"
                   paddingLeft="15"
-                //absolute //for the absolute number remove if you want percentage
+                  //absolute //for the absolute number remove if you want percentage
                 />
               </View>
               {result.length === 0 ? null : (
@@ -323,9 +328,9 @@ export default function Outcome() {
                     {result.map((item, index) => {
                       return (
                         <View
-                          style={[styles.row, { marginVertical: 3 }]}
+                          style={[styles.row, {marginVertical: 3}]}
                           key={index}>
-                          <View style={{ flexDirection: 'row' }}>
+                          <View style={{flexDirection: 'row'}}>
                             <View
                               style={{
                                 height: 20,
@@ -352,7 +357,7 @@ export default function Outcome() {
                   horizontal
                   data={YEAR}
                   showsHorizontalScrollIndicator={false}
-                  renderItem={({ item }) => {
+                  renderItem={({item}) => {
                     return (
                       <View style={styles.month_container}>
                         <TouchableOpacity
@@ -360,13 +365,13 @@ export default function Outcome() {
                             styles.month_item,
                             {
                               backgroundColor:
-                                yearSelected === item
+                                yearSelected === item.year
                                   ? 'hsl(47,100%,78%)'
                                   : '#ffffff',
                             },
                           ]}
-                          onPress={() => setYearSelected(item)}>
-                          <Text style={styles.text}>{item}</Text>
+                          onPress={() => setYearSelected(item.year)}>
+                          <Text style={styles.text}>{item.year}</Text>
                         </TouchableOpacity>
                       </View>
                     );
@@ -444,7 +449,7 @@ export default function Outcome() {
                     {result_ByYear.map((item, index) => {
                       return (
                         <View
-                          style={[styles.row, { marginVertical: 3 }]}
+                          style={[styles.row, {marginVertical: 3}]}
                           key={index}>
                           <Text style={styles.text}>Tháng {item.month}</Text>
                           <Text style={styles.text}>{item.value} VND</Text>
@@ -464,7 +469,7 @@ export default function Outcome() {
                       <View
                         style={[
                           styles.month_item,
-                          { backgroundColor: 'hsl(47,100%,78%)' },
+                          {backgroundColor: 'hsl(47,100%,78%)'},
                         ]}>
                         <Text style={styles.text}>
                           {moment(acceptDateStart).format('DD/MM/YYYY')} -{' '}
@@ -509,7 +514,7 @@ export default function Outcome() {
                         accessor="value"
                         backgroundColor="transparent"
                         paddingLeft="15"
-                      //absolute //for the absolute number remove if you want percentage
+                        //absolute //for the absolute number remove if you want percentage
                       />
                     </View>
                   )}
@@ -524,9 +529,9 @@ export default function Outcome() {
                         {result_ByOption.map((item, index) => {
                           return (
                             <View
-                              style={[styles.row, { marginVertical: 3 }]}
+                              style={[styles.row, {marginVertical: 3}]}
                               key={index}>
-                              <View style={{ flexDirection: 'row' }}>
+                              <View style={{flexDirection: 'row'}}>
                                 <View
                                   style={{
                                     height: 20,
@@ -562,11 +567,11 @@ export default function Outcome() {
           onPress={() => setOption('month')}>
           <Image
             source={require('../assets/images/piechart.png')}
-            style={{ height: 30, width: 30 }}
+            style={{height: 30, width: 30}}
             resizeMode="stretch"
           />
           <Text
-            style ={{
+            style={{
               color: '#000',
               paddingLeft: 5,
               //fontSize: scale(18),
@@ -587,14 +592,14 @@ export default function Outcome() {
           onPress={() => setOption('year')}>
           <Image
             source={require('../assets/images/linechart.png')}
-            style={{ height: 30, width: 30 }}
+            style={{height: 30, width: 30}}
             resizeMode="stretch"
           />
           <Text
-            style = {{
+            style={{
               color: '#000',
               paddingLeft: 5,
-              fontWeight: '600', 
+              fontWeight: '600',
             }}>
             NĂM
           </Text>
@@ -613,18 +618,17 @@ export default function Outcome() {
           }}>
           <Image
             source={require('../assets/images/optional.png')}
-            style={{ height: 30, width: 30 }}
+            style={{height: 30, width: 30}}
             resizeMode="stretch"
           />
           <Text
             style={{
               color: '#000',
               paddingLeft: 5,
-              fontWeight: '600', 
+              fontWeight: '600',
             }}>
             TÙY CHỌN
           </Text>
-
         </TouchableOpacity>
       </View>
       <View
@@ -642,11 +646,11 @@ export default function Outcome() {
         statusBarTranslucent
         animationType="fade">
         <Pressable
-          style={[styles.modal_view, { flex: 2 }]}
+          style={[styles.modal_view, {flex: 2}]}
           onPress={() => setShowModal(false)}
         />
 
-        <View style={[styles.modal_view, { flex: 1 }]}>
+        <View style={[styles.modal_view, {flex: 1}]}>
           <View style={styles.modal_box}>
             <View style={styles.big_row}>
               <Text
@@ -659,7 +663,7 @@ export default function Outcome() {
                 Tùy chọn thời gian thống kê
               </Text>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
                   Ngày bắt đầu:{' '}
                 </Text>
                 <TextInput
@@ -687,7 +691,7 @@ export default function Outcome() {
                 />
               </View>
               <View style={styles.modal_row}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
                   Ngày kết thúc:{' '}
                 </Text>
                 <TextInput
@@ -698,7 +702,7 @@ export default function Outcome() {
                   activeUnderlineColor="black"
                   value={dateEnd}
                   onChageText={setDateEnd}
-                  underlineStyle={{ borderWidth: 0 }}
+                  underlineStyle={{borderWidth: 0}}
                   right={
                     <TextInput.Icon
                       icon={{
@@ -719,8 +723,8 @@ export default function Outcome() {
 
             <View style={styles.modal_bigrow}>
               <Pressable
-                style={({ pressed }) => [
-                  { backgroundColor: pressed ? '#FFC700' : '#ffeba3' },
+                style={({pressed}) => [
+                  {backgroundColor: pressed ? '#FFC700' : '#ffeba3'},
                   {
                     paddingVertical: 5,
                     borderWidth: 2,
@@ -730,7 +734,7 @@ export default function Outcome() {
                   },
                 ]}
                 onPress={onConfirm}>
-                <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>
+                <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>
                   LƯU
                 </Text>
               </Pressable>

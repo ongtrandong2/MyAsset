@@ -4,9 +4,10 @@ import {firebase} from '@react-native-firebase/firestore';
 import {useDispatch} from 'react-redux';
 import {addData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
-import CustomButton from '../components/CustomButton';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import { StyleSheet} from 'react-native';
+import {UpdateMoney} from '../Redux/TotalMoney';
+import {UpdateYear} from '../Redux/Year';
+import {setUserImage} from '../Redux/UserImage';
+import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 
 function Onboarding({navigation}) {
@@ -69,7 +70,8 @@ function Onboarding({navigation}) {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          const {name, value, isIncome, isPossession, time,isDifferent} = doc.data();
+          const {name, value, isIncome, isPossession, time, isDifferent} =
+            doc.data();
           dispatch(
             addData({
               key: doc.id,
@@ -171,9 +173,10 @@ function Onboarding({navigation}) {
         }}
         source={require('../assets/images/129858-dancing-wallet-coins.json')}
       />
-      <Text style ={{
-        fontSize: 20,
-      }}>
+      <Text
+        style={{
+          fontSize: 20,
+        }}>
         Loading...
       </Text>
     </View>
@@ -187,6 +190,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  
 });
 export default Onboarding;

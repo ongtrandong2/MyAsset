@@ -7,9 +7,8 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import AntDesign from'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-
 
 const CustomDrawerItem = props => {
   return (
@@ -28,12 +27,7 @@ const CustomDrawerItem = props => {
           resizeMode: 'contain',
         }}
       /> */}
-      <props.icon_type
-        name = {props.icon_name}
-        size = {20}
-        color = '#000'
-        
-      />
+      <props.icon_type name={props.icon_name} size={20} color="#000" />
       <Text style={styles.text}>{props.label}</Text>
     </TouchableOpacity>
   );
@@ -86,7 +80,7 @@ const CustomDrawer = props => {
           label={'Thông tin cá nhân'}
           //icon={require('../assets/images/user2.png')}
           icon_type={Feather}
-          icon_name = {'user'}
+          icon_name={'user'}
           navigation={props.navigation}
           component={'InfoScreen'}
         />
@@ -94,8 +88,8 @@ const CustomDrawer = props => {
           style={styles.itemContainer}
           label={'Tổng quan'}
           //icon={require('../assets/images/Home.png')}
-          icon_type = {AntDesign}
-          icon_name = {'home'}
+          icon_type={AntDesign}
+          icon_name={'home'}
           navigation={props.navigation}
           component={'HomeScreen'}
         />
@@ -103,8 +97,8 @@ const CustomDrawer = props => {
           style={styles.itemContainer}
           label={'Hướng dẫn sử dụng'}
           //icon={require('../assets/images/guide.png')}
-          icon_type ={AntDesign}
-          icon_name ={'book'}
+          icon_type={AntDesign}
+          icon_name={'book'}
           navigation={props.navigation}
           component={'UserGuide'}
         />
@@ -151,7 +145,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderBottomColor: '#000000',
     //marginVertical: scale(10),
-    paddingVertical:15,
+    paddingVertical: 15,
     //borderWidth: 1,
   },
 

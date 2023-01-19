@@ -64,6 +64,19 @@ const PlanData = createSlice({
 
     removePlan: (state, action) => {
       state.splice(action.payload, 1);
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('PlanData')
+        .doc(action.payload.key)
+        .delete()
+        .then(() => {
+          console.log('Xóa thành công');
+        })
+        .catch(error => {
+          console.log('Xóa thất bại');
+        });
     },
 
     updatePlan: (state, action) => {
@@ -78,6 +91,23 @@ const PlanData = createSlice({
           oldBudget: action.payload.oldBudget,
           newBudget: action.payload.budget,
           timechange: action.payload.time_change,
+        });
+      const newPlan = {
+        budget: state[action.payload.index].budget,
+        history: state[action.payload.index].history,
+        currentuse: state[action.payload.index].currentuse,
+        percentage_of_use: state[action.payload.index].percentage_of_use,
+        isExceed: state[action.payload.index].isExceed,
+      };
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('PlanData')
+        .doc(state[action.payload.index].key)
+        .set(newPlan, {merge: true})
+        .then(() => {
+          Keyboard.dismiss();
         });
     },
     setIsShowHistory: (state, action) => {

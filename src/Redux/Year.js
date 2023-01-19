@@ -9,14 +9,14 @@ const Year = createSlice({
         yearKey: action.payload.key,
         year: action.payload.year,
       };
-      state.push(action.payload);
+      state.push(newYear);
       firebase
         .firestore()
         .collection('Accounts')
         .doc(firebase.auth().currentUser.uid)
         .collection('Year')
         .doc(newYear.yearKey)
-        .set({year: newYear.year}, {merge: true});
+        .set(newYear, {merge: true});
     },
   },
 });

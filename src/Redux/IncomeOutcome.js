@@ -51,10 +51,10 @@ const IncomeOutcome = createSlice({
         .doc(action.payload.key)
         .delete()
         .then(() => {
-          alert('Xóa thành công');
+          console.log('Xóa thành công');
         })
         .catch(error => {
-          alert('Xóa thất bại');
+          console.log('Xóa thất bại');
         });
     },
     changeData: (state, action) => {

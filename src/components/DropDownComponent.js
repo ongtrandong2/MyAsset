@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   View,
   Text,
@@ -6,8 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
-} from "react-native";
-import React, { useState, useRef, useEffect } from "react";
+} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const DropDownComponent = ({
@@ -29,31 +30,31 @@ const DropDownComponent = ({
     inputRange: [0, 1],
     outputRange: [0, 10],
     extrapolate: 'clamp',
-  })
+  });
   //console.log(transY);
   //console.log(animatedArrow);
   //console.log(openDropDown)
-  
+
   useEffect(() => {
     if (openDropDown === true) {
-        Animated.timing(animatedArrow, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: false,
-        }).start();
+      Animated.timing(animatedArrow, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
     } else {
-        Animated.timing(animatedArrow, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: false,
-        }).start();
+      Animated.timing(animatedArrow, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
     }
-}, [openDropDown]);
+  }, [openDropDown]);
 
   return (
     <View
       style={{
-        position: "absolute",
+        position: 'absolute',
         top: -15,
         right: 0, // chnage this value to fit the screen
         width,
@@ -90,25 +91,22 @@ const DropDownComponent = ({
             justifyContent: 'center',
           }}
           //onPress={handleArrowAnimation}
-          onPress={() => { setOpenDropDown(!openDropDown) }}
-          >
+          onPress={() => {
+            setOpenDropDown(!openDropDown);
+          }}>
           <Animated.View
             style={{
-              transform: [{ rotate: rotateArrow }]
+              transform: [{rotate: rotateArrow}],
             }}>
-            <Entypo
-              name='chevron-down'
-              color={'#000'}
-              size={20}
-            />
+            <Entypo name="chevron-down" color={'#000'} size={20} />
           </Animated.View>
         </Pressable>
       </View>
 
       {openDropDown ? (
         <Animated.View
-          style = {{
-            transform: [{ translateY: transY}]
+          style={{
+            transform: [{translateY: transY}],
           }}>
           <ScrollView
             style={{
@@ -121,31 +119,30 @@ const DropDownComponent = ({
             }}>
             {list.map((item, index) => {
               //if (item.value.toLowerCase().indexOf(selectedItem.toLowerCase()) > -1)
-                return (
-                  <TouchableOpacity
-                    key={index}
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    paddingVertical: 8,
+                  }}
+                  onPress={() => setSelectedItem(item.value)}>
+                  <Text
                     style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      alignSelf: 'center',
-                      paddingVertical: 8,
-                    }}
-                    onPress={() => setSelectedItem(item.value)}>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        color: 'hsl(0,0%,50%)'
-                      }}>
-                      {item.value}
-                    </Text>
-                  </TouchableOpacity>
-                )
+                      fontSize: 15,
+                      color: 'hsl(0,0%,50%)',
+                    }}>
+                    {item.value}
+                  </Text>
+                </TouchableOpacity>
+              );
             })}
           </ScrollView>
         </Animated.View>
       ) : null}
     </View>
-
   );
 };
 
