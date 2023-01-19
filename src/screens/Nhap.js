@@ -1,6 +1,16 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useRef} from 'react';
-import {View, StyleSheet, Dimensions, ScrollView, Animated} from 'react-native';
+import {ScaleFromCenterAndroid} from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+  Animated,
+} from 'react-native';
+import {interpolate} from 'react-native-reanimated';
+
 const {width} = Dimensions.get('screen');
 
 // const Data_Image = [
@@ -45,97 +55,63 @@ const Data_Image = [
 ];
 
 const Nhap = () => {
-  const scrollX = useRef(new Animated.Value(0)).current;
-  let position = Animated.divide(scrollX, width);
+  const [selectedItem,setSelectedItem] = useState('')
+  const data_in = [
+    {key: '1', value: 'Tiền Lương'},
+    {key: '2', value: 'Cho thuê'},
+    {key: '3', value: 'Bán hàng'},
+    {key: '4', value: 'Tiền thưởng'},
+    {key: '5', value: 'Cổ phiếu'},
+    {key: '6', value: 'Phiếu giảm giá'},
+    {key: '7', value: 'Vietlott'},
+    {key: '8', value: 'Tiền lì xì'},
+    {key: '9', value: 'Khác'},
+  ];
   return (
-    <View style={styles.view}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 10,
+      }}>
       <View
         style={{
-          marginTop: 10,
+          flexDirection: 'row',
+          //justifyContent: 'space-between',
+          paddingHorizontal: 10,
+          alignItems: 'center',
+          //width: '80%',
+          //alignSelf: 'center',
+          //borderWidth:1
         }}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {x: scrollX}}}],
-            {useNativeDriver: false},
-          )}>
-          {Data_Image.map((item, index) => {
-            let scale = position.interpolate({
-              inputRange: [index - 1, index, index + 1],
-              outputRange: [1, 1.5, 1],
-              extrapolate: 'clamp',
-            });
-
-            return (
-              <View style={styles.container} key={index}>
-                <Animated.Image
-                  source={{uri: item.source}}
-                  style={{
-                    height: 300,
-                    width: width * 0.6,
-                    borderRadius: 20,
-                    resizeMode: 'stretch',
-                    transform: [{scale: scale}],
-                    borderWidth: 1,
-                    //borderColor: 'hsl(0,0%,60%)'
-                  }}
-                />
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          bottom: 30,
-          position: 'absolute',
-          alignSelf: 'center',
-        }}>
-        <View
+        <Text
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            fontSize: 15,
+            color: '#000',
+            fontWeight: '500',
+            marginRight: 20,
           }}>
-          {Data_Image.map((item, index) => {
-            let opacity = position.interpolate({
-              inputRange: [index - 1, index, index + 1],
-              outputRange: [0.2, 1, 0.2],
-              extrapolate: 'clamp',
-            });
-            return (
-              <Animated.View
-                key={index}
-                style={{
-                  height: 10,
-                  width: 10,
-                  borderRadius: 10,
-                  backgroundColor: 'hsl(36,100%,50%))',
-                  marginHorizontal: 5,
-                  opacity: opacity,
-                }}
-              />
-            );
-          })}
+          Choose item:
+        </Text>
+        <View>
+          <DropDownComponent
+            width={150}
+            heightDropDown = {200}
+            list = {data_in}
+            selectedItem = {selectedItem}
+            setSelectedItem = {setSelectedItem}
+          />
         </View>
       </View>
+      {/* <View
+        style = {{
+          height: 50,
+          backgroundColor: 'orange',
+          opacity: 0.8
+        }}
+      /> */}
     </View>
   );
 };
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  container: {
-    width,
-    height: 450,
-    alignItems: 'center',
-    justifyContent: 'center',
-    //padding: 20,
-    //borderWidth: 1,
-    //paddingVertical: 20
-  },
-});
+
 export default Nhap;

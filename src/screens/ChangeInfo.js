@@ -96,7 +96,7 @@ export default function ChangeInfo({navigation}) {
             title={'Lưu thông tin cá nhân'}
             //style={{ height: scale(40), width: '60%' }}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={changeInfo(email, name, confirm)}
           />

@@ -1,9 +1,9 @@
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import React from 'react';
-import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
+import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import scale from '../constants/scale';
-import {firebase} from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/firestore';
 
 GoogleSignin.configure({
   webClientId:
@@ -12,7 +12,7 @@ GoogleSignin.configure({
 
 const LoginGoogle = props => {
   async function onGoogleButtonPress() {
-    const {idToken} = await GoogleSignin.signIn();
+    const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken, null);
     return auth().signInWithCredential(googleCredential);
   }
@@ -26,10 +26,10 @@ const LoginGoogle = props => {
   //console.log(props);
   return (
     <View style={styles.container}>
-      <Pressable
-        style={({pressed}) => [
+      {/* <Pressable
+        style={({ pressed }) => [
           styles.row,
-          {backgroundColor: pressed ? '#0099FF' : 'white'},
+          { backgroundColor: pressed ? '#0099FF' : 'white' },
         ]}
         onPress={() => {
           console.log('signed in');
@@ -37,12 +37,12 @@ const LoginGoogle = props => {
             props.navigation.navigate('Success');
           });
         }}
-      />
+      /> */}
       <Pressable
         //style = {styles.row}
-        style={({pressed}) => [
+        style={({ pressed }) => [
           styles.row,
-          {backgroundColor: pressed ? '#0099FF' : 'white'},
+          { backgroundColor: pressed ? '#0099FF' : 'white' },
         ]}
         onPress={() => {
           console.log('signed in');
@@ -51,13 +51,13 @@ const LoginGoogle = props => {
           });
         }}>
         <Image
-          style={{height: 40, width: 40}}
+          style={{ height: 40, width: 40 }}
           source={{
             uri: 'https://img.icons8.com/fluency/48/null/google-logo.png',
           }}
           resizeMode="stretch"
         />
-        <Text style={[styles.text, {paddingLeft: 10}]}>
+        <Text style={[styles.text, { paddingLeft: 10 }]}>
           Continue with Google
         </Text>
       </Pressable>

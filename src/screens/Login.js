@@ -17,6 +17,7 @@ import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import {firebase} from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
+import {useSelector, useDispatch} from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -27,6 +28,23 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const [isHaveData, setIsHaveData] = useState(false);
+  // useEffect(()=>{
+  //   if(firebase.auth().currentUser !== null ){
+  //   firebase
+  //     .firestore()
+  //     .collection('Accounts')
+  //     .doc(firebase.auth().currentUser.uid)
+  //     .get()
+  //     .then(snapshot => {
+  //       if(snapshot.exists){
+  //         setIsHaveData(snapshot.data().haveData);
+  //       } else {
+  //         //console.log('No such document!');
+  //       }
+  //     });}
+  // });
+  // console.log(isHaveData);
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
   };
@@ -43,13 +61,51 @@ export default function Login({navigation}) {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-          console.log('Login!');
+          //console.log('Login!');
           if (firebase.auth().currentUser.emailVerified) {
             // navigation.navigate('Drawer');
-            console.log('Login success!');
-            navigation.navigate('Onboarding');
+            //console.log('Login success!');
+            //navigation.navigate('Onboarding');
+            firebase
+              .firestore()
+              .collection('Accounts')
+              .doc(firebase.auth().currentUser.uid)
+              .get()
+              .then(snapshot => {
+                if (snapshot.exists) {
+                  //setIsHaveData(snapshot.data().haveData);
+                  const check = snapshot.data().haveData;
+                  if (check === true) {
+                    navigation.navigate('Onboarding');
+                  } else {
+                    firebase
+                      .firestore()
+                      .collection('Accounts')
+                      .doc(firebase.auth().currentUser.uid)
+                      .set({haveData: true}, {merge: true});
+                    navigation.navigate('FirstInput');
+                  }
+                } else {
+                  console.log('No such document!');
+                }
+              })
+              .catch(error => {
+                console.log(error);
+              });
+
+            // if (isHaveData === true) {
+            //   navigation.navigate('Onboarding');
+            // } else {
+            //   firebase
+            //     .firestore()
+            //     .collection('Accounts')
+            //     .doc(firebase.auth().currentUser.uid)
+            //     .set({ haveData: true }, { merge: true });
+            //   navigation.navigate('FirstInput');
+
+            // }
           } else {
-            console.log('Loginfail!');
+            //console.log('Loginfail!');
             //Alert.alert('Warning!', 'Vui lòng xác nhận email!');
             ToastAndroid.showWithGravity(
               'Vui lòng xác nhận email!',
@@ -188,7 +244,7 @@ export default function Login({navigation}) {
             //style={{width: '40%', height: scale(40)}}
             title={'Đăng nhập'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={() => {
               LoginUser(email, password);
@@ -201,7 +257,7 @@ export default function Login({navigation}) {
             //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={onRegister}
           />

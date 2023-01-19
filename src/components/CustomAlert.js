@@ -59,6 +59,7 @@ const CustomAlert = props => {
 };
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   modal_view: {
     position: 'absolute',
     top: 0,
@@ -116,4 +117,66 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
 });
+=======
+    modal_view: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        //backgroundColor: '#232f34',
+        //opacity: 0.32,
+        backgroundColor: '#00000099',
+
+    },
+    modal_container: {
+        width: '80%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: scale(300),
+        alignSelf: 'center',
+    },
+    modal_box: {
+        width: '100%',
+        //elevation: 24,
+        borderRadius: 20,
+        padding: 10,
+        backgroundColor: '#fff',
+        //borderWidth: 1,
+        elevation: 5,
+    },
+    modal_title: {
+        color: 'black',
+        fontSize: scale(20),
+        fontFamily: 'Inter-Bold',
+        textAlign: 'center',
+        paddingTop: scale(20)
+    },
+    modal_message: {
+        color: '#000',
+        fontSize: scale(18),
+        paddingVertical: 20,
+        fontFamily: 'Inter-Medium',
+        textAlign: 'center'
+    },
+    button_container: {
+        flex: 1,
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+    },
+    button_item: {
+        backgroundColor: '#ffeba3',
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: 'orange',
+        //paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '80%',
+        paddingVertical:5,
+    },
+})
+>>>>>>> dcc74eed19ae835befb15cb4314b4be5fadc28b2
 export default CustomAlert;

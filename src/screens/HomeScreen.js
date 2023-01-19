@@ -30,7 +30,7 @@ export default function HomeScreen({navigation}) {
   let d1 = new Date(moment(currentDate).format('YYYY-MM')); //
 
   //useEffect
-
+  //console.log(IncomeOutcome);
   let plan = planData.filter(item => {
     let d2 = new Date(moment(item.dateStart).format('YYYY-MM'));
     let d3 = new Date(moment(item.dateFinish).format('YYYY-MM'));
@@ -197,7 +197,7 @@ export default function HomeScreen({navigation}) {
                 );
               })
                 .reverse()
-                .slice(0, 5)}
+                .slice(0, 8)}
             </ScrollView>
           </View>
         </View>
@@ -236,7 +236,7 @@ export default function HomeScreen({navigation}) {
                   );
                 })
                 .reverse()
-                .slice(0, 5)}
+                .slice(0, 8)}
             </ScrollView>
           </View>
         </View>
@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
     //marginLeft:20,
     paddingLeft: scale(20),
   },
-
   big_row: {
     marginTop: scale(5),
     flexDirection: 'row',

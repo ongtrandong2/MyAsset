@@ -54,6 +54,7 @@ export default function History({navigation}) {
   const tabState = useSelector(state => state.tabState.value);
   var result = [];
 
+  //console.log(IncomeOutcome);
   IncomeOutcome.slice(0)
     .reverse()
     .map((item, index) => {

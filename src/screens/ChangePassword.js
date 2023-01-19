@@ -29,7 +29,7 @@ export default function ChangePassword({navigation}) {
         if (snapshot.exists) {
           setCurrentPassword(snapshot.data().password);
         } else {
-          console.log('No such document!');
+          //console.log('No such document!');
         }
       });
   });
@@ -80,10 +80,10 @@ export default function ChangePassword({navigation}) {
           Alert.alert('Thành công!', 'Đổi mật khẩu thành công!');
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
         })
         .then(() => {
           firebase
@@ -155,7 +155,7 @@ export default function ChangePassword({navigation}) {
             title={'Lưu thay đổi'}
             //style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
-            colorUnpress={'#ffdc61'}
+            colorUnpress={'#FFC700'}
             text_style={styles.text_style}
             onPressFunction={() => {
               onChangePassword(oldPassword, newPassword, confirmPassword);

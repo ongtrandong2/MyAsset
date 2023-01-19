@@ -51,7 +51,7 @@ const IncomeOutcome = createSlice({
         .doc(action.payload.key)
         .delete()
         .then(() => {
-          alert('Xóa thành cong');
+          alert('Xóa thành công');
         })
         .catch(error => {
           alert('Xóa thất bại');
@@ -78,7 +78,7 @@ const IncomeOutcome = createSlice({
     },
     deleteIO: (state, action) => {
       state.splice(0, state.length);
-      console.log('xoa');
+      //console.log('xoa');
     },
   },
 });

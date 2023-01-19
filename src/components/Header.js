@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -12,63 +12,54 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header = props => {
   return (
-    <View style={styles.view}>
-      <View style={styles.header_view}>
-        <View style={styles.iconmoney_view}>
+    <View
+      style={styles.view}>
+      <View
+        style={styles.left}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
           <Image
-            style={styles.icon_money}
+            style={{
+              height: scale(50),
+              width: scale(50),
+              resizeMode: 'contain',
+            }}
             source={require('../assets/images/icon_money.png')}
-            resizeMode="stretch"
           />
-        </View>
-        <View style={{flexDirection: 'column'}}>
-          <Text style={styles.text}>MY</Text>
-          <Text style={styles.text}>ASSET</Text>
-        </View>
-        <View style={styles.option_view}>
-          {/* <View style={styles.box}>
-            <Pressable
-              onPress={props.onPressFunctionUser}
-              android_ripple={{color: '#bbbbbb'}}>
-              
-              <Image
-                style={styles.icon}
-                source={require('../assets/images/user2.png')}
-                resizeMode="stretch"
-              />
-            </Pressable>
-          </View> */}
-
-          <View style={styles.box}>
-            <Pressable
-              onPress={props.onPressFunctionBack}
-              android_ripple={{color: '#bbbbbb'}}>
-              <AntDesign name={'back'} size={24} color={'black'} />
-            </Pressable>
+          <View style={{ marginLeft: 5 }}>
+            <Text style={styles.text}>MY</Text>
+            <Text style={styles.text}>ASSET</Text>
           </View>
-
-          {/* <View style={styles.box}>
-            <Pressable
-              onPress={props.onPressFunctionSetting}
-              android_ripple={{color: '#bbbbbb'}}>
-             
-              <Image
-                style={{height: 16, width: 5}}
-                source={require('../assets/images/Setting.png')}
-                resizeMode="stretch" m
-              />
-            </Pressable>
-          </View> */}
         </View>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              height: 30,
+              width: 30,
+              borderRadius: 50,
+              backgroundColor: pressed ? 'hsl(0,0%,90%)' : '#fff',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}
+          onPress ={props.onPressFunctionBack}
+        >
+          <AntDesign name={'back'} size={20} color={'black'} />
+        </Pressable>
       </View>
-
-      <View header_view>
-        {/* <Text style = {[{fontSize: {...props.fontSize}},styles.title]}>{props.title}</Text> */}
-
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <Text
-          style={[{fontSize: props.fontSize}, styles.title, {...props.style}]}>
+          style={[{ fontSize: props.fontSize }, styles.title, props.style]}>
           {props.title}
         </Text>
+
       </View>
     </View>
   );
@@ -76,63 +67,26 @@ const Header = props => {
 
 const styles = StyleSheet.create({
   view: {
+    paddingHorizontal: 5,
     width: '100%',
-    //height:'10%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    //flex:1,
-    backgroundColor: '#ffffff',
-    paddingHorizontal: scale(10),
   },
 
-  header_view: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  left: {
     flexDirection: 'row',
-    paddingHorizontal: scale(30),
-    //backgroundColor:'pink'
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   text: {
     color: 'black',
-    fontSize: scale(22),
+    fontSize: scale(18),
     fontFamily: 'Wallpoet-Regular',
-  },
-
-  iconmoney_view: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  option_view: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-
-  box: {
-    width: '30%',
-    height: scale(30),
-    justifyContent: 'center',
-    alignItems: 'center',
-    //backgroundColor: 'blue',
-  },
-
-  icon_money: {
-    width: scale(50),
-    height: scale(50),
   },
 
   title: {
     color: 'black',
   },
 
-  icon: {
-    width: scale(16),
-    height: scale(16),
-    //color: 'blue',
-  },
 });
 
 export default Header;

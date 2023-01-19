@@ -4,9 +4,11 @@ import {firebase} from '@react-native-firebase/firestore';
 import {useDispatch} from 'react-redux';
 import {addData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
-import {UpdateMoney} from '../Redux/TotalMoney';
-import {setUserImage} from '../Redux/UserImage';
-import {UpdateYear} from '../Redux/Year';
+import CustomButton from '../components/CustomButton';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import { StyleSheet} from 'react-native';
+import LottieView from 'lottie-react-native';
+
 function Onboarding({navigation}) {
   const dataIORef = firebase
     .firestore()
@@ -38,7 +40,7 @@ function Onboarding({navigation}) {
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
-  }, 1000);
+  }, 2000);
   useEffect(() => {
     yearRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
@@ -67,8 +69,7 @@ function Onboarding({navigation}) {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          const {name, value, isIncome, isPossession, time, isDifferent} =
-            doc.data();
+          const {name, value, isIncome, isPossession, time,isDifferent} = doc.data();
           dispatch(
             addData({
               key: doc.id,
@@ -109,7 +110,7 @@ function Onboarding({navigation}) {
         );
       });
     });
-    console.log('useEffect');
+    //console.log('useEffect');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -159,9 +160,33 @@ function Onboarding({navigation}) {
   //   });
   // }
   return (
-    <View>
-      <Text>Onboarding</Text>
+    <View style={styles.animationContainer}>
+      <LottieView
+        autoPlay
+        loop
+        style={{
+          width: 280,
+          height: 280,
+          backgroundColor: '#fff',
+        }}
+        source={require('../assets/images/129858-dancing-wallet-coins.json')}
+      />
+      <Text style ={{
+        fontSize: 20,
+      }}>
+        Loading...
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  animationContainer: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  
+});
 export default Onboarding;

@@ -54,5 +54,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
   },
+  text: {
+    fontSize: scale(18),
+    color: '#000',
+    fontWeight: '600',
+  }
 });
 export default SignOut;
