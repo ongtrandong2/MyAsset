@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {firebase} from '@react-native-firebase/firestore';
 const UserImage = createSlice({
   name: 'UserImage',
   initialState: {
@@ -7,6 +8,13 @@ const UserImage = createSlice({
   reducers: {
     setUserImage: (state, action) => {
       state.value = action.payload;
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('UserImage')
+        .doc('UserImage')
+        .set({avt: state.value}, {merge: true});
     },
   },
 });

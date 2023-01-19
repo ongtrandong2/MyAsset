@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
 
-import {View, StyleSheet, Text, TextInput, Keyboard, Alert} from 'react-native';
-import {Directions, ScrollView} from 'react-native-gesture-handler';
+import {View, StyleSheet, Text, TextInput, Alert} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
@@ -26,9 +27,9 @@ export default function RegisterScreen({navigation}) {
     ) {
       Alert.alert('Warning!', 'Vui lòng nhập dữ liệu!');
     } else if (
-      password.length != 0 &&
-      confirm.length != 0 &&
-      password != confirm
+      password.length !== 0 &&
+      confirm.length !== 0 &&
+      password !== confirm
     ) {
       Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
     } else {
@@ -59,8 +60,17 @@ export default function RegisterScreen({navigation}) {
                   name: name,
                   password: password,
                   email: email,
+                  avt: 'https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png',
                   verified: true,
                 });
+              firebase
+                .firestore()
+                .collection('Accounts')
+                .doc(firebase.auth().currentUser.uid)
+                .collection('TotalMoney')
+                .doc('TotalMoney')
+                .set({money: 0});
+              ///////////////////////
             });
         })
         .catch(error => {
@@ -79,11 +89,11 @@ export default function RegisterScreen({navigation}) {
           onPressFunctionBack={onPressHandler}
           fontSize={scale(25)}
           title={'Đăng kí tài khoản mới'}
-          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
         <View style={styles.text_view}>
           <Text style={styles.text}>
-            1. Tên người dùng: 
+            1. Tên người dùng:
             <Text style={{color: 'red'}}> *</Text>
           </Text>
         </View>
@@ -205,6 +215,6 @@ const styles = StyleSheet.create({
   text_style: {
     color: 'black',
     fontSize: scale(18),
-    fontFamily:'Inter-Bold',
+    fontFamily: 'Inter-Bold',
   },
 });

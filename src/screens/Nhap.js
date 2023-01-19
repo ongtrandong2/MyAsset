@@ -1,16 +1,6 @@
-import {ScaleFromCenterAndroid} from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets';
-import React, {useState, useRef} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  Image,
-  Animated,
-} from 'react-native';
-import {interpolate} from 'react-native-reanimated';
-
+/* eslint-disable react-native/no-inline-styles */
+import React, {useRef} from 'react';
+import {View, StyleSheet, Dimensions, ScrollView, Animated} from 'react-native';
 const {width} = Dimensions.get('screen');
 
 // const Data_Image = [

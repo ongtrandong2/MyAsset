@@ -22,7 +22,11 @@ import PlanData, {IncreaseCurrentUse} from '../Redux/PlanData';
 import CustomButton from '../components/CustomButton';
 import {setShowBottomTab} from '../Redux/TabState';
 import CustomAlert from '../components/CustomAlert';
-import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
+import {
+  IncreaseTotal,
+  DecreaseTotal,
+  UpdateMoneyFirebase,
+} from '../Redux/TotalMoney';
 
 export default function History({navigation}) {
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);

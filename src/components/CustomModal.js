@@ -18,7 +18,7 @@ const CustomModal = () => {
       />
       <View style={styles.modal_view}>
         <View style={styles.modal_box}>
-          { isShowTab === false ? <DailyCost /> : <PropertyCost />}
+          {isShowTab === false ? <DailyCost /> : <PropertyCost />}
         </View>
       </View>
     </>

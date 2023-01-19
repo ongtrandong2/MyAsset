@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,11 +10,36 @@ import {
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
+import {firebase} from '@react-native-firebase/firestore';
 
-export default function ChangeInfo({ navigation }) {
-  const [name, setName] = useState('');
+export default function ChangeInfo({navigation}) {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [confirm, setConfirm] = useState('');
+  function changeInfo(email, name, confirm) {
+    console.log('Change info');
+    if (email === '' || name === '' || confirm === '') {
+      console.log('Vui lòng nhập đầy đủ thông tin!');
+    } else if (name !== confirm) {
+      console.log('Tên xác nhận không khớp!');
+    } else if (email === firebase.auth().currentUser.email) {
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .set(
+          {
+            name: name,
+          },
+          {merge: true},
+        )
+        .then(() => {
+          console.log('User updated!');
+        });
+    } else {
+      console.log('Email không hợp lệ!');
+    }
+  }
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -22,10 +47,10 @@ export default function ChangeInfo({ navigation }) {
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
           fontSize={scale(18)}
           title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
-          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
 
-        <View style={[styles.row, { paddingTop: scale(35) }]}>
+        <View style={[styles.row, {paddingTop: scale(35)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Email:</Text>
           </View>
@@ -39,7 +64,7 @@ export default function ChangeInfo({ navigation }) {
           />
         </View>
 
-        <View style={[styles.row, { paddingTop: scale(30) }]}>
+        <View style={[styles.row, {paddingTop: scale(30)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>2. Tên người dùng mới: </Text>
           </View>
@@ -52,7 +77,7 @@ export default function ChangeInfo({ navigation }) {
             value={name}
           />
         </View>
-        <View style={[styles.row, { paddingTop: scale(25) }]}>
+        <View style={[styles.row, {paddingTop: scale(25)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>3. Xác nhận mật khẩu: </Text>
           </View>
@@ -66,14 +91,14 @@ export default function ChangeInfo({ navigation }) {
           />
         </View>
 
-        <View style={{ paddingTop: scale(30), alignItems: 'center' }}>
+        <View style={{paddingTop: scale(30), alignItems: 'center'}}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
-            //style={{ height: scale(40), width: '60%' }} 
+            //style={{ height: scale(40), width: '60%' }}
             colorPress={'#FFC700'}
             colorUnpress={'#ffdc61'}
             text_style={styles.text_style}
-            //onPressFunction = {}
+            onPressFunction={changeInfo(email, name, confirm)}
           />
         </View>
       </ScrollView>

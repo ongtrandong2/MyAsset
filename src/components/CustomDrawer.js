@@ -1,9 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-import SignOut from '../auth/SignOut';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 const CustomDrawerItem = props => {
   return (
     <TouchableOpacity
@@ -27,6 +30,20 @@ const CustomDrawerItem = props => {
 };
 
 const CustomDrawer = props => {
+  const navigation = useNavigation();
+  const onSignOut = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'))
+      .catch(error => console.log(error))
+      .then(() =>
+        CommonActions.reset({
+          index: 0,
+          routes: [navigation.navigate('Login')],
+        }),
+      )
+      .catch(error => console.log(error));
+  };
   const userImage = useSelector(state => state.userImage.value);
   return (
     <View style={styles.container}>
@@ -69,16 +86,13 @@ const CustomDrawer = props => {
           component={'HomeScreen'}
         />
       </DrawerContentScrollView>
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.signOutContainer}
         onPress={() => {
-          onSignOutPress().then(() => {
-            props.navigation.navigate('Login');
-          });
+          onSignOut();
         }}>
         <Text style={[styles.text, {marginLeft: 0}]}>Đăng xuất</Text>
-      </TouchableOpacity> */}
-      <SignOut navigation={props.navigation} />
+      </TouchableOpacity>
     </View>
   );
 };

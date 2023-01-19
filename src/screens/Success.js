@@ -9,13 +9,6 @@ export default function SuccessScreen({navigation}) {
     navigation.navigate('Login');
   };
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('FirstInput');
-    }, 1000);
-    return () => {};
-  });
-
   return (
     <SafeAreaView style={styles.view}>
       <View style={styles.body}>

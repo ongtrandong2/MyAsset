@@ -22,7 +22,7 @@ import {addPossession, removePossession} from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 
-import {addData, addDataFirebase} from '../Redux/IncomeOutcome';
+import {addData} from '../Redux/IncomeOutcome';
 import {IncreaseCurrentUse} from '../Redux/PlanData';
 import {ShowTab} from '../Redux/ModalNumber';
 import moment from 'moment';
@@ -71,32 +71,10 @@ export default function PropertyCost() {
           isDifferent: false,
         }),
       );
-      dispatch(
-        addDataFirebase({
-          key: generateUUID(),
-          name: purchaseName,
-          value: purchaseValue,
-          isIncome: false,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-          isDifferent: false,
-        }),
-      );
       if (checked === 'first') {
         dispatch(DecreaseTotal(Number(purchaseValue)));
         dispatch(
           addData({
-            key: generateUUID(),
-            name: purchaseName,
-            value: purchaseValue,
-            isIncome: false,
-            isPossession: true,
-            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-            isDifferent: false,
-          }),
-        );
-        dispatch(
-          addDataFirebase({
             key: generateUUID(),
             name: purchaseName,
             value: purchaseValue,
@@ -131,17 +109,6 @@ export default function PropertyCost() {
             isDifferent: true,
           }),
         );
-        dispatch(
-          addDataFirebase({
-            key: generateUUID(),
-            name: purchaseName,
-            value: purchaseValue,
-            isIncome: false,
-            isPossession: true,
-            time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-            isDifferent: true,
-          }),
-        );
       }
 
       setPurchaseName('');
@@ -167,16 +134,6 @@ export default function PropertyCost() {
           isPossession: true,
           time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
           isDifferent: false,
-        }),
-      );
-      dispatch(
-        addDataFirebase({
-          key: generateUUID(),
-          name: sellName,
-          value: sellValue,
-          isIncome: true,
-          isPossession: true,
-          time: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
         }),
       );
       dispatch(IncreaseTotal(Number(sellValue)));

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {useState, useEffect} from 'react';
 
@@ -7,7 +8,6 @@ import {
   View,
   Image,
   Alert,
-  Pressable,
   KeyboardAvoidingView,
   ToastAndroid,
   TouchableOpacity,
@@ -17,7 +17,6 @@ import {TextInput} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import {firebase} from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
-import {useSelector, useDispatch} from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -160,7 +159,23 @@ export default function Login({navigation}) {
 
         <View style={[styles.body_view, {paddingTop: scale(10)}]}>
           <View style={styles.forgetpass}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={() => {
+                firebase
+                  .auth()
+                  .sendPasswordResetEmail(email)
+                  .then(() => {
+                    console.log('Email sent!'),
+                      ToastAndroid.showWithGravity(
+                        'Email đã được gửi đi!',
+                        ToastAndroid.LONG,
+                        ToastAndroid.BOTTOM,
+                      );
+                  })
+                  .catch(err => {
+                    Alert.alert(err.message);
+                  });
+              }}>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
                 Quên mật khẩu?
               </Text>

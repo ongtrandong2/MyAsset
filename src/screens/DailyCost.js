@@ -18,7 +18,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
-import {addData, addDataFirebase, deleteIO} from '../Redux/IncomeOutcome';
+import {addData, deleteIO} from '../Redux/IncomeOutcome';
 import {IncreaseCurrentUse} from '../Redux/PlanData';
 import {ShowTab} from '../Redux/ModalNumber';
 import moment from 'moment';
@@ -75,7 +75,6 @@ export default function DailyCost() {
         isDifferent: false,
       };
       dispatch(addData(dataIC));
-      dispatch(addDataFirebase(dataIC));
       // dispatch(deleteIO());
       dispatch(IncreaseTotal(Number(incomeValue)));
       setIncomeName('');
@@ -96,7 +95,6 @@ export default function DailyCost() {
         isDifferent: false,
       };
       dispatch(addData(dataOC));
-      dispatch(addDataFirebase(dataOC));
       // dispatch(deleteIO());
       dispatch(DecreaseTotal(Number(outcomeValue)));
       let d1 = new Date(moment(currentDate).format('YYYY-MM-DD'));

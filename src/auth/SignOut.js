@@ -6,6 +6,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch} from 'react-redux';
 import deleteIO from '../Redux/IncomeOutcome';
 import {deletePlan} from '../Redux/PlanData';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 // export default async function onSignOut({}) {
 //   firebase
 //     .auth()
@@ -15,6 +16,7 @@ import {deletePlan} from '../Redux/PlanData';
 //   // GoogleSignin.signOut();
 // }
 const SignOut = props => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   async function onSignOutPress() {
     dispatch(deleteIO());
@@ -22,16 +24,19 @@ const SignOut = props => {
     firebase
       .auth()
       .signOut()
-      .then(() => console.log('User signed out!'))
+      .then(() =>
+        CommonActions.reset({
+          index: 0,
+          routes: [navigation.navigate('Login')],
+        }),
+      )
       .catch(error => console.log(error));
   }
   return (
     <Pressable
       style={styles.signOutContainer}
       onPress={() => {
-        onSignOutPress().then(() => {
-          props.navigation.navigate('Login');
-        });
+        onSignOutPress();
       }}>
       <Text style={[styles.text, {marginLeft: 0}]}>Đăng xuất</Text>
     </Pressable>

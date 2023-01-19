@@ -29,7 +29,7 @@ const PlanData = createSlice({
         .then(() => {
           Keyboard.dismiss();
         });
-      console.log(state);
+      //console.log(state);
     },
     IncreaseCurrentUse: (state, action) => {
       state[action.payload.index].currentuse += action.payload.value;
@@ -59,7 +59,7 @@ const PlanData = createSlice({
         .then(() => {
           Keyboard.dismiss();
         });
-      console.log(state);
+      //console.log(state);
     },
 
     removePlan: (state, action) => {

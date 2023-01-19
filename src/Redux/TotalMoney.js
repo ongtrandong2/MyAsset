@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {firebase} from '@react-native-firebase/firestore';
 const TotalMoney = createSlice({
   name: 'TotalMoney',
   initialState: {value: 0},
@@ -8,9 +9,21 @@ const TotalMoney = createSlice({
     },
     IncreaseTotal: (state, action) => {
       state.value += action.payload;
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('TotalMoney')
+        .doc('TotalMoney')
+        .set({money: state.value}, {merge: true});
     },
     DecreaseTotal: (state, action) => {
       state.value -= action.payload;
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .set({money: state.value}, {merge: true});
     },
   },
 });
