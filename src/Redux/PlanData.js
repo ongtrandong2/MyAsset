@@ -117,9 +117,9 @@ const PlanData = createSlice({
         !state[action.payload].isShowHistory;
     },
     resetPlan: (state, action) => {
-      //state.splice(0, state.length);
+      state.splice(0, state.length);
       //console.log('xoa');
-      state = [];
+      //state = [];
     },
   },
 });

@@ -3,14 +3,21 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import { resetPlan } from '../Redux/PlanData';
+import { resetPossession } from '../Redux/PossessionData';
+import { resetImage } from '../Redux/UserImage';
+import { resetTotalMoney } from '../Redux/TotalMoney';
+import { deleteIO } from '../Redux/IncomeOutcome';
+
 
 const CustomDrawerItem = props => {
+  
   return (
     <TouchableOpacity
       style={props.style}
@@ -34,6 +41,7 @@ const CustomDrawerItem = props => {
 };
 
 const CustomDrawer = props => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const onSignOut = () => {
     auth()
@@ -41,11 +49,16 @@ const CustomDrawer = props => {
       .then(() => console.log('User signed out!'))
       .catch(error => console.log(error))
       .then(() =>
+        dispatch(deleteIO()),
+        dispatch(resetPlan()),
+        dispatch(resetPossession()),
+        dispatch(resetImage()),
+        dispatch(resetTotalMoney()),
         CommonActions.reset({
           index: 0,
           routes: [navigation.navigate('Login')],
         }),
-      )
+    )
       .catch(error => console.log(error));
   };
   const userImage = useSelector(state => state.userImage.value);

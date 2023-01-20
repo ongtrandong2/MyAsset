@@ -40,7 +40,7 @@ export default function Income() {
   let total = 0;
   let total_ByYear = 0;
   let total_ByOption = 0;
-  console.log(d);
+  //console.log(d);
 
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const YEAR = useSelector(state => state.year);

@@ -46,7 +46,8 @@ const PossessionData = createSlice({
       state[action.payload].showNote = !state[action.payload].showNote;
     },
     resetPossession: (state, action) => {
-      state = [];
+      state.splice(0, state.length);
+      //state = [];
       //console.log('xoa');
     },
   },

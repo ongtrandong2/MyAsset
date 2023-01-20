@@ -27,9 +27,10 @@ const IncomeOutcome = createSlice({
         time: action.payload.time,
         isDifferent: action.payload.isDifferent,
       };
-      //if (state.includes(newData) === false) {
+      if (state.includes(newData) === false) {
         state.push(newData);
-      //}
+      }
+      //console.log(state);
       firebase
         .firestore()
         .collection('Accounts')
@@ -61,7 +62,6 @@ const IncomeOutcome = createSlice({
     changeData: (state, action) => {
       const key = state[action.payload.index].key;
       state[action.payload.index].value = action.payload.value;
-      
       firebase
         .firestore()
         .collection('Accounts')
@@ -80,7 +80,7 @@ const IncomeOutcome = createSlice({
       //   .doc(action.payload.key)
       //   .update(
       //     {value: action.payload.value},
-          
+
       //   )
       //   .then(() => {
       //     alert('Update thành cong');

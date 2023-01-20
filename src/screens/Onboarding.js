@@ -39,16 +39,16 @@ function Onboarding({navigation}) {
     .doc(firebase.auth().currentUser.uid)
     .collection('UserImage')
     //.doc('UserImage');
-  const yearRef = firebase
-    .firestore()
-    .collection('Accounts')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('Year')
-    .doc('Year');
+  // const yearRef = firebase
+  //   .firestore()
+  //   .collection('Accounts')
+  //   .doc(firebase.auth().currentUser.uid)
+  //   .collection('Year')
+    //.doc('Year');
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
-  }, 2000);
+  },4000);
   useEffect(() => {
     // yearRef.get().then(querySnapshot => {
     //   querySnapshot.forEach(doc => {
@@ -79,16 +79,16 @@ function Onboarding({navigation}) {
         dispatch(UpdateMoney(doc.data().money));
       })
     });
-    yearRef.get().then(querySnapshot => {
-      const year = querySnapshot.data().year;
-      year.map((item)=>{
-        if(YEAR.indexOf(item))
-        {
-          dispatch(UpdateYear(item));
-        }
+    // yearRef.get().then(querySnapshot => {
+    //   const year = querySnapshot.data().year;
+    //   year.map((item)=>{
+    //     if(YEAR.indexOf(item))
+    //     {
+    //       dispatch(UpdateYear(item));
+    //     }
         
-      })
-    })
+    //   })
+    // })
     dataIORef
       .orderBy('time', 'asc')
       .get()
