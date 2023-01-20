@@ -223,7 +223,7 @@ export default function InfoScreen({navigation}) {
           </View>
         </View>
 
-        <View style={[styles.big_row, {paddingTop: 30}]}>
+        {/* <View style={[styles.big_row, {paddingTop: 30}]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
@@ -234,7 +234,7 @@ export default function InfoScreen({navigation}) {
               navigation.navigate('ChangeInfo');
             }}
           />
-        </View>
+        </View> */}
       </ScrollView>
       <GestureRecognizer onSwipeDown={onSwipeDown} config={config}>
         <Modal

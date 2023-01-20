@@ -83,14 +83,21 @@ export default function RegisterScreen({navigation}) {
                   email: email,
                   haveData: false,
                 });
+              // firebase
+              //   .firestore()
+              //   .collection('Accounts')
+              //   .doc(firebase.auth().currentUser.uid)
+              //   .collection('TotalMoney')
+              //   .doc('TotalMoney')
+              //   .set({money: 0});
+              ///////////////////////
               firebase
                 .firestore()
                 .collection('Accounts')
                 .doc(firebase.auth().currentUser.uid)
-                .collection('TotalMoney')
-                .doc('TotalMoney')
-                .set({money: 0});
-              ///////////////////////
+                .collection('UserImage')
+                .doc('UserImage')
+                .set({avt: "https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png"},{merge: true})
             });
         })
         .catch(error => {
@@ -173,7 +180,7 @@ export default function RegisterScreen({navigation}) {
             //style={{width: '40%', height: scale(40)}}
             title={'Tạo tài khoản'}
             colorPress={'#FFC700'}
-            colorUnpress={'#FFC700'}
+            colorUnpress={'#ffd954'}
             text_style={styles.text_style}
             onPressFunction={CheckData}
           />

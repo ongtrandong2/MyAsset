@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {firebase} from '@react-native-firebase/firestore';
+import { Keyboard } from 'react-native';
 const TotalMoney = createSlice({
   name: 'TotalMoney',
   initialState: {value: 0},
@@ -15,7 +16,8 @@ const TotalMoney = createSlice({
         .doc(firebase.auth().currentUser.uid)
         .collection('TotalMoney')
         .doc('TotalMoney')
-        .set({money: state.value}, {merge: true});
+        .set({money: state.value}, {merge: true})
+        .then(Keyboard.dismiss());
     },
     DecreaseTotal: (state, action) => {
       state.value -= action.payload;
@@ -23,12 +25,18 @@ const TotalMoney = createSlice({
         .firestore()
         .collection('Accounts')
         .doc(firebase.auth().currentUser.uid)
-        .set({money: state.value}, {merge: true});
+        .collection('TotalMoney')
+        .doc('TotalMoney')
+        .set({money: state.value}, {merge: true})
+        .then(Keyboard.dismiss());
     },
+    resetTotalMoney: (state, action) =>{
+      state.value = 0;
+    }
   },
 });
 
-export const {UpdateMoney, IncreaseTotal, DecreaseTotal} = TotalMoney.actions; // JS object, contain information
+export const {UpdateMoney, IncreaseTotal, DecreaseTotal, resetTotalMoney} = TotalMoney.actions; // JS object, contain information
 export default TotalMoney.reducer; // Update state in a copy page
 // actions : contain type field, and tell the store what kind of action to perform
 // reducers : contain function, take the current state and action and return the new state and tell the store how to do

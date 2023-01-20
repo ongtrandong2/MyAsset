@@ -24,7 +24,7 @@ export default function HomeScreen({navigation}) {
   const isShowModal = useSelector(state => state.modalNumber.IsShowModal);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
-  const [number, setNumber] = useState('50%');
+  //console.log(money)
   //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
   const [currentDate, setCurrentDate] = useState(new Date());
   let d1 = new Date(moment(currentDate).format('YYYY-MM')); //

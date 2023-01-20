@@ -155,7 +155,7 @@ export default function ChangePassword({navigation}) {
             title={'Lưu thay đổi'}
             //style={{height: scale(40), width: scale(220)}}
             colorPress={'#FFC700'}
-            colorUnpress={'#FFC700'}
+            colorUnpress={'#ffd954'}
             text_style={styles.text_style}
             onPressFunction={() => {
               onChangePassword(oldPassword, newPassword, confirmPassword);

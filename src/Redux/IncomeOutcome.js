@@ -27,9 +27,9 @@ const IncomeOutcome = createSlice({
         time: action.payload.time,
         isDifferent: action.payload.isDifferent,
       };
-      if (state.includes(newData) === false) {
+      //if (state.includes(newData) === false) {
         state.push(newData);
-      }
+      //}
       firebase
         .firestore()
         .collection('Accounts')
@@ -42,39 +42,53 @@ const IncomeOutcome = createSlice({
         });
     },
     removeData: (state, action) => {
+      const key = state[action.payload].key;
       state.splice(action.payload, 1);
       firebase
         .firestore()
         .collection('Accounts')
         .doc(firebase.auth().currentUser.uid)
         .collection('InOutData')
-        .doc(action.payload.key)
+        .doc(key)
         .delete()
         .then(() => {
-          console.log('Xóa thành công');
+          //console.log('Xóa thành công');
         })
         .catch(error => {
-          console.log('Xóa thất bại');
+          //console.log('Xóa thất bại');
         });
     },
     changeData: (state, action) => {
+      const key = state[action.payload.index].key;
       state[action.payload.index].value = action.payload.value;
+      
       firebase
         .firestore()
         .collection('Accounts')
         .doc(firebase.auth().currentUser.uid)
         .collection('InOutData')
-        .doc(action.payload.key)
-        .update(
-          {value: action.payload.value, time: action.payload.time},
-          {merge: true},
-        )
+        .doc(key)
+        .set({value: action.payload.value}, {merge: true})
         .then(() => {
-          alert('Update thành cong');
-        })
-        .catch(error => {
-          alert('Update thất bại');
+          Keyboard.dismiss();
         });
+      // firebase
+      //   .firestore()
+      //   .collection('Accounts')
+      //   .doc(firebase.auth().currentUser.uid)
+      //   .collection('InOutData')
+      //   .doc(action.payload.key)
+      //   .update(
+      //     {value: action.payload.value},
+          
+      //   )
+      //   .then(() => {
+      //     alert('Update thành cong');
+      //   })
+      //   .catch(error => {
+      //     alert('Update thất bại');
+      //   });
+
     },
     deleteIO: (state, action) => {
       state.splice(0, state.length);

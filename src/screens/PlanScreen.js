@@ -52,7 +52,6 @@ export default function PlanScreen({navigation}) {
   const animation = useRef(new Animated.Value(0)).current;
   const IncomeOutcome = useSelector(state => state.IncomeOutcome);
   const [showModalUpdate, setShowModalUpdate] = useState(false);
-  //const [numberOfExceed, setNumberOfExceed] =useState(0);
   let numberOfExceed = 0;
   planData.map((item, index) => {
     if (item.isExceed === true) numberOfExceed++;
@@ -120,6 +119,7 @@ export default function PlanScreen({navigation}) {
             currentuse: 0,
             percentage_of_use: 0,
             isExceed: false,
+            history: [],
           }),
         );
         setDateSelect('');

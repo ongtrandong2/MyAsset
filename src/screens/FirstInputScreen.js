@@ -17,7 +17,7 @@ import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {UpdateMoney} from '../Redux/TotalMoney';
+import {IncreaseTotal} from '../Redux/TotalMoney';
 import {addPossession, removePossession} from '../Redux/PossessionData';
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
@@ -55,7 +55,7 @@ export default function FirstInput({navigation}) {
 
   const onComplete = () => {
     if (setTextMoney !== '') {
-      dispatch(UpdateMoney(Number(textMoney)));
+      dispatch(IncreaseTotal(Number(textMoney)));
       navigation.navigate('Drawer');
     } else {
      // Alert.alert('Warning! Vui lòng nhập dữ liệu');
@@ -89,9 +89,9 @@ export default function FirstInput({navigation}) {
         <View style={styles.big_row}>
           <View style={styles.input_box}>
             <TextInput
-              style={[styles.text_input, {borderBottomWidth: 0.5}]}
+              style={[styles.text_input, {borderBottomWidth: 0}]}
               //underlineColor='black'
-              activeUnderlineColor="#A9A9A9"
+              //activeUnderlineColor="#A9A9A9"
               placeholder="0"
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}

@@ -25,7 +25,7 @@ import CustomAlert from '../components/CustomAlert';
 import {
   IncreaseTotal,
   DecreaseTotal,
-  UpdateMoneyFirebase,
+  //UpdateMoneyFirebase,
 } from '../Redux/TotalMoney';
 
 export default function History({navigation}) {

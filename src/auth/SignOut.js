@@ -4,8 +4,9 @@ import {StyleSheet, View, Text, Button, Image, Pressable} from 'react-native';
 import scale from '../constants/scale';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useDispatch} from 'react-redux';
-import deleteIO from '../Redux/IncomeOutcome';
+import {deleteIO} from '../Redux/IncomeOutcome';
 import {deletePlan} from '../Redux/PlanData';
+
 import {CommonActions, useNavigation} from '@react-navigation/native';
 // export default async function onSignOut({}) {
 //   firebase

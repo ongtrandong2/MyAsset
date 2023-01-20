@@ -26,27 +26,32 @@ const PossessionData = createSlice({
         });
     },
     removePossession: (state, action) => {
+      const key = state[action.payload].key;
       state.splice(action.payload, 1);
       firebase
         .firestore()
         .collection('Accounts')
         .doc(firebase.auth().currentUser.uid)
         .collection('PossessionData')
-        .doc(action.payload.key)
+        .doc(key)
         .delete()
         .then(() => {
-          console.log('Xóa thành công');
+          //console.log('Xóa thành công');
         })
         .catch(error => {
-          console.log('Xóa thất bại');
+          //console.log('Xóa thất bại');
         });
     },
     setShowNote: (state, action) => {
       state[action.payload].showNote = !state[action.payload].showNote;
     },
+    resetPossession: (state, action) => {
+      state = [];
+      //console.log('xoa');
+    },
   },
 });
 
-export const {addPossession, removePossession, setShowNote} =
+export const {addPossession, removePossession, setShowNote, resetPossession} =
   PossessionData.actions;
 export default PossessionData.reducer;

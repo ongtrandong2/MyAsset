@@ -1,16 +1,18 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {firebase} from '@react-native-firebase/firestore';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import {addData} from '../Redux/IncomeOutcome';
 import {addPlan} from '../Redux/PlanData';
-import {UpdateMoney} from '../Redux/TotalMoney';
+import {UpdateMoney, IncreaseTotal} from '../Redux/TotalMoney';
 import {UpdateYear} from '../Redux/Year';
 import {setUserImage} from '../Redux/UserImage';
 import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
+import { addPossession } from '../Redux/PossessionData';
 
 function Onboarding({navigation}) {
+  const YEAR = useSelector(state=>state.year);
   const dataIORef = firebase
     .firestore()
     .collection('Accounts')
@@ -21,50 +23,72 @@ function Onboarding({navigation}) {
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
     .collection('PlanData');
+  const dataPossessionRef = firebase
+    .firestore()
+    .collection('Accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('PossessionData')
   const moneyRef = firebase
     .firestore()
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
     .collection('TotalMoney')
-    .doc('TotalMoney');
   const avtRef = firebase
     .firestore()
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
     .collection('UserImage')
-    .doc('UserImage');
+    //.doc('UserImage');
   const yearRef = firebase
     .firestore()
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
-    .collection('Year');
+    .collection('Year')
+    .doc('Year');
   const dispatch = useDispatch();
   setTimeout(() => {
     navigation.navigate('Drawer');
   }, 2000);
   useEffect(() => {
-    yearRef.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const {year} = doc.data();
-        dispatch(
-          UpdateYear({
-            yearKey: doc.id,
-            year,
-          }),
-        );
-      });
-    });
-    avtRef.get().then(snapshot => {
-      if (snapshot.exists) {
-        dispatch(setUserImage(snapshot.data().avt));
-      } else {
-        console.log('No such document!');
-      }
-    });
+    // yearRef.get().then(querySnapshot => {
+    //   querySnapshot.forEach(doc => {
+    //     const {year} = doc.data();
+    //     dispatch(
+    //       UpdateYear({
+    //         yearKey: doc.id,
+    //         year,
+    //       }),
+    //     );
+    //   });
+    // });
+    // avtRef.get().then(snapshot => {
+    //   if (snapshot.exists) {
+    //     dispatch(setUserImage(snapshot.data().avt));
+    //   } else {
+    //     console.log('No such document!');
+    //   }
+    // });
+    avtRef.get().then(querySnapshot=>{
+      querySnapshot.forEach(doc=>{
+        dispatch(setUserImage(doc.data().avt));
+      })
+      
+    })
     moneyRef.get().then(querySnapshot => {
-      const money = querySnapshot.data().money;
-      dispatch(UpdateMoney(money));
+      querySnapshot.forEach(doc=>{
+        dispatch(UpdateMoney(doc.data().money));
+      })
     });
+    yearRef.get().then(querySnapshot => {
+      const year = querySnapshot.data().year;
+      year.map((item)=>{
+        if(YEAR.indexOf(item))
+        {
+          dispatch(UpdateYear(item));
+        }
+        
+      })
+    })
     dataIORef
       .orderBy('time', 'asc')
       .get()
@@ -108,6 +132,20 @@ function Onboarding({navigation}) {
             isExceed,
             history,
             isShowHistory,
+          }),
+        );
+      });
+    });
+    dataPossessionRef.get().then(querySnapshot=>{
+      querySnapshot.forEach(doc => {
+        const {name, value, note, showNote} = doc.data();
+        dispatch(
+          addPossession({
+            key: doc.id,
+            name,
+            value,
+            note,
+            showNote,
           }),
         );
       });
