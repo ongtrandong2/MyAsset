@@ -82,7 +82,7 @@ function Onboarding({navigation}) {
     // yearRef.get().then(querySnapshot => {
     //   const year = querySnapshot.data().year;
     //   year.map((item)=>{
-    //     if(YEAR.indexOf(item))
+    //     if(YEAR.indexOf(item)===-1)
     //     {
     //       dispatch(UpdateYear(item));
     //     }
