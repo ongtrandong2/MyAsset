@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import scale from '../constants/scale';
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
@@ -19,7 +19,6 @@ import { resetYear } from '../Redux/Year';
 
 
 const CustomDrawerItem = props => {
-  
   return (
     <TouchableOpacity
       style={props.style}

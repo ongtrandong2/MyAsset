@@ -32,12 +32,12 @@ function Onboarding({ navigation }) {
     .firestore()
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
-    .collection('PossessionData')
+    .collection('PossessionData');
   const moneyRef = firebase
     .firestore()
     .collection('Accounts')
     .doc(firebase.auth().currentUser.uid)
-    .collection('TotalMoney')
+    .collection('TotalMoney');
   const avtRef = firebase
     .firestore()
     .collection('Accounts')
@@ -88,7 +88,7 @@ function Onboarding({ navigation }) {
     moneyRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         dispatch(UpdateMoney(doc.data().money));
-      })
+      });
     });
     // yearRef.get().then(querySnapshot => {
     //   const year = querySnapshot.data().year;

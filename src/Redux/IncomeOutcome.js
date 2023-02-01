@@ -88,7 +88,6 @@ const IncomeOutcome = createSlice({
       //   .catch(error => {
       //     alert('Update thất bại');
       //   });
-
     },
     deleteIO: (state, action) => {
       state.splice(0, state.length);

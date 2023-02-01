@@ -97,7 +97,12 @@ export default function RegisterScreen({navigation}) {
                 .doc(firebase.auth().currentUser.uid)
                 .collection('UserImage')
                 .doc('UserImage')
-                .set({avt: "https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png"},{merge: true})
+                .set(
+                  {
+                    avt: 'https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png',
+                  },
+                  {merge: true},
+                );
             });
         })
         .catch(error => {
