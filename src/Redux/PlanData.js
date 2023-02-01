@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { SliderComponent } from 'react-native';
-import { firebase } from '@react-native-firebase/firestore';
-import { Keyboard } from 'react-native';
+import {createSlice} from '@reduxjs/toolkit';
+import {SliderComponent} from 'react-native';
+import {firebase} from '@react-native-firebase/firestore';
+import {Keyboard} from 'react-native';
 const PlanData = createSlice({
   name: 'PlanData',
   initialState: [],
@@ -25,7 +25,7 @@ const PlanData = createSlice({
         .doc(firebase.auth().currentUser.uid)
         .collection('PlanData')
         .doc(newPlan.key)
-        .set(newPlan, { merge: true })
+        .set(newPlan, {merge: true})
         .then(() => {
           Keyboard.dismiss();
         });
@@ -55,7 +55,7 @@ const PlanData = createSlice({
         .doc(firebase.auth().currentUser.uid)
         .collection('PlanData')
         .doc(key)
-        .set(newPlan, { merge: true })
+        .set(newPlan, {merge: true})
         .then(() => {
           Keyboard.dismiss();
         });
@@ -107,7 +107,7 @@ const PlanData = createSlice({
         .doc(firebase.auth().currentUser.uid)
         .collection('PlanData')
         .doc(state[action.payload.index].key)
-        .set(newPlan, { merge: true })
+        .set(newPlan, {merge: true})
         .then(() => {
           Keyboard.dismiss();
         });

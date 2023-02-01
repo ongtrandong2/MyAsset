@@ -26,7 +26,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setUserImage} from '../Redux/UserImage';
 import {useState} from 'react';
 import {firebase} from '@react-native-firebase/firestore';
-import {doc, getDoc} from 'firebase/firestore';
 //import { NavigationHelpersContext } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
@@ -35,7 +34,9 @@ const {width, height} = Dimensions.get('screen');
 export default function InfoScreen({navigation}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  //const [image, setImage] = useState('https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png');
+  const [image, setImage] = useState(
+    'https://img.icons8.com/cotton/100/null/gender-neutral-user--v2.png',
+  );
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const userImage = useSelector(state => state.userImage.value);
@@ -67,7 +68,7 @@ export default function InfoScreen({navigation}) {
     })
       .then(image => {
         //console.log(image);
-        //setImage(image.path);
+        setImage(image.path);
         setShowModal(false);
         dispatch(setUserImage(image.path));
       })
@@ -77,15 +78,14 @@ export default function InfoScreen({navigation}) {
         //     console.log(err);
         //     setShowModal(false);
         // }
-        
-      ToastAndroid.showWithGravity(
-        'There is no image picked!',
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-      );
-    })
-}
 
+        ToastAndroid.showWithGravity(
+          'There is no image picked!',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
+      });
+  };
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -96,7 +96,7 @@ export default function InfoScreen({navigation}) {
     })
       .then(image => {
         //console.log(image);
-        //setImage(image.path);
+        setImage(image.path);
         setShowModal(false);
         dispatch(setUserImage(image.path));
         //dispatch(setImage('aa'));

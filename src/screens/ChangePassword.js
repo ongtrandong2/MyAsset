@@ -13,6 +13,7 @@ import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import {useEffect} from 'react';
 export default function ChangePassword({navigation}) {
   const [oldPassword, setOldPassword] = useState('');
@@ -73,8 +74,7 @@ export default function ChangePassword({navigation}) {
         ToastAndroid.BOTTOM,
       );
     } else {
-      var user = firebase.auth().currentUser;
-      user
+      auth()
         .updatePassword(newPassword)
         .then(() => {
           Alert.alert('Thành công!', 'Đổi mật khẩu thành công!');
