@@ -28,7 +28,6 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
-  const [isHaveData, setIsHaveData] = useState(false);
 
   const onRegister = () => {
     navigation.navigate('RegisterScreen');
@@ -61,6 +60,13 @@ export default function Login({navigation}) {
                   //setIsHaveData(snapshot.data().haveData);
                   const check = snapshot.data().haveData;
                   if (check === true) {
+                    firebase
+                      .firestore()
+                      .collection('Accounts')
+                      .doc(firebase.auth().currentUser.uid)
+                      .set({password: password}, {merge: true});
+                    setEmail("");
+                    setPassword("");
                     navigation.navigate('Onboarding');
                   } else {
                     firebase
@@ -68,6 +74,8 @@ export default function Login({navigation}) {
                       .collection('Accounts')
                       .doc(firebase.auth().currentUser.uid)
                       .set({haveData: true}, {merge: true});
+                    setEmail('');
+                    setPassword('');
                     navigation.navigate('FirstInput');
                   }
                 } else {
@@ -194,9 +202,9 @@ export default function Login({navigation}) {
                   .auth()
                   .sendPasswordResetEmail(email)
                   .then(() => {
-                    console.log('Email sent!'),
+                    //console.log('Email sent!'),
                       ToastAndroid.showWithGravity(
-                        'Email đã được gửi đi!',
+                        'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
                         ToastAndroid.LONG,
                         ToastAndroid.BOTTOM,
                       );

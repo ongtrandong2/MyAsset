@@ -245,7 +245,7 @@ export default function PlanScreen({navigation}) {
                 </Text>
 
                 <Text style={styles.text}>
-                  {'\t\t\t\t\t\t\t\t\t\t'} {item_h.oldBudget} VND ⟶{' '}
+                  {'\t\t\t\t\t\t\t\t  '} {item_h.oldBudget} VND ⟶{' '}
                   {item_h.newBudget} VND
                 </Text>
               </View>

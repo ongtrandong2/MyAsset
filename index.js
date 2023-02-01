@@ -2,10 +2,10 @@
  * @format
  */
 
-import {AppRegistry, Platform} from 'react-native';
+import {AppRegistry, LogBox, Platform} from 'react-native';
 import App from './src/App';
 import {name as appName} from './app.json';
-
+import 'react-native-gesture-handler';
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
@@ -14,5 +14,5 @@ PushNotification.configure({
   },
   requestPermissions: Platform.OS === 'ios',
 });
-
+LogBox.ignoreAllLogs();
 AppRegistry.registerComponent(appName, () => App);

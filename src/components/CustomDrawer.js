@@ -14,6 +14,8 @@ import { resetPossession } from '../Redux/PossessionData';
 import { resetImage } from '../Redux/UserImage';
 import { resetTotalMoney } from '../Redux/TotalMoney';
 import { deleteIO } from '../Redux/IncomeOutcome';
+import { resetYear } from '../Redux/Year';
+
 
 
 const CustomDrawerItem = props => {
@@ -48,16 +50,20 @@ const CustomDrawer = props => {
       .signOut()
       .then(() => console.log('User signed out!'))
       .catch(error => console.log(error))
-      .then(() =>
-        dispatch(deleteIO()),
-        dispatch(resetPlan()),
-        dispatch(resetPossession()),
-        dispatch(resetImage()),
-        dispatch(resetTotalMoney()),
-        CommonActions.reset({
-          index: 0,
-          routes: [navigation.navigate('Login')],
-        }),
+      .then(() =>{
+        dispatch(deleteIO());
+        dispatch(resetPlan());
+        dispatch(resetPossession());
+        dispatch(resetImage());
+        dispatch(resetTotalMoney());
+        dispatch(resetYear());
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [navigation.navigate('Login')],
+          }),
+        );
+      }
     )
       .catch(error => console.log(error));
   };

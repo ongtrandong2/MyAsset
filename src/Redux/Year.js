@@ -19,17 +19,17 @@ const Year = createSlice({
       //   .doc(newYear.yearKey)
       //   .set(newYear, {merge: true});
 
-      // firebase
-      //   .firestore()
-      //   .collection('Accounts')
-      //   .doc(firebase.auth().currentUser.uid)
-      //   .collection('Year')
-      //   .doc('Year')
-      //   .set({year: state},{merge: true});
-      //   //.set()
-      // .then(() => {
-      //   Keyboard.dismiss();
-      // });
+      firebase
+        .firestore()
+        .collection('Accounts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('Year')
+        .doc('Year')
+        .set({year: state},{merge: true})
+        //.set()
+        .then(() => {
+        Keyboard.dismiss();
+      })
     },
     resetYear: (state, action) =>{
       state = [];

@@ -89,11 +89,14 @@ export default function Income() {
     {month: '12'},
   ];
 
-  if (YEAR.indexOf(d) === -1) {
-    dispatch(
-      UpdateYear(d),
-    );
-  }
+  useEffect(()=>{
+    if (YEAR.indexOf(d) === -1) {
+      dispatch(
+        UpdateYear(d),
+      );
+    }
+  },[d]);
+  
 
   let Income_ByYear = IncomeOutcome.filter(item => {
     return (
