@@ -26,6 +26,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setUserImage} from '../Redux/UserImage';
 import {useState} from 'react';
 import {firebase} from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 //import { NavigationHelpersContext } from '@react-navigation/native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
@@ -42,18 +43,29 @@ export default function InfoScreen({navigation}) {
   const userImage = useSelector(state => state.userImage.value);
   //console.log(userImage);
   useEffect(() => {
+    // firebase
+    //   .firestore()
+    //   .collection('Accounts')
+    //   .doc(auth().currentUser.uid)
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.exists) {
+    //       setName(snapshot.data().name);
+    //       setEmail(snapshot.data().email);
+    //     } else {
+    //       console.log('No such document!');
+    //     }
+    //   });
     firebase
       .firestore()
       .collection('Accounts')
-      .doc(firebase.auth().currentUser.uid)
-      .get()
-      .then(snapshot => {
-        if (snapshot.exists) {
-          setName(snapshot.data().name);
-          setEmail(snapshot.data().email);
-        } else {
-          console.log('No such document!');
-        }
+      .onSnapshot(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          if (documentSnapshot.id === auth().currentUser.uid) {
+            setName(documentSnapshot.data().name);
+            setEmail(documentSnapshot.data().email);
+          }
+        });
       });
   });
 
@@ -223,7 +235,7 @@ export default function InfoScreen({navigation}) {
           </View>
         </View>
 
-        {/* <View style={[styles.big_row, {paddingTop: 30}]}>
+        <View style={[styles.big_row, {paddingTop: 30}]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
@@ -234,7 +246,7 @@ export default function InfoScreen({navigation}) {
               navigation.navigate('ChangeInfo');
             }}
           />
-        </View> */}
+        </View>
       </ScrollView>
       <GestureRecognizer onSwipeDown={onSwipeDown} config={config}>
         <Modal

@@ -14,12 +14,15 @@ import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import {firebase} from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
+import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useEffect} from 'react';
 export default function ChangePassword({navigation}) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(true);
   useEffect(() => {
     firebase
       .firestore()
@@ -39,50 +42,50 @@ export default function ChangePassword({navigation}) {
     newPassword,
     confirmPassword,
   ) => {
-    if (
-      oldPassword.length === 0 ||
-      newPassword.length === 0 ||
-      confirmPassword.length === 0
-    ) {
+    console.log('1');
+    if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
       ToastAndroid.showWithGravity(
         'Vui lòng nhập dữ liệu!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
+      console.log('2');
     } else if (oldPassword !== currentPassword) {
+      console.log(currentPassword);
+      console.log(oldPassword);
       ToastAndroid.showWithGravity(
         'Mật khẩu cũ không chính xác!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
+      console.log('3');
     } else if (newPassword === oldPassword) {
       ToastAndroid.showWithGravity(
         'Mật khẩu mới không được trùng với mật khẩu cũ!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
+      console.log('4');
     } else if (newPassword !== confirmPassword) {
       ToastAndroid.showWithGravity(
         'Mật khẩu mới không trùng với mật khẩu xác nhận!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-    } else if (newPassword.length < 6) {
-      ToastAndroid.showWithGravity(
-        'Mật khẩu mới quá yếu!',
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-      );
+      console.log('5');
     } else {
       //var user = firebase.auth().currentUser;
-      auth()
-        .updatePassword(newPassword)
+      console.log('7');
+      firebase
+        .auth()
+        .currentUser.updatePassword(newPassword)
         .then(() => {
           //Alert.alert('Thành công!', 'Đổi mật khẩu thành công!');
           ToastAndroid.showWithGravity(
             'Đổi mật khẩu thành công!',
             ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,);
+            ToastAndroid.BOTTOM,
+          );
         })
         .catch(error => {
           console.log(error);
@@ -91,6 +94,7 @@ export default function ChangePassword({navigation}) {
           //console.log(error);
         })
         .then(() => {
+          console.log('8');
           firebase
             .firestore()
             .collection('Accounts')
@@ -117,6 +121,10 @@ export default function ChangePassword({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.change_box}
+            placeholder="Mật khẩu cũ"
+            placeholderTextColor={'grey'}
+            secureTextEntry={passwordVisible}
+            
             onChangeText={value => setOldPassword(value)}
             value={oldPassword}
           />
@@ -131,6 +139,9 @@ export default function ChangePassword({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.change_box}
+            placeholder="Mật khẩu mới "
+            placeholderTextColor={'grey'}
+            secureTextEntry={passwordVisible}
             onChangeText={value => setNewPassword(value)}
             value={newPassword}
           />
@@ -145,6 +156,9 @@ export default function ChangePassword({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.change_box}
+            placeholder="Mật khẩu cũ"
+            placeholderTextColor={'grey'}
+            secureTextEntry={passwordVisible}
             onChangeText={value => setConfirmPassword(value)}
             value={confirmPassword}
           />
@@ -162,9 +176,9 @@ export default function ChangePassword({navigation}) {
             colorPress={'#FFC700'}
             colorUnpress={'#ffd954'}
             text_style={styles.text_style}
-            onPressFunction={() => {
-              onChangePassword(oldPassword, newPassword, confirmPassword);
-            }}
+            onPressFunction={() =>
+              onChangePassword(oldPassword, newPassword, confirmPassword)
+            }
           />
         </View>
       </ScrollView>

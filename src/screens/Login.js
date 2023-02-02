@@ -65,8 +65,8 @@ export default function Login({navigation}) {
                       .collection('Accounts')
                       .doc(firebase.auth().currentUser.uid)
                       .set({password: password}, {merge: true});
-                    setEmail("");
-                    setPassword("");
+                    setEmail('');
+                    setPassword('');
                     navigation.navigate('Onboarding');
                   } else {
                     firebase
@@ -203,11 +203,11 @@ export default function Login({navigation}) {
                   .sendPasswordResetEmail(email)
                   .then(() => {
                     //console.log('Email sent!'),
-                      ToastAndroid.showWithGravity(
-                        'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
-                        ToastAndroid.LONG,
-                        ToastAndroid.BOTTOM,
-                      );
+                    ToastAndroid.showWithGravity(
+                      'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
+                      ToastAndroid.LONG,
+                      ToastAndroid.BOTTOM,
+                    );
                   })
                   .catch(err => {
                     Alert.alert(err.message);

@@ -96,13 +96,11 @@ export default function Outcome() {
     {month: '12'},
   ];
 
-  useEffect(()=>{
+  useEffect(() => {
     if (YEAR.indexOf(d) === -1) {
-      dispatch(
-        UpdateYear(d),
-      );
+      dispatch(UpdateYear(d));
     }
-  },[d])
+  }, [d]);
   //console.log(YEAR);
 
   let Outcome_ByYear = IncomeOutcome.filter(item => {

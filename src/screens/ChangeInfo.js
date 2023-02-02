@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
+  ToastAndroid,
 } from 'react-native';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
@@ -15,13 +16,10 @@ import {firebase} from '@react-native-firebase/firestore';
 export default function ChangeInfo({navigation}) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [confirm, setConfirm] = useState('');
-  function changeInfo(email, name, confirm) {
+  const changeInfo = async (email, name) => {
     console.log('Change info');
-    if (email === '' || name === '' || confirm === '') {
+    if (email === '' || name === '') {
       console.log('Vui lòng nhập đầy đủ thông tin!');
-    } else if (name !== confirm) {
-      console.log('Tên xác nhận không khớp!');
     } else if (email === firebase.auth().currentUser.email) {
       firebase
         .firestore()
@@ -39,7 +37,7 @@ export default function ChangeInfo({navigation}) {
     } else {
       console.log('Email không hợp lệ!');
     }
-  }
+  };
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
@@ -77,28 +75,17 @@ export default function ChangeInfo({navigation}) {
             value={name}
           />
         </View>
-        <View style={[styles.row, {paddingTop: scale(25)}]}>
-          <View style={styles.title}>
-            <Text style={styles.text}>3. Xác nhận mật khẩu: </Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <TextInput
-            style={styles.change_box}
-            onChangeText={value => setConfirm(value)}
-            value={confirm}
-          />
-        </View>
 
         <View style={{paddingTop: scale(30), alignItems: 'center'}}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
             //style={{ height: scale(40), width: '60%' }}
             colorPress={'#FFC700'}
-            colorUnpress={'#FFC700'}
+            colorUnpress={'#ffd954'}
             text_style={styles.text_style}
-            onPressFunction={changeInfo(email, name, confirm)}
+            onPressFunction={() => {
+              changeInfo(email, name);
+            }}
           />
         </View>
       </ScrollView>
