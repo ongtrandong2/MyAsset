@@ -240,7 +240,7 @@ export default function InfoScreen({navigation}) {
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
             colorPress={'#FFC700'}
-            colorUnpress={'#FFC700'}
+            colorUnpress={'#ffd954'}
             text_style={styles.text_style}
             onPressFunction={() => {
               navigation.navigate('ChangeInfo');

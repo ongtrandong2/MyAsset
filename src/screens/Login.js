@@ -30,6 +30,8 @@ export default function Login({navigation}) {
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const onRegister = () => {
+    setEmail("");
+    setPassword("");
     navigation.navigate('RegisterScreen');
   };
   const LoginUser = async (email, password) => {
@@ -65,8 +67,8 @@ export default function Login({navigation}) {
                       .collection('Accounts')
                       .doc(firebase.auth().currentUser.uid)
                       .set({password: password}, {merge: true});
-                    setEmail('');
-                    setPassword('');
+                    setEmail("");
+                    setPassword("");
                     navigation.navigate('Onboarding');
                   } else {
                     firebase

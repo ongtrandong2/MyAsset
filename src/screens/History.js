@@ -327,9 +327,9 @@ export default function History({navigation}) {
             //setCurrentDate(new Date())
             let day;
             let compare =
-              new Date(moment(currentDate).format('DD-MM-YYYY')).getTime() -
+              new Date(moment(currentDate).format('YYYY-MM-DD')).getTime() -
               new Date(
-                moment(section.title.date).format('DD-MM-YYYY'),
+                moment(section.title.date).format('YYYY-MM-DD'),
               ).getTime();
             //if ((new Date(moment(currentDate).format('DD-MM-YYYY'))).getTime() === (new Date(moment(section.title.date).format('DD-MM-YYYY'))).getTime()) {
             if (compare === 0) {

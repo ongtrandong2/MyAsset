@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -8,21 +8,25 @@ import {
   KeyboardAvoidingView,
   Alert,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-import {firebase} from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useEffect} from 'react';
-export default function ChangePassword({navigation}) {
+import { useEffect } from 'react';
+export default function ChangePassword({ navigation }) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   useEffect(() => {
     firebase
       .firestore()
@@ -99,7 +103,10 @@ export default function ChangePassword({navigation}) {
             .firestore()
             .collection('Accounts')
             .doc(firebase.auth().currentUser.uid)
-            .set({password: newPassword}, {merge: true});
+            .set({ password: newPassword }, { merge: true });
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
         });
     }
   };
@@ -110,58 +117,126 @@ export default function ChangePassword({navigation}) {
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
           fontSize={scale(18)}
           title="ĐỔI MẬT KHẨU"
-          style={{color: 'black', fontFamily: 'Inter-Bold'}}
+          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
         />
-        <View style={[styles.row, {paddingTop: scale(35)}]}>
+        <View style={[styles.row, { paddingTop: scale(35) }]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Mật khẩu cũ</Text>
           </View>
         </View>
 
         <View style={styles.row}>
-          <TextInput
-            style={styles.change_box}
-            placeholder="Mật khẩu cũ"
-            placeholderTextColor={'grey'}
-            secureTextEntry={passwordVisible}
-            
-            onChangeText={value => setOldPassword(value)}
-            value={oldPassword}
-          />
+          <View style={styles.change_box}>
+            <TextInput
+              style={styles.textInputStyle}
+              value={oldPassword}
+              onChangeText={value => setOldPassword(value)}
+              secureTextEntry={!showOld}
+            />
+            <TouchableOpacity
+              style={{
+                width: '10%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => setShowOld(!showOld)}>
+              <Feather
+                name={showOld ? 'eye' : 'eye-off'}
+                size={20}
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <View style={[styles.row, {paddingTop: scale(30)}]}>
+        <View style={[styles.row, { paddingTop: scale(30) }]}>
           <View style={styles.title}>
             <Text style={styles.text}>2. Mật khẩu mới</Text>
           </View>
         </View>
 
         <View style={styles.row}>
-          <TextInput
-            style={styles.change_box}
-            placeholder="Mật khẩu mới "
-            placeholderTextColor={'grey'}
-            secureTextEntry={passwordVisible}
-            onChangeText={value => setNewPassword(value)}
-            value={newPassword}
-          />
+          <View style={styles.change_box}>
+            <TextInput
+              style={styles.textInputStyle}
+              value={newPassword}
+              onChangeText={value => setNewPassword(value)}
+              secureTextEntry={!showNew}
+            />
+            <TouchableOpacity
+              style={{
+                width: '10%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => setShowNew(!showNew)}>
+              <Feather
+                name={showNew ? 'eye' : 'eye-off'}
+                size={20}
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <View style={[styles.row, {paddingTop: scale(30)}]}>
+        {newPassword.length < 6 && newPassword != "" ? (
+          <View
+            style={{
+              width: '80%',
+              alignSelf: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 10,
+            }}>
+            <Feather
+              name="x-circle"
+              size={20}
+              color="red"
+              style={{
+                marginRight: 10,
+              }}
+            />
+            <Text
+              style={{
+                color: 'red',
+                fontSize: scale(18),
+                fontWeight: '500',
+              }}>
+              Mật khẩu phải có tối đa 6 ký tự!
+            </Text>
+          </View>
+        ) : null}
+
+
+        <View style={[styles.row, { paddingTop: scale(30) }]}>
           <View style={styles.title}>
             <Text style={styles.text}>3. Xác nhận mật khẩu mới</Text>
           </View>
         </View>
 
+
         <View style={styles.row}>
-          <TextInput
-            style={styles.change_box}
-            placeholder="Mật khẩu cũ"
-            placeholderTextColor={'grey'}
-            secureTextEntry={passwordVisible}
-            onChangeText={value => setConfirmPassword(value)}
-            value={confirmPassword}
-          />
+          <View style={styles.change_box}>
+            <TextInput
+              style={styles.textInputStyle}
+              value={confirmPassword}
+              onChangeText={value => setConfirmPassword(value)}
+              secureTextEntry={!showConfirm}
+            />
+            <TouchableOpacity
+              style={{
+                width: '10%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => setShowConfirm(!showConfirm)}>
+              <Feather
+                name={showConfirm ? 'eye' : 'eye-off'}
+                size={20}
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View
@@ -176,9 +251,9 @@ export default function ChangePassword({navigation}) {
             colorPress={'#FFC700'}
             colorUnpress={'#ffd954'}
             text_style={styles.text_style}
-            onPressFunction={() =>
-              onChangePassword(oldPassword, newPassword, confirmPassword)
-            }
+            onPressFunction={() => {
+              onChangePassword(oldPassword, newPassword, confirmPassword);
+            }}
           />
         </View>
       </ScrollView>
@@ -190,7 +265,6 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: '#ffffff',
-    flexDirection: 'column',
   },
   text: {
     fontSize: scale(18),
@@ -201,29 +275,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: scale(30),
     paddingVertical: scale(5),
+    alignItems: 'center',
   },
   title: {
-    //width:200,
-    flex: 2,
-    //height:30,
-    //backgroundColor:'blue',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
 
   change_box: {
-    flex: 2,
-    //height:30,
+    flex: 1,
     backgroundColor: 'white',
     borderColor: '#FFC700',
     borderWidth: 2,
     borderRadius: 20,
     paddingHorizontal: scale(20),
     fontSize: scale(18),
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   text_style: {
     color: 'black',
     fontSize: scale(16),
     fontFamily: 'Inter-Bold',
+  },
+  box: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#FFC700',
+    borderRadius: 20,
+    width: '100%',
+  },
+  textInputStyle: {
+    fontSize: scale(18),
+    color: '#000',
+    paddingVertical: 10,
+    width: '90%',
+    //borderWidth: 1,
   },
 });

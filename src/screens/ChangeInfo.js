@@ -19,7 +19,12 @@ export default function ChangeInfo({navigation}) {
   const changeInfo = async (email, name) => {
     console.log('Change info');
     if (email === '' || name === '') {
-      console.log('Vui lòng nhập đầy đủ thông tin!');
+      //console.log('Vui lòng nhập đầy đủ thông tin!');
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập đầy đủ thông tin!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else if (email === firebase.auth().currentUser.email) {
       firebase
         .firestore()
@@ -35,7 +40,12 @@ export default function ChangeInfo({navigation}) {
           console.log('User updated!');
         });
     } else {
-      console.log('Email không hợp lệ!');
+      //console.log('Email không hợp lệ!');
+      ToastAndroid.showWithGravity(
+        'Email không hợp lệ!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     }
   };
   return (
