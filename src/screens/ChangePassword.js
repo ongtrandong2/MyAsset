@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,12 +13,12 @@ import {
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-import { firebase } from '@react-native-firebase/auth';
+import {firebase} from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useEffect } from 'react';
-export default function ChangePassword({ navigation }) {
+import {useEffect} from 'react';
+export default function ChangePassword({navigation}) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -103,10 +103,10 @@ export default function ChangePassword({ navigation }) {
             .firestore()
             .collection('Accounts')
             .doc(firebase.auth().currentUser.uid)
-            .set({ password: newPassword }, { merge: true });
-          setOldPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
+            .set({password: newPassword}, {merge: true});
+          setOldPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
         });
     }
   };
@@ -117,9 +117,9 @@ export default function ChangePassword({ navigation }) {
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
           fontSize={scale(18)}
           title="ĐỔI MẬT KHẨU"
-          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
-        <View style={[styles.row, { paddingTop: scale(35) }]}>
+        <View style={[styles.row, {paddingTop: scale(35)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Mật khẩu cũ</Text>
           </View>
@@ -149,7 +149,7 @@ export default function ChangePassword({ navigation }) {
           </View>
         </View>
 
-        <View style={[styles.row, { paddingTop: scale(30) }]}>
+        <View style={[styles.row, {paddingTop: scale(30)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>2. Mật khẩu mới</Text>
           </View>
@@ -179,7 +179,7 @@ export default function ChangePassword({ navigation }) {
           </View>
         </View>
 
-        {newPassword.length < 6 && newPassword != "" ? (
+        {newPassword.length < 6 && newPassword != '' ? (
           <View
             style={{
               width: '80%',
@@ -207,13 +207,11 @@ export default function ChangePassword({ navigation }) {
           </View>
         ) : null}
 
-
-        <View style={[styles.row, { paddingTop: scale(30) }]}>
+        <View style={[styles.row, {paddingTop: scale(30)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>3. Xác nhận mật khẩu mới</Text>
           </View>
         </View>
-
 
         <View style={styles.row}>
           <View style={styles.change_box}>
