@@ -60,7 +60,6 @@ export default function PropertyCost() {
           note: note,
         }),
       );
-
       // dispatch(
       //   addData({
       //     key: generateUUID(),
