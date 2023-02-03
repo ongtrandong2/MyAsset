@@ -41,21 +41,7 @@ export default function InfoScreen({navigation}) {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const userImage = useSelector(state => state.userImage.value);
-  //console.log(userImage);
   useEffect(() => {
-    // firebase
-    //   .firestore()
-    //   .collection('Accounts')
-    //   .doc(auth().currentUser.uid)
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.exists) {
-    //       setName(snapshot.data().name);
-    //       setEmail(snapshot.data().email);
-    //     } else {
-    //       console.log('No such document!');
-    //     }
-    //   });
     firebase
       .firestore()
       .collection('Accounts')
@@ -79,23 +65,12 @@ export default function InfoScreen({navigation}) {
       //compressImageQuality: 0.7,
     })
       .then(image => {
-        //console.log(image);
         setImage(image.path);
         setShowModal(false);
         dispatch(setUserImage(image.path));
       })
       .catch(err => {
-        // if (err.code === 'E_PICKER_CANCELLED')
-        // {
-        //     console.log(err);
-        //     setShowModal(false);
-        // }
-
-        ToastAndroid.showWithGravity(
-          'There is no image picked!',
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-        );
+        setShowModal(false);
       });
   };
 

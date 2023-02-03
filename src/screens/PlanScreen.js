@@ -56,15 +56,9 @@ export default function PlanScreen({ navigation }) {
   planData.map((item, index) => {
     if (item.isExceed === true) numberOfExceed++;
   });
-
-  //console.log(numberOfExceed);
-  //console.log(planData[0].history[0]);
-  //console.log(planData);
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
-
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
@@ -155,6 +149,12 @@ export default function PlanScreen({ navigation }) {
         setDateFinish('');
         setBudget('');
       }
+    } else {
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập đầy đủ dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     }
   };
 
@@ -248,7 +248,6 @@ export default function PlanScreen({ navigation }) {
     });
   }, [numberOfExceed]);
 
-  //console.log(planData);
   const RenderItem = ({ item, index }) => {
     if (item.history.length === 0) {
       return (
