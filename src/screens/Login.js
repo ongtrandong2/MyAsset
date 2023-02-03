@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   StyleSheet,
@@ -13,18 +13,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LoginGoogle from '../auth/GoogleSignIn';
-import {TextInput} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
-import {firebase} from '@react-native-firebase/firestore';
+import { TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { firebase } from '@react-native-firebase/firestore';
 import CustomButton from '../components/CustomButton';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import scale from '../constants/scale';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PushNotification from 'react-native-push-notification';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -66,7 +66,7 @@ export default function Login({navigation}) {
                       .firestore()
                       .collection('Accounts')
                       .doc(firebase.auth().currentUser.uid)
-                      .set({password: password}, {merge: true});
+                      .set({ password: password }, { merge: true });
                     setEmail('');
                     setPassword('');
                     navigation.navigate('Onboarding');
@@ -75,7 +75,7 @@ export default function Login({navigation}) {
                       .firestore()
                       .collection('Accounts')
                       .doc(firebase.auth().currentUser.uid)
-                      .set({haveData: true}, {merge: true});
+                      .set({ haveData: true }, { merge: true });
                     setEmail('');
                     setPassword('');
                     navigation.navigate('FirstInput');
@@ -130,7 +130,7 @@ export default function Login({navigation}) {
               resizeMode: 'contain',
             }}
           />
-          <View style={{marginLeft: 10}}>
+          <View style={{ marginLeft: 10 }}>
             <View style={styles.label}>
               <Text
                 style={{
@@ -196,26 +196,35 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {paddingTop: scale(10)}]}>
+        <View style={[styles.body_view, { paddingTop: scale(10) }]}>
           <View style={styles.forgetpass}>
             <TouchableOpacity
               onPress={() => {
-                firebase
-                  .auth()
-                  .sendPasswordResetEmail(email)
-                  .then(() => {
-                    //console.log('Email sent!'),
-                    ToastAndroid.showWithGravity(
-                      'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
-                      ToastAndroid.LONG,
-                      ToastAndroid.BOTTOM,
-                    );
-                  })
-                  .catch(err => {
-                    Alert.alert(err.message);
-                  });
+                if (email === '') {
+                  ToastAndroid.showWithGravity(
+                    'Vui lòng nhập email để đặt lại mật khẩu!',
+                    ToastAndroid.LONG,
+                    ToastAndroid.BOTTOM,
+                  );
+                } else {
+                  firebase
+                    .auth()
+                    .sendPasswordResetEmail(email)
+                    .then(() => {
+                      //console.log('Email sent!'),
+                      ToastAndroid.showWithGravity(
+                        'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
+                        ToastAndroid.LONG,
+                        ToastAndroid.BOTTOM,
+                      );
+                    })
+                    .catch(err => {
+                      Alert.alert(err.message);
+                    });
+                }
+
               }}>
-              <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
+              <Text style={[{ textAlign: 'center', opacity: 0.5 }, styles.text]}>
                 Quên mật khẩu?
               </Text>
             </TouchableOpacity>
@@ -235,7 +244,7 @@ export default function Login({navigation}) {
           />
         </View>
 
-        <View style={[styles.body_view, {padding: 10}]}>
+        <View style={[styles.body_view, { padding: 10 }]}>
           <CustomButton
             //style={{width: '60%', height: scale(40)}}
             title={'Đăng kí tài khoản mới'}

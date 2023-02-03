@@ -52,6 +52,13 @@ export default function Income() {
     );
   });
 
+  useEffect(()=>{
+    const d = ((new Date().getMonth()+1).toString());
+    if (d < 10) {
+      setItemSelected('0'+d);
+    } else setItemSelected(d);
+  },[]);
+
   let result = [];
   Income.map(item => {
     if (result.map(itemr => itemr.name).indexOf(item.name) === -1) {

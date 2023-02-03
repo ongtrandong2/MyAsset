@@ -55,6 +55,12 @@ export default function Outcome() {
     );
   });
 
+  useEffect(()=>{
+    const d = ((new Date().getMonth()+1).toString());
+    if (d < 10) {
+      setItemSelected('0'+d);
+    } else setItemSelected(d);
+  },[]);
   //console.log(Outcome)
 
   let result = [];
@@ -237,12 +243,18 @@ export default function Outcome() {
         <View>
           {option === 'month' ? (
             <>
-              <Animated.View
-                style={{
+            <View
+              style = {{
                   position: 'absolute',
                   right: 10,
                   top: 0,
                   zIndex: 999999,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+              }}>
+              <Animated.View
+                style={{
+                  
                   opacity: opacityAnimation,
                   // transform :[{
                   //   scale: scaleAnimation,
@@ -263,6 +275,7 @@ export default function Outcome() {
                   <AntDesign name="doubleright" size={20} color={'#000'} />
                 </TouchableOpacity>
               </Animated.View>
+            </View>
               <FlatList
                 keyExtractor={item => item.month.toString()}
                 horizontal
