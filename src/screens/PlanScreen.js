@@ -176,32 +176,37 @@ export default function PlanScreen({ navigation }) {
     setCurrentDate(new Date());
     setShowModalUpdate(true);
   };
+
   const onConfirmChange = () => {
-    dispatch(
-      updatePlan({
-        index: newData.index,
-        dateStart: newData.dateStart,
-        dateFinish: newData.dateFinish,
-        budget: budget,
-        currentuse: newData.newCurrentuse,
-        percentage_of_use: newData.newPercent,
-        isExceed: newData.newIsexceed,
-        oldBudget: newData.oldBudget,
-        time_change: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
-      }),
-    );
-    dispatch(
-      IncreaseCurrentUse({
-        index: newData.index,
-        value: 0,
-      }),
-    );
-    setShowModalUpdate(false);
-    ToastAndroid.showWithGravity(
-      'Sửa đổi kế hoạch thành công!',
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-    );
+    if (newData.oldBudget !== budget) {
+      dispatch(
+        updatePlan({
+          index: newData.index,
+          dateStart: newData.dateStart,
+          dateFinish: newData.dateFinish,
+          budget: budget,
+          currentuse: newData.newCurrentuse,
+          percentage_of_use: newData.newPercent,
+          isExceed: newData.newIsexceed,
+          oldBudget: newData.oldBudget,
+          time_change: moment(currentDate).format('YYYY-MM-DD HH:mm:ss'),
+        }),
+      );
+      dispatch(
+        IncreaseCurrentUse({
+          index: newData.index,
+          value: 0,
+        }),
+      );
+      setShowModalUpdate(false);
+      ToastAndroid.showWithGravity(
+        'Sửa đổi kế hoạch thành công!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+    } else {
+      setShowModalUpdate(false);
+    }
   };
 
   const onDetelePlan = (index, item) => {
@@ -216,24 +221,30 @@ export default function PlanScreen({ navigation }) {
       newBudget: item.budget,
     });
   };
-  //console.log(dataDelete);
+
   useEffect(() => {
+    let d = new Date(moment(new Date).format('YYYY-MM-DD'));
     planData.map((item, index) => {
-      if (item.isExceed === true) {
-        let exceedMoney = item.currentuse - item.budget;
-        PushNotification.localNotification({
-          channelId: 'plan',
-          title: 'Thông báo',
-          message:
-            'Kế hoạch từ ngày ' +
-            moment(item.dateStart).format('DD/MM/YYYY') +
-            ' đến ngày ' +
-            moment(item.dateFinish).format('DD/MM/YYYY') +
-            ' vượt định mức ' +
-            exceedMoney +
-            ' VND',
-        });
+      let d1 = new Date(moment(item.dateStart).format('YYYY-MM-DD'));
+      let d2 = new Date(moment(item.dateFinish).format('YYYY-MM-DD'));
+      if (d1.getTime() <= d.getTime() && d.getTime() <= d2.getTime()) {
+        if (item.isExceed === true) {
+          let exceedMoney = item.currentuse - item.budget;
+          PushNotification.localNotification({
+            channelId: 'plan',
+            title: 'Thông báo',
+            message:
+              'Kế hoạch từ ngày ' +
+              moment(item.dateStart).format('DD/MM/YYYY') +
+              ' đến ngày ' +
+              moment(item.dateFinish).format('DD/MM/YYYY') +
+              ' vượt định mức ' +
+              exceedMoney +
+              ' VND',
+          });
+        }
       }
+
     });
   }, [numberOfExceed]);
 

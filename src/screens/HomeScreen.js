@@ -24,16 +24,15 @@ export default function HomeScreen({navigation}) {
   const isShowModal = useSelector(state => state.modalNumber.IsShowModal);
   const possessionData = useSelector(state => state.possessionData);
   const dispatch = useDispatch();
-  //console.log(money)
+
   //const [currentDate, setCurrentDate] = useState(new Date(moment(currentDate).format("YYYY-MM-DD")));
   const [currentDate, setCurrentDate] = useState(new Date());
-  let d1 = new Date(moment(currentDate).format('YYYY-MM')); //
+  let d1 = new Date(moment(currentDate).format('YYYY-MM-DD')); //
 
-  //useEffect
   //console.log(IncomeOutcome);
   let plan = planData.filter(item => {
-    let d2 = new Date(moment(item.dateStart).format('YYYY-MM'));
-    let d3 = new Date(moment(item.dateFinish).format('YYYY-MM'));
+    let d2 = new Date(moment(item.dateStart).format('YYYY-MM-DD'));
+    let d3 = new Date(moment(item.dateFinish).format('YYYY-MM-DD'));
     return d1.getTime() >= d2.getTime() && d1.getTime() <= d3.getTime();
   });
 
@@ -41,7 +40,23 @@ export default function HomeScreen({navigation}) {
     (a, b) =>
       new Date(...a.dateStart.split('-')) - new Date(...b.dateStart.split('-')),
   );
+  
+  //console.log(plan);
+  // let d ="";
+  // if(currentDate.getMonth()+1 < 10) {
+  //   d = '0' + (currentDate.getMonth() + 1).toString();
+  // } else d = (currentDate.getMonth() + 1).toString();
 
+  // let plan = planData.filter(item =>{
+  //   let currentMonth = "";
+  //   if (((new Date(item.dateStart)).getMonth() + 1 ) < 10 )
+  //     currentMonth = '0' + (new Date(item.dateStart).getMonth() + 1).toString();
+  //   else currentMonth = (new Date(item.dateStart).getMonth() + 1).toString();
+  //   return (currentMonth === d);
+  // });
+
+  // console.log(plan);
+  
   return (
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
