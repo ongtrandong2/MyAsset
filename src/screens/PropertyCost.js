@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,21 +10,22 @@ import {
   Image,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
-import {firebase} from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/firestore';
 
 import CustomButton from '../components/CustomButton';
-import {Dropdown} from 'react-native-element-dropdown';
-import {useSelector, useDispatch} from 'react-redux';
-import {IncreaseTotal, DecreaseTotal} from '../Redux/TotalMoney';
-import {addPossession, removePossession} from '../Redux/PossessionData';
+import { Dropdown } from 'react-native-element-dropdown';
+import { useSelector, useDispatch } from 'react-redux';
+import { IncreaseTotal, DecreaseTotal } from '../Redux/TotalMoney';
+import { addPossession, removePossession } from '../Redux/PossessionData';
 
 import generateUUID from '../constants/generateUUID';
 import scale from '../constants/scale';
 
-import {addData} from '../Redux/IncomeOutcome';
-import {IncreaseCurrentUse} from '../Redux/PlanData';
-import {ShowTab} from '../Redux/ModalNumber';
+import { addData } from '../Redux/IncomeOutcome';
+import { IncreaseCurrentUse } from '../Redux/PlanData';
+import { ShowTab } from '../Redux/ModalNumber';
 import moment from 'moment';
 import CheckboxComponent from '../components/CheckboxComponent';
 
@@ -59,7 +60,6 @@ export default function PropertyCost() {
           note: note,
         }),
       );
-
       // dispatch(
       //   addData({
       //     key: generateUUID(),
@@ -115,6 +115,12 @@ export default function PropertyCost() {
       setPurchaseValue('');
       setNote('');
       //setChecked('first');
+    } else {
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập đầy đủ dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     }
   };
 
@@ -139,6 +145,12 @@ export default function PropertyCost() {
       dispatch(IncreaseTotal(Number(sellValue)));
       setSellName('');
       setSellValue('');
+    } else {
+      ToastAndroid.showWithGravity(
+        'Vui lòng nhập đầy đủ dữ liệu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     }
   };
 
@@ -182,7 +194,7 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(true)}>
-            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>MUA</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>MUA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -195,14 +207,14 @@ export default function PropertyCost() {
               },
             ]}
             onPress={() => setIsTab1(false)}>
-            <Text style={[styles.text, {fontFamily: 'Inter-Medium'}]}>BÁN</Text>
+            <Text style={[styles.text, { fontFamily: 'Inter-Medium' }]}>BÁN</Text>
           </TouchableOpacity>
         </View>
 
         {isTab1 ? (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row, {marginTop: 10}]}>
+              <View style={[styles.sub_row, { marginTop: 10 }]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <TextInput
@@ -240,8 +252,8 @@ export default function PropertyCost() {
 
             <View style={styles.row}>
               <View style={styles.sub_row}>
-                <View style={{width: '10%'}} />
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{ width: '10%' }} />
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <View
                     style={{
                       width: 5,
@@ -276,7 +288,7 @@ export default function PropertyCost() {
             <View
               style={[
                 styles.row,
-                {paddingTop: scale(10), paddingBottom: scale(100)},
+                { paddingTop: scale(10), paddingBottom: scale(100) },
               ]}>
               <CustomButton
                 //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
@@ -291,12 +303,12 @@ export default function PropertyCost() {
         ) : (
           <>
             <View style={styles.row}>
-              <View style={[styles.sub_row, {marginTop: 10}]}>
+              <View style={[styles.sub_row, { marginTop: 10 }]}>
                 <Text style={styles.text}>1.Tên hiện vật:</Text>
 
                 <Dropdown
                   style={styles.dropdown}
-                  placeholderStyle={{fontSize: scale(18), color: 'black'}}
+                  placeholderStyle={{ fontSize: scale(18), color: 'black' }}
                   selectedTextStyle={styles.selectedTextStyle}
                   //inputSearchStyle={styles.inputSearchStyle}
                   data={possessionData}
@@ -315,12 +327,12 @@ export default function PropertyCost() {
                     setIsFocus(false);
                   }}
 
-                  //onChange={(item)=>Check(item)}
+                //onChange={(item)=>Check(item)}
                 />
               </View>
             </View>
 
-            <View style={[styles.row, {paddingTop: 10}]}>
+            <View style={[styles.row, { paddingTop: 10 }]}>
               <View style={styles.sub_row}>
                 <Text style={styles.text}>2.Số tiền: </Text>
                 <TextInput
@@ -332,7 +344,7 @@ export default function PropertyCost() {
               </View>
             </View>
 
-            <View style={[styles.row, {paddingTop: scale(10)}]}>
+            <View style={[styles.row, { paddingTop: scale(10) }]}>
               <CustomButton
                 //style={{ height: scale(40), width: '20%', borderColor: 'orange' }}
                 colorPress={'#FFC700'}

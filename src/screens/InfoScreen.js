@@ -65,23 +65,12 @@ export default function InfoScreen({navigation}) {
       //compressImageQuality: 0.7,
     })
       .then(image => {
-        //console.log(image);
         setImage(image.path);
         setShowModal(false);
         dispatch(setUserImage(image.path));
       })
       .catch(err => {
-        // if (err.code === 'E_PICKER_CANCELLED')
-        // {
-        //     console.log(err);
-        //     setShowModal(false);
-        // }
-
-        ToastAndroid.showWithGravity(
-          'There is no image picked!',
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-        );
+        setShowModal(false);
       });
   };
 

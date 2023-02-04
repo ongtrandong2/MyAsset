@@ -205,8 +205,6 @@ export default function History({navigation}) {
     }
   };
 
-  //console.log(IncomeOutcome);
-  //console.log(newIndex, newName, newValue)
   const RenderItem = ({item, index}) => {
     //console.log(props.item)
     return (

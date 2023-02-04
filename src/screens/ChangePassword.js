@@ -72,6 +72,12 @@ export default function ChangePassword({navigation}) {
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
+    } else if (newPassword.length < 6) {
+      ToastAndroid.showWithGravity(
+        'Mật khẩu phải có tối đa 6 ký tự!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else {
       //var user = firebase.auth().currentUser;
 
