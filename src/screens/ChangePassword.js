@@ -46,14 +46,12 @@ export default function ChangePassword({navigation}) {
     newPassword,
     confirmPassword,
   ) => {
-
     if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
       ToastAndroid.showWithGravity(
         'Vui lòng nhập dữ liệu!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-
     } else if (oldPassword !== currentPassword) {
       console.log(currentPassword);
       console.log(oldPassword);
@@ -62,29 +60,25 @@ export default function ChangePassword({navigation}) {
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-
     } else if (newPassword === oldPassword) {
       ToastAndroid.showWithGravity(
         'Mật khẩu mới không được trùng với mật khẩu cũ!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-
     } else if (newPassword !== confirmPassword) {
       ToastAndroid.showWithGravity(
         'Mật khẩu mới không trùng với mật khẩu xác nhận!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-
-    } else if (newPassword.length < 6){
+    } else if (newPassword.length < 6) {
       ToastAndroid.showWithGravity(
         'Mật khẩu phải có tối đa 6 ký tự!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-    } 
-    else {
+    } else {
       //var user = firebase.auth().currentUser;
 
       firebase
@@ -99,10 +93,12 @@ export default function ChangePassword({navigation}) {
           );
         })
         .catch(error => {
+          console.log(1);
           console.log(error);
         })
         .catch(error => {
-          //console.log(error);
+          console.log(2);
+          console.log(error);
         })
         .then(() => {
           firebase

@@ -5,6 +5,7 @@ import {
   Text,
   ScrollView,
   TextInput,
+  Alert,
   KeyboardAvoidingView,
   ToastAndroid,
 } from 'react-native';
@@ -12,40 +13,38 @@ import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
 import {firebase} from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import {err} from 'react-native-svg/lib/typescript/xml';
 
-export default function ChangeInfo({navigation}) {
+export default function Forgot({navigation}) {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const changeInfo = async (email, name) => {
-    console.log('Change info');
-    if (email === '' || name === '') {
+  const ForgotPassword = email => {
+    if (email === '') {
       //console.log('Vui lòng nhập đầy đủ thông tin!');
       ToastAndroid.showWithGravity(
         'Vui lòng nhập đầy đủ thông tin!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-    } else if (email === firebase.auth().currentUser.email) {
-      firebase
-        .firestore()
-        .collection('Accounts')
-        .doc(firebase.auth().currentUser.uid)
-        .set(
-          {
-            name: name,
-          },
-          {merge: true},
-        )
+    } else if (email !== '') {
+      auth()
+        .sendPasswordResetEmail(email)
         .then(() => {
-          //console.log('User updated!');
+          //console.log('Email sent!'),
           ToastAndroid.showWithGravity(
-            'Đổi thông tin thành công!',
+            'Email đã được gửi. Vui lòng đặt lại mật khẩu qua email và đăng nhập lại bằng mật khẩu đó!',
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
-          setEmail('');
-          setName('');
-          navigation.navigate('InfoScreen');
+        })
+        .catch(err => {
+          Alert.alert(err.message);
+        })
+        .then(() => {
+          navigation.navigation('LoginScreen');
+        })
+        .catch(err => {
+          console.log(err.message);
         });
     } else {
       //console.log('Email không hợp lệ!');
@@ -60,9 +59,9 @@ export default function ChangeInfo({navigation}) {
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
         <Header
-          onPressFunctionBack={() => navigation.navigate('InfoScreen')}
+          onPressFunctionBack={() => navigation.navigate('Login')}
           fontSize={scale(18)}
-          title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
+          title="QUÊN MẬT KHẨU"
           style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
 
@@ -75,34 +74,22 @@ export default function ChangeInfo({navigation}) {
         <View style={styles.row}>
           <TextInput
             style={styles.change_box}
+            placeholderTextColor="grey"
+            placeholder="Nhập email của bạn"
             onChangeText={value => setEmail(value)}
             value={email}
           />
         </View>
 
-        <View style={[styles.row, {paddingTop: scale(30)}]}>
-          <View style={styles.title}>
-            <Text style={styles.text}>2. Tên người dùng mới: </Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <TextInput
-            style={styles.change_box}
-            onChangeText={value => setName(value)}
-            value={name}
-          />
-        </View>
-
         <View style={{paddingTop: scale(30), alignItems: 'center'}}>
           <CustomButton
-            title={'Lưu thông tin cá nhân'}
+            title={'Xác Nhận'}
             //style={{ height: scale(40), width: '60%' }}
             colorPress={'#FFC700'}
             colorUnpress={'#ffd954'}
             text_style={styles.text_style}
             onPressFunction={() => {
-              changeInfo(email, name);
+              ForgotPassword(email);
             }}
           />
         </View>

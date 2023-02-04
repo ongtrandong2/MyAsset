@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import Store from './Redux/Store';
 import DailyCost from './screens/DailyCost';
+import Forgot from './screens/ForgotScreen';
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,10 +12,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header = props => {
   return (
-    <View
-      style={styles.view}>
-      <View
-        style={styles.left}>
+    <View style={styles.view}>
+      <View style={styles.left}>
         <View
           style={{
             flexDirection: 'row',
@@ -29,13 +27,13 @@ const Header = props => {
             }}
             source={require('../assets/images/icon_money.png')}
           />
-          <View style={{ marginLeft: 5 }}>
+          <View style={{marginLeft: 5}}>
             <Text style={styles.text}>MY</Text>
             <Text style={styles.text}>ASSET</Text>
           </View>
         </View>
         <Pressable
-          style={({ pressed }) => [
+          style={({pressed}) => [
             {
               height: 30,
               width: 30,
@@ -45,8 +43,7 @@ const Header = props => {
               justifyContent: 'center',
             },
           ]}
-          onPress ={props.onPressFunctionBack}
-        >
+          onPress={props.onPressFunctionBack}>
           <AntDesign name={'back'} size={20} color={'black'} />
         </Pressable>
       </View>
@@ -55,11 +52,9 @@ const Header = props => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text
-          style={[{ fontSize: props.fontSize }, styles.title, props.style]}>
+        <Text style={[{fontSize: props.fontSize}, styles.title, props.style]}>
           {props.title}
         </Text>
-
       </View>
     </View>
   );
@@ -86,7 +81,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
   },
-
 });
 
 export default Header;
