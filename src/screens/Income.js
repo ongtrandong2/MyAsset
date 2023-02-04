@@ -170,7 +170,7 @@ export default function Income() {
   };
 
   const onConfirm = () => {
-    if (dateStart !== "" || dateEnd !== "") {
+    if (dateStart !== "" && dateEnd !== "") {
       let d1 = new Date(dateStart);
       let d2 = new Date(dateEnd);
       if (d1.getTime() > d2.getTime()) {

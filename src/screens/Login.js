@@ -200,7 +200,7 @@ export default function Login({navigation}) {
           <View style={styles.forgetpass}>
             <TouchableOpacity
               onPress={() => {
-                console.log('Forget password!');
+                //console.log('Forget password!');
                 navigation.navigate('ForgotScreen');
               }}>
               <Text style={[{textAlign: 'center', opacity: 0.5}, styles.text]}>
