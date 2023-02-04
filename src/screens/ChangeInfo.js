@@ -45,6 +45,7 @@ export default function ChangeInfo({ navigation }) {
           );
           setEmail("");
           setName("");
+          navigation.navigate("InfoScreen");
         });
     } else {
       //console.log('Email không hợp lệ!');
