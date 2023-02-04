@@ -59,7 +59,7 @@ export default function Forgot({navigation}) {
     <KeyboardAvoidingView style={styles.view}>
       <ScrollView>
         <Header
-          onPressFunctionBack={() => navigation.navigate('InfoScreen')}
+          onPressFunctionBack={() => navigation.navigate('Login')}
           fontSize={scale(18)}
           title="QUÊN MẬT KHẨU"
           style={{color: 'black', fontFamily: 'Inter-Bold'}}
