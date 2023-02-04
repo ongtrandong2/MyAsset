@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -11,9 +11,9 @@ import {
 import Header from '../components/Header';
 import CustomButton from '../components/CustomButton';
 import scale from '../constants/scale';
-import { firebase } from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/firestore';
 
-export default function ChangeInfo({ navigation }) {
+export default function ChangeInfo({navigation}) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const changeInfo = async (email, name) => {
@@ -34,7 +34,7 @@ export default function ChangeInfo({ navigation }) {
           {
             name: name,
           },
-          { merge: true },
+          {merge: true},
         )
         .then(() => {
           //console.log('User updated!');
@@ -43,8 +43,9 @@ export default function ChangeInfo({ navigation }) {
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
-          setEmail("");
-          setName("");
+          setEmail('');
+          setName('');
+          navigation.navigate('InfoScreen');
         });
     } else {
       //console.log('Email không hợp lệ!');
@@ -62,10 +63,10 @@ export default function ChangeInfo({ navigation }) {
           onPressFunctionBack={() => navigation.navigate('InfoScreen')}
           fontSize={scale(18)}
           title="THAY ĐỔI THÔNG TIN CÁ NHÂN"
-          style={{ color: 'black', fontFamily: 'Inter-Bold' }}
+          style={{color: 'black', fontFamily: 'Inter-Bold'}}
         />
 
-        <View style={[styles.row, { paddingTop: scale(35) }]}>
+        <View style={[styles.row, {paddingTop: scale(35)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>1. Email:</Text>
           </View>
@@ -79,7 +80,7 @@ export default function ChangeInfo({ navigation }) {
           />
         </View>
 
-        <View style={[styles.row, { paddingTop: scale(30) }]}>
+        <View style={[styles.row, {paddingTop: scale(30)}]}>
           <View style={styles.title}>
             <Text style={styles.text}>2. Tên người dùng mới: </Text>
           </View>
@@ -93,7 +94,7 @@ export default function ChangeInfo({ navigation }) {
           />
         </View>
 
-        <View style={{ paddingTop: scale(30), alignItems: 'center' }}>
+        <View style={{paddingTop: scale(30), alignItems: 'center'}}>
           <CustomButton
             title={'Lưu thông tin cá nhân'}
             //style={{ height: scale(40), width: '60%' }}
