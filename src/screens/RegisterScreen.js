@@ -50,6 +50,13 @@ export default function RegisterScreen({navigation}) {
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
+    } else if (password.length < 8) {
+      //Alert.alert('Warning!', 'Xác nhận mật khẩu không khớp!');
+      ToastAndroid.showWithGravity(
+        'Mật khẩu quá yếu!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else {
       firebase
         .auth()
@@ -83,14 +90,6 @@ export default function RegisterScreen({navigation}) {
                   email: email,
                   haveData: false,
                 });
-              // firebase
-              //   .firestore()
-              //   .collection('Accounts')
-              //   .doc(firebase.auth().currentUser.uid)
-              //   .collection('TotalMoney')
-              //   .doc('TotalMoney')
-              //   .set({money: 0});
-              ///////////////////////
               firebase
                 .firestore()
                 .collection('Accounts')
@@ -106,7 +105,12 @@ export default function RegisterScreen({navigation}) {
             });
         })
         .catch(error => {
-          Alert.alert(error.message);
+          console.log(error.message);
+          ToastAndroid.showWithGravity(
+            'Mật khẩu quá yếu!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
         })
         .then(() => {
           navigation.navigate('Login');
@@ -159,6 +163,8 @@ export default function RegisterScreen({navigation}) {
 
         <View style={styles.row}>
           <TextInput
+            placeholder="Số kí tự >=8"
+            placeholderTextColor={'grey'}
             style={styles.textinput_style}
             secureTextEntry
             onChangeText={value => setPassword(value)}

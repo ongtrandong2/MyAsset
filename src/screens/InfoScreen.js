@@ -41,33 +41,19 @@ export default function InfoScreen({navigation}) {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const userImage = useSelector(state => state.userImage.value);
+  const UserID = auth().currentUser.uid;
   //console.log(userImage);
   useEffect(() => {
-    // firebase
-    //   .firestore()
-    //   .collection('Accounts')
-    //   .doc(auth().currentUser.uid)
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.exists) {
-    //       setName(snapshot.data().name);
-    //       setEmail(snapshot.data().email);
-    //     } else {
-    //       console.log('No such document!');
-    //     }
-    //   });
-    firebase
+    const subscriber = firebase
       .firestore()
       .collection('Accounts')
+      .doc(UserID)
       .onSnapshot(querySnapshot => {
-        querySnapshot.forEach(documentSnapshot => {
-          if (documentSnapshot.id === auth().currentUser.uid) {
-            setName(documentSnapshot.data().name);
-            setEmail(documentSnapshot.data().email);
-          }
-        });
+        setName(querySnapshot.data().name);
+        setEmail(querySnapshot.data().email);
       });
-  });
+    return () => subscriber();
+  }, [UserID]);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
