@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: scale(20),
     fontSize: scale(18),
+    color: '#000',
   },
   text_style: {
     color: 'black',

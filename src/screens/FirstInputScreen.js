@@ -96,6 +96,7 @@ export default function FirstInput({navigation}) {
               placeholderTextColor={'grey'}
               onChangeText={value => setTextMoney(value)}
               value={textMoney}
+              textColor="#000"
             />
           </View>
         </View>
@@ -139,6 +140,7 @@ export default function FirstInput({navigation}) {
               placeholderTextColor={'grey'}
               onChangeText={setTextName}
               value={textName}
+              textColor="#000"
             />
             <TextInput
               style={styles.text_input}
@@ -148,6 +150,7 @@ export default function FirstInput({navigation}) {
               placeholderTextColor={'grey'}
               onChangeText={setTextValue}
               value={textValue}
+              textColor="#000"
             />
             <TextInput
               style={styles.text_input}
@@ -157,6 +160,7 @@ export default function FirstInput({navigation}) {
               placeholderTextColor={'grey'}
               onChangeText={setNote}
               value={note}
+              textColor = "#000"
             />
           </View>
         </View>
@@ -236,6 +240,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffdf7',
     height: scale(30),
     marginVertical: 10,
+    color: '#000',
   },
   figure_container: {
     width: '90%',

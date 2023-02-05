@@ -74,7 +74,7 @@ export default function ChangeInfo({navigation}) {
 
         <View style={styles.row}>
           <TextInput
-            style={styles.change_box}
+            style={[styles.change_box,{ color :'#000'}]}
             onChangeText={value => setEmail(value)}
             value={email}
           />
@@ -88,7 +88,7 @@ export default function ChangeInfo({navigation}) {
 
         <View style={styles.row}>
           <TextInput
-            style={styles.change_box}
+            style={[styles.change_box, { color :'#000'}]}
             onChangeText={value => setName(value)}
             value={name}
           />

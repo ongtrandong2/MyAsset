@@ -816,5 +816,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     fontFamily: 'Inter-Medium',
     borderBottomColor: '#000',
+    color: '#000',
   },
 });

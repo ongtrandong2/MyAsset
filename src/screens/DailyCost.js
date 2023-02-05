@@ -256,6 +256,7 @@ export default function DailyCost() {
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
                     onChange={item => CheckOut(item)}
+                    activeColor ="#000"
                   />
                 )}
               </View>
@@ -321,7 +322,7 @@ export default function DailyCost() {
                 ) : (
                   <Dropdown
                     style={styles.dropdown}
-                    placeholderStyle={{ fontSize: scale(18), color: 'black' }}
+                    placeholderStyle={{ fontSize: scale(18), color: '#000' }}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={data_in}
@@ -333,6 +334,7 @@ export default function DailyCost() {
                     onFocus={() => setIsFocus1(true)}
                     onBlur={() => setIsFocus1(false)}
                     onChange={item => CheckIn(item)}
+                    activeColor ="#000"
                   />
                 )}
               </View>
@@ -445,6 +447,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000000',
     padding: scale(2),
     fontSize: scale(18),
+    color: '#000',
   },
   /// Drop down Style
 
@@ -453,6 +456,7 @@ const styles = StyleSheet.create({
     width: '60%',
     borderColor: 'black',
     borderBottomWidth: 1,
+    color: '#000',
     //borderRadius: 8,
     //paddingHorizontal:scale(8),
   },
@@ -465,7 +469,7 @@ const styles = StyleSheet.create({
 
   selectedTextStyle: {
     fontSize: scale(18),
-    color: 'black',
+    color: '#000',
   },
 
   customDropList: {

@@ -395,6 +395,7 @@ export default function History({navigation}) {
                     paddingHorizontal: 4,
                     textAlign: 'center',
                     fontFamily: 'Inter-Bold',
+                    color: '#000',
                   }}
                   editable={false}
                   placeholder={newName}
@@ -413,7 +414,7 @@ export default function History({navigation}) {
                     padding: 2,
                     paddingHorizontal: 4,
                     textAlign: 'center',
-
+                    color: '#000',
                     fontFamily: 'Inter-Bold',
                   }}
                   //placeholder = {newValue}

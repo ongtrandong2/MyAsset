@@ -160,6 +160,7 @@ export default function Login({navigation}) {
             placeholderTextColor={'grey'}
             onChangeText={value => setEmail(value)}
             value={email}
+            textColor ="#000"
             left={
               <TextInput.Icon
                 icon={() => <Fontisto name="email" size={24} color="black" />}
@@ -176,6 +177,7 @@ export default function Login({navigation}) {
             secureTextEntry={passwordVisible}
             onChangeText={value => setPassword(value)}
             value={password}
+            textColor="#000"
             left={
               <TextInput.Icon
                 icon={() => (
@@ -292,6 +294,7 @@ const styles = StyleSheet.create({
     //height:scale(60),
     backgroundColor: '#ffffff',
     fontSize: scale(20),
+    color: '#000',
   },
 
   forgetpass: {

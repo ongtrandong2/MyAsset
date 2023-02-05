@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     padding: scale(10),
     fontSize: scale(20),
+    color: '#000',
   },
 
   text_style: {
