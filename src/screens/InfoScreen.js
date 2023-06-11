@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -21,18 +21,19 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
-import Animated, {LightSpeedInLeft, RollInLeft} from 'react-native-reanimated';
-import {useSelector, useDispatch} from 'react-redux';
-import {setUserImage} from '../Redux/UserImage';
-import {useState} from 'react';
-import {firebase} from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
-//import { NavigationHelpersContext } from '@react-navigation/native';
+import Animated, { LightSpeedInLeft, RollInLeft, set } from 'react-native-reanimated';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserImage } from '../Redux/UserImage';
+import { useState } from 'react';
+import { firebase } from '@react-native-firebase/firestore';
+import {auth} from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+import { utils } from '@react-native-firebase/app';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
-export default function InfoScreen({navigation}) {
+export default function InfoScreen({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [image, setImage] = useState(
@@ -46,54 +47,87 @@ export default function InfoScreen({navigation}) {
       .firestore()
       .collection('Accounts')
       .onSnapshot(querySnapshot => {
+        console.log('Total users: ', firebase.auth().currentUser.uid);
         querySnapshot.forEach(documentSnapshot => {
-          if (documentSnapshot.id === auth().currentUser.uid) {
+          if (documentSnapshot.id === firebase.auth().currentUser.uid) {
             setName(documentSnapshot.data().name);
             setEmail(documentSnapshot.data().email);
           }
         });
       });
-  });
-
-  const takePhotoFromCamera = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      //compressImageMaxWidth:300,
-      //compressImageMaxHeight:300,
-      cropping: true,
-      //compressImageQuality: 0.7,
-    })
-      .then(image => {
-        setImage(image.path);
-        setShowModal(false);
-        dispatch(setUserImage(image.path));
+  }, []);
+  const takePhotoFromCamera = async () => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        // User not authenticated, handle this case as per your app's requirements
+        return;
+      }
+      
+      ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
       })
-      .catch(err => {
-        setShowModal(false);
-      });
-  };
-
-  const choosePhotoFromLibrary = () => {
-    ImagePicker.openPicker({
-      width: 200,
-      height: 200,
-      borderRadius: 200,
-      cropping: true,
-    })
-      .then(image => {
-        //console.log(image);
-        setImage(image.path);
-        setShowModal(false);
-        dispatch(setUserImage(image.path));
-        //dispatch(setImage('aa'));
-      })
-      .catch(err => {
-        if (err.code === 'E_PICKER_CANCELLED') {
-          //console.log(err);
+        .then(async (image) => {
+          console.log(image);
+          const uploadUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
+          const imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+          const storageRef = storage().ref(`avt/${imageName}`);
+          await storageRef.putFile(uploadUri);
+          const imageURL = await storageRef.getDownloadURL();
+          console.log('Image URL:', imageURL);
+          setImage(imageURL);
           setShowModal(false);
-        }
-      });
+          dispatch(setUserImage(imageURL));
+        })
+        .catch((err) => {
+          console.log(err);
+          setShowModal(false);
+        });
+    } catch (error) {
+      console.log(error);
+      setShowModal(false);
+    }
+  };
+  const choosePhotoFromLibrary = async () => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        // User not authenticated, handle this case as per your app's requirements
+        return;
+      }
+      
+      ImagePicker.openPicker({
+        width: 200,
+        height: 200,
+        cropping: true,
+      })
+        .then(async (image) => {
+          console.log(image);
+          const uploadUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
+          const imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+          const storageRef = storage().ref(`avt/${imageName}`);
+          await storageRef.putFile(uploadUri);
+          const imageURL = await storageRef.getDownloadURL();
+          console.log('Image URL:', imageURL);
+          setImage(imageURL);
+          setShowModal(false);
+          dispatch(setUserImage(imageURL));
+        })
+        .catch((err) => {
+          if (err.code !== 'E_PICKER_CANCELLED') {
+            console.log(err);
+          }
+          setShowModal(false);
+        });
+  
+    } catch (error) {
+      if (error.code !== 'E_PICKER_CANCELLED') {
+        console.log(error);
+      }
+      setShowModal(false);
+    }
   };
   const config = {
     velocityThreshold: 0.3,
@@ -124,7 +158,7 @@ export default function InfoScreen({navigation}) {
                   borderWidth: 1,
                   borderColor: '#000',
                 }}
-                source={{uri: userImage}}
+                source={{ uri: userImage }}
                 resizeMode="cover"
               />
               <TouchableOpacity
@@ -133,7 +167,7 @@ export default function InfoScreen({navigation}) {
                 <FontAwesome5 name="camera" size={20} color="#000" />
               </TouchableOpacity>
             </View>
-            <View style={{width: '70%'}}>
+            <View style={{ width: '70%' }}>
               <Text
                 style={{
                   fontSize: 25,
@@ -148,14 +182,14 @@ export default function InfoScreen({navigation}) {
           </View>
         </View>
 
-        <View style={[styles.big_row, {paddingTop: 30}]}>
+        <View style={[styles.big_row, { paddingTop: 30 }]}>
           <View style={styles.row}>
             <View style={styles.left_box}>
               <Feather
                 name="user"
                 size={24}
                 color="black"
-                style={{paddingRight: 3}}
+                style={{ paddingRight: 3 }}
               />
 
               <Text style={styles.text}>Tên: </Text>
@@ -172,7 +206,7 @@ export default function InfoScreen({navigation}) {
                 name="mail"
                 size={24}
                 color="black"
-                style={{paddingRight: 3}}
+                style={{ paddingRight: 3 }}
               />
               <Text style={styles.text}>Email: </Text>
             </View>
@@ -201,16 +235,16 @@ export default function InfoScreen({navigation}) {
               onPress={() => {
                 navigation.navigate('ChangePassword');
               }}
-              android_ripple={{color: '#CCFFFF'}}
-              style={({pressed}) => [
-                {backgroundColor: pressed ? '#CCFFFF' : 'white'},
+              android_ripple={{ color: '#CCFFFF' }}
+              style={({ pressed }) => [
+                { backgroundColor: pressed ? '#CCFFFF' : 'white' },
               ]}>
               <Text style={styles.press_text}>Đổi mật khẩu</Text>
             </Pressable>
           </View>
         </View>
 
-        <View style={[styles.big_row, {paddingTop: 30}]}>
+        <View style={[styles.big_row, { paddingTop: 30 }]}>
           <CustomButton
             title={'Chỉnh sửa thông tin cá nhân'}
             //style={{ height: scale(40), width: '70%' }}
@@ -231,22 +265,22 @@ export default function InfoScreen({navigation}) {
           statusBarTranslucent
           animationType="fade">
           <Pressable
-            style={[styles.modal_view, {flex: 2}]}
+            style={[styles.modal_view, { flex: 2 }]}
             onPress={() => setShowModal(false)}
           />
-          <View style={[styles.modal_view, {flex: 1}]}>
+          <View style={[styles.modal_view, { flex: 1 }]}>
             <View style={styles.modal_box}>
               <View style={styles.modal_bigrow}>
                 <TouchableOpacity
                   onPress={takePhotoFromCamera}
-                  style={{paddingVertical: 10}}>
+                  style={{ paddingVertical: 10 }}>
                   <Animated.View
                     entering={LightSpeedInLeft}
                     style={styles.modal_row}>
                     <View
                       style={[
                         styles.takephoto_container,
-                        {position: 'relative'},
+                        { position: 'relative' },
                       ]}>
                       <MaterialCommunityIcons
                         name="camera-plus"
@@ -259,14 +293,14 @@ export default function InfoScreen({navigation}) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={choosePhotoFromLibrary}
-                  style={{paddingVertical: 10}}>
+                  style={{ paddingVertical: 10 }}>
                   <Animated.View
                     entering={LightSpeedInLeft}
                     style={styles.modal_row}>
                     <View
                       style={[
                         styles.takephoto_container,
-                        {position: 'relative'},
+                        { position: 'relative' },
                       ]}>
                       <Fontisto name="photograph" size={20} color="#000" />
                     </View>

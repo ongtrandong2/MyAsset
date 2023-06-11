@@ -10,6 +10,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.myasset.newarchitecture.MainApplicationReactNativeHost;
+import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+          // packages.add(new ReactNativeFirebaseStoragePackage()); // Add this line
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
@@ -39,7 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mNewArchitectureNativeHost =
       new MainApplicationReactNativeHost(this);
-
+    
   @Override
   public ReactNativeHost getReactNativeHost() {
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
@@ -48,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
       return mReactNativeHost;
     }
   }
-
   @Override
   public void onCreate() {
     super.onCreate();

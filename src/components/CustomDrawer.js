@@ -6,7 +6,7 @@ import scale from '../constants/scale';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import { resetPlan } from '../Redux/PlanData';
@@ -44,8 +44,10 @@ const CustomDrawerItem = props => {
 const CustomDrawer = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const onSignOut = () => {
-    auth()
+  const onSignOut = async() => {
+    try{
+    await firebase
+    .auth()
       .signOut()
       .then(() => console.log('User signed out!'))
       .catch(error => console.log(error))
@@ -65,6 +67,9 @@ const CustomDrawer = props => {
       }
     )
       .catch(error => console.log(error));
+    }catch(error){
+      console.log(error);
+    };
   };
   const userImage = useSelector(state => state.userImage.value);
   return (
