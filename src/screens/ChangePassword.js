@@ -40,8 +40,8 @@ export default function ChangePassword({navigation}) {
           //console.log('No such document!');
         }
       });
-  });
-  const onChangePassword = async (
+  },[]);
+  const onChangePassword = (
     oldPassword,
     newPassword,
     confirmPassword,
